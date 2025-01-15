@@ -61,45 +61,42 @@ export const talkAliceQuest = newLabel("talkAliceQuest",
         }
         else if (aliceQuest.currentStageIndex == 1) {
             return [
-                () => setDialogue("What book do you want me to order?"),
-                () => setDialogue("For me it is the same."),
+                () => { narration.dialogue = "What book do you want me to order?" },
+                () => { narration.dialogue = "For me it is the same." },
             ]
         }
         else if (aliceQuest.currentStageIndex == 2) {
             return [
-                () => setDialogue("I ordered the Book, hope you enjoy it."),
-                () => setDialogue("Great, when it arrives remember to bring it to me."),
+                () => { narration.dialogue = "I ordered the Book, hope you enjoy it." },
+                () => { narration.dialogue = "Great, when it arrives remember to bring it to me." },
             ]
         }
         else if (aliceQuest.currentStageIndex == 3) {
             return [
-                () => setDialogue("Here's your book."),
+                () => { narration.dialogue = "Here's your book." },
                 (props) => {
-                    setDialogue("Thank you, I can finally read something new.")
+                    narration.dialogue = "Thank you, I can finally read something new."
                     aliceQuest.completeCurrentStageAndGoNext(props)
                 },
             ]
         }
         return [
-            () => setDialogue("Thanks for the book."),
+            () => { narration.dialogue = "Thanks for the book." },
         ]
     }
 )
 export const aliceTalkMenuLabel = newLabel("AliceTalkMenuLabel",
     [
         () => {
-            setDialogue("Hi, what do you want to talk about?")
+            narration.dialogue = "Hi, what do you want to talk about?"
             let optionsMenu: ChoiceMenuOptionsType = []
             if (aliceQuest.started) {
-                optionsMenu.push(new ChoiceMenuOption(
-                    "About the book",
-                    talkAliceQuest
-                ))
+                optionsMenu.push(new ChoiceMenuOption("About the book", talkAliceQuest, {}))
             }
-            setChoiceMenuOptions([
+            narration.choiceMenuOptions = [
                 ...optionsMenu,
                 new ChoiceMenuOptionClose("Cancel"),
-            ])
+            ]
         },
     ]
 )

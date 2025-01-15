@@ -1,48 +1,23 @@
-import { currentActivities, getCurrenrLocation, getCurrentRoom, getCurrentRoomRoutine, timeTracker } from '@drincs/nqtr';
-import { CanvasBase, CanvasContainer, CanvasImage, GameWindowManager } from '@drincs/pixi-vn';
+import { canvas, CanvasBase, CanvasContainer, CanvasImage } from '@drincs/pixi-vn';
 import { useSnackbar } from 'notistack';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { currentHourState } from '../atoms/currentHourState';
-import { currentNavigationDataState } from '../atoms/currentNavigationDataState';
-import { currentRoutineAndActivitiesState } from '../atoms/currentRoutineAndActivitiesState';
-import { reloadInterfaceDataEventState } from '../atoms/reloadInterfaceDataEventState';
 import { ImageTimeSlots } from '../model/TimeSlots';
-import { useMyNavigate } from '../utility/useMyNavigate';
+import { useQueryCurrentPosition, useQueryTime } from '../use_query/useQueryNQTR';
+import { useMyNavigate } from '../utils/navigate-utility';
 import { BACKGROUND_ID } from '../values/constants';
 
-export default function NQTRDataEventInterceptor() {
-    const reloadInterfaceDataEvent = useRecoilValue(reloadInterfaceDataEventState);
-    const [hour, setHour] = useRecoilState(currentHourState);
-    const [{ currentRoom }, setCurrentNavigationData] = useRecoilState(currentNavigationDataState)
-    const setCurrentRoutineAndActivities = useSetRecoilState(currentRoutineAndActivitiesState)
+export default function useNQTRDetector() {
     const navigate = useMyNavigate();
     const { enqueueSnackbar } = useSnackbar();
     const { t } = useTranslation(["translation"]);
+    const { data: { currentRoom } = {} } = useQueryCurrentPosition()
+    const { data: hour } = useQueryTime()
 
     useEffect(() => {
-        setHour(timeTracker.currentHour)
-    }, [reloadInterfaceDataEvent])
-
-    useEffect(() => {
-        let room = getCurrentRoom()
-        let location = getCurrenrLocation()
-
-        setCurrentNavigationData((prev) => ({
-            currentLocation: location || prev.currentLocation,
-            currentRoom: room || prev.currentRoom,
-        }))
-    }, [reloadInterfaceDataEvent, hour])
-
-    useEffect(() => {
-        setCurrentRoutineAndActivities({
-            routine: getCurrentRoomRoutine(),
-            activities: currentActivities(),
-        })
-    }, [currentRoom, hour])
-
-    useEffect(() => {
+        if (!currentRoom) {
+            return
+        }
         let currentCommitments = currentRoom.getRoutine()
         if (currentRoom.renderImage) {
             let backgroundImage = currentRoom.renderImage({
@@ -65,8 +40,7 @@ export default function NQTRDataEventInterceptor() {
                 backgroundImage = backgroundImage.currentImage
             }
             if (typeof backgroundImage === 'string') {
-                let image = new CanvasImage()
-                image.imageLink = backgroundImage
+                let image = new CanvasImage({}, backgroundImage)
                 image.load()
                 container.addChild(image)
             }
@@ -122,7 +96,7 @@ export default function NQTRDataEventInterceptor() {
                 })
             }
 
-            GameWindowManager.addCanvasElement(BACKGROUND_ID, container)
+            canvas.add(BACKGROUND_ID, container)
         }
     }, [currentRoom, hour])
 
