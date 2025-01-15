@@ -15,10 +15,13 @@ export default defineConfig({
       // and the maskable icon using: https://progressier.com/maskable-icons-editor
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
       manifest: {
-        name: 'Your App',
-        short_name: 'your-app',
-        description: 'Your App Description',
+        name: 'my-app-project-name',
+        short_name: 'my-app-package-name',
+        description: 'my-app-description',
         theme_color: '#ffffff',
+        start_url: "/",
+        display: "fullscreen",
+        orientation: "portrait",
         icons: [
           {
             src: 'pwa-192x192.png',
@@ -32,6 +35,20 @@ export default defineConfig({
           }
         ]
       }
-    })
+    }),
   ],
+  define: {
+    __APP_VERSION__: JSON.stringify(process.env.npm_package_version),
+    __APP_NAME__: JSON.stringify(process.env.npm_package_name),
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'lib/@mui/joy': ['@mui/joy'],
+          'lib/react-markdown': ['react-markdown', 'rehype-raw', 'remark-gfm'],
+        },
+      },
+    },
+  },
 })

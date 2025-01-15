@@ -1,4 +1,9 @@
-import { CssVarsProvider, extendTheme, get10ColorShades } from '@drincs/react-components';
+import { CssVarsProvider, extendTheme } from '@mui/joy';
+import {
+    THEME_ID as MATERIAL_THEME_ID,
+    ThemeProvider as MaterialCssVarsProvider,
+    extendTheme as materialExtendTheme,
+} from '@mui/material/styles';
 import { createContext, useContext, useMemo, useState } from 'react';
 
 type Iprops = {
@@ -18,6 +23,7 @@ const ColorContext = createContext<{
     solidColor: "white",
     setSolidColor: () => { },
 })
+const materialTheme = materialExtendTheme();
 
 export function useEditColorProvider() {
     const context = useContext(ColorContext);
@@ -30,7 +36,6 @@ export function useEditColorProvider() {
 export default function MyThemeProvider({ children }: Iprops) {
     const [primaryColor, setPrimaryColor] = useState(localStorage.getItem("primaryColor") || '#1c73ff')
     const [solidColor, setSolidColor] = useState<SolidColorType>(localStorage.getItem("solidColor") as SolidColorType || "white")
-
 
     // Build the theme: https://mui.com/joy-ui/customization/theme-builder
     const theme = useMemo(() => {
@@ -106,19 +111,21 @@ export default function MyThemeProvider({ children }: Iprops) {
         })
     }, [primaryColor, solidColor])
 
+
     return (
-        <CssVarsProvider
-            themeJoy={theme}
-            defaultMode="system"
-        >
-            <ColorContext.Provider value={{
-                primaryColor: primaryColor,
-                setPrimaryColor: setPrimaryColor,
-                solidColor: solidColor,
-                setSolidColor: setSolidColor,
-            }}>
-                {children}
-            </ColorContext.Provider>
-        </CssVarsProvider>
+        <MaterialCssVarsProvider theme={{ [MATERIAL_THEME_ID]: materialTheme }}>
+            <CssVarsProvider
+                theme={theme}
+            >
+                <ColorContext.Provider value={{
+                    primaryColor: primaryColor,
+                    setPrimaryColor: setPrimaryColor,
+                    solidColor: solidColor,
+                    setSolidColor: setSolidColor,
+                }}>
+                    {children}
+                </ColorContext.Provider>
+            </CssVarsProvider>
+        </MaterialCssVarsProvider>
     );
 }

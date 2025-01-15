@@ -1,5 +1,5 @@
-import { Button, ButtonProps } from "@drincs/react-components";
-import { motion, Variants } from "framer-motion";
+import { Button, ButtonProps } from "@mui/joy";
+import { motion, Variants } from "motion/react";
 
 export default function MenuButton(props: ButtonProps & { transitionDelay?: number }) {
     const {

@@ -1,335 +1,100 @@
-import { Box, Button, IconButton, ModalConfirmation, Sheet, Typography } from '@drincs/react-components';
-import AutoModeIcon from '@mui/icons-material/AutoMode';
-import DarkModeIcon from '@mui/icons-material/DarkMode';
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import FullscreenIcon from '@mui/icons-material/Fullscreen';
-import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
-import LightModeIcon from '@mui/icons-material/LightMode';
-import ModeNightIcon from '@mui/icons-material/ModeNight';
-import WbIncandescentIcon from '@mui/icons-material/WbIncandescent';
-import { DialogContent, DialogTitle, Divider, Drawer, FormHelperText, FormLabel, ModalClose, Slider, Stack, ToggleButtonGroup, Tooltip, useColorScheme } from '@mui/joy';
-import { useEffect, useState } from 'react';
-import { HuePicker } from 'react-color';
+import { Box, DialogContent, DialogTitle, Divider, Drawer, FormControl, ModalClose, RadioGroup, Sheet, Typography } from "@mui/joy";
+import { Theme, useMediaQuery } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { useLocation } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-import { openSettingsState } from '../atoms/openSettingsState';
-import { typewriterDelayState } from '../atoms/typewriterDelayState';
-import { useEditColorProvider } from '../providers/ThemeProvider';
-import { useMyNavigate } from '../utility/useMyNavigate';
+import ReturnMainMenuButton from '../components/ReturnMainMenuButton';
+import useEventListener from "../hooks/useKeyDetector";
+import useSettingsScreenStore from '../stores/useSettingsScreenStore';
+import AutoSettingToggle from './settings/AutoSettingToggle';
+import DialoguesSettings from './settings/DialoguesSettings';
+import FullScreenSettings from './settings/FullScreenSettings';
+import HideInterfaceSettingToggle from './settings/HideInterfaceSettingToggle';
+import OpenHistorySettingButton from './settings/OpenHistorySettingButton';
+import SaveLoadSettingButtons from './settings/SaveLoadSettingButtons';
+import SkipSettingToggle from './settings/SkipSettingToggle';
+import ThemeSettings from './settings/ThemeSettings';
 
 export default function Settings() {
-    const [open, setOpen] = useRecoilState(openSettingsState);
-    const { mode, setMode } = useColorScheme();
-    const { primaryColor, setPrimaryColor, setSolidColor, solidColor } = useEditColorProvider()
-    const navigate = useMyNavigate();
-    const location = useLocation();
-    const [openYouSure, setOpenYouSure] = useState(false)
-    const [autoTime, setAutoTime] = useState(localStorage.getItem('auto_forward_second') ? parseInt(localStorage.getItem('auto_forward_second')!) : 1)
-    const [typewriterDelay, setTypewriterDelay] = useRecoilState(typewriterDelayState)
-    const [fullScreenEnabled, setFullScreenEnabled] = useState(false)
-    const { t } = useTranslation(["translation"]);
+    const open = useSettingsScreenStore((state) => (state.open))
+    const editOpen = useSettingsScreenStore((state) => (state.editOpen))
+    const { t } = useTranslation(["ui"]);
+    const smScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
-    useEffect(() => {
-        window.addEventListener('keydown', onkeydown);
-        return () => {
-            window.removeEventListener('keydown', onkeydown);
-        };
-    }, []);
-
-    function onkeydown(event: KeyboardEvent) {
-        if (event.code == 'Escape') {
-            setOpen((prev) => !prev)
+    useEventListener({
+        type: 'keydown',
+        listener: (event) => {
+            if (event.code == 'Escape') {
+                editOpen()
+            }
         }
-    }
-
-    useEffect(() => {
-        // Debouncing
-        const setAuto = setTimeout(() => {
-            localStorage.setItem('auto_forward_second', autoTime.toString())
-        }, 500)
-
-        return () => {
-            clearTimeout(setAuto)
-        }
-    }, [autoTime])
-
-    useEffect(() => {
-        // Debouncing
-        const setTypewriter = setTimeout(() => {
-            localStorage.setItem('typewriter_delay_millisecond', typewriterDelay.toString())
-        }, 500)
-
-        return () => {
-            clearTimeout(setTypewriter)
-        }
-    }, [typewriterDelay])
+    })
 
     return (
-        <>
-            <Drawer
-                size="md"
-                variant="plain"
-                open={open}
-                onClose={() => setOpen(false)}
-                slotProps={{
-                    content: {
-                        sx: {
-                            bgcolor: 'transparent',
-                            p: { md: 3, sm: 0 },
-                            boxShadow: 'none',
-                        },
+        <Drawer
+            variant="plain"
+            open={open}
+            onClose={editOpen}
+            sx={{
+                '& .MuiDrawer-content': {
+                    width: smScreen ? '100%' : 600,
+                    maxWidth: '100%',
+                },
+            }}
+            slotProps={{
+                content: {
+                    sx: {
+                        bgcolor: 'transparent',
+                        p: { md: 3, sm: 0 },
+                        boxShadow: 'none',
                     },
+                },
+            }}
+        >
+            <Sheet
+                sx={{
+                    borderRadius: 'md',
+                    p: 2,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 2,
+                    height: '100%',
+                    overflow: 'auto',
                 }}
             >
-                <Sheet
-                    sx={{
-                        borderRadius: 'md',
-                        p: 2,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: 2,
-                        height: '100%',
-                        overflow: 'auto',
-                    }}
-                >
-                    <DialogTitle>{t("settings")}</DialogTitle>
-                    <ModalClose />
-                    <Divider sx={{ mt: 'auto' }} />
-                    <DialogContent sx={{ gap: 2 }}>
-                        <Typography level="title-md" fontWeight="bold">
-                            {t("dialogues")}
-                        </Typography>
-                        <Box>
-                            <FormLabel sx={{ typography: 'title-sm' }}>
-                                {t("auto_forward_time")}
-                            </FormLabel>
-                            <FormHelperText sx={{ typography: 'body-sm' }}>
-                                {t("auto_forward_time_description")}
-                            </FormHelperText>
-                        </Box>
-                        <Box
-                            sx={{
-                                paddingX: 3,
-                            }}
-                        >
-                            <Slider
-                                defaultValue={autoTime}
-                                getAriaValueText={(value) => `${value}s`}
-                                step={1}
-                                marks={[
-                                    {
-                                        value: 1,
-                                        label: '1s',
-                                    },
-                                    {
-                                        value: 10,
-                                        label: '10s',
-                                    },
-                                ]}
-                                valueLabelDisplay="on"
-                                max={10}
-                                min={1}
-                                onChange={(_, value) => {
-                                    if (value)
-                                        setAutoTime(value as number)
+                <DialogTitle>{t("settings")}</DialogTitle>
+                <ModalClose />
+                <Divider sx={{ mt: 'auto' }} />
+                <DialogContent sx={{ gap: 2 }}>
+                    <FormControl>
+                        <RadioGroup>
+                            <Box
+                                sx={{
+                                    display: 'grid',
+                                    gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))',
+                                    gap: 1.5,
                                 }}
-                            />
-                        </Box>
-                        <Box>
-                            <FormLabel sx={{ typography: 'title-sm' }}>
-                                {t("text_speed")}
-                            </FormLabel>
-                            <FormHelperText sx={{ typography: 'body-sm' }}>
-                                {t("text_speed_description")}
-                            </FormHelperText>
-                        </Box>
-                        <Box
-                            sx={{
-                                paddingX: 3,
-                            }}
-                        >
-                            <Slider
-                                defaultValue={typewriterDelay}
-                                getAriaValueText={(value) => `${value}ms`}
-                                step={10}
-                                marks={[
-                                    {
-                                        value: 0,
-                                        label: '0ms',
-                                    },
-                                    {
-                                        value: 200,
-                                        label: '200ms',
-                                    },
-                                ]}
-                                valueLabelDisplay="on"
-                                max={200}
-                                min={0}
-                                onChange={(_, value) => {
-                                    setTypewriterDelay(value as number || 0)
-                                }}
-                            />
-                        </Box>
-
-                        <Typography level="title-md" fontWeight="bold">
-                            {t("display")}
-                        </Typography>
-                        <Box>
-                            <FormLabel sx={{ typography: 'title-sm' }}>
-                                {t("fullscreen")}
-                            </FormLabel>
-                            <FormHelperText sx={{ typography: 'body-sm' }}>
-                                {t("fullscreen_description")}
-                            </FormHelperText>
-                        </Box>
-                        <Button
-                            onClick={() => {
-                                if (fullScreenEnabled) {
-                                    document.exitFullscreen()
-                                    setFullScreenEnabled(false)
-                                } else {
-                                    document.documentElement.requestFullscreen()
-                                    setFullScreenEnabled(true)
-                                }
-                            }}
-                            startDecorator={fullScreenEnabled ? <FullscreenExitIcon /> : <FullscreenIcon />}
-                        >
-                            {fullScreenEnabled ? t('exit_fullscreen') : t('enter_fullscreen')}
-                        </Button>
-
-                        <Box>
-                            <FormLabel sx={{ typography: 'title-sm' }}>
-                                {t("theme_mode")}
-                            </FormLabel>
-                            <FormHelperText sx={{ typography: 'body-sm' }}>
-                                {t("theme_mode_description")}
-                            </FormHelperText>
-                        </Box>
-                        <ToggleButtonGroup
-                            value={mode}
-                            onChange={(_, newValue) => {
-                                if (newValue)
-                                    setMode(newValue)
-                            }}
-                        >
-                            <Tooltip title="Light Mode">
-                                <IconButton value="light">
-                                    <LightModeIcon />
-                                </IconButton>
-                            </Tooltip>
-                            <Tooltip title="System Mode">
-                                <IconButton value="system">
-                                    <AutoModeIcon />
-                                </IconButton>
-                            </Tooltip>
-                            <Tooltip title="Dark Mode">
-                                <IconButton value="dark">
-                                    <DarkModeIcon />
-                                </IconButton>
-                            </Tooltip>
-                        </ToggleButtonGroup>
-
-                        <Box>
-                            <FormLabel sx={{ typography: 'title-sm' }}>
-                                {t("primary_color")}
-                            </FormLabel>
-                            <FormHelperText sx={{ typography: 'body-sm' }}>
-                                {t("primary_color_description")}
-                            </FormHelperText>
-                        </Box>
-                        <Box
-                            sx={{
-                                paddingX: 3,
-                            }}
-                        >
-                            <HuePicker
-                                width='99%'
-                                color={primaryColor}
-                                onChange={(color) => setPrimaryColor(color.hex)}
-                                styles={{
-                                    default: {
-                                        picker: {
-                                            minHeight: '15px',
-                                        },
-                                    },
-                                }}
-                            />
-                        </Box>
-
-                        <Box>
-                            <FormLabel sx={{ typography: 'title-sm' }}>
-                                {t("solid_color")}
-                            </FormLabel>
-                            <FormHelperText sx={{ typography: 'body-sm' }}>
-                                {t("solid_color_description")}
-                            </FormHelperText>
-                        </Box>
-                        <ToggleButtonGroup
-                            value={solidColor}
-                            onChange={(_, newValue) => {
-                                if (newValue)
-                                    setSolidColor(newValue)
-                            }}
-                        >
-                            <Tooltip title="White">
-                                <IconButton value="white">
-                                    <WbIncandescentIcon />
-                                </IconButton>
-                            </Tooltip>
-                            <Tooltip title="Black">
-                                <IconButton value="black">
-                                    <ModeNightIcon />
-                                </IconButton>
-                            </Tooltip>
-                        </ToggleButtonGroup>
-                        <ToggleButtonGroup
-                            color="primary"
-                            variant="solid"
-                        >
-                            <Button>{t("example")}</Button>
-                        </ToggleButtonGroup>
-                    </DialogContent>
-                    {location.pathname !== '/' && <>
-                        <Divider sx={{ mt: 'auto' }} />
-                        <Stack
-                            direction="row"
-                            justifyContent="space-between"
-                            useFlexGap
-                            spacing={1}
-                        >
-                            <Button
-                                variant="outlined"
-                                color="danger"
-                                startDecorator={<ExitToAppIcon />}
-                                onClick={() => setOpenYouSure(true)}
                             >
-                                {t("return_main_menu")}
-                            </Button>
-                        </Stack>
-                    </>}
-                </Sheet>
-            </Drawer>
+                                <SkipSettingToggle />
+                                <AutoSettingToggle />
+                                <OpenHistorySettingButton />
+                                <SaveLoadSettingButtons />
+                                <HideInterfaceSettingToggle />
+                            </Box>
+                        </RadioGroup>
+                    </FormControl>
+                    <Typography level="title-md" fontWeight="bold">
+                        {t("dialogues")}
+                    </Typography>
+                    <DialoguesSettings />
 
-            <ModalConfirmation
-                open={openYouSure}
-                setOpen={setOpenYouSure}
-                color='danger'
-                headText={t("attention")}
-                startDecorator={<ExitToAppIcon />}
-                confirmText={t("exit")}
-                cancelText={t("cancel")}
-                variantButton='outlined'
-                onClick={() => {
-                    navigate('/')
-                    setOpen(false)
-                    return true
-                }}
-            >
-                <Typography>
-                    {t("you_sure_to_return_main_menu")}
-                </Typography>
-            </ModalConfirmation>
-        </>
+                    <Typography level="title-md" fontWeight="bold">
+                        {t("display")}
+                    </Typography>
+                    <FullScreenSettings />
+                    <ThemeSettings />
+                </DialogContent>
+                <Divider sx={{ mt: 'auto' }} />
+                <ReturnMainMenuButton />
+            </Sheet>
+        </Drawer>
     );
 }
