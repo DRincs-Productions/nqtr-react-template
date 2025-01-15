@@ -1,5 +1,5 @@
 import { RoundIconButton, RoundIconButtonProps, useTheme } from "@drincs/react-components";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 interface NavigationRoundIconButtonProps extends RoundIconButtonProps {
     selected?: boolean;

@@ -1,4 +1,4 @@
-import { currentActivities, getCurrenrLocation, getCurrentRoom, getCurrentRoomRoutine, TimeManager } from '@drincs/nqtr';
+import { currentActivities, getCurrenrLocation, getCurrentRoom, getCurrentRoomRoutine, timeTracker } from '@drincs/nqtr';
 import { CanvasBase, CanvasContainer, CanvasImage, GameWindowManager } from '@drincs/pixi-vn';
 import { useSnackbar } from 'notistack';
 import { useEffect } from 'react';
@@ -22,7 +22,7 @@ export default function NQTRDataEventInterceptor() {
     const { t } = useTranslation(["translation"]);
 
     useEffect(() => {
-        setHour(TimeManager.currentHour)
+        setHour(timeTracker.currentHour)
     }, [reloadInterfaceDataEvent])
 
     useEffect(() => {

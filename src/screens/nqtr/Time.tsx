@@ -1,12 +1,12 @@
-import { TimeManager } from '@drincs/nqtr';
+import { timeTracker } from '@drincs/nqtr';
 import { RoundIconButton, Stack, Typography, useTheme } from '@drincs/react-components';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import { motion } from 'framer-motion';
+import { motion } from "motion/react";
 import { useSnackbar } from 'notistack';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState } from 'recoil';
 import { currentHourState } from '../../atoms/currentHourState';
-import { wait } from '../../utility/TimeUtility';
+import { wait } from '../../utils/TimeUtility';
 
 export default function Time() {
     const { t } = useTranslation(["translation"]);
@@ -73,7 +73,7 @@ export default function Time() {
                     }}
                     onClick={() => {
                         wait(1, (message, variant) => enqueueSnackbar(message, { variant }))
-                        setHour(TimeManager.currentHour)
+                        setHour(timeTracker.currentHour)
                     }}
                     elevation="sm"
                 >
@@ -94,7 +94,7 @@ export default function Time() {
                     userSelect: "none",
                 }}
             >
-                {TimeManager.currentDayName ? t(TimeManager.currentDayName) : ""}
+                {timeTracker.currentDayName ? t(timeTracker.currentDayName) : ""}
             </Typography>
         </Stack>
     );

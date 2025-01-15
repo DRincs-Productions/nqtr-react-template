@@ -1,6 +1,6 @@
 import { getCurrentRoom, setCurrentRoom } from '@drincs/nqtr';
 import { ImageBackdrop, ImageSrc, StackOverflow } from '@drincs/react-components';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from "motion/react";
 import { useSnackbar } from 'notistack';
 import { isValidElement } from 'react';
 import { useTranslation } from 'react-i18next';

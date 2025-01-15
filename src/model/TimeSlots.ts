@@ -1,4 +1,4 @@
-import { TimeManager } from "@drincs/nqtr"
+import { timeTracker } from "@drincs/nqtr"
 
 enum TimeSlotsEnumNumber {
     MORNING = 0,
@@ -26,13 +26,13 @@ export class ImageTimeSlots {
     evening: string
     night: string
     get currentImage() {
-        if (TimeManager.currentTimeSlot === TimeSlotsEnumNumber.MORNING) {
+        if (timeTracker.currentTimeSlot === TimeSlotsEnumNumber.MORNING) {
             return this.morning
         }
-        else if (TimeManager.currentTimeSlot === TimeSlotsEnumNumber.EVENING) {
+        else if (timeTracker.currentTimeSlot === TimeSlotsEnumNumber.EVENING) {
             return this.evening
         }
-        else if (TimeManager.currentTimeSlot === TimeSlotsEnumNumber.NIGHT) {
+        else if (timeTracker.currentTimeSlot === TimeSlotsEnumNumber.NIGHT) {
             return this.night
         }
         return this.afternoon
