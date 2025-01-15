@@ -1,20 +1,21 @@
 import { getCurrentRoom, setCurrentRoom } from '@drincs/nqtr';
 import { ImageBackdrop, ImageSrc, StackOverflow } from '@drincs/react-components';
+import { useQueryClient } from '@tanstack/react-query';
 import { AnimatePresence } from "motion/react";
 import { useSnackbar } from 'notistack';
 import { isValidElement } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useRecoilState } from 'recoil';
-import { currentNavigationDataState } from '../../atoms/currentNavigationDataState';
 import NavigationRoundIconButton from '../../components/NavigationRoundIconButton';
 import { ImageTimeSlots } from '../../model/TimeSlots';
-import { useMyNavigate } from '../../utility/useMyNavigate';
+import { NQTR_DATA_USE_QUEY_KEY, useQueryCurrentPosition } from '../../use_query/useQueryNQTR';
+import { useMyNavigate } from '../../utils/navigate-utility';
 
 export default function RoomList() {
-    const [{ currentLocation, currentRoom }, setCurrentNavigationData] = useRecoilState(currentNavigationDataState)
+    const { data: { currentRoom, currentLocation } = {} } = useQueryCurrentPosition()
     const navigate = useMyNavigate();
     const { t } = useTranslation(["translation"]);
     const { enqueueSnackbar } = useSnackbar();
+    const queryClient = useQueryClient()
 
     return (
         <StackOverflow
@@ -32,7 +33,7 @@ export default function RoomList() {
             }}
         >
             <AnimatePresence>
-                {currentLocation.getRooms().map((room) => {
+                {currentLocation?.getRooms().map((room) => {
                     let renderImage = room.renderIcon || room.renderImage
                     let disabled = room.disabled
                     let selected = room.id === currentRoom?.id
@@ -57,8 +58,8 @@ export default function RoomList() {
                                     if (!disabled) {
                                         setCurrentRoom(room)
                                         let r = getCurrentRoom()
-                                        if (r && r.id !== currentRoom.id) {
-                                            setCurrentNavigationData((prev) => ({ ...prev, currentRoom: r }))
+                                        if (r && r.id !== currentRoom?.id) {
+                                            queryClient.invalidateQueries({ queryKey: [NQTR_DATA_USE_QUEY_KEY] })
                                         }
                                     }
                                 }}

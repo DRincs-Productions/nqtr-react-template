@@ -1,17 +1,18 @@
 import { timeTracker } from '@drincs/nqtr';
 import { RoundIconButton, Stack, Typography, useTheme } from '@drincs/react-components';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import { useQueryClient } from '@tanstack/react-query';
 import { motion } from "motion/react";
 import { useSnackbar } from 'notistack';
 import { useTranslation } from 'react-i18next';
-import { useRecoilState } from 'recoil';
-import { currentHourState } from '../../atoms/currentHourState';
+import { NQTR_DATA_USE_QUEY_KEY, useQueryTime } from '../../use_query/useQueryNQTR';
 import { wait } from '../../utils/TimeUtility';
 
 export default function Time() {
     const { t } = useTranslation(["translation"]);
     const { enqueueSnackbar } = useSnackbar();
-    const [hour, setHour] = useRecoilState(currentHourState);
+    const { data: hour = 0 } = useQueryTime()
+    const queryClient = useQueryClient()
 
     return (
         <Stack
@@ -73,7 +74,7 @@ export default function Time() {
                     }}
                     onClick={() => {
                         wait(1, (message, variant) => enqueueSnackbar(message, { variant }))
-                        setHour(timeTracker.currentHour)
+                        queryClient.invalidateQueries({ queryKey: [NQTR_DATA_USE_QUEY_KEY] })
                     }}
                     elevation="sm"
                 >

@@ -3,17 +3,17 @@ import { AnimatePresence } from "motion/react";
 import { useSnackbar } from 'notistack';
 import { isValidElement } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useRecoilValue } from 'recoil';
-import { currentRoutineAndActivitiesState } from '../../atoms/currentRoutineAndActivitiesState';
 import NavigationRoundIconButton from '../../components/NavigationRoundIconButton';
 import { ImageTimeSlots } from '../../model/TimeSlots';
-import { useMyNavigate } from '../../utility/useMyNavigate';
+import { useQueryCurrentActivities, useQueryCurrentRoutine } from '../../use_query/useQueryNQTR';
+import { useMyNavigate } from '../../utils/navigate-utility';
 
 export default function ActivityList() {
     const navigate = useMyNavigate();
     const { t } = useTranslation(["translation"]);
     const { enqueueSnackbar } = useSnackbar();
-    const { activities, routine } = useRecoilValue(currentRoutineAndActivitiesState)
+    const { data: activities = [] } = useQueryCurrentActivities()
+    const { data: routine = [] } = useQueryCurrentRoutine()
 
     return (
         <StackOverflow

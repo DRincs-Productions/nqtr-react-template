@@ -5,7 +5,7 @@ import { useSnackbar } from 'notistack';
 import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useMyNavigate } from '../../utility/useMyNavigate';
+import { useMyNavigate } from '../../utils/navigate-utility';
 
 type QuestDescription = {
     id: string;
