@@ -1,8 +1,8 @@
-import { canvas, narration } from '@drincs/pixi-vn'
+import { canvas, clearAllGameDatas, getFlag, narration } from '@drincs/pixi-vn'
 import { createRoot } from 'react-dom/client'
 import App from './App'
 import './index.css'
-import { gameEnd } from './utils/actions-utility'
+import { startLabel } from './labels/startLabel'
 import './values/characters'
 
 // Canvas setup with PIXI
@@ -32,7 +32,14 @@ canvas.initialize(body, 1920, 1080, {
 })
 
 narration.onGameEnd = async (props) => {
-    gameEnd(props)
+    let isTheEnd = getFlag("is_the_end")
+    if (isTheEnd) {
+        clearAllGameDatas()
+        props.navigate('/')
+    }
+    else {
+        narration.jumpLabel(startLabel, props)
+    }
 }
 
 narration.onStepError = async (_error, { notify, t }) => {
