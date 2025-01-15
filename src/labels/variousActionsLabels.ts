@@ -1,14 +1,14 @@
-import { ChoiceMenuOption, ChoiceMenuOptionClose, ChoiceMenuOptionsType, newLabel, setChoiceMenuOptions, setDialogue } from "@drincs/pixi-vn";
+import { ChoiceMenuOption, ChoiceMenuOptionClose, ChoiceMenuOptionsType, narration, newLabel } from "@drincs/pixi-vn";
 import { aliceQuest } from "../quests/aliceQuest";
 import { orderProduct, takeProduct } from "../values/activity";
-import { liam } from "../values/characters";
+import { mc } from "../values/characters";
 import { mcRoom, terrace } from "../values/rooms";
 
 export const orderProductLabel = newLabel("OrderProductLabel",
     [
-        () => setDialogue(`OK! Let's see, let's look for a book....`),
+        () => { narration.dialogue = `OK! Let's see, let's look for a book....` },
         (props) => {
-            setDialogue(`Here's R****, for $1. Just the thing for me.`)
+            narration.dialogue = `Here's R****, for $1. Just the thing for me.`
             mcRoom.removeActivity(orderProduct)
             aliceQuest.completeCurrentStageAndGoNext(props)
         },
@@ -18,7 +18,7 @@ export const orderProductLabel = newLabel("OrderProductLabel",
 export const takeKeyLabel = newLabel("TakeKeyLabel",
     [
         (props) => {
-            setDialogue(`Are these the car keys?! Well... I should try to access the car!`)
+            narration.dialogue = `Are these the car keys?! Well... I should try to access the car!`
             terrace.removeActivity(takeProduct)
             aliceQuest.completeCurrentStageAndGoNext(props)
         },
@@ -27,21 +27,22 @@ export const takeKeyLabel = newLabel("TakeKeyLabel",
 
 const talkSleepResultLabel = newLabel("TalkSleepResultLabel",
     [
-        () => setDialogue(liam.name + "!!!! What are you doing?!!"),
-        () => setDialogue("Get out of here! Now!"),
+        () => { narration.dialogue = mc.name + "!!!! What are you doing?!!" },
+        () => { narration.dialogue = "Get out of here! Now!" },
     ]
 )
 export const talkSleepLabel = newLabel("TalkSleepLabel",
     [
         () => {
-            setDialogue("zZz zZz ...")
-            setChoiceMenuOptions([
+            narration.dialogue = "zZz zZz ..."
+            narration.choiceMenuOptions = [
                 new ChoiceMenuOption(
                     "Try waking up",
-                    talkSleepResultLabel
+                    talkSleepResultLabel,
+                    {}
                 ),
                 new ChoiceMenuOptionClose("Leave her alone"),
-            ])
+            ]
         },
     ]
 )
@@ -50,10 +51,10 @@ export const talkAliceQuest = newLabel("talkAliceQuest",
     () => {
         if (aliceQuest.currentStageIndex == 0) {
             return [
-                () => setDialogue("Hi, can you order me a new book from pc?"),
-                () => setDialogue("Ok"),
+                () => { narration.dialogue = "Hi, can you order me a new book from pc?" },
+                () => { narration.dialogue = "Ok" },
                 (props) => {
-                    setDialogue("Thanks")
+                    narration.dialogue = "Thanks"
                     aliceQuest.completeCurrentStageAndGoNext(props)
                 },
             ]

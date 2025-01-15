@@ -31,8 +31,8 @@ canvas.initialize(body, 1920, 1080, {
     )
 })
 
-narration.onGameEnd = async ({ navigate }) => {
-    gameEnd(navigate)
+narration.onGameEnd = async (props) => {
+    gameEnd(props)
 }
 
 narration.onStepError = async (_error, { notify, t }) => {

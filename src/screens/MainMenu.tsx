@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import MenuButton from '../components/MenuButton';
 import { NARRATION_ROUTE } from '../constans';
-import startLabel from '../labels/startLabel';
+import { startLabel } from '../labels/startLabel';
 import useGameSaveScreenStore from '../stores/useGameSaveScreenStore';
 import useInterfaceStore from '../stores/useInterfaceStore';
 import useSettingsScreenStore from '../stores/useSettingsScreenStore';
