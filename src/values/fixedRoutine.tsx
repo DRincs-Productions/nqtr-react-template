@@ -1,5 +1,5 @@
 import { CommitmentBaseModel, saveCommitment, setFixedRoutine } from "@drincs/nqtr";
-import { GameStepManager } from "@drincs/pixi-vn";
+import { narration } from "@drincs/pixi-vn";
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import NavigationRoundIconButton from "../components/NavigationRoundIconButton";
 import { aliceTalkMenuLabel, talkSleepLabel } from "../labels/variousActionsLabels";
@@ -29,7 +29,7 @@ const aliceSleep = new CommitmentBaseModel("alice_sleep", alice, aliceRoom, {
     },
     onRun: (_, event) => {
         event.navigate("/game")
-        GameStepManager.jumpLabel(talkSleepLabel, event)
+        narration.jumpLabel(talkSleepLabel, event)
     },
 })
 
@@ -63,7 +63,7 @@ const aliceSmokes = new CommitmentBaseModel("alice_smokes", alice, terrace, {
     },
     onRun: (_, event) => {
         event.navigate("/game")
-        GameStepManager.jumpLabel(aliceTalkMenuLabel, event)
+        narration.jumpLabel(aliceTalkMenuLabel, event)
     },
 })
 

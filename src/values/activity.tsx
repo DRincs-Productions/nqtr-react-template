@@ -1,5 +1,5 @@
-import { newActivity, TimeManager } from "@drincs/nqtr";
-import { GameStepManager } from "@drincs/pixi-vn";
+import { newActivity, timeTracker } from "@drincs/nqtr";
+import { narration } from "@drincs/pixi-vn";
 import BedIcon from '@mui/icons-material/Bed';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -10,11 +10,11 @@ import { orderProductLabel, takeKeyLabel } from "../labels/variousActionsLabels"
 export const nap = newActivity("nap",
     (_, event) => {
         event.navigate("/game")
-        if (TimeManager.nowIsBetween(5, 23)) {
-            GameStepManager.jumpLabel(napLabel, event)
+        if (timeTracker.nowIsBetween(5, 23)) {
+            narration.jumpLabel(napLabel, event)
         }
         else {
-            GameStepManager.jumpLabel(sleepLabel, event)
+            narration.jumpLabel(sleepLabel, event)
         }
     },
     {
@@ -40,7 +40,7 @@ export const nap = newActivity("nap",
 export const orderProduct = newActivity("order_product",
     (_, event) => {
         event.navigate("/game")
-        GameStepManager.jumpLabel(orderProductLabel, event)
+        narration.jumpLabel(orderProductLabel, event)
     },
     {
         name: "Order product",
@@ -65,7 +65,7 @@ export const orderProduct = newActivity("order_product",
 export const takeProduct = newActivity("take_product",
     (_, event) => {
         event.navigate("/game")
-        GameStepManager.jumpLabel(takeKeyLabel, event)
+        narration.jumpLabel(takeKeyLabel, event)
     },
     {
         name: "Take product",

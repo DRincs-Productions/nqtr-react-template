@@ -1,5 +1,5 @@
 import { addCommitment, CommitmentBaseModel, newQuest, removeCommitment, saveCommitment, Stage } from "@drincs/nqtr";
-import { GameStepManager } from "@drincs/pixi-vn";
+import { narration } from "@drincs/pixi-vn";
 import { talkAliceQuest } from "../labels/variousActionsLabels";
 import { orderProduct, takeProduct } from "../values/activity";
 import { alice } from "../values/characters";
@@ -13,7 +13,7 @@ const talkAlice1Commit = new CommitmentBaseModel("talk_alice1", alice, terrace, 
     priority: 1,
     onRun: (_, event) => {
         event.navigate("/game")
-        GameStepManager.jumpLabel(talkAliceQuest, event)
+        narration.jumpLabel(talkAliceQuest, event)
         removeCommitment(talkAlice1Commit)
     },
 })

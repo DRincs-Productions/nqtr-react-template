@@ -1,5 +1,5 @@
-import { setCurrentRoom, TimeManager } from "@drincs/nqtr";
-import { GameStepManager, newLabel, setFlag } from "@drincs/pixi-vn";
+import { setCurrentRoom, timeTracker } from "@drincs/nqtr";
+import { narration, newLabel, setFlag } from "@drincs/pixi-vn";
 import { aliceQuest } from "../quests/aliceQuest";
 import { timeSlots } from "../values/constants";
 import { mcRoom } from "../values/rooms";
@@ -11,7 +11,7 @@ const GO_TO_NAVIGATION_LABEL_ID = "go_to_navigation_label_id2"
 export const startLabel = newLabel(START_LABEL_ID,
     [
         (props) => {
-            TimeManager.settings = {
+            timeTracker.settings = {
                 defaultTimeSpent: 1,
                 maxDayHours: 24,
                 minDayHours: 0,
@@ -26,10 +26,10 @@ export const startLabel = newLabel(START_LABEL_ID,
                 weekLength: 7,
             }
             setCurrentRoom(mcRoom)
-            setFlag("weekend", TimeManager.isWeekend)
-            setFlag("not_weekend", !TimeManager.isWeekend)
+            setFlag("weekend", timeTracker.isWeekend)
+            setFlag("not_weekend", !timeTracker.isWeekend)
             aliceQuest.start(props)
-            GameStepManager.callLabel(goToNavigationFather, props)
+            narration.callLabel(goToNavigationFather, props)
         },
         ({ navigate }) => {
             console.error("There was an error in the game.")
@@ -44,8 +44,8 @@ export const startLabel = newLabel(START_LABEL_ID,
 const goToNavigationFather = newLabel(GO_TO_NAVIGATION_FATHER_LABEL_ID,
     () => {
         return [
-            (props) => GameStepManager.callLabel(goToNavigation, props),
-            (props) => GameStepManager.jumpLabel(GO_TO_NAVIGATION_FATHER_LABEL_ID, props),
+            (props) => narration.callLabel(goToNavigation, props),
+            (props) => narration.jumpLabel(GO_TO_NAVIGATION_FATHER_LABEL_ID, props),
         ]
     }
 )
@@ -59,7 +59,7 @@ const goToNavigation = newLabel(GO_TO_NAVIGATION_LABEL_ID,
     () => {
         return [
             ({ navigate }) => navigate('/navigation'),
-            (props) => GameStepManager.jumpLabel(GO_TO_NAVIGATION_FATHER_LABEL_ID, props),
+            (props) => narration.jumpLabel(GO_TO_NAVIGATION_FATHER_LABEL_ID, props),
         ]
     }
 )
