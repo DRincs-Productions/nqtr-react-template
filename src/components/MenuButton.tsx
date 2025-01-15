@@ -1,7 +1,13 @@
-import { Button, ButtonProps } from "@mui/joy";
+import { Button, ButtonProps, ButtonTypeMap } from "@mui/joy";
 import { motion, Variants } from "motion/react";
 
-export default function MenuButton(props: ButtonProps & { transitionDelay?: number }) {
+interface MenuButtonProps extends ButtonProps<ButtonTypeMap['defaultComponent'], {
+    component?: React.ElementType;
+}> {
+    transitionDelay?: number;
+}
+
+export default function MenuButton(props: MenuButtonProps) {
     const {
         sx,
         transitionDelay,

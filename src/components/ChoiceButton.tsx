@@ -1,6 +1,10 @@
-import { Button, ButtonProps } from "@drincs/react-components";
+import { Button, ButtonProps, ButtonTypeMap } from "@mui/joy";
 
-export default function ChoiceButton(props: ButtonProps) {
+interface Props extends ButtonProps<ButtonTypeMap['defaultComponent'], {
+    component?: React.ElementType;
+}> { }
+
+export default function ChoiceButton(props: Props) {
     const {
         sx,
         ...rest

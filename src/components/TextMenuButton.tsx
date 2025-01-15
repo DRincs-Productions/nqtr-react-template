@@ -1,8 +1,19 @@
-import { Link, LinkProps } from "@drincs/react-components";
+import { Link, LinkProps, LinkTypeMap, Typography, useTheme } from "@mui/joy";
 
-export default function TextMenuButton(props: LinkProps) {
+interface TextMenuButtonProps extends LinkProps<LinkTypeMap['defaultComponent'], {
+    component?: React.ElementType;
+    focusVisible?: boolean;
+}> {
+    to?: string;
+    selected?: boolean;
+}
+
+export default function TextMenuButton(props: TextMenuButtonProps) {
     const {
         sx,
+        children,
+        disabled,
+        selected,
         ...rest
     } = props;
 
@@ -13,9 +24,7 @@ export default function TextMenuButton(props: LinkProps) {
                 userSelect: "none",
                 ...sx
             }}
-            selectedTextColor={"primary.500"}
-            disabledTextColor={"neutral.500"}
-            textColor={"neutral.300"}
+            disabled={disabled}
             {...rest}
         >
             <Typography
