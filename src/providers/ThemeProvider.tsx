@@ -34,7 +34,6 @@ export function useEditColorProvider() {
     return context;
 }
 
-
 /**
  * Get 10 shades of a color based on the color you pass in.
  * @param color 

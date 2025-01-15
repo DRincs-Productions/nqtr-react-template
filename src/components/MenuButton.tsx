@@ -31,7 +31,6 @@ export default function MenuButton(props: MenuButtonProps) {
             }}
             component={motion.div}
             variants={itemVariants}
-            fullWidth={false}
             {...rest}
         />
     );
