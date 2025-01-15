@@ -1,13 +1,13 @@
-import { ChoiceMenuOption, ChoiceMenuOptionClose, GameStepManager, newLabel, setChoiceMenuOptions, setDialogue } from "@drincs/pixi-vn";
-import { sleep, wait } from "../utility/TimeUtility";
+import { ChoiceMenuOption, ChoiceMenuOptionClose, narration, newLabel } from "@drincs/pixi-vn";
+import { sleep, wait } from "../utils/TimeUtility";
 
 const sleepHourLabel = newLabel<{
-    wakeupHour: number,
+    hour: number,
 }>("Sleep1HourLabel",
     [
-        ({ wakeupHour, ...rest }) => {
+        ({ hour: wakeupHour, ...rest }) => {
             sleep(wakeupHour, rest)
-            GameStepManager.runNextStep(rest)
+            narration.goNext(rest)
         }
     ]
 )
@@ -18,7 +18,7 @@ const napHourLabel = newLabel<{
     [
         ({ hour, ...rest }) => {
             wait(hour, rest.notify)
-            GameStepManager.runNextStep(rest)
+            narration.goNext(rest)
         }
     ]
 )
@@ -26,34 +26,25 @@ const napHourLabel = newLabel<{
 export const sleepLabel = newLabel("SleepLabel",
     [
         ({ t }) => {
-            setDialogue("What time do you want to set the alarm?")
-            setChoiceMenuOptions([
+            narration.dialogue = "What time do you want to set the alarm?"
+            narration.choiceMenuOptions = [
                 new ChoiceMenuOption(
                     t("allarm_menu_item", { hour: 8 }),
                     sleepHourLabel,
-                    "call",
-                    {
-                        wakeupHour: 8,
-                    }
+                    { hour: 8 }
                 ),
                 new ChoiceMenuOption(
                     t("allarm_menu_item", { hour: 9 }),
                     sleepHourLabel,
-                    "call",
-                    {
-                        wakeupHour: 9,
-                    }
+                    { hour: 9 }
                 ),
                 new ChoiceMenuOption(
                     t("allarm_menu_item", { hour: 10 }),
                     sleepHourLabel,
-                    "call",
-                    {
-                        wakeupHour: 10,
-                    }
+                    { hour: 10 }
                 ),
                 new ChoiceMenuOptionClose("Cancel"),
-            ])
+            ]
         },
     ]
 )
@@ -61,26 +52,20 @@ export const sleepLabel = newLabel("SleepLabel",
 export const napLabel = newLabel("NapLabel",
     [
         ({ t }) => {
-            setDialogue("You are tired and decide to take a nap.")
-            setChoiceMenuOptions([
+            narration.dialogue = "You are tired and decide to take a nap."
+            narration.choiceMenuOptions = [
                 new ChoiceMenuOption(
                     t("nap_menu_item", { hour: 3 }),
                     napHourLabel,
-                    "call",
-                    {
-                        hour: 3,
-                    }
+                    { hour: 3 }
                 ),
                 new ChoiceMenuOption(
                     t("sleep"),
                     sleepLabel,
-                    "call",
-                    {
-                        hour: 3,
-                    }
+                    { hour: 3 }
                 ),
                 new ChoiceMenuOptionClose("Cancel"),
-            ])
+            ]
         },
     ]
 )
