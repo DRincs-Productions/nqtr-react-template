@@ -1,5 +1,6 @@
 import { setCurrentRoom, timeTracker } from "@drincs/nqtr";
 import { newLabel, setFlag } from "@drincs/pixi-vn";
+import { NAVIGATION_ROUTE } from "../constans";
 import { aliceQuest } from "../quests/aliceQuest";
 import { timeSlots } from "../values/constants";
 import { mcRoom } from "../values/rooms";
@@ -27,7 +28,7 @@ export const startLabel = newLabel("start",
             aliceQuest.start(props)
         },
         ({ navigate }) => {
-            navigate('/navigation')
+            navigate(NAVIGATION_ROUTE)
         },
     ]
 )
