@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { NQTR_DATA_USE_QUEY_KEY, useQueryTime } from '../../use_query/useQueryNQTR';
 import { wait } from '../../utils/TimeUtility';
 
-export default function Time() {
+export default function TimeScreen() {
     const { t } = useTranslation(["translation"]);
     const { enqueueSnackbar } = useSnackbar();
     const { data: hour = 0 } = useQueryTime()

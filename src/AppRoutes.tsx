@@ -1,12 +1,17 @@
 import { Route, Routes } from 'react-router-dom';
 import NextButton from './components/NextButton';
 import { LOADING_ROUTE, MAIN_MENU_ROUTE, NARRATION_ROUTE, NAVIGATION_ROUTE } from './constans';
+import useNQTRDetector from './hooks/useNQTRDetector';
 import useSkipAutoDetector from './hooks/useSkipAutoDetector';
 import HistoryScreen from './screens/HistoryScreen';
 import LoadingScreen from './screens/LoadingScreen';
 import MainMenu from './screens/MainMenu';
 import TextInput from './screens/modals/TextInput';
 import NarrationScreen from './screens/NarrationScreen';
+import MemoScreen from './screens/nqtr/MemoScreen';
+import QuickActivities from './screens/nqtr/QuickActivities';
+import QuickRooms from './screens/nqtr/QuickRooms';
+import TimeScreen from './screens/nqtr/TimeScreen';
 import QuickTools from './screens/QuickTools';
 
 export default function AppRoutes() {
@@ -35,15 +40,14 @@ function NarrationElement() {
 }
 
 function NavigationElement() {
-    useSkipAutoDetector()
+    useNQTRDetector()
     return (
         <>
             <HistoryScreen />
-            <Quest />
-            <ActivityList />
-            <RoomList />
-            <Time />
-            <NQTRDataEventInterceptor />
+            <MemoScreen />
+            <QuickActivities />
+            <QuickRooms />
+            <TimeScreen />
         </>
     )
 }

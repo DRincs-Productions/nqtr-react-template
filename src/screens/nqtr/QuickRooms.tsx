@@ -10,7 +10,7 @@ import { ImageTimeSlots } from '../../model/TimeSlots';
 import { NQTR_DATA_USE_QUEY_KEY, useQueryCurrentPosition } from '../../use_query/useQueryNQTR';
 import { useMyNavigate } from '../../utils/navigate-utility';
 
-export default function RoomList() {
+export default function QuickRooms() {
     const { data: { currentRoom, currentLocation } = {} } = useQueryCurrentPosition()
     const navigate = useMyNavigate();
     const { t } = useTranslation(["translation"]);

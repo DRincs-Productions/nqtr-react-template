@@ -8,7 +8,7 @@ import { ImageTimeSlots } from '../../model/TimeSlots';
 import { useQueryCurrentActivities, useQueryCurrentRoutine } from '../../use_query/useQueryNQTR';
 import { useMyNavigate } from '../../utils/navigate-utility';
 
-export default function ActivityList() {
+export default function QuickActivities() {
     const navigate = useMyNavigate();
     const { t } = useTranslation(["translation"]);
     const { enqueueSnackbar } = useSnackbar();
