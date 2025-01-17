@@ -26,9 +26,7 @@ export const startLabel = newLabel("start",
             setFlag("weekend", timeTracker.isWeekend)
             setFlag("not_weekend", !timeTracker.isWeekend)
             aliceQuest.start(props)
-        },
-        ({ navigate }) => {
-            navigate(NAVIGATION_ROUTE)
+            props.navigate(NAVIGATION_ROUTE)
         },
     ]
 )

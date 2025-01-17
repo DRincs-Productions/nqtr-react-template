@@ -5,7 +5,8 @@ import { useQueryClient } from '@tanstack/react-query';
 import { motion } from "motion/react";
 import { useSnackbar } from 'notistack';
 import { useTranslation } from 'react-i18next';
-import { NQTR_DATA_USE_QUEY_KEY, useQueryTime } from '../../use_query/useQueryNQTR';
+import { INTERFACE_DATA_USE_QUEY_KEY } from '../../use_query/useQueryInterface';
+import { useQueryTime } from '../../use_query/useQueryNQTR';
 import { wait } from '../../utils/TimeUtility';
 
 export default function TimeScreen() {
@@ -74,7 +75,7 @@ export default function TimeScreen() {
                     }}
                     onClick={() => {
                         wait(1, (message, variant) => enqueueSnackbar(message, { variant }))
-                        queryClient.invalidateQueries({ queryKey: [NQTR_DATA_USE_QUEY_KEY] })
+                        queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] })
                     }}
                     elevation="sm"
                 >

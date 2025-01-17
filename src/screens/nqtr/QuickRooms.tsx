@@ -7,7 +7,8 @@ import { isValidElement } from 'react';
 import { useTranslation } from 'react-i18next';
 import NavigationRoundIconButton from '../../components/NavigationRoundIconButton';
 import { ImageTimeSlots } from '../../model/TimeSlots';
-import { NQTR_DATA_USE_QUEY_KEY, useQueryCurrentPosition } from '../../use_query/useQueryNQTR';
+import { INTERFACE_DATA_USE_QUEY_KEY } from '../../use_query/useQueryInterface';
+import { useQueryCurrentPosition } from '../../use_query/useQueryNQTR';
 import { useMyNavigate } from '../../utils/navigate-utility';
 
 export default function QuickRooms() {
@@ -59,7 +60,7 @@ export default function QuickRooms() {
                                         setCurrentRoom(room)
                                         let r = getCurrentRoom()
                                         if (r && r.id !== currentRoom?.id) {
-                                            queryClient.invalidateQueries({ queryKey: [NQTR_DATA_USE_QUEY_KEY] })
+                                            queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] })
                                         }
                                     }
                                 }}

@@ -2,12 +2,10 @@ import { currentActivities, getCurrenrLocation, getCurrentRoom, getCurrentRoomRo
 import { useQuery } from "@tanstack/react-query";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "./useQueryInterface";
 
-export const NQTR_DATA_USE_QUEY_KEY = "nqtr_data_use_quey_key";
-
 const CURRENT_HOUR_USE_QUEY_KEY = "current_hour_use_quey_key";
 export function useQueryTime() {
 	return useQuery({
-		queryKey: [INTERFACE_DATA_USE_QUEY_KEY, NQTR_DATA_USE_QUEY_KEY, CURRENT_HOUR_USE_QUEY_KEY],
+		queryKey: [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_HOUR_USE_QUEY_KEY],
 		queryFn: () => {
 			return timeTracker.currentHour
 		},
@@ -17,7 +15,7 @@ export function useQueryTime() {
 const CURRENT_POSITION_USE_QUEY_KEY = "current_position_use_quey_key";
 export function useQueryCurrentPosition() {
 	return useQuery({
-		queryKey: [INTERFACE_DATA_USE_QUEY_KEY, NQTR_DATA_USE_QUEY_KEY, CURRENT_POSITION_USE_QUEY_KEY],
+		queryKey: [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_POSITION_USE_QUEY_KEY],
 		queryFn: () => {
 			return {
 				currentRoom: getCurrentRoom(),
@@ -30,7 +28,7 @@ export function useQueryCurrentPosition() {
 const CURRENT_ROUTINE_USE_QUEY_KEY = "current_routine_use_quey_key";
 export function useQueryCurrentRoutine() {
 	return useQuery({
-		queryKey: [INTERFACE_DATA_USE_QUEY_KEY, NQTR_DATA_USE_QUEY_KEY, CURRENT_ROUTINE_USE_QUEY_KEY],
+		queryKey: [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_ROUTINE_USE_QUEY_KEY],
 		queryFn: () => {
 			return getCurrentRoomRoutine()
 		},
@@ -40,7 +38,7 @@ export function useQueryCurrentRoutine() {
 const CURRENT_ACTIVITIES_USE_QUEY_KEY = "current_activities_use_quey_key";
 export function useQueryCurrentActivities() {
 	return useQuery({
-		queryKey: [INTERFACE_DATA_USE_QUEY_KEY, NQTR_DATA_USE_QUEY_KEY, CURRENT_ACTIVITIES_USE_QUEY_KEY],
+		queryKey: [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_ACTIVITIES_USE_QUEY_KEY],
 		queryFn: () => {
 			return currentActivities()
 		},
