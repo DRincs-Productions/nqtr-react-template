@@ -1,5 +1,6 @@
 import { ImageContainer, ImageSprite } from "@drincs/pixi-vn"
 import { StepLabelProps } from "@drincs/pixi-vn/dist/override"
+import { ReactNode } from "react"
 
 declare module '@drincs/nqtr/dist/override' {
     interface OnRunProps extends StepLabelProps { }
@@ -39,7 +40,7 @@ interface MyActivityInterface {
     readonly icon: {
         alias: string
         image: ImageSprite | ImageContainer
-    }
+    } | ReactNode
 }
 interface MyCommitmentInterface {
     /**
@@ -53,7 +54,10 @@ interface MyCommitmentInterface {
     /**
      * The icon of the commitment.
      */
-    readonly icon: string
+    readonly icon: {
+        alias: string
+        image: ImageSprite | ImageContainer
+    } | ReactNode
     /**
      * Whether is disabled. If it is a string, it is a Pixi'VN flag name.
      */
