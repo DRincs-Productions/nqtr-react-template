@@ -1,4 +1,4 @@
-import { Assets } from "@drincs/pixi-vn"
+import { Assets } from "@drincs/pixi-vn";
 
 /**
  * Define all the assets that will be used in the game.
@@ -7,16 +7,30 @@ import { Assets } from "@drincs/pixi-vn"
  */
 export async function defineAssets() {
     // backgrounds
-    Assets.add({ alias: 'background_main_menu', src: "https://andreannaking.com/wp-content/uploads/2021/12/Download-Beautiful-Nature-Landscape-Hd-Wallpaper-Full-HD-Wallpapers.jpg" })
+    Assets.add({
+        alias: "background_main_menu",
+        src: "https://firebasestorage.googleapis.com/v0/b/pixi-vn.appspot.com/o/public%2Fmain-menu.webp?alt=media",
+    });
     // location
-    Assets.add({ alias: 'location_myroom-0', src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/location/myroom-0.webp" })
-    Assets.add({ alias: 'location_myroom-1', src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/location/myroom-1.webp" })
-    Assets.add({ alias: 'location_myroom-2', src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/location/myroom-2.webp" })
-    Assets.add({ alias: 'location_myroom-3', src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/location/myroom-3.webp" })
+    Assets.add({
+        alias: "location_myroom-0",
+        src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/location/myroom-0.webp",
+    });
+    Assets.add({
+        alias: "location_myroom-1",
+        src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/location/myroom-1.webp",
+    });
+    Assets.add({
+        alias: "location_myroom-2",
+        src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/location/myroom-2.webp",
+    });
+    Assets.add({
+        alias: "location_myroom-3",
+        src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/location/myroom-3.webp",
+    });
     // The game will not start until these asserts are loaded.
-    await Assets.load('background_main_menu')
+    await Assets.load("background_main_menu");
 
     // The game will start immediately, but these asserts will be loaded in the background.
     // Assets.load('flowerTop')
-
 }
