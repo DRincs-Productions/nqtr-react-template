@@ -1,9 +1,8 @@
-import { ActivityInterface, LocationStoredClass, MapInterface } from "@drincs/nqtr";
+import { ActivityInterface, LocationInterface, LocationStoredClass, MapInterface } from "@drincs/nqtr";
 import { storage } from "@drincs/pixi-vn";
-import { MyLocationInterface } from "../../nqtr";
 import ImageTimeSlots from "../ImageTimeSlots";
 
-export default class Location extends LocationStoredClass implements MyLocationInterface {
+export default class Location extends LocationStoredClass implements LocationInterface {
     constructor(
         id: string,
         map: MapInterface,

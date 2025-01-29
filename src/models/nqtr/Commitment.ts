@@ -1,10 +1,9 @@
 import { CommitmentInterface, ExecutionType, RoomInterface } from "@drincs/nqtr";
 import CommitmentStoredClass from "@drincs/nqtr/dist/classes/CommitmentStoredClass";
 import { CharacterInterface } from "@drincs/pixi-vn";
-import { MyCommitmentInterface } from "../../nqtr";
 import ImageTimeSlots from "../ImageTimeSlots";
 
-export default class Commitment extends CommitmentStoredClass implements MyCommitmentInterface {
+export default class Commitment extends CommitmentStoredClass implements CommitmentInterface {
     constructor(
         id: string,
         characters: CharacterInterface[],

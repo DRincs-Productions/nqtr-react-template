@@ -1,9 +1,8 @@
-import { LocationInterface, RoomStoredClass } from "@drincs/nqtr";
+import { LocationInterface, RoomInterface, RoomStoredClass } from "@drincs/nqtr";
 import { storage } from "@drincs/pixi-vn";
-import { MyRoomInterface } from "../../nqtr";
 import ImageTimeSlots from "../ImageTimeSlots";
 
-export default class Room extends RoomStoredClass implements MyRoomInterface {
+export default class Room extends RoomStoredClass implements RoomInterface {
     constructor(
         id: string,
         location: LocationInterface,

@@ -1,9 +1,8 @@
-import { MapStoredClass } from "@drincs/nqtr";
+import { MapInterface, MapStoredClass } from "@drincs/nqtr";
 import ActivityBaseInterface from "@drincs/nqtr/dist/interface/ActivityInterface";
-import { MyMapInterface } from "../../nqtr";
 import ImageTimeSlots from "../ImageTimeSlots";
 
-export default class Map extends MapStoredClass implements MyMapInterface {
+export default class Map extends MapStoredClass implements MapInterface {
     constructor(
         id: string,
         props: {
