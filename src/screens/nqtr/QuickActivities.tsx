@@ -1,29 +1,27 @@
-import { ImageBackdrop, ImageSrc, StackOverflow } from '@drincs/react-components';
+import { StackOverflow } from "@drincs/react-components";
 import { AnimatePresence } from "motion/react";
-import { useSnackbar } from 'notistack';
-import { isValidElement } from 'react';
-import { useTranslation } from 'react-i18next';
-import NavigationRoundIconButton from '../../components/NavigationRoundIconButton';
-import { ImageTimeSlots } from '../../model/TimeSlots';
-import { useQueryCurrentActivities, useQueryCurrentRoutine } from '../../use_query/useQueryNQTR';
-import { useMyNavigate } from '../../utils/navigate-utility';
+import { useSnackbar } from "notistack";
+import { useTranslation } from "react-i18next";
+import { NavigationRoundIconButtonConvertor } from "../../components/NavigationRoundIconButton";
+import { useQueryCurrentActivities, useQueryCurrentRoutine } from "../../use_query/useQueryNQTR";
+import { useMyNavigate } from "../../utils/navigate-utility";
 
 export default function QuickActivities() {
     const navigate = useMyNavigate();
     const { t } = useTranslation(["translation"]);
     const { enqueueSnackbar } = useSnackbar();
-    const { data: activities = [] } = useQueryCurrentActivities()
-    const { data: routine = [] } = useQueryCurrentRoutine()
+    const { data: activities = [] } = useQueryCurrentActivities();
+    const { data: routine = [] } = useQueryCurrentRoutine();
 
     return (
         <StackOverflow
-            direction="column"
-            justifyContent="center"
-            alignItems="flex-end"
+            direction='column'
+            justifyContent='center'
+            alignItems='flex-end'
             spacing={0.5}
             maxLeght={"100%"}
             sx={{
-                display: 'flex',
+                display: "flex",
                 position: "absolute",
                 bottom: 0,
                 right: 0,
@@ -31,83 +29,36 @@ export default function QuickActivities() {
             }}
         >
             <AnimatePresence>
-                {activities.map((activity) => {
-                    let renderImage = activity.renderIcon
-                    if (!renderImage) {
-                        return
-                    }
-                    let image = renderImage({
-                        navigate: navigate,
-                        t: t,
-                        notify: (message, variant) => enqueueSnackbar(message, { variant }),
-                    })
-                    let disabled = activity.disabled
-                    if (image instanceof ImageTimeSlots) {
-                        image = image.currentImage
-                    }
-                    if (typeof image === "string") {
-                        return (
-                            <NavigationRoundIconButton
-                                key={"activity" + activity.id}
-                                disabled={disabled}
-                                onClick={() => {
-                                    activity.run({
-                                        navigate: navigate,
-                                        t: t,
-                                        notify: (message, variant) => enqueueSnackbar(message, { variant }),
-                                    })
-                                }}
-                                ariaLabel={activity.name}
-                            >
-                                {image && <ImageSrc image={image ?? ""} />}
-                                {image && <ImageBackdrop />}
-                            </NavigationRoundIconButton>
-                        )
-                    }
-                    else if (isValidElement(image)) {
-                        return image
-                    }
-                })}
-                {routine.map((commitment) => {
-                    let renderImage = commitment.renderIcon
-                    if (!renderImage) {
-                        return
-                    }
-                    let image = renderImage({
-                        navigate: navigate,
-                        t: t,
-                        notify: (message, variant) => enqueueSnackbar(message, { variant }),
-                    })
-                    let disabled = commitment.disabled
-                    if (image instanceof ImageTimeSlots) {
-                        image = image.currentImage
-                    }
-                    if (typeof image === "string") {
-                        return (
-                            <NavigationRoundIconButton
-                                key={"commitment" + commitment.id}
-                                disabled={disabled}
-                                onClick={() => {
-                                    if (!commitment.run) {
-                                        return
-                                    }
-                                    commitment.run({
-                                        navigate: navigate,
-                                        t: t,
-                                        notify: (message, variant) => enqueueSnackbar(message, { variant }),
-                                    })
-                                }}
-                                ariaLabel={commitment.name}
-                            >
-                                {image && <ImageSrc image={image ?? ""} />}
-                                {image && <ImageBackdrop />}
-                            </NavigationRoundIconButton>
-                        )
-                    }
-                    else if (isValidElement(image)) {
-                        return image
-                    }
-                })}
+                {activities.map((item) => (
+                    <NavigationRoundIconButtonConvertor
+                        key={"activity" + item.id}
+                        disabled={item.disabled}
+                        onClick={() => {
+                            item.run({
+                                navigate: navigate,
+                                t: t,
+                                notify: (message, variant) => enqueueSnackbar(message, { variant }),
+                            });
+                        }}
+                        ariaLabel={item.name}
+                        image={item.icon}
+                    />
+                ))}
+                {routine.map((item) => (
+                    <NavigationRoundIconButtonConvertor
+                        key={"commitment" + item.id}
+                        disabled={item.disabled}
+                        onClick={() => {
+                            item.run({
+                                navigate: navigate,
+                                t: t,
+                                notify: (message, variant) => enqueueSnackbar(message, { variant }),
+                            });
+                        }}
+                        ariaLabel={item.name}
+                        image={item.icon}
+                    />
+                ))}
             </AnimatePresence>
         </StackOverflow>
     );
