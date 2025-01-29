@@ -1,4 +1,11 @@
-import { CommitmentInterface, CommitmentStoredClass, ExecutionType, OnRunEvent, RoomInterface } from "@drincs/nqtr";
+import {
+    CommitmentInterface,
+    CommitmentStoredClass,
+    ExecutionType,
+    OnRunEvent,
+    OnRunProps,
+    RoomInterface,
+} from "@drincs/nqtr";
 import { CharacterInterface } from "@drincs/pixi-vn";
 import { ReactElement } from "react";
 import ImageTimeSlots from "../ImageTimeSlots";
@@ -11,7 +18,7 @@ export default class Commitment extends CommitmentStoredClass implements Commitm
         props: {
             name: string;
             image: ImageTimeSlots;
-            icon: ImageTimeSlots | ReactElement | ((props: Commitment) => ReactElement);
+            icon: ImageTimeSlots | ReactElement | ((props: Commitment, runProps: OnRunProps) => ReactElement);
             onRun?: OnRunEvent<CommitmentInterface>;
             executionType: ExecutionType;
             priority: number;
@@ -28,12 +35,13 @@ export default class Commitment extends CommitmentStoredClass implements Commitm
     }
     readonly name: string;
     readonly image: ImageTimeSlots;
-    private readonly _icon: ImageTimeSlots | ReactElement | ((props: Commitment) => ReactElement);
-    get icon(): ImageTimeSlots | ReactElement {
-        if (typeof this._icon === "function") {
-            return this._icon(this);
+    private readonly _icon: ImageTimeSlots | ReactElement | ((props: Commitment, runProps: OnRunProps) => ReactElement);
+    get icon(): ImageTimeSlots | ReactElement | ((props: OnRunProps) => ReactElement) {
+        let icon = this._icon;
+        if (typeof icon === "function") {
+            return (runProps: OnRunProps) => icon(this, runProps);
         }
-        return this._icon;
+        return icon;
     }
     get disabled(): boolean {
         let value = this.getStorageProperty<boolean | string>("disabled") || false;

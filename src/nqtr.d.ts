@@ -42,7 +42,7 @@ declare module "@drincs/nqtr" {
         /**
          * The icon of the commitment.
          */
-        readonly icon: ImageTimeSlots | ReactElement;
+        readonly icon: ImageTimeSlots | ReactElement | ((props: OnRunProps) => ReactElement);
         /**
          * Whether is disabled. If it is a string, it is a Pixi'VN flag name.
          */
