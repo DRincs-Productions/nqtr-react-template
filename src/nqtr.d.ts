@@ -1,4 +1,5 @@
 import { StepLabelProps } from "@drincs/pixi-vn/dist/override";
+import { ReactElement } from "react";
 import ImageTimeSlots from "./models/ImageTimeSlots";
 
 declare module "@drincs/nqtr" {
@@ -46,7 +47,7 @@ interface MyActivityInterface {
     /**
      * The icon of the activity.
      */
-    readonly icon: ImageTimeSlots;
+    readonly icon: ImageTimeSlots | ReactElement;
 }
 interface MyCommitmentInterface {
     /**
@@ -60,7 +61,7 @@ interface MyCommitmentInterface {
     /**
      * The icon of the commitment.
      */
-    readonly icon: ImageTimeSlots;
+    readonly icon: ImageTimeSlots | ReactElement;
     /**
      * Whether is disabled. If it is a string, it is a Pixi'VN flag name.
      */
@@ -103,7 +104,7 @@ interface MyLocationInterface {
     /**
      * The icon of the location.
      */
-    readonly icon?: ImageTimeSlots;
+    readonly icon: ImageTimeSlots | ReactElement;
 }
 interface MyMapInterface {
     /**
@@ -124,10 +125,6 @@ interface MyQuestInterface {
      * The description of the quest.
      */
     readonly description: string;
-    /**
-     * The function for rendering the icon of the quest.
-     */
-    readonly icon?: ImageTimeSlots;
     /**
      * The function for rendering the image of the quest.
      */
@@ -166,7 +163,7 @@ interface MyRoomInterface {
     /**
      * The icon of the room.
      */
-    readonly icon?: ImageTimeSlots;
+    readonly icon: ImageTimeSlots | ReactElement;
     /**
      * If is the entrance of the location. (the first room)
      */

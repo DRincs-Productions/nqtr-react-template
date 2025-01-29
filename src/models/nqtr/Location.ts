@@ -1,5 +1,6 @@
 import { ActivityInterface, LocationInterface, LocationStoredClass, MapInterface } from "@drincs/nqtr";
 import { storage } from "@drincs/pixi-vn";
+import { ReactElement } from "react";
 import ImageTimeSlots from "../ImageTimeSlots";
 
 export default class Location extends LocationStoredClass implements LocationInterface {
@@ -11,17 +12,23 @@ export default class Location extends LocationStoredClass implements LocationInt
             name: string;
             disabled: boolean;
             hidden: boolean;
-            icon: ImageTimeSlots;
+            icon: ImageTimeSlots | ReactElement | ((props: Location) => ReactElement);
         }
     ) {
         super(id, map, props.activities);
         this.name = props.name;
         this.disabled = props.disabled;
         this.hidden = props.hidden;
-        this.icon = props.icon;
+        this._icon = props.icon;
     }
     readonly name: string;
-    readonly icon?: ImageTimeSlots;
+    private readonly _icon: ImageTimeSlots | ReactElement | ((props: Location) => ReactElement);
+    get icon(): ImageTimeSlots | ReactElement {
+        if (typeof this._icon === "function") {
+            return this._icon(this);
+        }
+        return this._icon;
+    }
     get disabled(): boolean {
         let value = this.getStorageProperty<boolean | string>("disabled") || false;
         if (typeof value === "string") {

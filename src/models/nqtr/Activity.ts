@@ -1,5 +1,6 @@
 import { ActivityInterface, ActivityStoredClass, OnRunEvent } from "@drincs/nqtr";
 import { storage } from "@drincs/pixi-vn";
+import { ReactElement } from "react";
 import ImageTimeSlots from "../ImageTimeSlots";
 
 export default class Activity extends ActivityStoredClass implements ActivityInterface {
@@ -12,15 +13,21 @@ export default class Activity extends ActivityStoredClass implements ActivityInt
             fromDay?: number;
             toDay?: number;
             name?: string;
-            icon: ImageTimeSlots;
+            icon: ImageTimeSlots | ReactElement | ((props: Activity) => ReactElement);
         }
     ) {
         super(id, onRun, props);
         this.name = props.name || "";
-        this.icon = props.icon;
+        this._icon = props.icon;
     }
     readonly name: string;
-    readonly icon: ImageTimeSlots;
+    private readonly _icon: ImageTimeSlots | ReactElement | ((props: Activity) => ReactElement);
+    get icon(): ImageTimeSlots | ReactElement {
+        if (typeof this._icon === "function") {
+            return this._icon(this);
+        }
+        return this._icon;
+    }
     get disabled(): boolean {
         let value = this.getStorageProperty<boolean | string>("disabled") || false;
         if (typeof value === "string") {

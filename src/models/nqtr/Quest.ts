@@ -10,7 +10,6 @@ export default class Quest extends QuestStoredClass implements QuestInterface {
             onNextStage?: (stage: QuestInterface, props: OnRunProps) => void;
             name?: string;
             description?: string;
-            icon?: ImageTimeSlots;
             image?: ImageTimeSlots;
             inDevelopment?: boolean;
         }
@@ -18,13 +17,11 @@ export default class Quest extends QuestStoredClass implements QuestInterface {
         super(id, _stages, props);
         this.name = props.name || "";
         this.description = props.description || "";
-        this.icon = props.icon;
         this.image = props.image;
         this.inDevelopment = props.inDevelopment || false;
     }
     readonly name: string;
     readonly description: string;
-    readonly icon?: ImageTimeSlots;
     readonly image?: ImageTimeSlots;
     readonly inDevelopment: boolean;
 }

@@ -1,5 +1,6 @@
 import { LocationInterface, RoomInterface, RoomStoredClass } from "@drincs/nqtr";
 import { storage } from "@drincs/pixi-vn";
+import { ReactElement } from "react";
 import ImageTimeSlots from "../ImageTimeSlots";
 
 export default class Room extends RoomStoredClass implements RoomInterface {
@@ -11,14 +12,14 @@ export default class Room extends RoomStoredClass implements RoomInterface {
             disabled?: boolean | string;
             hidden?: boolean | string;
             image: ImageTimeSlots;
-            icon?: ImageTimeSlots;
+            icon: ImageTimeSlots | ReactElement | ((props: Room) => ReactElement);
             defaultActivities?: any[];
             isEntrance?: boolean;
         }
     ) {
         super(id, location, props.defaultActivities);
         this.name = props.name;
-        this.icon = props.icon;
+        this._icon = props.icon;
         this.disabled = props.disabled;
         this.hidden = props.hidden;
         this.image = props.image;
@@ -26,7 +27,13 @@ export default class Room extends RoomStoredClass implements RoomInterface {
     }
     readonly name: string;
     readonly image: ImageTimeSlots;
-    readonly icon?: ImageTimeSlots;
+    private readonly _icon: ImageTimeSlots | ReactElement | ((props: Room) => ReactElement);
+    get icon(): ImageTimeSlots | ReactElement {
+        if (typeof this._icon === "function") {
+            return this._icon(this);
+        }
+        return this._icon;
+    }
     readonly isEntrance: boolean;
     get disabled(): boolean {
         let value = this.getStorageProperty<boolean | string>("disabled") || false;
