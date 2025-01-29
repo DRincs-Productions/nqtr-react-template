@@ -5,7 +5,7 @@ import { aliceQuest } from "../quests/aliceQuest";
 import { timeSlots } from "../values/constants";
 import { mcRoom } from "../values/rooms";
 
-export const startLabel = newLabel("start", [
+const startLabel = newLabel("start", [
     (props) => {
         timeTracker.settings = {
             defaultTimeSpent: 1,
@@ -28,3 +28,4 @@ export const startLabel = newLabel("start", [
         props.navigate(NAVIGATION_ROUTE);
     },
 ]);
+export default startLabel;
