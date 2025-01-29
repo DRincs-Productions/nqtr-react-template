@@ -1,4 +1,4 @@
-import { CommitmentInterface, ExecutionType } from "@drincs/nqtr";
+import { CommitmentInterface, ExecutionType, RoomInterface } from "@drincs/nqtr";
 import CommitmentStoredClass from "@drincs/nqtr/dist/classes/CommitmentStoredClass";
 import { CharacterInterface } from "@drincs/pixi-vn";
 import { MyCommitmentInterface } from "../../nqtr";
@@ -8,27 +8,28 @@ export default class Commitment extends CommitmentStoredClass implements MyCommi
     constructor(
         id: string,
         characters: CharacterInterface[],
+        room: RoomInterface,
         onRun: OnRunEvent<CommitmentInterface> | undefined,
         props: {
             name: string;
             image: string;
             icon: ImageTimeSlots;
-            defaultExecutionType: ExecutionType;
-            defaultPriority: number;
+            executionType: ExecutionType;
+            priority: number;
             fromHour?: number;
             toHour?: number;
             fromDay?: number;
             toDay?: number;
         }
     ) {
-        super(id, characters, onRun, props.defaultExecutionType, props.defaultPriority, props);
+        super(id, characters, room, onRun, props.executionType, props.priority, props);
         this.name = props.name;
         this.image = props.image;
         this.icon = props.icon;
     }
-    name: string;
-    image: string;
-    icon: ImageTimeSlots;
+    readonly name: string;
+    readonly image: string;
+    readonly icon: ImageTimeSlots;
     get disabled(): boolean {
         let value = this.getStorageProperty<boolean | string>("disabled") || false;
         if (typeof value === "string") {

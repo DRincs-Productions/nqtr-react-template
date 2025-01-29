@@ -1,4 +1,4 @@
-import { ActivityInterface } from "@drincs/nqtr";
+import { ActivityStoredClass } from "@drincs/nqtr";
+import { MyActivityInterface } from "../../nqtr";
 
-export default class Activity implements ActivityInterface {
-}
+export default class Activity extends ActivityStoredClass implements MyActivityInterface {}
