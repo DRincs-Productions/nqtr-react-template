@@ -1,11 +1,9 @@
-import { getAllStartedQuests } from "@drincs/nqtr";
+import { questsNotebook } from "@drincs/nqtr";
 import { Box, Link, ModalDialogExtended, Sheet } from "@drincs/react-components";
 import { AspectRatio, Divider, Stack, Typography } from "@mui/joy";
-import { useSnackbar } from "notistack";
 import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { useMyNavigate } from "../../utils/navigate-utility";
 
 type QuestDescription = {
     id: string;
@@ -21,7 +19,6 @@ type QuestDescription = {
 
 export default function MemoScreen() {
     const { t } = useTranslation(["translation"]);
-    const navigate = useMyNavigate();
     const methods = useForm<{
         open: boolean;
         selectedQuest: QuestDescription | undefined;
@@ -36,7 +33,6 @@ export default function MemoScreen() {
         },
     });
     const selectedQuest = methods.watch("selectedQuest");
-    const { enqueueSnackbar } = useSnackbar();
 
     useEffect(() => {
         window.addEventListener("keydown", onkeydown);
@@ -51,19 +47,7 @@ export default function MemoScreen() {
             if (!open) {
                 // let selectedQuest = methods.getValues("selectedQuest")
                 methods.setValue("open", !open);
-                let quests: QuestDescription[] = getAllStartedQuests().map((quest) => {
-                    let image: string | undefined = undefined;
-                    if (quest.renderImage) {
-                        let renderImage = quest.renderImage({
-                            navigate,
-                            t,
-                            notify: (message, variant) => enqueueSnackbar(message, { variant }),
-                        });
-                        if (typeof renderImage === "string") {
-                            image = renderImage;
-                        }
-                    }
-
+                let quests: QuestDescription[] = questsNotebook.startedQuests.map((quest) => {
                     let currentStageDescription = "";
                     if (quest.currentStage) {
                         if (quest.completed) {
@@ -86,7 +70,7 @@ export default function MemoScreen() {
                         currentStage: {
                             description: currentStageDescription,
                         },
-                        questImage: image,
+                        questImage: quest.image?.src,
                         completed: quest.completed,
                         isInDevelopment: quest.isInDevelopment,
                     };
