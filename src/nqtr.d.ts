@@ -1,6 +1,4 @@
-import { ImageContainer, ImageSprite } from "@drincs/pixi-vn";
 import { StepLabelProps } from "@drincs/pixi-vn/dist/override";
-import { ReactNode } from "react";
 import ImageTimeSlots from "./models/ImageTimeSlots";
 
 declare module "@drincs/nqtr" {
@@ -48,12 +46,7 @@ interface MyActivityInterface {
     /**
      * The icon of the activity.
      */
-    readonly icon:
-        | {
-              alias: string;
-              image: ImageSprite | ImageContainer;
-          }
-        | ReactNode;
+    readonly icon: ImageTimeSlots;
 }
 interface MyCommitmentInterface {
     /**
@@ -63,7 +56,7 @@ interface MyCommitmentInterface {
     /**
      * The image of the commitment.
      */
-    readonly image: string;
+    readonly image: ImageTimeSlots;
     /**
      * The icon of the commitment.
      */
@@ -134,11 +127,11 @@ interface MyQuestInterface {
     /**
      * The function for rendering the icon of the quest.
      */
-    readonly icon?: string;
+    readonly icon?: ImageTimeSlots;
     /**
      * The function for rendering the image of the quest.
      */
-    readonly image?: string;
+    readonly image?: ImageTimeSlots;
     /**
      * If the quest is in development.
      */
@@ -194,7 +187,7 @@ interface MyStageInterface {
     /**
      * The image of the stage.
      */
-    readonly image?: string;
+    readonly image?: ImageTimeSlots;
 
     /**
      * The list of flags that the player must complete to finish the stage.
