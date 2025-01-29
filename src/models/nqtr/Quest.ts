@@ -13,7 +13,7 @@ export default class Quest extends QuestStoredClass implements QuestInterface {
             icon?: ImageTimeSlots;
             image?: ImageTimeSlots;
             inDevelopment?: boolean;
-        } = {}
+        }
     ) {
         super(id, _stages, props);
         this.name = props.name || "";

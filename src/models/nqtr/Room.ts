@@ -13,6 +13,7 @@ export default class Room extends RoomStoredClass implements RoomInterface {
             image: ImageTimeSlots;
             icon?: ImageTimeSlots;
             defaultActivities?: any[];
+            isEntrance?: boolean;
         }
     ) {
         super(id, location, props.defaultActivities);
@@ -21,10 +22,12 @@ export default class Room extends RoomStoredClass implements RoomInterface {
         this.disabled = props.disabled;
         this.hidden = props.hidden;
         this.image = props.image;
+        this.isEntrance = props.isEntrance || false;
     }
     readonly name: string;
     readonly image: ImageTimeSlots;
     readonly icon?: ImageTimeSlots;
+    readonly isEntrance: boolean;
     get disabled(): boolean {
         let value = this.getStorageProperty<boolean | string>("disabled") || false;
         if (typeof value === "string") {

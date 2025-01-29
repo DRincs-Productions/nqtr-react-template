@@ -167,6 +167,10 @@ interface MyRoomInterface {
      * The icon of the room.
      */
     readonly icon?: ImageTimeSlots;
+    /**
+     * If is the entrance of the location. (the first room)
+     */
+    readonly isEntrance: boolean;
 }
 interface MyStageInterface {
     /**

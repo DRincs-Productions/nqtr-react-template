@@ -17,7 +17,7 @@ export default class Stage extends StageStoredClass implements MyStageInterface 
             flags?: StageFlags[];
             flagsRequiredToStart?: StageFlags[];
             requestDescriptionToStart?: string;
-        } = {}
+        }
     ) {
         super(id, options);
         this.name = options.name || "";
