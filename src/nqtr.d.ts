@@ -1,6 +1,7 @@
 import { ImageContainer, ImageSprite } from "@drincs/pixi-vn";
 import { StepLabelProps } from "@drincs/pixi-vn/dist/override";
 import { ReactNode } from "react";
+import ImageTimeSlots from "./models/ImageTimeSlots";
 
 declare module "@drincs/nqtr/dist/override" {
     interface OnRunProps extends StepLabelProps {}
@@ -143,11 +144,11 @@ interface MyRoomInterface {
      * The name.
      * If you set undefined, it will return the initial value of name.
      */
-    name: string;
+    readonly name: string;
     /**
      * The image of the room.
      */
-    readonly image: string | undefined;
+    readonly image: ImageTimeSlots;
     /**
      * Whether is disabled. If it is a string, it is a Pixi'VN flag name.
      */
@@ -167,7 +168,7 @@ interface MyRoomInterface {
     /**
      * The icon of the room.
      */
-    readonly icon: string | undefined;
+    readonly icon?: string;
 }
 interface MyStageInterface {
     /**
