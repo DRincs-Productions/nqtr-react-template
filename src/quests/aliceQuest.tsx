@@ -1,7 +1,10 @@
-import { newQuest, saveCommitment, Stage } from "@drincs/nqtr";
+import { routine, saveCommitment } from "@drincs/nqtr";
 import { narration } from "@drincs/pixi-vn";
 import { talkAliceQuest } from "../labels/variousActionsLabels";
+import ImageTimeSlots from "../models/ImageTimeSlots";
 import Commitment from "../models/nqtr/Commitment";
+import Quest from "../models/nqtr/Quest";
+import Stage from "../models/nqtr/Stage";
 import { orderProduct, takeProduct } from "../values/activity";
 import { alice } from "../values/characters";
 import { mcRoom, terrace } from "../values/rooms";
@@ -9,24 +12,25 @@ import { mcRoom, terrace } from "../values/rooms";
 const talkAlice1Commit = new Commitment("talk_alice1", alice, terrace, {
     fromHour: 10,
     toHour: 20,
-    renderImage:
-        "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/Alice/terrace0A.webp",
+    image: new ImageTimeSlots(
+        "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/Alice/terrace0A.webp"
+    ),
     executionType: "automatic",
     priority: 1,
     onRun: (_, event) => {
         event.navigate("/game");
         narration.jumpLabel(talkAliceQuest, event);
-        removeCommitment(talkAlice1Commit);
+        routine.remove(talkAlice1Commit);
     },
 });
 
-export const aliceQuest = newQuest(
+export const aliceQuest = new Quest(
     "aliceQuest",
     [
         // stages
         new Stage("talk_alice1", {
             onStart: () => {
-                addCommitment(talkAlice1Commit);
+                routine.add(talkAlice1Commit);
             },
             name: "Talk to Alice",
             description: "Talk to Alice on the terrace",
@@ -58,8 +62,9 @@ export const aliceQuest = newQuest(
         name: "Help Alice",
         description:
             'To learn more about how the repo works, Talk to Alice. \nGoing when she is there will automatically start an "Event" (see aliceQuest.tsx to learn more). \nAfter that an action will be added to open the pc, in MC room. \n\n(during the quest you can talk to Alice and you will see her talking during the quests of the same Quest)',
-        renderImage:
-            "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/Alice/terrace0A.webp",
+        image: new ImageTimeSlots(
+            "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/Alice/terrace0A.webp"
+        ),
         onStart: (quest, { notify, t }) => {
             notify(t("notify_quest_is_started", { quest: quest.name }), "info");
         },
