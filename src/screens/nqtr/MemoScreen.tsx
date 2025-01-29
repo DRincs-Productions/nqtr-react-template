@@ -51,7 +51,7 @@ export default function MemoScreen() {
                     let currentStageDescription = "";
                     if (quest.currentStage) {
                         if (quest.completed) {
-                            if (quest.isInDevelopment) {
+                            if (quest.inDevelopment) {
                                 currentStageDescription = t("quest_is_in_development");
                             } else {
                                 currentStageDescription = t("completed");
@@ -72,7 +72,7 @@ export default function MemoScreen() {
                         },
                         questImage: quest.image?.src,
                         completed: quest.completed,
-                        isInDevelopment: quest.isInDevelopment,
+                        isInDevelopment: quest.inDevelopment,
                     };
                 });
                 let completedQuests: QuestDescription[] = quests.filter((quest) => {
