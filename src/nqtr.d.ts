@@ -3,7 +3,7 @@ import { StepLabelProps } from "@drincs/pixi-vn/dist/override";
 import { ReactNode } from "react";
 import ImageTimeSlots from "./models/ImageTimeSlots";
 
-declare module "@drincs/nqtr/dist/override" {
+declare module "@drincs/nqtr" {
     interface OnRunProps extends StepLabelProps {}
     interface OnStartEndStageQuest extends StepLabelProps {}
     interface ActivityInterface extends MyActivityInterface {}
