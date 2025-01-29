@@ -1,4 +1,4 @@
-import { OnRunProps, QuestInterface, StageInterface } from "@drincs/nqtr";
+import { OnRunProps, QuestInterface, QuestStoredClass, StageInterface } from "@drincs/nqtr";
 import ImageTimeSlots from "../ImageTimeSlots";
 
 export default class Quest extends QuestStoredClass implements QuestInterface {

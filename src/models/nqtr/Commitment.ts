@@ -1,4 +1,4 @@
-import { CommitmentInterface, ExecutionType, OnRunEvent, RoomInterface } from "@drincs/nqtr";
+import { CommitmentInterface, CommitmentStoredClass, ExecutionType, OnRunEvent, RoomInterface } from "@drincs/nqtr";
 import { CharacterInterface } from "@drincs/pixi-vn";
 import { ReactElement } from "react";
 import ImageTimeSlots from "../ImageTimeSlots";
@@ -8,11 +8,11 @@ export default class Commitment extends CommitmentStoredClass implements Commitm
         id: string,
         characters: CharacterInterface[],
         room: RoomInterface,
-        onRun: OnRunEvent<CommitmentInterface> | undefined,
         props: {
             name: string;
             image: ImageTimeSlots;
             icon: ImageTimeSlots | ReactElement | ((props: Commitment) => ReactElement);
+            onRun?: OnRunEvent<CommitmentInterface>;
             executionType: ExecutionType;
             priority: number;
             fromHour?: number;
@@ -21,7 +21,7 @@ export default class Commitment extends CommitmentStoredClass implements Commitm
             toDay?: number;
         }
     ) {
-        super(id, characters, room, onRun, props.executionType, props.priority, props);
+        super(id, characters, room, props.onRun, props.executionType, props.priority, props);
         this.name = props.name;
         this.image = props.image;
         this._icon = props.icon;

@@ -19,7 +19,6 @@ export default class Room extends RoomStoredClass implements RoomInterface {
     ) {
         super(id, location, props.defaultActivities);
         this.name = props.name;
-        this._icon = props.icon;
         this.disabled = props.disabled;
         this.hidden = props.hidden;
         this.image = props.image;
@@ -27,13 +26,6 @@ export default class Room extends RoomStoredClass implements RoomInterface {
     }
     readonly name: string;
     readonly image: ImageTimeSlots;
-    private readonly _icon: ImageTimeSlots | ReactElement | ((props: Room) => ReactElement);
-    get icon(): ImageTimeSlots | ReactElement {
-        if (typeof this._icon === "function") {
-            return this._icon(this);
-        }
-        return this._icon;
-    }
     readonly isEntrance: boolean;
     get disabled(): boolean {
         let value = this.getStorageProperty<boolean | string>("disabled") || false;
