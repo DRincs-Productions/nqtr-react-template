@@ -20,7 +20,7 @@ export const nap = new Activity(
     },
     {
         name: "Nap",
-        icon: (activity) => {
+        icon: (activity, props) => {
             return (
                 <NavigationRoundIconButton
                     disabled={activity.disabled}
@@ -48,7 +48,7 @@ export const orderProduct = new Activity(
     },
     {
         name: "Order product",
-        renderIcon: (activity, props) => {
+        icon: (activity, props) => {
             return (
                 <NavigationRoundIconButton
                     disabled={activity.disabled}
@@ -76,7 +76,7 @@ export const takeProduct = new Activity(
     },
     {
         name: "Take product",
-        renderIcon: (activity, props) => {
+        icon: (activity, props) => {
             return (
                 <NavigationRoundIconButton
                     disabled={activity.disabled}
