@@ -16,17 +16,17 @@ interface StageFlags {
     /**
      * The flag for checking if the condition is met.
      */
-    flag: string;
+    readonly flag: string;
     /**
      * The description of the flag.
      */
-    description: string;
+    readonly description: string;
 }
 interface MyActivityInterface {
     /**
      * The name of the activity.
      */
-    name: string;
+    readonly name: string;
     /**
      * Whether is disabled. If it is a string, it is a Pixi'VN flag name.
      */
@@ -83,7 +83,7 @@ interface MyLocationInterface {
      * The name of the location.
      * If you set undefined, it will return the initial value of name.
      */
-    name: string;
+    readonly name: string;
     /**
      * Whether is disabled. If it is a string, it is a Pixi'VN flag name.
      */
@@ -109,7 +109,7 @@ interface MyMapInterface {
     /**
      * The name of the map.
      */
-    name: string;
+    readonly name: string;
     /**
      * The image of the map.
      */

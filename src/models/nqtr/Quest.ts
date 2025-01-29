@@ -22,9 +22,9 @@ export default class Quest extends QuestStoredClass implements QuestInterface {
         this.image = props.image;
         this.inDevelopment = props.inDevelopment || false;
     }
-    name: string;
-    description: string;
-    icon?: ImageTimeSlots;
-    image?: ImageTimeSlots;
-    inDevelopment: boolean;
+    readonly name: string;
+    readonly description: string;
+    readonly icon?: ImageTimeSlots;
+    readonly image?: ImageTimeSlots;
+    readonly inDevelopment: boolean;
 }

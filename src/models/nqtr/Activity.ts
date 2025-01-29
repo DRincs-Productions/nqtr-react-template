@@ -2,8 +2,8 @@ import { ActivityInterface, ActivityStoredClass } from "@drincs/nqtr";
 import ImageTimeSlots from "../ImageTimeSlots";
 
 export default class Activity extends ActivityStoredClass implements ActivityInterface {
-    name: ImageTimeSlots;
-    icon: ImageTimeSlots;
+    readonly name: ImageTimeSlots;
+    readonly icon: ImageTimeSlots;
     get disabled(): boolean {
         throw new Error("Method not implemented.");
     }
