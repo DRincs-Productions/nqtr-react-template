@@ -7,7 +7,12 @@ export function useQueryQuickRooms() {
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, QUICK_ROOMS_USE_QUEY_KEY],
         queryFn: () => {
-            return navigator.currentLocation?.rooms;
+            return navigator.currentLocation?.rooms.map((room) => ({
+                icon: room.image.src,
+                disabled: room.disabled,
+                selected: room.id === navigator.currentRoom?.id,
+                room: room,
+            }));
         },
     });
 }
