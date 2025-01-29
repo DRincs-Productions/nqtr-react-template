@@ -1,4 +1,5 @@
 import { ActivityInterface, ActivityStoredClass, OnRunEvent } from "@drincs/nqtr";
+import { OnRunProps } from "@drincs/nqtr/dist/types/OnRunEvent";
 import { storage } from "@drincs/pixi-vn";
 import { ReactElement } from "react";
 import ImageTimeSlots from "../ImageTimeSlots";
@@ -13,7 +14,7 @@ export default class Activity extends ActivityStoredClass implements ActivityInt
             fromDay?: number;
             toDay?: number;
             name?: string;
-            icon: ImageTimeSlots | ReactElement | ((props: Activity) => ReactElement);
+            icon: ImageTimeSlots | ReactElement | ((props: Activity, runProps: OnRunProps) => ReactElement);
         }
     ) {
         super(id, onRun, props);
@@ -21,12 +22,13 @@ export default class Activity extends ActivityStoredClass implements ActivityInt
         this._icon = props.icon;
     }
     readonly name: string;
-    private readonly _icon: ImageTimeSlots | ReactElement | ((props: Activity) => ReactElement);
-    get icon(): ImageTimeSlots | ReactElement {
-        if (typeof this._icon === "function") {
-            return this._icon(this);
+    private readonly _icon: ImageTimeSlots | ReactElement | ((props: Activity, runProps: OnRunProps) => ReactElement);
+    get icon(): ImageTimeSlots | ReactElement | ((props: OnRunProps) => ReactElement) {
+        let icon = this._icon;
+        if (typeof icon === "function") {
+            return (runProps: OnRunProps) => icon(this, runProps);
         }
-        return this._icon;
+        return icon;
     }
     get disabled(): boolean {
         let value = this.getStorageProperty<boolean | string>("disabled") || false;

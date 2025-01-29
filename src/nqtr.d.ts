@@ -47,7 +47,7 @@ interface MyActivityInterface {
     /**
      * The icon of the activity.
      */
-    readonly icon: ImageTimeSlots | ReactElement;
+    readonly icon: ImageTimeSlots | ReactElement | ((props: OnRunProps) => ReactElement);
 }
 interface MyCommitmentInterface {
     /**

@@ -20,21 +20,23 @@ export const nap = new Activity(
     },
     {
         name: "Nap",
-        icon: (
-            <NavigationRoundIconButton
-                disabled={activity.disabled}
-                onClick={() => {
-                    activity.run(props);
-                }}
-                ariaLabel={activity.name}
-            >
-                <BedIcon
-                    sx={{
-                        fontSize: { sx: "1.5rem", sm: "2rem", md: "2.5rem", lg: "3rem", xl: "4rem" },
+        icon: (activity) => {
+            return (
+                <NavigationRoundIconButton
+                    disabled={activity.disabled}
+                    onClick={() => {
+                        activity.run(props);
                     }}
-                />
-            </NavigationRoundIconButton>
-        ),
+                    ariaLabel={activity.name}
+                >
+                    <BedIcon
+                        sx={{
+                            fontSize: { sx: "1.5rem", sm: "2rem", md: "2.5rem", lg: "3rem", xl: "4rem" },
+                        }}
+                    />
+                </NavigationRoundIconButton>
+            );
+        },
     }
 );
 
