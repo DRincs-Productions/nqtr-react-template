@@ -10,15 +10,15 @@ export default class Location extends LocationStoredClass implements LocationInt
         props: {
             activities?: ActivityInterface[];
             name: string;
-            disabled: boolean;
-            hidden: boolean;
+            disabled?: boolean;
+            hidden?: boolean;
             icon: ImageTimeSlots | ReactElement | ((props: Location) => ReactElement);
         }
     ) {
         super(id, map, props.activities);
         this.name = props.name;
-        this.disabled = props.disabled;
-        this.hidden = props.hidden;
+        this.disabled = props.disabled || false;
+        this.hidden = props.hidden || false;
         this._icon = props.icon;
     }
     readonly name: string;

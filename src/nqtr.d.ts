@@ -1,4 +1,4 @@
-import { StepLabelProps } from "@drincs/pixi-vn/dist/override";
+import { StepLabelProps } from "@drincs/pixi-vn";
 import { ReactElement } from "react";
 import ImageTimeSlots from "./models/ImageTimeSlots";
 
@@ -96,6 +96,10 @@ declare module "@drincs/nqtr" {
          * The image of the map.
          */
         readonly image: ImageTimeSlots;
+        /**
+         * Neighboring maps.
+         */
+        readonly neighboringMaps: NeighboringMaps;
     }
     interface QuestInterface {
         /**
@@ -192,4 +196,10 @@ interface StageFlags {
      * The description of the flag.
      */
     readonly description: string;
+}
+interface NeighboringMaps {
+    north?: string;
+    south?: string;
+    east?: string;
+    west?: string;
 }

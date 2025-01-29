@@ -1,8 +1,10 @@
+import ImageTimeSlots from "../models/ImageTimeSlots";
 import Location from "../models/nqtr/Location";
 import { mainMap } from "./maps";
 
 export const mcHome = new Location("mc_home", mainMap, {
     name: "MC Home",
+    icon: new ImageTimeSlots(""),
     // icon: new CanvasImage({
     //     x: 100,
     //     y: 100,
@@ -11,9 +13,11 @@ export const mcHome = new Location("mc_home", mainMap, {
 });
 
 export const gym = new Location("gym", mainMap, {
-    name: "MC Home",
+    name: "Gym",
+    icon: new ImageTimeSlots(""),
 });
 
 export const school = new Location("school", mainMap, {
     name: "School",
+    icon: new ImageTimeSlots(""),
 });

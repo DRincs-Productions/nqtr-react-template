@@ -1,6 +1,5 @@
 import { LocationInterface, RoomInterface, RoomStoredClass } from "@drincs/nqtr";
 import { storage } from "@drincs/pixi-vn";
-import { ReactElement } from "react";
 import ImageTimeSlots from "../ImageTimeSlots";
 
 export default class Room extends RoomStoredClass implements RoomInterface {
@@ -12,7 +11,6 @@ export default class Room extends RoomStoredClass implements RoomInterface {
             disabled?: boolean | string;
             hidden?: boolean | string;
             image: ImageTimeSlots;
-            icon: ImageTimeSlots | ReactElement | ((props: Room) => ReactElement);
             defaultActivities?: any[];
             isEntrance?: boolean;
         }
