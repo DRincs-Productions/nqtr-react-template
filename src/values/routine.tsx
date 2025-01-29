@@ -1,4 +1,4 @@
-import { routine, saveCommitment } from "@drincs/nqtr";
+import { saveCommitment } from "@drincs/nqtr";
 import { narration } from "@drincs/pixi-vn";
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import NavigationRoundIconButton from "../components/NavigationRoundIconButton";
@@ -80,4 +80,4 @@ const aliceSmokes = new Commitment("alice_smokes", alice, terrace, {
 
 saveCommitment([aliceSleep, aliceGoSchool, aliceSmokes]);
 
-routine.fixedRoutine = [aliceSleep, aliceGoSchool, aliceSmokes];
+export const fixedRoutine = [aliceSleep, aliceGoSchool, aliceSmokes];
