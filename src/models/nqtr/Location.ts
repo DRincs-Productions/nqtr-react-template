@@ -1,4 +1,4 @@
-import { ActivityInterface, LocationInterface, LocationStoredClass, MapInterface } from "@drincs/nqtr";
+import { ActivityInterface, LocationInterface, LocationStoredClass, MapInterface, RoomInterface } from "@drincs/nqtr";
 import { storage } from "@drincs/pixi-vn";
 import { ReactElement } from "react";
 import ImageTimeSlots from "../ImageTimeSlots";
@@ -48,5 +48,8 @@ export default class Location extends LocationStoredClass implements LocationInt
     }
     set hidden(value: boolean | string) {
         this.setStorageProperty("hidden", value);
+    }
+    override get rooms(): RoomInterface[] {
+        return super.rooms.filter((room) => !room.hidden);
     }
 }

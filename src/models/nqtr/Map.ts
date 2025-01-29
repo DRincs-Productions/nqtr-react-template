@@ -1,4 +1,4 @@
-import { ActivityInterface, MapInterface, MapStoredClass } from "@drincs/nqtr";
+import { ActivityInterface, LocationInterface, MapInterface, MapStoredClass } from "@drincs/nqtr";
 import { NeighboringMaps } from "../../nqtr";
 import ImageTimeSlots from "../ImageTimeSlots";
 
@@ -20,4 +20,7 @@ export default class Map extends MapStoredClass implements MapInterface {
     readonly name: string;
     readonly image: ImageTimeSlots;
     readonly neighboringMaps: NeighboringMaps;
+    override get locations(): LocationInterface[] {
+        return super.locations.filter((location) => !location.hidden);
+    }
 }

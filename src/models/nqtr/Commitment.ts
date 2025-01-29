@@ -71,4 +71,10 @@ export default class Commitment extends CommitmentStoredClass implements Commitm
     set hidden(value: boolean | string) {
         this.setStorageProperty("hidden", value);
     }
+    override get isActive(): boolean {
+        if (this.hidden) {
+            return false;
+        }
+        return super.isActive;
+    }
 }
