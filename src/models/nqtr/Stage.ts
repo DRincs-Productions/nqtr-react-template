@@ -1,6 +1,6 @@
-import { QuestsRequiredType, StageInterface } from "@drincs/nqtr";
-import StageStoredClass from "@drincs/nqtr/dist/classes/quest/StageStoredClass";
+import { OnRunProps, QuestsRequiredType, StageInterface } from "@drincs/nqtr";
 import { MyStageInterface, StageFlags } from "../../nqtr";
+import ImageTimeSlots from "../ImageTimeSlots";
 
 export default class Stage extends StageStoredClass implements MyStageInterface {
     constructor(
@@ -13,7 +13,7 @@ export default class Stage extends StageStoredClass implements MyStageInterface 
             name?: string;
             description?: string;
             adviceDescription?: string;
-            image?: string;
+            image?: ImageTimeSlots;
             flags?: StageFlags[];
             flagsRequiredToStart?: StageFlags[];
             requestDescriptionToStart?: string;
@@ -31,7 +31,7 @@ export default class Stage extends StageStoredClass implements MyStageInterface 
     readonly name: string;
     readonly description: string;
     readonly adviceDescription: string;
-    readonly image?: string | undefined;
+    readonly image?: ImageTimeSlots;
     readonly flags: StageFlags[];
     readonly flagsRequiredToStart: StageFlags[];
     readonly requestDescriptionToStart: string;

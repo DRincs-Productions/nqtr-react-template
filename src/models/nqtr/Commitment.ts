@@ -1,5 +1,4 @@
-import { CommitmentInterface, ExecutionType, RoomInterface } from "@drincs/nqtr";
-import CommitmentStoredClass from "@drincs/nqtr/dist/classes/CommitmentStoredClass";
+import { CommitmentInterface, ExecutionType, OnRunEvent, RoomInterface } from "@drincs/nqtr";
 import { CharacterInterface } from "@drincs/pixi-vn";
 import ImageTimeSlots from "../ImageTimeSlots";
 
@@ -11,7 +10,7 @@ export default class Commitment extends CommitmentStoredClass implements Commitm
         onRun: OnRunEvent<CommitmentInterface> | undefined,
         props: {
             name: string;
-            image: string;
+            image: ImageTimeSlots;
             icon: ImageTimeSlots;
             executionType: ExecutionType;
             priority: number;
@@ -27,7 +26,7 @@ export default class Commitment extends CommitmentStoredClass implements Commitm
         this.icon = props.icon;
     }
     readonly name: string;
-    readonly image: string;
+    readonly image: ImageTimeSlots;
     readonly icon: ImageTimeSlots;
     get disabled(): boolean {
         let value = this.getStorageProperty<boolean | string>("disabled") || false;
