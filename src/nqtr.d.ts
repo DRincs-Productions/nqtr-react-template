@@ -14,6 +14,16 @@ declare module "@drincs/nqtr/dist/override" {
     interface RoomInterface extends MyRoomInterface {}
     interface StageInterface extends MyStageInterface {}
 }
+interface StageFlags {
+    /**
+     * The flag for checking if the condition is met.
+     */
+    flag: string;
+    /**
+     * The description of the flag.
+     */
+    description: string;
+}
 interface MyActivityInterface {
     /**
      * The name of the activity.

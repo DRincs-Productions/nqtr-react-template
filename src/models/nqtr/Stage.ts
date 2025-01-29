@@ -1,6 +1,6 @@
 import { StageInterface } from "@drincs/nqtr";
 import StageStoredClass from "@drincs/nqtr/dist/classes/quest/StageStoredClass";
-import { MyStageInterface } from "../../nqtr";
+import { MyStageInterface, StageFlags } from "../../nqtr";
 
 export default class Stage extends StageStoredClass implements MyStageInterface {
     constructor(
