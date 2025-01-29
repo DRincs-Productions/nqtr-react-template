@@ -57,12 +57,7 @@ interface MyCommitmentInterface {
     /**
      * The icon of the commitment.
      */
-    readonly icon:
-        | {
-              alias: string;
-              image: ImageSprite | ImageContainer;
-          }
-        | ReactNode;
+    readonly icon: ImageTimeSlots;
     /**
      * Whether is disabled. If it is a string, it is a Pixi'VN flag name.
      */
@@ -105,7 +100,7 @@ interface MyLocationInterface {
     /**
      * The icon of the location.
      */
-    readonly icon: string | undefined;
+    readonly icon?: ImageTimeSlots;
 }
 interface MyMapInterface {
     /**
@@ -168,7 +163,7 @@ interface MyRoomInterface {
     /**
      * The icon of the room.
      */
-    readonly icon?: string;
+    readonly icon?: ImageTimeSlots;
 }
 interface MyStageInterface {
     /**

@@ -16,6 +16,6 @@ export default class Map extends MapStoredClass implements MyMapInterface {
         this.name = props.name;
         this.image = props.image;
     }
-    name: string;
-    image: ImageTimeSlots;
+    readonly name: string;
+    readonly image: ImageTimeSlots;
 }

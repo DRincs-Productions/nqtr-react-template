@@ -12,21 +12,20 @@ export default class Room extends RoomStoredClass implements MyRoomInterface {
             disabled?: boolean | string;
             hidden?: boolean | string;
             image: ImageTimeSlots;
-            icon?: string;
+            icon?: ImageTimeSlots;
             defaultActivities?: any[];
         }
     ) {
         super(id, location, props.defaultActivities);
-        this._name = props.name;
+        this.name = props.name;
         this.icon = props.icon;
         this.disabled = props.disabled;
         this.hidden = props.hidden;
         this.image = props.image;
     }
-    private _name: string;
-    get name(): string {
-        return this._name;
-    }
+    readonly name: string;
+    readonly image: ImageTimeSlots;
+    readonly icon?: ImageTimeSlots;
     get disabled(): boolean {
         let value = this.getStorageProperty<boolean | string>("disabled") || false;
         if (typeof value === "string") {
@@ -47,6 +46,4 @@ export default class Room extends RoomStoredClass implements MyRoomInterface {
     set hidden(value: boolean | string | undefined) {
         this.setStorageProperty("hidden", value);
     }
-    image: ImageTimeSlots;
-    icon?: string;
 }
