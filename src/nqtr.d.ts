@@ -115,7 +115,7 @@ interface MyMapInterface {
     /**
      * The image of the map.
      */
-    readonly image?: string;
+    readonly image: ImageTimeSlots;
 }
 interface MyQuestInterface {
     /**

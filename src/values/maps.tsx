@@ -1,12 +1,12 @@
-import { MapBaseModel } from "@drincs/nqtr";
+import Map from "../models/nqtr/Map";
 
-export const mainMap = new MapBaseModel('main_map', {
+export const mainMap = new Map("main_map", {
     neighboringMaps: {
         // "north": nightcityMap,
     },
 });
 
-export const nightcityMap = new MapBaseModel('nightcity_map', {
+export const nightcityMap = new Map("nightcity_map", {
     neighboringMaps: {
         // "south": mainMap,
     },

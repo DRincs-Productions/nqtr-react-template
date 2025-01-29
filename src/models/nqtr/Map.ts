@@ -1,4 +1,3 @@
-import { MapInterface } from "@drincs/nqtr";
+import { MyMapInterface } from "../../nqtr";
 
-export default class Map implements MapInterface {
-}
+export default class Map implements MyMapInterface {}
