@@ -4,6 +4,7 @@ import BedIcon from "@mui/icons-material/Bed";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import NavigationRoundIconButton from "../components/NavigationRoundIconButton";
+import { NARRATION_ROUTE } from "../constans";
 import { napLabel, sleepLabel } from "../labels/sleepNapLabels";
 import { orderProductLabel, takeKeyLabel } from "../labels/variousActionsLabels";
 import Activity from "../models/nqtr/Activity";
@@ -11,7 +12,7 @@ import Activity from "../models/nqtr/Activity";
 export const nap = new Activity(
     "nap",
     (_, event) => {
-        event.navigate("/game");
+        event.navigate(NARRATION_ROUTE);
         if (timeTracker.nowIsBetween(5, 23)) {
             narration.jumpLabel(napLabel, event);
         } else {
@@ -43,7 +44,7 @@ export const nap = new Activity(
 export const orderProduct = new Activity(
     "order_product",
     (_, event) => {
-        event.navigate("/game");
+        event.navigate(NARRATION_ROUTE);
         narration.jumpLabel(orderProductLabel, event);
     },
     {
@@ -71,7 +72,7 @@ export const orderProduct = new Activity(
 export const takeProduct = new Activity(
     "take_product",
     (_, event) => {
-        event.navigate("/game");
+        event.navigate(NARRATION_ROUTE);
         narration.jumpLabel(takeKeyLabel, event);
     },
     {

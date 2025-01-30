@@ -2,6 +2,7 @@ import { saveCommitment } from "@drincs/nqtr";
 import { narration } from "@drincs/pixi-vn";
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import NavigationRoundIconButton from "../components/NavigationRoundIconButton";
+import { NARRATION_ROUTE } from "../constans";
 import { aliceTalkMenuLabel, talkSleepLabel } from "../labels/variousActionsLabels";
 import ImageTimeSlots from "../models/ImageTimeSlots";
 import Commitment from "../models/nqtr/Commitment";
@@ -35,7 +36,7 @@ const aliceSleep = new Commitment("alice_sleep", alice, aliceRoom, {
         );
     },
     onRun: (_, event) => {
-        event.navigate("/game");
+        event.navigate(NARRATION_ROUTE);
         narration.jumpLabel(talkSleepLabel, event);
     },
 });
@@ -73,7 +74,7 @@ const aliceSmokes = new Commitment("alice_smokes", alice, terrace, {
         );
     },
     onRun: (_, event) => {
-        event.navigate("/game");
+        event.navigate(NARRATION_ROUTE);
         narration.jumpLabel(aliceTalkMenuLabel, event);
     },
 });

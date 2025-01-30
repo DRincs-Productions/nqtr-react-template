@@ -1,5 +1,6 @@
 import { routine, saveCommitment } from "@drincs/nqtr";
 import { narration } from "@drincs/pixi-vn";
+import { NARRATION_ROUTE } from "../constans";
 import { talkAliceQuest } from "../labels/variousActionsLabels";
 import ImageTimeSlots from "../models/ImageTimeSlots";
 import Commitment from "../models/nqtr/Commitment";
@@ -18,7 +19,7 @@ const talkAlice1Commit = new Commitment("talk_alice1", alice, terrace, {
     executionType: "automatic",
     priority: 1,
     onRun: (_, event) => {
-        event.navigate("/game");
+        event.navigate(NARRATION_ROUTE);
         narration.jumpLabel(talkAliceQuest, event);
         routine.remove(talkAlice1Commit);
     },
