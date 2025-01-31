@@ -1,6 +1,6 @@
 import { timeTracker } from "@drincs/nqtr";
-import { Stack, Typography, useTheme } from "@drincs/react-components";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import { Stack, Typography, useTheme } from "@mui/joy";
 import { useQueryClient } from "@tanstack/react-query";
 import { motion } from "motion/react";
 import { useSnackbar } from "notistack";

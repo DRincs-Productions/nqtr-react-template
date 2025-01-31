@@ -1,9 +1,9 @@
 import { questsNotebook } from "@drincs/nqtr";
-import { Box, Link, ModalDialogExtended, Sheet } from "@drincs/react-components";
-import { AspectRatio, Divider, Stack, Typography } from "@mui/joy";
+import { AspectRatio, Box, Divider, Link, Sheet, Stack, Typography } from "@mui/joy";
 import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import ModalDialogCustom from "../../components/ModalDialog";
 
 type QuestDescription = {
     id: string;
@@ -93,7 +93,7 @@ export default function MemoScreen() {
             control={methods.control}
             name='open'
             render={({ field: { value: open } }) => (
-                <ModalDialogExtended
+                <ModalDialogCustom
                     open={open}
                     setOpen={(value) => methods.setValue("open", value)}
                     head={
@@ -231,7 +231,7 @@ export default function MemoScreen() {
                             </Stack>
                         </Sheet>
                     </Box>
-                </ModalDialogExtended>
+                </ModalDialogCustom>
             )}
         />
     );

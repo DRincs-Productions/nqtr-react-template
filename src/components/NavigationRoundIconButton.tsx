@@ -1,5 +1,6 @@
 import { OnRunProps } from "@drincs/nqtr";
-import { ImageBackdrop, ImageSrc, useTheme } from "@drincs/react-components";
+import { ImageBackdrop, ImageSrc } from "@drincs/react-components";
+import { useTheme } from "@mui/joy";
 import { motion } from "motion/react";
 import { useSnackbar } from "notistack";
 import { isValidElement, ReactElement } from "react";
