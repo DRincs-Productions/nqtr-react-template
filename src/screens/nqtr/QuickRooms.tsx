@@ -1,5 +1,5 @@
 import { navigator } from "@drincs/nqtr";
-import { ImageBackdrop, ImageSrc, StackOverflow } from "@drincs/react-components";
+import { StackOverflow } from "@drincs/react-components";
 import { useQueryClient } from "@tanstack/react-query";
 import { AnimatePresence } from "motion/react";
 import NavigationRoundIconButton from "../../components/NavigationRoundIconButton";
@@ -38,10 +38,12 @@ export default function QuickRooms() {
                             }
                         }}
                         ariaLabel={room.name}
-                    >
-                        <ImageSrc image={icon} />
-                        <ImageBackdrop />
-                    </NavigationRoundIconButton>
+                        sx={{
+                            backgroundImage: `url(${icon})`,
+                            backgroundSize: "cover",
+                            backgroundPosition: "center",
+                        }}
+                    />
                 ))}
             </AnimatePresence>
         </StackOverflow>
