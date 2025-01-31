@@ -1,8 +1,8 @@
 import { navigator } from "@drincs/nqtr";
-import { StackOverflow } from "@drincs/react-components";
 import { useQueryClient } from "@tanstack/react-query";
 import { AnimatePresence } from "motion/react";
 import { NavigationRoundIconButtonConvertor } from "../../components/NavigationRoundIconButton";
+import StackOverflow from "../../components/StackOverflow.tsx";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "../../use_query/useQueryInterface";
 import { useQueryQuickRooms } from "../../use_query/useQueryNQTRComponents";
 

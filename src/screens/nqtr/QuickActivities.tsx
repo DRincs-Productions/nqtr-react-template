@@ -1,8 +1,8 @@
-import { StackOverflow } from "@drincs/react-components";
 import { AnimatePresence } from "motion/react";
 import { useSnackbar } from "notistack";
 import { useTranslation } from "react-i18next";
 import { NavigationRoundIconButtonConvertor } from "../../components/NavigationRoundIconButton";
+import StackOverflow from "../../components/StackOverflow.tsx";
 import { useQueryCurrentActivities, useQueryCurrentRoutine } from "../../use_query/useQueryNQTR";
 import { useMyNavigate } from "../../utils/navigate-utility";
 
