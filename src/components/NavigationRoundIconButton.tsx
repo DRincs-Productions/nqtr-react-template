@@ -1,5 +1,5 @@
 import { OnRunProps } from "@drincs/nqtr";
-import { ImageBackdrop, ImageSrc } from "@drincs/react-components";
+import { Assets } from "@drincs/pixi-vn";
 import { useTheme } from "@mui/joy";
 import { motion } from "motion/react";
 import { useSnackbar } from "notistack";
@@ -34,7 +34,7 @@ export default function NavigationRoundIconButton(props: NavigationRoundIconButt
 
 export function NavigationRoundIconButtonConvertor(
     props: NavigationRoundIconButtonProps & {
-        image?: ImageTimeSlots | ReactElement | ((props: OnRunProps) => ReactElement);
+        image?: string | ImageTimeSlots | ReactElement | ((props: OnRunProps) => ReactElement);
     }
 ) {
     let { image, ...rest } = props;
@@ -53,12 +53,27 @@ export function NavigationRoundIconButtonConvertor(
     }
     if (isValidElement(image)) {
         return image;
-    } else if (image instanceof ImageTimeSlots) {
+    }
+
+    if (image instanceof ImageTimeSlots) {
+        image = image.src;
+    }
+
+    if (typeof image == "string") {
+        try {
+            // check if the image is a PixiAsset
+            image = Assets.resolver.resolve(image).src || image;
+        } catch {}
         return (
-            <NavigationRoundIconButton {...rest}>
-                {image && <ImageSrc image={image.src} />}
-                {image && <ImageBackdrop />}
-            </NavigationRoundIconButton>
+            <NavigationRoundIconButton
+                {...rest}
+                sx={{
+                    backgroundImage: `url(${image})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    ...rest.sx,
+                }}
+            />
         );
     }
 }

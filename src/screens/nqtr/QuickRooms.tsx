@@ -2,7 +2,7 @@ import { navigator } from "@drincs/nqtr";
 import { StackOverflow } from "@drincs/react-components";
 import { useQueryClient } from "@tanstack/react-query";
 import { AnimatePresence } from "motion/react";
-import NavigationRoundIconButton from "../../components/NavigationRoundIconButton";
+import { NavigationRoundIconButtonConvertor } from "../../components/NavigationRoundIconButton";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "../../use_query/useQueryInterface";
 import { useQueryQuickRooms } from "../../use_query/useQueryNQTRComponents";
 
@@ -27,7 +27,7 @@ export default function QuickRooms() {
         >
             <AnimatePresence>
                 {rooms.map(({ disabled, icon, room, selected }) => (
-                    <NavigationRoundIconButton
+                    <NavigationRoundIconButtonConvertor
                         key={"room" + room.id}
                         disabled={disabled || selected}
                         selected={selected}
@@ -38,11 +38,7 @@ export default function QuickRooms() {
                             }
                         }}
                         ariaLabel={room.name}
-                        sx={{
-                            backgroundImage: `url(${icon})`,
-                            backgroundSize: "cover",
-                            backgroundPosition: "center",
-                        }}
+                        image={icon}
                     />
                 ))}
             </AnimatePresence>
