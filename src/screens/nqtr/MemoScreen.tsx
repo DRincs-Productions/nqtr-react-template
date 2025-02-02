@@ -1,9 +1,9 @@
 import { questsNotebook } from "@drincs/nqtr";
 import { AspectRatio, Box, Divider, Link, Sheet, Stack, Typography } from "@mui/joy";
 import { useEffect } from "react";
-import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import ModalDialogCustom from "../../components/ModalDialog";
+import useHistoryScreenStore from "../../stores/useHistoryScreenStore";
 
 type QuestDescription = {
     id: string;
@@ -19,20 +19,7 @@ type QuestDescription = {
 
 export default function MemoScreen() {
     const { t } = useTranslation(["translation"]);
-    const methods = useForm<{
-        open: boolean;
-        selectedQuest: QuestDescription | undefined;
-        quests: QuestDescription[];
-        completedQuests: QuestDescription[];
-    }>({
-        defaultValues: {
-            open: false,
-            selectedQuest: undefined,
-            quests: [],
-            completedQuests: [],
-        },
-    });
-    const selectedQuest = methods.watch("selectedQuest");
+    const open = useHistoryScreenStore((state) => state.open);
 
     useEffect(() => {
         window.addEventListener("keydown", onkeydown);
@@ -89,150 +76,132 @@ export default function MemoScreen() {
     }
 
     return (
-        <Controller
-            control={methods.control}
-            name='open'
-            render={({ field: { value: open } }) => (
-                <ModalDialogCustom
-                    open={open}
-                    setOpen={(value) => methods.setValue("open", value)}
-                    head={
-                        <Stack
-                            sx={{
-                                width: "100%",
-                            }}
-                        >
-                            <Stack sx={{ mb: 2 }}>
-                                <Typography level='h2'>{t("quests")}</Typography>
-                            </Stack>
-                        </Stack>
-                    }
-                    minWidth='80%'
+        <ModalDialogCustom
+            open={open}
+            setOpen={(value) => methods.setValue("open", value)}
+            head={
+                <Stack
                     sx={{
-                        maxHeight: "100%",
+                        width: "100%",
                     }}
                 >
-                    <Box
-                        sx={{
-                            display: "flex",
-                            minHeight: "100%",
-                        }}
-                    >
-                        <Sheet
-                            className='Sidebar'
-                            sx={{
-                                position: "sticky",
-                                transition: "transform 0.4s, width 0.4s",
-                                width: 200,
-                                top: 0,
-                                p: 2,
-                                flexShrink: 0,
-                                display: "flex",
-                                flexDirection: "column",
-                                gap: 2,
-                            }}
-                        >
-                            <Controller
-                                control={methods.control}
-                                name='quests'
-                                render={({ field: { value: quests } }) => (
-                                    <Box>
-                                        {quests.map((quest) => (
-                                            <Box
-                                                key={quest.id}
-                                                sx={{
-                                                    display: "flex",
-                                                    flexDirection: "column",
-                                                    gap: 1,
-                                                }}
-                                            >
-                                                <Link
-                                                    disabled={selectedQuest?.id === quest.id}
-                                                    onClick={() => {
-                                                        methods.setValue("selectedQuest", quest);
-                                                    }}
-                                                >
-                                                    {quest.name}
-                                                </Link>
-                                            </Box>
-                                        ))}
-                                    </Box>
-                                )}
-                            />
-                            <Controller
-                                control={methods.control}
-                                name='completedQuests'
-                                render={({ field: { value: quests } }) => (
-                                    <Box>
-                                        {quests.length > 0 && <Typography level='h4'>{t("completed")}</Typography>}
-                                        {quests.map((quest) => (
-                                            <Box
-                                                key={quest.id}
-                                                sx={{
-                                                    display: "flex",
-                                                    flexDirection: "column",
-                                                    gap: 1,
-                                                }}
-                                            >
-                                                <Link
-                                                    disabled={selectedQuest?.id === quest.id}
-                                                    onClick={() => {
-                                                        methods.setValue("selectedQuest", quest);
-                                                    }}
-                                                >
-                                                    {quest.name}
-                                                </Link>
-                                            </Box>
-                                        ))}
-                                    </Box>
-                                )}
-                            />
-                        </Sheet>
-                        <Sheet
-                            component='main'
-                            className='MainContent'
-                            sx={{
-                                flex: 1,
-                                display: "flex",
-                                flexDirection: "column",
-                                minWidth: 0,
-                                gap: 1,
-                                overflow: "auto",
-                                p: 5,
-                            }}
-                        >
-                            <Stack spacing={1}>
-                                {selectedQuest?.questImage && (
-                                    <AspectRatio maxHeight={"10dvh"} objectFit='cover'>
-                                        <img src={selectedQuest.questImage} />
-                                    </AspectRatio>
-                                )}
-                                <Typography level='h2' textAlign={"center"}>
-                                    {selectedQuest?.name}
-                                </Typography>
-                                <Typography
-                                    maxHeight={"20dvh"}
-                                    textColor={"primary.500"}
-                                    sx={{
-                                        overflowY: "auto",
+                    <Stack sx={{ mb: 2 }}>
+                        <Typography level='h2'>{t("quests")}</Typography>
+                    </Stack>
+                </Stack>
+            }
+            minWidth='80%'
+            sx={{
+                maxHeight: "100%",
+            }}
+        >
+            <Box
+                sx={{
+                    display: "flex",
+                    minHeight: "100%",
+                }}
+            >
+                <Sheet
+                    className='Sidebar'
+                    sx={{
+                        position: "sticky",
+                        transition: "transform 0.4s, width 0.4s",
+                        width: 200,
+                        top: 0,
+                        p: 2,
+                        flexShrink: 0,
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 2,
+                    }}
+                >
+                    <Box>
+                        {quests.map((quest) => (
+                            <Box
+                                key={quest.id}
+                                sx={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    gap: 1,
+                                }}
+                            >
+                                <Link
+                                    disabled={selectedQuest?.id === quest.id}
+                                    onClick={() => {
+                                        methods.setValue("selectedQuest", quest);
                                     }}
                                 >
-                                    {selectedQuest?.description}
-                                </Typography>
-                                <Divider />
-                                <Typography
-                                    maxHeight={"20dvh"}
-                                    sx={{
-                                        overflowY: "auto",
-                                    }}
-                                >
-                                    {selectedQuest?.currentStage?.description}
-                                </Typography>
-                            </Stack>
-                        </Sheet>
+                                    {quest.name}
+                                </Link>
+                            </Box>
+                        ))}
                     </Box>
-                </ModalDialogCustom>
-            )}
-        />
+                    <Box>
+                        {quests.length > 0 && <Typography level='h4'>{t("completed")}</Typography>}
+                        {quests.map((quest) => (
+                            <Box
+                                key={quest.id}
+                                sx={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    gap: 1,
+                                }}
+                            >
+                                <Link
+                                    disabled={selectedQuest?.id === quest.id}
+                                    onClick={() => {
+                                        methods.setValue("selectedQuest", quest);
+                                    }}
+                                >
+                                    {quest.name}
+                                </Link>
+                            </Box>
+                        ))}
+                    </Box>
+                </Sheet>
+                <Sheet
+                    component='main'
+                    className='MainContent'
+                    sx={{
+                        flex: 1,
+                        display: "flex",
+                        flexDirection: "column",
+                        minWidth: 0,
+                        gap: 1,
+                        overflow: "auto",
+                        p: 5,
+                    }}
+                >
+                    <Stack spacing={1}>
+                        {selectedQuest?.questImage && (
+                            <AspectRatio maxHeight={"10dvh"} objectFit='cover'>
+                                <img src={selectedQuest.questImage} />
+                            </AspectRatio>
+                        )}
+                        <Typography level='h2' textAlign={"center"}>
+                            {selectedQuest?.name}
+                        </Typography>
+                        <Typography
+                            maxHeight={"20dvh"}
+                            textColor={"primary.500"}
+                            sx={{
+                                overflowY: "auto",
+                            }}
+                        >
+                            {selectedQuest?.description}
+                        </Typography>
+                        <Divider />
+                        <Typography
+                            maxHeight={"20dvh"}
+                            sx={{
+                                overflowY: "auto",
+                            }}
+                        >
+                            {selectedQuest?.currentStage?.description}
+                        </Typography>
+                    </Stack>
+                </Sheet>
+            </Box>
+        </ModalDialogCustom>
     );
 }
