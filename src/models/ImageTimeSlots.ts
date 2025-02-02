@@ -1,5 +1,11 @@
 import { timeTracker } from "@drincs/nqtr";
-import { TimeSlotsEnumNumber } from "../model/TimeSlots";
+
+enum TimeSlotsEnumNumber {
+    MORNING = 0,
+    AFTERNOON = 1,
+    EVENING = 2,
+    NIGHT = 3,
+}
 
 export default class ImageTimeSlots {
     constructor(data: { morning: string; afternoon: string; evening: string; night: string } | string) {
