@@ -1,84 +1,31 @@
-import { questsNotebook } from "@drincs/nqtr";
 import { AspectRatio, Box, Divider, Link, Sheet, Stack, Typography } from "@mui/joy";
-import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import ModalDialogCustom from "../../components/ModalDialog";
-import useHistoryScreenStore from "../../stores/useHistoryScreenStore";
-
-type QuestDescription = {
-    id: string;
-    name: string;
-    description: string;
-    currentStage: {
-        description: string;
-    };
-    questImage?: string;
-    completed?: boolean;
-    isInDevelopment?: boolean;
-};
+import useEventListener from "../../hooks/useKeyDetector";
+import useMemoScreenStore from "../../stores/useMemoScreenStore";
 
 export default function MemoScreen() {
     const { t } = useTranslation(["translation"]);
-    const open = useHistoryScreenStore((state) => state.open);
+    const open = useMemoScreenStore((state) => state.open);
+    const editOpen = useMemoScreenStore((state) => state.editOpen);
+    const quests = useMemoScreenStore((state) => state.startedQuests);
+    const completedQuests = useMemoScreenStore((state) => state.completedQuests);
+    const selectedQuest = useMemoScreenStore((state) => state.selectedQuest);
+    const setSelectedQuest = useMemoScreenStore((state) => state.setSelectedQuest);
 
-    useEffect(() => {
-        window.addEventListener("keydown", onkeydown);
-        return () => {
-            window.removeEventListener("keydown", onkeydown);
-        };
-    }, []);
-
-    function onkeydown(event: KeyboardEvent) {
-        if (event.code == "KeyJ") {
-            let open = methods.getValues("open");
-            if (!open) {
-                // let selectedQuest = methods.getValues("selectedQuest")
-                methods.setValue("open", !open);
-                let quests: QuestDescription[] = questsNotebook.startedQuests.map((quest) => {
-                    let currentStageDescription = "";
-                    if (quest.currentStage) {
-                        if (quest.completed) {
-                            if (quest.inDevelopment) {
-                                currentStageDescription = t("quest_is_in_development");
-                            } else {
-                                currentStageDescription = t("completed");
-                            }
-                        } else if (!quest.currentStage.started && quest.currentStage.requestDescriptionToStart) {
-                            currentStageDescription = quest.currentStage.requestDescriptionToStart;
-                        } else if (quest.currentStage.description) {
-                            currentStageDescription = quest.currentStage.description;
-                        }
-                    }
-
-                    return {
-                        id: quest.id,
-                        name: quest.name,
-                        description: quest.description,
-                        currentStage: {
-                            description: currentStageDescription,
-                        },
-                        questImage: quest.image?.src,
-                        completed: quest.completed,
-                        isInDevelopment: quest.inDevelopment,
-                    };
-                });
-                let completedQuests: QuestDescription[] = quests.filter((quest) => {
-                    return quest.completed;
-                });
-                quests = quests.filter((quest) => {
-                    return !quest.completed;
-                });
-                methods.setValue("quests", quests);
-                methods.setValue("completedQuests", completedQuests);
-                methods.setValue("selectedQuest", quests[0]);
+    useEventListener({
+        type: "keydown",
+        listener: (event) => {
+            if (event.code == "KeyJ" && event.altKey) {
+                editOpen();
             }
-        }
-    }
+        },
+    });
 
     return (
         <ModalDialogCustom
             open={open}
-            setOpen={(value) => methods.setValue("open", value)}
+            setOpen={editOpen}
             head={
                 <Stack
                     sx={{
@@ -128,7 +75,7 @@ export default function MemoScreen() {
                                 <Link
                                     disabled={selectedQuest?.id === quest.id}
                                     onClick={() => {
-                                        methods.setValue("selectedQuest", quest);
+                                        setSelectedQuest(quest);
                                     }}
                                 >
                                     {quest.name}
@@ -137,8 +84,8 @@ export default function MemoScreen() {
                         ))}
                     </Box>
                     <Box>
-                        {quests.length > 0 && <Typography level='h4'>{t("completed")}</Typography>}
-                        {quests.map((quest) => (
+                        {completedQuests.length > 0 && <Typography level='h4'>{t("completed")}</Typography>}
+                        {completedQuests.map((quest) => (
                             <Box
                                 key={quest.id}
                                 sx={{
@@ -150,7 +97,7 @@ export default function MemoScreen() {
                                 <Link
                                     disabled={selectedQuest?.id === quest.id}
                                     onClick={() => {
-                                        methods.setValue("selectedQuest", quest);
+                                        setSelectedQuest(quest);
                                     }}
                                 >
                                     {quest.name}
