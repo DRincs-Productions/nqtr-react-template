@@ -52,12 +52,18 @@ export function useQueryQuickRooms() {
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, QUICK_ROOMS_USE_QUEY_KEY],
         queryFn: () => {
             return navigator.currentLocation?.rooms.map((room) => {
-                Assets.load(room.image.src);
+                let image = room.image.src;
+                let icon = room.image.src;
+                let currentCommitments = room.routine;
+                if (currentCommitments.length > 0 && currentCommitments[0].image) {
+                    image = currentCommitments[0].image.src;
+                }
+                Assets.load(image);
                 return {
-                    icon: room.image,
-                    disabled: room.disabled,
+                    ...room,
+                    image: image,
+                    icon: icon,
                     selected: room.id === navigator.currentRoom?.id,
-                    room: room,
                 };
             });
         },
