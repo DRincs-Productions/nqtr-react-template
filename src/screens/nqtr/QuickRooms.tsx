@@ -4,7 +4,7 @@ import { AnimatePresence } from "motion/react";
 import { NavigationRoundIconButtonConvertor } from "../../components/NavigationRoundIconButton";
 import StackOverflow from "../../components/StackOverflow.tsx";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "../../use_query/useQueryInterface";
-import { useQueryQuickRooms } from "../../use_query/useQueryNQTRComponents";
+import { useQueryQuickRooms } from "../../use_query/useQueryNQTR.ts";
 
 export default function QuickRooms() {
     const { data: rooms = [] } = useQueryQuickRooms();
