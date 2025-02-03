@@ -1,10 +1,10 @@
 import { canvas, CanvasImage } from "@drincs/pixi-vn";
 import { useEffect } from "react";
 import { CANVAS_UI_LAYER_NAME } from "../constans";
-import { useQueryCurrentPosition, useQueryTime } from "../use_query/useQueryNQTR";
+import { useQueryCurrentRoom, useQueryTime } from "../use_query/useQueryNQTR";
 
 export default function useNQTRDetector() {
-    const { data: currentRoom } = useQueryCurrentPosition();
+    const { data: currentRoom } = useQueryCurrentRoom();
     const { data: hour } = useQueryTime();
 
     useEffect(() => {

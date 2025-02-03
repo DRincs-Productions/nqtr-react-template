@@ -4,10 +4,11 @@ import { AnimatePresence } from "motion/react";
 import { NavigationRoundIconButtonConvertor } from "../../components/NavigationRoundIconButton";
 import StackOverflow from "../../components/StackOverflow.tsx";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "../../use_query/useQueryInterface";
-import { useQueryQuickRooms } from "../../use_query/useQueryNQTR.ts";
+import { CURRENT_ROOM_USE_QUEY_KEY, useQueryCurrentRoom, useQueryQuickRooms } from "../../use_query/useQueryNQTR.ts";
 
 export default function QuickRooms() {
     const { data: rooms = [] } = useQueryQuickRooms();
+    const { data: { room: currentRoom } = {} } = useQueryCurrentRoom();
     const queryClient = useQueryClient();
 
     return (
@@ -26,21 +27,28 @@ export default function QuickRooms() {
             }}
         >
             <AnimatePresence>
-                {rooms.map(({ disabled, icon, selected, name, room }) => (
-                    <NavigationRoundIconButtonConvertor
-                        key={"room" + room.id}
-                        disabled={disabled || selected}
-                        selected={selected}
-                        onClick={() => {
-                            if (!disabled && !selected) {
-                                navigator.currentRoom = room;
-                                queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] });
-                            }
-                        }}
-                        ariaLabel={name}
-                        image={icon.src}
-                    />
-                ))}
+                {rooms.map((props) => {
+                    const { disabled, icon, name, room } = props;
+                    const selected = currentRoom?.id === room.id;
+                    return (
+                        <NavigationRoundIconButtonConvertor
+                            key={"room" + room.id}
+                            disabled={disabled || selected}
+                            selected={selected}
+                            onClick={() => {
+                                if (!disabled && !selected) {
+                                    navigator.currentRoom = room;
+                                    queryClient.setQueryData(
+                                        [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_ROOM_USE_QUEY_KEY],
+                                        props
+                                    );
+                                }
+                            }}
+                            ariaLabel={name}
+                            image={icon.src}
+                        />
+                    );
+                })}
             </AnimatePresence>
         </StackOverflow>
     );
