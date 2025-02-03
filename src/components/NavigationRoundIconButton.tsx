@@ -39,7 +39,8 @@ export function NavigationRoundIconButtonConvertor(
 ) {
     let { image, ...rest } = props;
     const navigate = useMyNavigate();
-    const { t } = useTranslation(["translation"]);
+    const { t } = useTranslation(["ui"]);
+    const { t: tNarration } = useTranslation(["narration"]);
     const { enqueueSnackbar } = useSnackbar();
     if (!image) {
         return;
@@ -47,8 +48,8 @@ export function NavigationRoundIconButtonConvertor(
     if (typeof image === "function") {
         image = image({
             navigate: navigate,
-            t: t,
-            notify: (message, variant) => enqueueSnackbar(message, { variant }),
+            t: tNarration,
+            notify: (message, variant) => enqueueSnackbar(t(message), { variant }),
         });
     }
     if (isValidElement(image)) {

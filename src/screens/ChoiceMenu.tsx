@@ -16,6 +16,7 @@ export default function ChoiceMenu({ fullscreen = true }: { fullscreen?: boolean
     const [loading, setLoading] = useState(false);
     const height = useDialogueCardStore((state) => 100 - state.height);
     const { t: tNarration } = useTranslation(["narration"]);
+    const { t } = useTranslation(["ui"]);
     const navigate = useMyNavigate();
     const { data: menu = [] } = useQueryChoiceMenuOptions();
     const hidden = useInterfaceStore((state) => state.hidden || menu.length == 0);
@@ -56,7 +57,7 @@ export default function ChoiceMenu({ fullscreen = true }: { fullscreen?: boolean
                 .selectChoice(item, {
                     navigate: navigate,
                     t: tNarration,
-                    notify: (message, variant) => enqueueSnackbar(message, { variant }),
+                    notify: (message, variant) => enqueueSnackbar(t(message), { variant }),
                     ...item.props,
                 })
                 .then(() => {

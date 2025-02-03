@@ -9,7 +9,8 @@ import { BACKGROUND_ID } from "../values/constants";
 export default function useNQTRDetector() {
     const navigate = useMyNavigate();
     const { enqueueSnackbar } = useSnackbar();
-    const { t } = useTranslation(["translation"]);
+    const { t } = useTranslation(["ui"]);
+    const { t: tNarration } = useTranslation(["narration"]);
     const { data: { currentRoom } = {} } = useQueryCurrentPosition();
     const { data: hour } = useQueryTime();
 
@@ -34,7 +35,7 @@ export default function useNQTRDetector() {
         //     let icon = activity.renderIcon({
         //         navigate: navigate,
         //         t: t,
-        //         notify: (message, variant) => enqueueSnackbar(message, { variant }),
+        //         notify: (t(message), variant) => enqueueSnackbar(message, { variant }),
         //     });
         //     if (icon instanceof CanvasBase) {
         //         container.addChild(icon);
@@ -48,7 +49,7 @@ export default function useNQTRDetector() {
         //     let icon = commitment.renderIcon({
         //         navigate: navigate,
         //         t: t,
-        //         notify: (message, variant) => enqueueSnackbar(message, { variant }),
+        //         notify: (t(message), variant) => enqueueSnackbar(message, { variant }),
         //     });
         //     if (icon instanceof CanvasBase) {
         //         container.addChild(icon);
@@ -59,8 +60,8 @@ export default function useNQTRDetector() {
         if (automaticCommitment && automaticCommitment.run) {
             automaticCommitment.run({
                 navigate: navigate,
-                t: t,
-                notify: (message, variant) => enqueueSnackbar(message, { variant }),
+                t: tNarration,
+                notify: (message, variant) => enqueueSnackbar(t(message), { variant }),
             });
         }
 

@@ -8,7 +8,8 @@ import { useMyNavigate } from "../../utils/navigate-utility";
 
 export default function QuickActivities() {
     const navigate = useMyNavigate();
-    const { t } = useTranslation(["translation"]);
+    const { t: tNarration } = useTranslation(["narration"]);
+    const { t } = useTranslation(["ui"]);
     const { enqueueSnackbar } = useSnackbar();
     const { data: activities = [] } = useQueryCurrentActivities();
     const { data: routine = [] } = useQueryCurrentRoutine();
@@ -36,8 +37,8 @@ export default function QuickActivities() {
                         onClick={() => {
                             item.run({
                                 navigate: navigate,
-                                t: t,
-                                notify: (message, variant) => enqueueSnackbar(message, { variant }),
+                                t: tNarration,
+                                notify: (message, variant) => enqueueSnackbar(t(message), { variant }),
                             });
                         }}
                         ariaLabel={item.name}
@@ -51,8 +52,8 @@ export default function QuickActivities() {
                         onClick={() => {
                             item.run({
                                 navigate: navigate,
-                                t: t,
-                                notify: (message, variant) => enqueueSnackbar(message, { variant }),
+                                t: tNarration,
+                                notify: (message, variant) => enqueueSnackbar(t(message), { variant }),
                             });
                         }}
                         ariaLabel={item.name}

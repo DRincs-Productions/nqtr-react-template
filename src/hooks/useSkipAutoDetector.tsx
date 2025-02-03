@@ -13,6 +13,7 @@ import { useMyNavigate } from "../utils/navigate-utility";
 export default function useSkipAutoDetector() {
     const navigate = useMyNavigate();
     const { t: tNarration } = useTranslation(["narration"]);
+    const { t } = useTranslation(["ui"]);
     const skipEnabled = useSkipStore((state) => state.enabled);
     const autoEnabled = useAutoInfoStore((state) => state.enabled);
     const autoTime = useAutoInfoStore((state) => state.time);
@@ -33,7 +34,7 @@ export default function useSkipAutoDetector() {
                 .goNext({
                     t: tNarration,
                     navigate,
-                    notify: (message, variant) => enqueueSnackbar(message, { variant }),
+                    notify: (message, variant) => enqueueSnackbar(t(message), { variant }),
                 })
                 .then(() => {
                     queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] });

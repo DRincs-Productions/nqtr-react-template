@@ -36,7 +36,7 @@ export default function NextButton() {
                 .goNext({
                     t: tNarration,
                     navigate,
-                    notify: (message, variant) => enqueueSnackbar(message, { variant }),
+                    notify: (message, variant) => enqueueSnackbar(t(message), { variant }),
                 })
                 .then(() => {
                     queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] });
