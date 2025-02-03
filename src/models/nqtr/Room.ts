@@ -1,4 +1,4 @@
-import { LocationInterface, RoomInterface, RoomStoredClass } from "@drincs/nqtr";
+import { ActivityInterface, LocationInterface, RoomInterface, RoomStoredClass } from "@drincs/nqtr";
 import { storage } from "@drincs/pixi-vn";
 import ImageTimeSlots from "../ImageTimeSlots";
 
@@ -11,11 +11,11 @@ export default class Room extends RoomStoredClass implements RoomInterface {
             disabled?: boolean | string;
             hidden?: boolean | string;
             image: ImageTimeSlots;
-            defaultActivities?: any[];
+            activities?: ActivityInterface[];
             isEntrance?: boolean;
         }
     ) {
-        super(id, location, props.defaultActivities);
+        super(id, location, props.activities);
         this.name = props.name;
         this.disabled = props.disabled;
         this.hidden = props.hidden;

@@ -1,4 +1,4 @@
-import { timeTracker } from "@drincs/nqtr";
+import { saveActivity, timeTracker } from "@drincs/nqtr";
 import { narration } from "@drincs/pixi-vn";
 import BedIcon from "@mui/icons-material/Bed";
 import InventoryIcon from "@mui/icons-material/Inventory";
@@ -96,3 +96,5 @@ export const takeProduct = new Activity(
         },
     }
 );
+
+saveActivity([nap, orderProduct, takeProduct]);

@@ -12,7 +12,7 @@ export const mcRoom = new Room("mc_room", mcHome, {
         evening: "location_myroom-2",
         night: "location_myroom-3",
     }),
-    defaultActivities: [nap],
+    activities: [nap],
 });
 
 export const aliceRoom = new Room("alice_room", mcHome, {
