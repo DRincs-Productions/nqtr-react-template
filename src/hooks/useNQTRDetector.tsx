@@ -22,6 +22,7 @@ export default function useNQTRDetector() {
         let backgroundImage = currentRoom.image.src;
         let image = new CanvasImage({}, backgroundImage);
         image.load();
+        canvas.getLayer(CANVAS_UI_LAYER_NAME)?.removeChildren();
         canvas.getLayer(CANVAS_UI_LAYER_NAME)?.addChild(image);
 
         // currentRoom.activities.forEach((activity) => {
@@ -60,6 +61,10 @@ export default function useNQTRDetector() {
                 notify: (message, variant) => enqueueSnackbar(t(message), { variant }),
             });
         }
+
+        return () => {
+            canvas.getLayer(CANVAS_UI_LAYER_NAME)?.removeChildren();
+        };
     }, [currentRoom, hour]);
 
     return null;
