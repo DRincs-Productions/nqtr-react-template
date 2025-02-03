@@ -4,3 +4,5 @@ export const NARRATION_ROUTE = "/narration";
 export const NAVIGATION_ROUTE = "/navigation";
 
 export const REFRESH_SAVE_LOCAL_STORAGE_KEY = "refresh_save";
+
+export const CANVAS_UI_LAYER_NAME = "ui";

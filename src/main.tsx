@@ -1,7 +1,8 @@
 import { routine, timeTracker } from "@drincs/nqtr";
-import { canvas, clearAllGameDatas, narration, storage } from "@drincs/pixi-vn";
+import { canvas, clearAllGameDatas, Container, narration, storage } from "@drincs/pixi-vn";
 import { createRoot } from "react-dom/client";
 import App from "./App";
+import { CANVAS_UI_LAYER_NAME } from "./constans";
 import "./index.css";
 import startLabel from "./labels/startLabel";
 import "./values/characters";
@@ -19,6 +20,8 @@ canvas
         backgroundColor: "#303030",
     })
     .then(() => {
+        canvas.addLayer(CANVAS_UI_LAYER_NAME, new Container());
+
         // React setup with ReactDOM
         const root = document.getElementById("root");
         if (!root) {

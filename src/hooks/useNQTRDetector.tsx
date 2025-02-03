@@ -1,10 +1,10 @@
-import { canvas, CanvasContainer, CanvasImage } from "@drincs/pixi-vn";
+import { canvas, CanvasImage } from "@drincs/pixi-vn";
 import { useSnackbar } from "notistack";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { CANVAS_UI_LAYER_NAME } from "../constans";
 import { useQueryCurrentPosition, useQueryTime } from "../use_query/useQueryNQTR";
 import { useMyNavigate } from "../utils/navigate-utility";
-import { BACKGROUND_ID } from "../values/constants";
 
 export default function useNQTRDetector() {
     const navigate = useMyNavigate();
@@ -20,13 +20,9 @@ export default function useNQTRDetector() {
         }
         let currentCommitments = currentRoom.routine;
         let backgroundImage = currentRoom.image.src;
-        if (currentCommitments.length > 0 && currentCommitments[0].image) {
-            backgroundImage = currentCommitments[0].image.src;
-        }
-        let container = new CanvasContainer();
         let image = new CanvasImage({}, backgroundImage);
         image.load();
-        container.addChild(image);
+        canvas.getLayer(CANVAS_UI_LAYER_NAME)?.addChild(image);
 
         // currentRoom.activities.forEach((activity) => {
         //     if (!activity.renderIcon) {
@@ -64,8 +60,6 @@ export default function useNQTRDetector() {
                 notify: (message, variant) => enqueueSnackbar(t(message), { variant }),
             });
         }
-
-        canvas.add(BACKGROUND_ID, container);
     }, [currentRoom, hour]);
 
     return null;

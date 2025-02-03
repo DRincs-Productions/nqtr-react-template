@@ -26,19 +26,19 @@ export default function QuickRooms() {
             }}
         >
             <AnimatePresence>
-                {rooms.map(({ disabled, icon, id, selected, name }) => (
+                {rooms.map(({ disabled, icon, selected, name, room }) => (
                     <NavigationRoundIconButtonConvertor
-                        key={"room" + id}
+                        key={"room" + room.id}
                         disabled={disabled || selected}
                         selected={selected}
                         onClick={() => {
                             if (!disabled && !selected) {
-                                navigator.currentRoom = id;
+                                navigator.currentRoom = room;
                                 queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] });
                             }
                         }}
                         ariaLabel={name}
-                        image={icon}
+                        image={icon.src}
                     />
                 ))}
             </AnimatePresence>

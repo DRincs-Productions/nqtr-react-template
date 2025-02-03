@@ -20,7 +20,6 @@ export function useQueryCurrentPosition() {
         queryFn: () => {
             return {
                 currentRoom: navigator.currentRoom,
-                currentLocation: navigator.currentLocation,
             };
         },
     });
@@ -52,17 +51,19 @@ export function useQueryQuickRooms() {
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, QUICK_ROOMS_USE_QUEY_KEY],
         queryFn: () => {
             return navigator.currentLocation?.rooms.map((room) => {
-                let image = room.image.src;
-                let icon = room.image.src;
+                let image = room.image;
+                let icon = room.image;
                 let currentCommitments = room.routine;
                 if (currentCommitments.length > 0 && currentCommitments[0].image) {
-                    image = currentCommitments[0].image.src;
+                    image = currentCommitments[0].image;
                 }
                 Assets.load(image);
                 return {
-                    ...room,
+                    room: room,
                     image: image,
                     icon: icon,
+                    name: room.name,
+                    disabled: room.disabled,
                     selected: room.id === navigator.currentRoom?.id,
                 };
             });
