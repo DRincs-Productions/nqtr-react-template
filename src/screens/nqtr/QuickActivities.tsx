@@ -3,7 +3,7 @@ import { useSnackbar } from "notistack";
 import { useTranslation } from "react-i18next";
 import { NavigationRoundIconButtonConvertor } from "../../components/NavigationRoundIconButton";
 import StackOverflow from "../../components/StackOverflow.tsx";
-import { useQueryCurrentActivities, useQueryCurrentRoutine } from "../../use_query/useQueryNQTR";
+import { useQueryCurrentRoom } from "../../use_query/useQueryNQTR";
 import { useMyNavigate } from "../../utils/navigate-utility";
 
 export default function QuickActivities() {
@@ -11,8 +11,7 @@ export default function QuickActivities() {
     const { t: tNarration } = useTranslation(["narration"]);
     const { t } = useTranslation(["ui"]);
     const { enqueueSnackbar } = useSnackbar();
-    const { data: activities = [] } = useQueryCurrentActivities();
-    const { data: routine = [] } = useQueryCurrentRoutine();
+    const { data: { activities = [], routine = [] } = {} } = useQueryCurrentRoom();
 
     return (
         <StackOverflow

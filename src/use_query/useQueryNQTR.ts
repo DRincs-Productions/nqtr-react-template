@@ -21,6 +21,8 @@ function getRoomInfo(room: RoomInterface) {
         name: room.name,
         disabled: room.disabled,
         automaticCommitment: automaticCommitment,
+        routine: currentCommitments,
+        activities: room.activities,
     };
 }
 
