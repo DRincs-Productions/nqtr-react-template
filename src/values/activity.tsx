@@ -29,6 +29,8 @@ export const nap = new Activity(
                         activity.run(props);
                     }}
                     ariaLabel={activity.name}
+                    variant='solid'
+                    color='primary'
                 >
                     <BedIcon
                         sx={{
@@ -57,6 +59,8 @@ export const orderProduct = new Activity(
                         activity.run(props);
                     }}
                     ariaLabel={activity.name}
+                    variant='solid'
+                    color='primary'
                 >
                     <ShoppingCartIcon
                         sx={{
@@ -85,6 +89,8 @@ export const takeProduct = new Activity(
                         activity.run(props);
                     }}
                     ariaLabel={activity.name}
+                    variant='solid'
+                    color='primary'
                 >
                     <InventoryIcon
                         sx={{

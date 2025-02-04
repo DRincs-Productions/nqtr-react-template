@@ -26,6 +26,8 @@ const aliceSleep = new Commitment("alice_sleep", alice, aliceRoom, {
                     }
                 }}
                 ariaLabel={commitment.name}
+                variant='solid'
+                color='primary'
             >
                 <QuestionAnswerIcon
                     sx={{
@@ -64,6 +66,8 @@ const aliceSmokes = new Commitment("alice_smokes", alice, terrace, {
                     }
                 }}
                 ariaLabel={commitment.name}
+                variant='solid'
+                color='primary'
             >
                 <QuestionAnswerIcon
                     sx={{
