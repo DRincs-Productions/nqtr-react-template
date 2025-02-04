@@ -4,8 +4,11 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import { AnimatePresence, motion } from "motion/react";
 import RoundIconButton, { RoundIconButtonProps } from "../../components/RoundIconButton.tsx";
 import StackOverflow from "../../components/StackOverflow.tsx.tsx";
+import useMemoScreenStore from "../../stores/useMemoScreenStore.ts";
 
 export default function NqtrQuickTools() {
+    const editOpenMemo = useMemoScreenStore((state) => state.editOpen);
+
     return (
         <>
             <StackOverflow
@@ -30,7 +33,7 @@ export default function NqtrQuickTools() {
                             }}
                         />
                     </QuickToolButton>
-                    <QuickToolButton ariaLabel='hy'>
+                    <QuickToolButton ariaLabel='hy' onClick={editOpenMemo}>
                         <NoteAltIcon
                             sx={{
                                 fontSize: { sx: "1.5rem", sm: "2rem", md: "2.5rem", lg: "3rem", xl: "4rem" },
