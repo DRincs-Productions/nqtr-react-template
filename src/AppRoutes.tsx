@@ -9,6 +9,7 @@ import MainMenu from "./screens/MainMenu";
 import TextInput from "./screens/modals/TextInput";
 import NarrationScreen from "./screens/NarrationScreen";
 import MemoScreen from "./screens/nqtr/MemoScreen";
+import NqtrQuickTools from "./screens/nqtr/NqtrQuickTools";
 import QuickActivities from "./screens/nqtr/QuickActivities";
 import QuickRooms from "./screens/nqtr/QuickRooms";
 import TimeScreen from "./screens/nqtr/TimeScreen";
@@ -48,6 +49,7 @@ function NavigationElement() {
             <QuickActivities />
             <QuickRooms />
             <TimeScreen />
+            <NqtrQuickTools />
         </>
     );
 }
