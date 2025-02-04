@@ -66,8 +66,6 @@
 		"friday" : "Friday",
 		"saturday" : "Saturday",
 		"sunday" : "Sunday",
-		"allarm_menu_item" : "{{hour}}:00",
-		"nap_menu_item" : "{{hour}} hours",
 		"nap" : "Nap",
 		"sleep" : "Sleep",
 		"wait" : "Wait",
@@ -78,5 +76,8 @@
 		"notify_quest_is_started" : "The \"{{quest}}\" quest has started.",
 		"notify_quest_is_updated" : "The \"{{quest}}\" quest has been updated."
 	},
-	"narration": {}
+	"narration": {
+		"allarm_menu_item" : "{{hour}}:00",
+		"nap_menu_item" : "{{hour}} hours"
+	}
 }
