@@ -11,7 +11,7 @@ import { useQueryTime } from "../../use_query/useQueryNQTR";
 import { wait } from "../../utils/time-utility";
 
 export default function TimeScreen() {
-    const { t } = useTranslation(["translation"]);
+    const { t } = useTranslation(["ui"]);
     const { enqueueSnackbar } = useSnackbar();
     const { data: hour = 0 } = useQueryTime();
     const queryClient = useQueryClient();
