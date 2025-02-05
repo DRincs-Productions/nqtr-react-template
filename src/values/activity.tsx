@@ -80,7 +80,7 @@ export const takeProduct = new Activity(
         narration.jumpLabel(takeKeyLabel, event);
     },
     {
-        name: "Take product",
+        name: "take_product",
         icon: (activity, props) => {
             return (
                 <NavigationRoundIconButton
