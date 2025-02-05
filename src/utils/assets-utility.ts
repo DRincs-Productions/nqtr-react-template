@@ -28,6 +28,14 @@ export async function defineAssets() {
         alias: "location_myroom-3",
         src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/location/myroom-3.webp",
     });
+    Assets.add({
+        alias: "alice_terrace0A",
+        src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/Alice/terrace0A.webp",
+    });
+    Assets.add({
+        alias: "alice_roomsleep0A",
+        src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/Alice/roomsleep0A.webp",
+    });
     // The game will not start until these asserts are loaded.
     await Assets.load("background_main_menu");
 

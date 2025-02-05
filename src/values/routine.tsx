@@ -13,9 +13,7 @@ const aliceSleep = new Commitment("alice_sleep", alice, aliceRoom, {
     priority: 1,
     fromHour: 20,
     toHour: 10,
-    image: new ImageTimeSlots(
-        "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/Alice/roomsleep0A.webp"
-    ),
+    image: new ImageTimeSlots("alice_roomsleep0A"),
     icon: (commitment, props) => {
         return (
             <NavigationRoundIconButton
@@ -53,9 +51,7 @@ const aliceGoSchool = new Commitment("alice_go_school", alice, classRoom, {
 const aliceSmokes = new Commitment("alice_smokes", alice, terrace, {
     fromHour: 10,
     toHour: 20,
-    image: new ImageTimeSlots(
-        "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/Alice/terrace0A.webp"
-    ),
+    image: new ImageTimeSlots("alice_terrace0A"),
     icon: (commitment, props) => {
         return (
             <NavigationRoundIconButton
