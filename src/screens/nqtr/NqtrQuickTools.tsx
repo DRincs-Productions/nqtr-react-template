@@ -2,12 +2,16 @@ import MapIcon from "@mui/icons-material/Map";
 import NoteAltIcon from "@mui/icons-material/NoteAlt";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { AnimatePresence, motion } from "motion/react";
+import { useTranslation } from "react-i18next";
 import RoundIconButton, { RoundIconButtonProps } from "../../components/RoundIconButton.tsx";
 import StackOverflow from "../../components/StackOverflow.tsx.tsx";
 import useMemoScreenStore from "../../stores/useMemoScreenStore.ts";
+import useSettingsScreenStore from "../../stores/useSettingsScreenStore.ts";
 
 export default function NqtrQuickTools() {
     const editOpenMemo = useMemoScreenStore((state) => state.editOpen);
+    const editOpenSettings = useSettingsScreenStore((state) => state.editOpen);
+    const { t } = useTranslation(["ui"]);
 
     return (
         <>
@@ -26,14 +30,14 @@ export default function NqtrQuickTools() {
                 }}
             >
                 <AnimatePresence>
-                    <QuickToolButton ariaLabel='hy'>
+                    <QuickToolButton ariaLabel={t("settings")} onClick={editOpenSettings}>
                         <SettingsIcon
                             sx={{
                                 fontSize: { sx: "1.5rem", sm: "2rem", md: "2.5rem", lg: "3rem", xl: "4rem" },
                             }}
                         />
                     </QuickToolButton>
-                    <QuickToolButton ariaLabel='hy' onClick={editOpenMemo}>
+                    <QuickToolButton ariaLabel={t("memo")} onClick={editOpenMemo}>
                         <NoteAltIcon
                             sx={{
                                 fontSize: { sx: "1.5rem", sm: "2rem", md: "2.5rem", lg: "3rem", xl: "4rem" },
@@ -57,7 +61,7 @@ export default function NqtrQuickTools() {
                 }}
             >
                 <AnimatePresence>
-                    <QuickToolButton ariaLabel='hy'>
+                    <QuickToolButton ariaLabel={t("map")}>
                         <MapIcon
                             sx={{
                                 fontSize: { sx: "1.5rem", sm: "2rem", md: "2.5rem", lg: "3rem", xl: "4rem" },
