@@ -54,21 +54,16 @@ export const terrace = new Room("terrace", mcHome, {
     name: "Terrace",
     isEntrance: true,
     image: new ImageTimeSlots({
-        morning:
-            "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/location/terrace-0.webp",
-        afternoon:
-            "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/location/terrace-1.webp",
-        evening:
-            "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/location/terrace-2.webp",
-        night: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/location/terrace-3.webp",
+        morning: "location_terrace-0",
+        afternoon: "location_terrace-1",
+        evening: "location_terrace-2",
+        night: "location_terrace-3",
     }),
 });
 
 export const gymRoom = new Room("gym_room", gym, {
     name: "Gym",
-    image: new ImageTimeSlots(
-        "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/location/gym.webp"
-    ),
+    image: new ImageTimeSlots("location_gym"),
 });
 
 export const classRoom = new Room("class_room", school, {

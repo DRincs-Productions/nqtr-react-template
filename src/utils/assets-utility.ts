@@ -80,6 +80,26 @@ export async function defineAssets() {
         alias: "location_lounge-3",
         src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/location/lounge-3.webp",
     });
+    Assets.add({
+        alias: "location_terrace-0",
+        src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/location/terrace-0.webp",
+    });
+    Assets.add({
+        alias: "location_terrace-1",
+        src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/location/terrace-1.webp",
+    });
+    Assets.add({
+        alias: "location_terrace-2",
+        src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/location/terrace-2.webp",
+    });
+    Assets.add({
+        alias: "location_terrace-3",
+        src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/location/terrace-3.webp",
+    });
+    Assets.add({
+        alias: "location_gym",
+        src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/location/gym.webp",
+    });
     // alice
     Assets.add({
         alias: "alice_terrace0A",
