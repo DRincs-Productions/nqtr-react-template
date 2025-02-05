@@ -1,5 +1,4 @@
 import { ActivityInterface, LocationInterface, LocationStoredClass, MapInterface, RoomInterface } from "@drincs/nqtr";
-import { storage } from "@drincs/pixi-vn";
 import { ReactElement } from "react";
 import ImageTimeSlots from "../ImageTimeSlots";
 
@@ -10,15 +9,15 @@ export default class Location extends LocationStoredClass implements LocationInt
         props: {
             activities?: ActivityInterface[];
             name: string;
-            disabled?: boolean;
-            hidden?: boolean;
+            disabled?: boolean | (() => boolean);
+            hidden?: boolean | (() => boolean);
             icon: ImageTimeSlots | ReactElement | ((props: Location) => ReactElement);
         }
     ) {
         super(id, map, props.activities);
         this.name = props.name;
-        this.disabled = props.disabled || false;
-        this.hidden = props.hidden || false;
+        this._defaultdisabled = props.disabled || false;
+        this._defaulthidden = props.hidden || false;
         this._icon = props.icon;
     }
     readonly name: string;
@@ -29,24 +28,26 @@ export default class Location extends LocationStoredClass implements LocationInt
         }
         return this._icon;
     }
+    private _defaultdisabled: boolean | (() => boolean) = false;
     get disabled(): boolean {
-        let value = this.getStorageProperty<boolean | string>("disabled") || false;
-        if (typeof value === "string") {
-            return storage.getFlag(value);
+        let value = this.getStorageProperty<boolean>("disabled") || this._defaultdisabled;
+        if (typeof value === "function") {
+            return value();
         }
         return value;
     }
-    set disabled(value: boolean | string) {
+    set disabled(value: boolean) {
         this.setStorageProperty("disabled", value);
     }
+    private _defaulthidden: boolean | (() => boolean) = false;
     get hidden(): boolean {
-        let value = this.getStorageProperty<boolean | string>("hidden") || false;
-        if (typeof value === "string") {
-            return storage.getFlag(value);
+        let value = this.getStorageProperty<boolean>("hidden") || this._defaulthidden;
+        if (typeof value === "function") {
+            return value();
         }
         return value;
     }
-    set hidden(value: boolean | string) {
+    set hidden(value: boolean) {
         this.setStorageProperty("hidden", value);
     }
     override get rooms(): RoomInterface[] {

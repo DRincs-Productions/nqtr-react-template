@@ -1,8 +1,8 @@
-import { saveCommitment } from "@drincs/nqtr";
+import { saveCommitment, timeTracker } from "@drincs/nqtr";
 import { narration } from "@drincs/pixi-vn";
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import NavigationRoundIconButton from "../components/NavigationRoundIconButton";
-import { NARRATION_ROUTE, WEEKEND_FLAG } from "../constans";
+import { NARRATION_ROUTE } from "../constans";
 import { aliceTalkMenuLabel, talkSleepLabel } from "../labels/variousActionsLabels";
 import ImageTimeSlots from "../models/ImageTimeSlots";
 import Commitment from "../models/nqtr/Commitment";
@@ -46,7 +46,7 @@ const aliceSleep = new Commitment("alice_sleep", alice, aliceRoom, {
 const aliceGoSchool = new Commitment("alice_go_school", alice, classRoom, {
     fromHour: 8,
     toHour: 14,
-    hidden: WEEKEND_FLAG,
+    hidden: () => timeTracker.isWeekend,
     priority: 2,
 });
 

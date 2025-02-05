@@ -1,6 +1,5 @@
 import { ActivityInterface, ActivityStoredClass, OnRunEvent } from "@drincs/nqtr";
 import { OnRunProps } from "@drincs/nqtr/dist/types/OnRunEvent";
-import { storage } from "@drincs/pixi-vn";
 import { ReactElement } from "react";
 import ImageTimeSlots from "../ImageTimeSlots";
 
@@ -15,11 +14,15 @@ export default class Activity extends ActivityStoredClass implements ActivityInt
             toDay?: number;
             name?: string;
             icon: ImageTimeSlots | ReactElement | ((props: Activity, runProps: OnRunProps) => ReactElement);
+            disabled?: boolean | (() => boolean);
+            hidden?: boolean | (() => boolean);
         }
     ) {
         super(id, onRun, props);
         this.name = props.name || "";
         this._icon = props.icon;
+        this._defaultdisabled = props.disabled || false;
+        this._defaulthidden = props.hidden || false;
     }
     readonly name: string;
     private readonly _icon: ImageTimeSlots | ReactElement | ((props: Activity, runProps: OnRunProps) => ReactElement);
@@ -30,24 +33,26 @@ export default class Activity extends ActivityStoredClass implements ActivityInt
         }
         return icon;
     }
+    private _defaultdisabled: boolean | (() => boolean) = false;
     get disabled(): boolean {
-        let value = this.getStorageProperty<boolean | string>("disabled") || false;
-        if (typeof value === "string") {
-            return storage.getFlag(value);
+        let value = this.getStorageProperty<boolean>("disabled") || this._defaultdisabled;
+        if (typeof value === "function") {
+            return value();
         }
         return value;
     }
-    set disabled(value: boolean | string) {
+    set disabled(value: boolean) {
         this.setStorageProperty("disabled", value);
     }
+    private _defaulthidden: boolean | (() => boolean) = false;
     get hidden(): boolean {
-        let value = this.getStorageProperty<boolean | string>("hidden") || false;
-        if (typeof value === "string") {
-            return storage.getFlag(value);
+        let value = this.getStorageProperty<boolean>("hidden") || this._defaulthidden;
+        if (typeof value === "function") {
+            return value();
         }
         return value;
     }
-    set hidden(value: boolean | string) {
+    set hidden(value: boolean) {
         this.setStorageProperty("hidden", value);
     }
     override get isActive(): boolean {

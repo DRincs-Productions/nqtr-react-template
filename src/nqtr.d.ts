@@ -10,21 +10,13 @@ declare module "@drincs/nqtr" {
          */
         readonly name: string;
         /**
-         * Whether is disabled. If it is a string, it is a Pixi'VN flag name.
+         * Whether is disabled.
          */
-        get disabled(): boolean;
+        disabled: boolean;
         /**
-         * Whether is hidden. If it is a string, it is a Pixi'VN flag name.
+         * Whether is hidden.
          */
-        set disabled(value: boolean | string);
-        /**
-         * Whether is hidden. If it is a string, it is a Pixi'VN flag name.
-         */
-        get hidden(): boolean;
-        /**
-         * Whether is hidden. If it is a string, it is a Pixi'VN flag name.
-         */
-        set hidden(value: boolean | string);
+        hidden: boolean;
         /**
          * The icon of the activity.
          */
@@ -44,21 +36,13 @@ declare module "@drincs/nqtr" {
          */
         readonly icon?: ImageTimeSlots | ReactElement | ((props: OnRunProps) => ReactElement);
         /**
-         * Whether is disabled. If it is a string, it is a Pixi'VN flag name.
+         * Whether is disabled.
          */
-        get disabled(): boolean;
+        disabled: boolean;
         /**
-         * Whether is hidden. If it is a string, it is a Pixi'VN flag name.
+         * Whether is hidden.
          */
-        set disabled(value: boolean | string);
-        /**
-         * Whether is hidden. If it is a string, it is a Pixi'VN flag name.
-         */
-        get hidden(): boolean;
-        /**
-         * Whether is hidden. If it is a string, it is a Pixi'VN flag name.
-         */
-        set hidden(value: boolean | string);
+        hidden: boolean;
     }
     interface LocationInterface {
         /**
@@ -67,21 +51,13 @@ declare module "@drincs/nqtr" {
          */
         readonly name: string;
         /**
-         * Whether is disabled. If it is a string, it is a Pixi'VN flag name.
+         * Whether is disabled.
          */
-        get disabled(): boolean;
+        disabled: boolean;
         /**
-         * Whether is hidden. If it is a string, it is a Pixi'VN flag name.
+         * Whether is hidden.
          */
-        set disabled(value: boolean | string);
-        /**
-         * Whether is hidden. If it is a string, it is a Pixi'VN flag name.
-         */
-        get hidden(): boolean;
-        /**
-         * Whether is hidden. If it is a string, it is a Pixi'VN flag name.
-         */
-        set hidden(value: boolean | string);
+        hidden: boolean;
         /**
          * The icon of the location.
          */
@@ -130,21 +106,13 @@ declare module "@drincs/nqtr" {
          */
         readonly image: ImageTimeSlots;
         /**
-         * Whether is disabled. If it is a string, it is a Pixi'VN flag name.
+         * Whether is disabled.
          */
-        get disabled(): boolean;
+        disabled: boolean;
         /**
-         * Whether is hidden. If it is a string, it is a Pixi'VN flag name.
+         * Whether is hidden.
          */
-        set disabled(value: boolean | string);
-        /**
-         * Whether is hidden. If it is a string, it is a Pixi'VN flag name.
-         */
-        get hidden(): boolean;
-        /**
-         * Whether is hidden. If it is a string, it is a Pixi'VN flag name.
-         */
-        set hidden(value: boolean | string);
+        hidden: boolean;
         /**
          * If is the entrance of the location. (the first room)
          */

@@ -1,5 +1,4 @@
 import { ActivityInterface, LocationInterface, RoomInterface, RoomStoredClass } from "@drincs/nqtr";
-import { storage } from "@drincs/pixi-vn";
 import ImageTimeSlots from "../ImageTimeSlots";
 
 export default class Room extends RoomStoredClass implements RoomInterface {
@@ -8,8 +7,8 @@ export default class Room extends RoomStoredClass implements RoomInterface {
         location: LocationInterface,
         props: {
             name: string;
-            disabled?: boolean | string;
-            hidden?: boolean | string;
+            disabled?: boolean | (() => boolean);
+            hidden?: boolean | (() => boolean);
             image: ImageTimeSlots;
             activities?: ActivityInterface[];
             isEntrance?: boolean;
@@ -17,32 +16,34 @@ export default class Room extends RoomStoredClass implements RoomInterface {
     ) {
         super(id, location, props.activities);
         this.name = props.name;
-        this.disabled = props.disabled;
-        this.hidden = props.hidden;
+        this._defaultdisabled = props.disabled || false;
+        this._defaulthidden = props.hidden || false;
         this.image = props.image;
         this.isEntrance = props.isEntrance || false;
     }
     readonly name: string;
     readonly image: ImageTimeSlots;
     readonly isEntrance: boolean;
+    private _defaultdisabled: boolean | (() => boolean) = false;
     get disabled(): boolean {
-        let value = this.getStorageProperty<boolean | string>("disabled") || false;
-        if (typeof value === "string") {
-            return storage.getFlag(value);
+        let value = this.getStorageProperty<boolean>("disabled") || this._defaultdisabled;
+        if (typeof value === "function") {
+            return value();
         }
         return value;
     }
-    set disabled(value: boolean | string | undefined) {
+    set disabled(value: boolean) {
         this.setStorageProperty("disabled", value);
     }
+    private _defaulthidden: boolean | (() => boolean) = false;
     get hidden(): boolean {
-        let value = this.getStorageProperty<boolean | string>("hidden") || false;
-        if (typeof value === "string") {
-            return storage.getFlag(value);
+        let value = this.getStorageProperty<boolean>("hidden") || this._defaulthidden;
+        if (typeof value === "function") {
+            return value();
         }
         return value;
     }
-    set hidden(value: boolean | string | undefined) {
+    set hidden(value: boolean) {
         this.setStorageProperty("hidden", value);
     }
 }
