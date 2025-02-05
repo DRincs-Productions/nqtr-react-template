@@ -10,6 +10,7 @@ export default function useNQTRDetector() {
     useEffect(() => {
         const { image } = currentRoom || {};
         if (image) {
+            canvas.clear();
             let component = new CanvasImage({}, image.src);
             component.load();
             canvas.getLayer(CANVAS_UI_LAYER_NAME)?.addChild(component);
