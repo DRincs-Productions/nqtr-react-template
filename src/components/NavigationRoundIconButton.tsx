@@ -19,8 +19,8 @@ export default function NavigationRoundIconButton(props: NavigationRoundIconButt
     return (
         <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }} transition={{ ease: "easeOut" }}>
             <RoundIconButton
-                circumference={{ xs: "3rem", sm: "3.5rem", md: "4rem", lg: "5rem", xl: "7rem" }}
                 sx={{
+                    "--IconButton-size": { xs: "40px", sm: "60px", md: "80px" },
                     border: 3,
                     borderColor: selected ? useTheme().palette.primary[800] : useTheme().palette.background.body,
                     ...sx,
@@ -72,6 +72,7 @@ export function NavigationRoundIconButtonConvertor(
                     backgroundImage: `url(${image})`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
+                    fontSize: { xs: "1rem", sm: "1.5rem", md: "2rem", lg: "2.5rem", xl: "3rem" },
                     ...rest.sx,
                 }}
             />
