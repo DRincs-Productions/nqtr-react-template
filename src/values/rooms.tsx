@@ -28,13 +28,10 @@ export const aliceRoom = new Room("alice_room", mcHome, {
 export const annRoom = new Room("ann_room", mcHome, {
     name: "Ann room",
     image: new ImageTimeSlots({
-        morning:
-            "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/location/annroom-0.webp",
-        afternoon:
-            "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/location/annroom-1.webp",
-        evening:
-            "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/location/annroom-2.webp",
-        night: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/location/annroom-3.webp",
+        morning: "location_annroom-0",
+        afternoon: "location_annroom-1",
+        evening: "location_annroom-2",
+        night: "location_annroom-3",
     }),
 });
 
