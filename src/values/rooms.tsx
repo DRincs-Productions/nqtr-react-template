@@ -37,21 +37,16 @@ export const annRoom = new Room("ann_room", mcHome, {
 
 const bathroom = new Room("bathroom", mcHome, {
     name: "Bathroom",
-    image: new ImageTimeSlots(
-        "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/location/bathroom.webp"
-    ),
+    image: new ImageTimeSlots("location_bathroom"),
 });
 
 export const lounge = new Room("lounge", mcHome, {
     name: "Lounge",
     image: new ImageTimeSlots({
-        morning:
-            "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/location/lounge-0.webp",
-        afternoon:
-            "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/location/lounge-1.webp",
-        evening:
-            "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/location/lounge-2.webp",
-        night: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/location/lounge-3.webp",
+        morning: "location_lounge-0",
+        afternoon: "location_lounge-1",
+        evening: "location_lounge-2",
+        night: "location_lounge-3",
     }),
 });
 
