@@ -1,7 +1,7 @@
 import { saveRoom } from "@drincs/nqtr";
 import ImageTimeSlots from "../models/ImageTimeSlots";
 import Room from "../models/nqtr/Room";
-import { nap } from "./activity";
+import { bed } from "./activity";
 import { gym, mcHome, school } from "./locations";
 
 export const mcRoom = new Room("mc_room", mcHome, {
@@ -12,7 +12,7 @@ export const mcRoom = new Room("mc_room", mcHome, {
         evening: "location_myroom-2",
         night: "location_myroom-3",
     }),
-    activities: [nap],
+    activities: [bed],
 });
 
 export const aliceRoom = new Room("alice_room", mcHome, {

@@ -9,18 +9,18 @@ import { napLabel, sleepLabel } from "../labels/sleepNapLabels";
 import { orderProductLabel, takeKeyLabel } from "../labels/variousActionsLabels";
 import Activity from "../models/nqtr/Activity";
 
-export const nap = new Activity(
-    "nap",
+export const bed = new Activity(
+    "bed",
     (_, event) => {
         event.navigate(NARRATION_ROUTE);
-        if (timeTracker.nowIsBetween(5, 23)) {
+        if (timeTracker.nowIsBetween(5, 22)) {
             narration.jumpLabel(napLabel, event);
         } else {
             narration.jumpLabel(sleepLabel, event);
         }
     },
     {
-        name: "Nap",
+        name: "bed",
         icon: (activity, props) => {
             return (
                 <NavigationRoundIconButton
@@ -50,7 +50,7 @@ export const orderProduct = new Activity(
         narration.jumpLabel(orderProductLabel, event);
     },
     {
-        name: "Order product",
+        name: "order_product",
         icon: (activity, props) => {
             return (
                 <NavigationRoundIconButton
@@ -103,4 +103,4 @@ export const takeProduct = new Activity(
     }
 );
 
-saveActivity([nap, orderProduct, takeProduct]);
+saveActivity([bed, orderProduct, takeProduct]);
