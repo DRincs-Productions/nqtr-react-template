@@ -1,4 +1,5 @@
 import { navigator } from "@drincs/nqtr";
+import { Avatar, AvatarGroup } from "@mui/joy";
 import { useQueryClient } from "@tanstack/react-query";
 import { AnimatePresence } from "motion/react";
 import { NavigationRoundIconButtonConvertor } from "../../components/NavigationRoundIconButton";
@@ -28,7 +29,7 @@ export default function QuickRooms() {
         >
             <AnimatePresence>
                 {rooms.map((props) => {
-                    const { disabled, icon, name, room } = props;
+                    const { disabled, icon, name, room, characters } = props;
                     const selected = currentRoom?.id === room.id;
                     return (
                         <NavigationRoundIconButtonConvertor
@@ -46,7 +47,50 @@ export default function QuickRooms() {
                             }}
                             ariaLabel={name}
                             image={icon.src}
-                        />
+                        >
+                            <AvatarGroup
+                                sx={{
+                                    position: "absolute",
+                                    bottom: 0,
+                                    right: 0,
+                                    "--Avatar-size": { xs: "15px", sm: "22px", md: "28px" },
+                                }}
+                            >
+                                {characters.length <= 3 && (
+                                    <>
+                                        {characters.map((character) => (
+                                            <Avatar
+                                                key={character.id}
+                                                alt={character.name}
+                                                src={character.icon}
+                                                size='sm'
+                                            />
+                                        ))}
+                                    </>
+                                )}
+                                {characters.length > 3 && (
+                                    <>
+                                        {characters.slice(0, 2).map((character) => (
+                                            <Avatar
+                                                key={character.id}
+                                                alt={character.name}
+                                                src={character.icon}
+                                                size='sm'
+                                            />
+                                        ))}
+                                        <Avatar
+                                            sx={{
+                                                backgroundColor: "rgba(0, 0, 0, 0.5)",
+                                                color: "white",
+                                            }}
+                                            size='sm'
+                                        >
+                                            +{characters.length - 2}
+                                        </Avatar>
+                                    </>
+                                )}
+                            </AvatarGroup>
+                        </NavigationRoundIconButtonConvertor>
                     );
                 })}
             </AnimatePresence>
