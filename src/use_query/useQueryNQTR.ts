@@ -23,7 +23,7 @@ function getRoomInfo(room: RoomInterface) {
         automaticCommitment: automaticCommitment,
         routine: currentCommitments,
         activities: room.activities,
-        characters: [...room.characters, ...room.characters, ...room.characters, ...room.characters],
+        characters: room.characters,
     };
 }
 
