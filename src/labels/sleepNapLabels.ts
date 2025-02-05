@@ -1,5 +1,7 @@
-import { ChoiceMenuOption, ChoiceMenuOptionClose, narration, newLabel } from "@drincs/pixi-vn";
+import { navigator } from "@drincs/nqtr";
+import { ChoiceMenuOption, ChoiceMenuOptionClose, narration, newLabel, showImage } from "@drincs/pixi-vn";
 import { sleep, wait } from "../utils/time-utility";
+import { BACKGROUND_ID } from "../values/constants";
 
 const sleepHourLabel = newLabel<{
     hour: number;
@@ -21,6 +23,7 @@ const napHourLabel = newLabel<{
 
 export const sleepLabel = newLabel("SleepLabel", [
     ({ t }) => {
+        showImage(BACKGROUND_ID, navigator.currentRoom?.image.src);
         narration.dialogue = "What time do you want to set the alarm?";
         narration.choiceMenuOptions = [
             new ChoiceMenuOption(t("allarm_menu_item", { hour: 8 }), sleepHourLabel, { hour: 8 }),
@@ -33,6 +36,7 @@ export const sleepLabel = newLabel("SleepLabel", [
 
 export const napLabel = newLabel("NapLabel", [
     ({ t }) => {
+        showImage(BACKGROUND_ID, navigator.currentRoom?.image.src);
         narration.dialogue = "You are tired and decide to take a nap.";
         narration.choiceMenuOptions = [
             new ChoiceMenuOption(t("nap_menu_item", { hour: 3 }), napHourLabel, { hour: 3 }),

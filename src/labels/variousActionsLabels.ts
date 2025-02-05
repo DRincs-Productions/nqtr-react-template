@@ -1,7 +1,15 @@
-import { ChoiceMenuOption, ChoiceMenuOptionClose, ChoiceMenuOptionsType, narration, newLabel } from "@drincs/pixi-vn";
+import {
+    ChoiceMenuOption,
+    ChoiceMenuOptionClose,
+    ChoiceMenuOptionsType,
+    narration,
+    newLabel,
+    showImage,
+} from "@drincs/pixi-vn";
 import { aliceQuest } from "../quests/aliceQuest";
 import { orderProduct, takeProduct } from "../values/activity";
 import { mc } from "../values/characters";
+import { BACKGROUND_ID } from "../values/constants";
 import { mcRoom, terrace } from "../values/rooms";
 
 export const orderProductLabel = newLabel("OrderProductLabel", [
@@ -33,6 +41,7 @@ const talkSleepResultLabel = newLabel("TalkSleepResultLabel", [
 ]);
 export const talkSleepLabel = newLabel("TalkSleepLabel", [
     () => {
+        showImage(BACKGROUND_ID, "alice_roomsleep0A");
         narration.dialogue = "zZz zZz ...";
         narration.choiceMenuOptions = [
             new ChoiceMenuOption("Try waking up", talkSleepResultLabel, {}),
