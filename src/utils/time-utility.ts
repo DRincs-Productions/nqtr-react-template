@@ -1,6 +1,7 @@
 import { navigator, OnRunProps, questsNotebook, routine, timeTracker } from "@drincs/nqtr";
 import { getFlag, storage } from "@drincs/pixi-vn";
 import { VariantType } from "notistack";
+import { NOT_WEEKEND_FLAG, WEEKEND_FLAG } from "../constans";
 
 const NOT_CAN_SPEND_TIME_FLAG_KEY = "not_can_spend_time";
 
@@ -10,8 +11,8 @@ export function sleep(newDayHour: number, props: OnRunProps): boolean {
         return false;
     }
     timeTracker.increaseDay(newDayHour);
-    storage.setFlag("weekend", timeTracker.isWeekend);
-    storage.setFlag("not_weekend", !timeTracker.isWeekend);
+    storage.setFlag(WEEKEND_FLAG, timeTracker.isWeekend);
+    storage.setFlag(NOT_WEEKEND_FLAG, !timeTracker.isWeekend);
     routine.clearExpiredRoutine();
     navigator.clearExpiredActivities();
     questsNotebook.startsStageMustBeStarted(props);
@@ -28,7 +29,7 @@ export function wait(timeSpent: number, notify: (message: string, variant: Varia
         return false;
     }
     timeTracker.increaseHour(timeSpent);
-    storage.setFlag("weekend", timeTracker.isWeekend);
-    storage.setFlag("not_weekend", !timeTracker.isWeekend);
+    storage.setFlag(WEEKEND_FLAG, timeTracker.isWeekend);
+    storage.setFlag(NOT_WEEKEND_FLAG, !timeTracker.isWeekend);
     return true;
 }

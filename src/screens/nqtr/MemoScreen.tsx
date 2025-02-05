@@ -5,7 +5,7 @@ import useEventListener from "../../hooks/useKeyDetector";
 import useMemoScreenStore from "../../stores/useMemoScreenStore";
 
 export default function MemoScreen() {
-    const { t } = useTranslation(["translation"]);
+    const { t } = useTranslation(["ui"]);
     const open = useMemoScreenStore((state) => state.open);
     const editOpen = useMemoScreenStore((state) => state.editOpen);
     const quests = useMemoScreenStore((state) => state.startedQuests);
