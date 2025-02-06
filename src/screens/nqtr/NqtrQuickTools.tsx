@@ -33,14 +33,14 @@ export default function NqtrQuickTools() {
                     <QuickToolButton ariaLabel={t("settings")} onClick={editOpenSettings}>
                         <SettingsIcon
                             sx={{
-                                fontSize: { sx: "1.5rem", sm: "2rem", md: "2.5rem", lg: "3rem", xl: "4rem" },
+                                fontSize: { xs: "1.5rem", sm: "2rem", md: "2.5rem", lg: "3rem", xl: "3.5rem" },
                             }}
                         />
                     </QuickToolButton>
                     <QuickToolButton ariaLabel={t("memo")} onClick={editOpenMemo}>
                         <NoteAltIcon
                             sx={{
-                                fontSize: { sx: "1.5rem", sm: "2rem", md: "2.5rem", lg: "3rem", xl: "4rem" },
+                                fontSize: { xs: "1.5rem", sm: "2rem", md: "2.5rem", lg: "3rem", xl: "3.5rem" },
                             }}
                         />
                     </QuickToolButton>
@@ -64,7 +64,7 @@ export default function NqtrQuickTools() {
                     <QuickToolButton ariaLabel={t("map")}>
                         <MapIcon
                             sx={{
-                                fontSize: { sx: "1.5rem", sm: "2rem", md: "2.5rem", lg: "3rem", xl: "4rem" },
+                                fontSize: { xs: "1.5rem", sm: "2rem", md: "2.5rem", lg: "3rem", xl: "3.5rem" },
                             }}
                         />
                     </QuickToolButton>
@@ -78,12 +78,12 @@ function QuickToolButton(props: RoundIconButtonProps) {
     return (
         <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }} transition={{ ease: "easeOut" }}>
             <RoundIconButton
-                circumference={{ xs: "3rem", sm: "3.5rem", md: "4rem", lg: "5rem", xl: "7rem" }}
                 sx={{
                     border: 3,
+                    "--IconButton-size": { xs: "40px", sm: "60px", md: "80px" },
+                    fontSize: { xs: "1rem", sm: "1.5rem", md: "2rem", lg: "2.5rem", xl: "3rem" },
                 }}
                 elevation='lg'
-                size='sm'
                 variant='solid'
                 color='primary'
                 {...props}

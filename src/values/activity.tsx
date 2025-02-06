@@ -34,7 +34,7 @@ export const bed = new Activity(
                 >
                     <BedIcon
                         sx={{
-                            fontSize: { sx: "1.5rem", sm: "2rem", md: "2.5rem", lg: "3rem", xl: "4rem" },
+                            fontSize: { sx: "1.5rem", sm: "2rem", md: "2.5rem", lg: "3rem", xl: "3.5rem" },
                         }}
                     />
                 </NavigationRoundIconButton>
@@ -64,7 +64,7 @@ export const orderProduct = new Activity(
                 >
                     <ShoppingCartIcon
                         sx={{
-                            fontSize: { sx: "1.5rem", sm: "2rem", md: "2.5rem", lg: "3rem", xl: "4rem" },
+                            fontSize: { sx: "1.5rem", sm: "2rem", md: "2.5rem", lg: "3rem", xl: "3.5rem" },
                         }}
                     />
                 </NavigationRoundIconButton>
@@ -94,7 +94,7 @@ export const takeProduct = new Activity(
                 >
                     <InventoryIcon
                         sx={{
-                            fontSize: { sx: "1.5rem", sm: "2rem", md: "2.5rem", lg: "3rem", xl: "4rem" },
+                            fontSize: { sx: "1.5rem", sm: "2rem", md: "2.5rem", lg: "3rem", xl: "3.5rem" },
                         }}
                     />
                 </NavigationRoundIconButton>
