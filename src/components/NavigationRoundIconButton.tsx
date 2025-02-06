@@ -2,11 +2,9 @@ import { OnRunProps } from "@drincs/nqtr";
 import { Assets } from "@drincs/pixi-vn";
 import { useTheme } from "@mui/joy";
 import { motion } from "motion/react";
-import { useSnackbar } from "notistack";
 import { isValidElement, ReactElement } from "react";
-import { useTranslation } from "react-i18next";
+import useGameProps from "../hooks/useGameProps";
 import ImageTimeSlots from "../models/ImageTimeSlots";
-import { useMyNavigate } from "../utils/navigate-utility";
 import RoundIconButton, { RoundIconButtonProps } from "./RoundIconButton";
 
 interface NavigationRoundIconButtonProps extends RoundIconButtonProps {
@@ -38,20 +36,12 @@ export function NavigationRoundIconButtonConvertor(
     }
 ) {
     let { image, ...rest } = props;
-    const navigate = useMyNavigate();
-    const { t } = useTranslation(["ui"]);
-    const { t: tNarration } = useTranslation(["narration"]);
-    const { enqueueSnackbar } = useSnackbar();
+    const gameProps = useGameProps();
     if (!image) {
         return;
     }
     if (typeof image === "function") {
-        image = image({
-            navigate: navigate,
-            t: tNarration,
-            uiTransition: t,
-            notify: (message, variant) => enqueueSnackbar(t(message), { variant }),
-        });
+        image = image(gameProps);
     }
     if (isValidElement(image)) {
         return image;

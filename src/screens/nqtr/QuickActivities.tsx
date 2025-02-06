@@ -1,27 +1,18 @@
 import { AnimatePresence } from "motion/react";
-import { useSnackbar } from "notistack";
 import { useEffect } from "react";
-import { useTranslation } from "react-i18next";
 import { NavigationRoundIconButtonConvertor } from "../../components/NavigationRoundIconButton";
 import StackOverflow from "../../components/StackOverflow.tsx";
+import useGameProps from "../../hooks/useGameProps.tsx";
 import { useQueryCurrentRoom } from "../../use_query/useQueryNQTR";
-import { useMyNavigate } from "../../utils/navigate-utility";
 
 export default function QuickActivities() {
-    const navigate = useMyNavigate();
-    const { t: tNarration } = useTranslation(["narration"]);
-    const { t } = useTranslation(["ui"]);
-    const { enqueueSnackbar } = useSnackbar();
     const { data: { activities = [], routine = [], automaticCommitment } = {} } = useQueryCurrentRoom();
+    const gameProps = useGameProps();
+    const { uiTransition: t } = gameProps;
 
     useEffect(() => {
         if (automaticCommitment) {
-            automaticCommitment({
-                navigate: navigate,
-                t: tNarration,
-                uiTransition: t,
-                notify: (message, variant) => enqueueSnackbar(t(message), { variant }),
-            });
+            automaticCommitment(gameProps);
         }
     }, [automaticCommitment]);
 
@@ -46,12 +37,7 @@ export default function QuickActivities() {
                         key={"activity" + item.id}
                         disabled={item.disabled}
                         onClick={() => {
-                            item.run({
-                                navigate: navigate,
-                                t: tNarration,
-                                uiTransition: t,
-                                notify: (message, variant) => enqueueSnackbar(t(message), { variant }),
-                            });
+                            item.run(gameProps);
                         }}
                         ariaLabel={t(item.name)}
                         image={item.icon}
@@ -62,12 +48,7 @@ export default function QuickActivities() {
                         key={"commitment" + item.id}
                         disabled={item.disabled}
                         onClick={() => {
-                            item.run({
-                                navigate: navigate,
-                                t: tNarration,
-                                uiTransition: t,
-                                notify: (message, variant) => enqueueSnackbar(t(message), { variant }),
-                            });
+                            item.run(gameProps);
                         }}
                         ariaLabel={t(item.name)}
                         image={item.icon}

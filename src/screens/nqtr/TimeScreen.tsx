@@ -77,7 +77,7 @@ export default function TimeScreen() {
                         backgroundColor: "#0000007c",
                     }}
                     onClick={() => {
-                        wait(1, (message, variant) => enqueueSnackbar(message, { variant }));
+                        wait(1, (message) => enqueueSnackbar(message));
                         queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] });
                     }}
                     elevation='sm'

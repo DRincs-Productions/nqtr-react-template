@@ -44,7 +44,7 @@ export const aliceQuest = new Quest(
         new Stage("take_products", {
             onStart: (_, { notify }) => {
                 terrace.addActivity(takeProduct);
-                notify("You can take the products on the Terrace", "info");
+                notify("You can take the products on the Terrace");
             },
             name: "Take products",
             description: "Take products on the Terrace",
@@ -63,10 +63,10 @@ export const aliceQuest = new Quest(
             'To learn more about how the repo works, Talk to Alice. \nGoing when she is there will automatically start an "Event" (see aliceQuest.tsx to learn more). \nAfter that an action will be added to open the pc, in MC room. \n\n(during the quest you can talk to Alice and you will see her talking during the quests of the same Quest)',
         image: new ImageTimeSlots("alice_terrace0A"),
         onStart: (quest, { notify, t }) => {
-            notify(t("notify_quest_is_started", { quest: quest.name }), "info");
+            notify(t("notify_quest_is_started", { quest: quest.name }));
         },
         onNextStage: (stage, { notify, t }) => {
-            notify(t("notify_quest_is_updated", { quest: stage.name }), "info");
+            notify(t("notify_quest_is_updated", { quest: stage.name }));
         },
     }
 );
