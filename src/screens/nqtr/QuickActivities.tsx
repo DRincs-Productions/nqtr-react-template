@@ -1,5 +1,6 @@
 import { AnimatePresence } from "motion/react";
 import { useSnackbar } from "notistack";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { NavigationRoundIconButtonConvertor } from "../../components/NavigationRoundIconButton";
 import StackOverflow from "../../components/StackOverflow.tsx";
@@ -11,7 +12,18 @@ export default function QuickActivities() {
     const { t: tNarration } = useTranslation(["narration"]);
     const { t } = useTranslation(["ui"]);
     const { enqueueSnackbar } = useSnackbar();
-    const { data: { activities = [], routine = [] } = {} } = useQueryCurrentRoom();
+    const { data: { activities = [], routine = [], automaticCommitment } = {} } = useQueryCurrentRoom();
+
+    useEffect(() => {
+        if (automaticCommitment) {
+            automaticCommitment({
+                navigate: navigate,
+                t: tNarration,
+                uiTransition: t,
+                notify: (message, variant) => enqueueSnackbar(t(message), { variant }),
+            });
+        }
+    }, [automaticCommitment]);
 
     return (
         <StackOverflow
