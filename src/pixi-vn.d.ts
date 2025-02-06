@@ -1,4 +1,4 @@
-import { VariantType } from "notistack";
+import { OptionsWithExtraProps, SnackbarKey, SnackbarMessage } from "notistack";
 
 declare module "@drincs/pixi-vn" {
     interface StepLabelResult {
@@ -29,8 +29,10 @@ declare module "@drincs/pixi-vn" {
          * @param variant The variant of the notification.
          * @returns
          */
-        notify: (message: string, variant: VariantType) => void;
-        [key: string]: any;
+        notify: (
+            message: SnackbarMessage,
+            options?: OptionsWithExtraProps<"default" | "error" | "success" | "warning" | "info">
+        ) => SnackbarKey;
     }
     interface CharacterInterface {
         /**
