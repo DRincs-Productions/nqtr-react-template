@@ -28,7 +28,7 @@ export const bed = new Activity(
                     onClick={() => {
                         activity.run(props);
                     }}
-                    ariaLabel={activity.name}
+                    ariaLabel={props.uiTransition(activity.name)}
                     variant='solid'
                     color='primary'
                 >
@@ -58,7 +58,7 @@ export const orderProduct = new Activity(
                     onClick={() => {
                         activity.run(props);
                     }}
-                    ariaLabel={activity.name}
+                    ariaLabel={props.uiTransition(activity.name)}
                     variant='solid'
                     color='primary'
                 >
@@ -88,7 +88,7 @@ export const takeProduct = new Activity(
                     onClick={() => {
                         activity.run(props);
                     }}
-                    ariaLabel={activity.name}
+                    ariaLabel={props.uiTransition(activity.name)}
                     variant='solid'
                     color='primary'
                 >

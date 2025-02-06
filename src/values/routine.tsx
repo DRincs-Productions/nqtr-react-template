@@ -29,7 +29,7 @@ const aliceSleep = new Commitment("alice_sleep", alice, aliceRoom, {
             >
                 <QuestionAnswerIcon
                     sx={{
-                        fontSize: { sx: "1.5rem", sm: "2rem", md: "2.5rem", lg: "3rem", xl: "4rem" },
+                        fontSize: { sx: "1.5rem", sm: "2rem", md: "2.5rem", lg: "3rem", xl: "3.5rem" },
                     }}
                 />
             </NavigationRoundIconButton>
@@ -67,7 +67,7 @@ const aliceSmokes = new Commitment("alice_smokes", alice, terrace, {
             >
                 <QuestionAnswerIcon
                     sx={{
-                        fontSize: { sx: "1.5rem", sm: "2rem", md: "2.5rem", lg: "3rem", xl: "4rem" },
+                        fontSize: { sx: "1.5rem", sm: "2rem", md: "2.5rem", lg: "3rem", xl: "3.5rem" },
                     }}
                 />
             </NavigationRoundIconButton>

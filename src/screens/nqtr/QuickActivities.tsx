@@ -37,10 +37,11 @@ export default function QuickActivities() {
                             item.run({
                                 navigate: navigate,
                                 t: tNarration,
+                                uiTransition: t,
                                 notify: (message, variant) => enqueueSnackbar(t(message), { variant }),
                             });
                         }}
-                        ariaLabel={item.name}
+                        ariaLabel={t(item.name)}
                         image={item.icon}
                     />
                 ))}
@@ -52,10 +53,11 @@ export default function QuickActivities() {
                             item.run({
                                 navigate: navigate,
                                 t: tNarration,
+                                uiTransition: t,
                                 notify: (message, variant) => enqueueSnackbar(t(message), { variant }),
                             });
                         }}
-                        ariaLabel={item.name}
+                        ariaLabel={t(item.name)}
                         image={item.icon}
                     />
                 ))}

@@ -49,6 +49,7 @@ export function NavigationRoundIconButtonConvertor(
         image = image({
             navigate: navigate,
             t: tNarration,
+            uiTransition: t,
             notify: (message, variant) => enqueueSnackbar(t(message), { variant }),
         });
     }

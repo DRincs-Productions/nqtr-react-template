@@ -35,6 +35,7 @@ export default function NextButton() {
             narration
                 .goNext({
                     t: tNarration,
+                    uiTransition: t,
                     navigate,
                     notify: (message, variant) => enqueueSnackbar(t(message), { variant }),
                 })

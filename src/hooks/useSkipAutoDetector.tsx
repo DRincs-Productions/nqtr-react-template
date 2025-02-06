@@ -33,6 +33,7 @@ export default function useSkipAutoDetector() {
             narration
                 .goNext({
                     t: tNarration,
+                    uiTransition: t,
                     navigate,
                     notify: (message, variant) => enqueueSnackbar(t(message), { variant }),
                 })

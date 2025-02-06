@@ -57,6 +57,7 @@ export default function ChoiceMenu({ fullscreen = true }: { fullscreen?: boolean
                 .selectChoice(item, {
                     navigate: navigate,
                     t: tNarration,
+                    uiTransition: t,
                     notify: (message, variant) => enqueueSnackbar(t(message), { variant }),
                     ...item.props,
                 })

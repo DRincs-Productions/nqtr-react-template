@@ -79,6 +79,7 @@ export default function MainMenu() {
                         .callLabel(startLabel, {
                             navigate: navigate,
                             t: tNarration,
+                            uiTransition: t,
                             notify: (message, variant) => enqueueSnackbar(t(message), { variant }),
                         })
                         .then(() => queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] }));
