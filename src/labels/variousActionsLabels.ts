@@ -6,10 +6,10 @@ import {
     newLabel,
     showImage,
 } from "@drincs/pixi-vn";
-import { aliceQuest } from "../quests/aliceQuest";
 import { orderProduct, takeProduct } from "../values/activity";
 import { mc } from "../values/characters";
 import { BACKGROUND_ID } from "../values/constants";
+import { aliceQuest } from "../values/quests";
 import { mcRoom, terrace } from "../values/rooms";
 
 export const orderProductLabel = newLabel("OrderProductLabel", [

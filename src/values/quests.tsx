@@ -1,27 +1,10 @@
-import { routine, saveCommitment } from "@drincs/nqtr";
-import { narration } from "@drincs/pixi-vn";
-import { NARRATION_ROUTE } from "../constans";
-import { talkAliceQuest } from "../labels/variousActionsLabels";
+import { routine, saveQuest } from "@drincs/nqtr";
 import ImageTimeSlots from "../models/ImageTimeSlots";
-import Commitment from "../models/nqtr/Commitment";
 import Quest from "../models/nqtr/Quest";
 import Stage from "../models/nqtr/Stage";
-import { orderProduct, takeProduct } from "../values/activity";
-import { alice } from "../values/characters";
-import { mcRoom, terrace } from "../values/rooms";
-
-const talkAlice1Commit = new Commitment("talk_alice1", alice, terrace, {
-    fromHour: 10,
-    toHour: 20,
-    image: new ImageTimeSlots("alice_terrace0A"),
-    executionType: "automatic",
-    priority: 1,
-    onRun: (_, event) => {
-        event.navigate(NARRATION_ROUTE);
-        narration.jumpLabel(talkAliceQuest, event);
-        routine.remove(talkAlice1Commit);
-    },
-});
+import { orderProduct, takeProduct } from "./activity";
+import { mcRoom, terrace } from "./rooms";
+import { aliceQuest_talk1 } from "./routine";
 
 export const aliceQuest = new Quest(
     "aliceQuest",
@@ -29,7 +12,7 @@ export const aliceQuest = new Quest(
         // stages
         new Stage("talk_alice1", {
             onStart: () => {
-                routine.add(talkAlice1Commit);
+                routine.add(aliceQuest_talk1);
             },
             name: "Talk to Alice",
             description: "Talk to Alice on the terrace",
@@ -71,4 +54,4 @@ export const aliceQuest = new Quest(
     }
 );
 
-saveCommitment(talkAlice1Commit);
+saveQuest(aliceQuest);

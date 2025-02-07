@@ -26,6 +26,7 @@ export default function MemoScreen() {
         <ModalDialogCustom
             open={open}
             setOpen={editOpen}
+            layout={"fullscreen"}
             head={
                 <Stack
                     sx={{
