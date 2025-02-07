@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@drincs/nqtr": "^0.3.7",
-    "@drincs/pixi-vn": "^0.10.13",
+    "@drincs/pixi-vn": "^0.10.14",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^6.4.3",
