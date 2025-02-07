@@ -1,9 +1,9 @@
-import { routine, saveCommitment, timeTracker } from "@drincs/nqtr";
+import { saveCommitment, timeTracker } from "@drincs/nqtr";
 import { narration } from "@drincs/pixi-vn";
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import NavigationRoundIconButton from "../components/NavigationRoundIconButton";
 import { NARRATION_ROUTE } from "../constans";
-import { aliceTalkMenuLabel, talkAliceQuest, talkSleepLabel } from "../labels/variousActionsLabels";
+import { aliceTalkMenuLabel, talkSleepLabel } from "../labels/variousActionsLabels";
 import ImageTimeSlots from "../models/ImageTimeSlots";
 import Commitment from "../models/nqtr/Commitment";
 import { alice } from "./characters";
@@ -79,19 +79,6 @@ const aliceSmokes = new Commitment("alice_smokes", alice, terrace, {
     },
 });
 
-export const aliceQuest_talk1 = new Commitment("alice_quest_talk1", alice, terrace, {
-    fromHour: 10,
-    toHour: 20,
-    image: new ImageTimeSlots("alice_terrace0A"),
-    executionType: "automatic",
-    priority: 1,
-    onRun: (_, event) => {
-        event.navigate(NARRATION_ROUTE);
-        narration.jumpLabel(talkAliceQuest, event);
-        routine.remove(aliceQuest_talk1);
-    },
-});
-
 export const fixedRoutine = [aliceSleep, aliceGoSchool, aliceSmokes];
 
-saveCommitment([...fixedRoutine, aliceQuest_talk1]);
+saveCommitment([...fixedRoutine]);

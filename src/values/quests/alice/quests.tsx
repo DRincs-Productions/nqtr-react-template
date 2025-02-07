@@ -1,10 +1,14 @@
-import { routine, saveQuest } from "@drincs/nqtr";
-import ImageTimeSlots from "../models/ImageTimeSlots";
-import Quest from "../models/nqtr/Quest";
-import Stage from "../models/nqtr/Stage";
-import { orderProduct, takeProduct } from "./activity";
-import { mcRoom, terrace } from "./rooms";
-import { aliceQuest_talk1 } from "./routine";
+import { routine, saveCommitment, saveQuest } from "@drincs/nqtr";
+import { narration } from "@drincs/pixi-vn";
+import { NARRATION_ROUTE } from "../../../constans";
+import { talkAliceQuest } from "../../../labels/variousActionsLabels";
+import ImageTimeSlots from "../../../models/ImageTimeSlots";
+import Commitment from "../../../models/nqtr/Commitment";
+import Quest from "../../../models/nqtr/Quest";
+import Stage from "../../../models/nqtr/Stage";
+import { orderProduct, takeProduct } from "../../activity";
+import { alice } from "../../characters";
+import { mcRoom, terrace } from "../../rooms";
 
 export const aliceQuest = new Quest(
     "aliceQuest",
@@ -55,3 +59,18 @@ export const aliceQuest = new Quest(
 );
 
 saveQuest(aliceQuest);
+
+const aliceQuest_talk1 = new Commitment("alice_quest_talk1", alice, terrace, {
+    fromHour: 10,
+    toHour: 20,
+    image: new ImageTimeSlots("alice_terrace0A"),
+    executionType: "automatic",
+    priority: 1,
+    onRun: (_, event) => {
+        event.navigate(NARRATION_ROUTE);
+        narration.jumpLabel(talkAliceQuest, event);
+        routine.remove(aliceQuest_talk1);
+    },
+});
+
+saveCommitment(aliceQuest_talk1);
