@@ -1,6 +1,7 @@
 import { navigator, questsNotebook, RoomInterface, routine, timeTracker } from "@drincs/nqtr";
-import { Assets } from "@drincs/pixi-vn";
+import { Assets, storage } from "@drincs/pixi-vn";
 import { useQuery } from "@tanstack/react-query";
+import { SELECTED_QUEST_STORAGE_KEY } from "../constans";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "./useQueryInterface";
 
 function getRoomInfo(room: RoomInterface) {
@@ -158,16 +159,19 @@ function getCompletedQuests() {
     });
 }
 
-const QUESTS_USE_QUEY_KEY = "quests_use_quey_key";
+export const QUESTS_USE_QUEY_KEY = "quests_use_quey_key";
 export function useQueryQuests() {
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, QUESTS_USE_QUEY_KEY],
         queryFn: () => {
             let startedQuests = getStartedQuests() || [];
             let completedQuests = getCompletedQuests() || [];
+            let selectedQuestId = storage.getVariable(SELECTED_QUEST_STORAGE_KEY);
+            let selectedQuest = startedQuests.find((quest) => quest.id === selectedQuestId);
             return {
                 startedQuests,
                 completedQuests,
+                selectedQuest,
             };
         },
     });

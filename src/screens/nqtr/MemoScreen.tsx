@@ -1,21 +1,28 @@
+import { Assets, storage } from "@drincs/pixi-vn";
 import { AspectRatio, Box, Divider, Link, Sheet, Stack, Typography } from "@mui/joy";
+import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import ModalDialogCustom from "../../components/ModalDialog";
+import { SELECTED_QUEST_STORAGE_KEY } from "../../constans";
 import useEventListener from "../../hooks/useKeyDetector";
 import useMemoScreenStore from "../../stores/useMemoScreenStore";
-import { useQueryQuests } from "../../use_query/useQueryNQTR";
+import { INTERFACE_DATA_USE_QUEY_KEY } from "../../use_query/useQueryInterface";
+import { QUESTS_USE_QUEY_KEY, useQueryQuests } from "../../use_query/useQueryNQTR";
 
 export default function MemoScreen() {
     const { t } = useTranslation(["ui"]);
     const {
-        data: { startedQuests, completedQuests } = {
+        data: { startedQuests, completedQuests, selectedQuest } = {
             startedQuests: [],
             completedQuests: [],
         },
     } = useQueryQuests();
+    const image = selectedQuest?.questImage
+        ? Assets.resolver.resolve(selectedQuest.questImage).src || selectedQuest?.questImage
+        : undefined;
     const open = useMemoScreenStore((state) => state.open);
     const editOpen = useMemoScreenStore((state) => state.editOpen);
-    const selectedQuest = useMemoScreenStore((state) => state.selectedQuest);
+    const queryClient = useQueryClient();
 
     useEventListener({
         type: "keydown",
@@ -80,7 +87,10 @@ export default function MemoScreen() {
                                 <Link
                                     disabled={selectedQuest?.id === quest.id}
                                     onClick={() => {
-                                        setSelectedQuest(quest);
+                                        storage.setVariable(SELECTED_QUEST_STORAGE_KEY, quest.id);
+                                        queryClient.invalidateQueries({
+                                            queryKey: [INTERFACE_DATA_USE_QUEY_KEY, QUESTS_USE_QUEY_KEY],
+                                        });
                                     }}
                                 >
                                     {quest.name}
@@ -102,7 +112,10 @@ export default function MemoScreen() {
                                 <Link
                                     disabled={selectedQuest?.id === quest.id}
                                     onClick={() => {
-                                        setSelectedQuest(quest);
+                                        storage.setVariable(SELECTED_QUEST_STORAGE_KEY, quest.id);
+                                        queryClient.invalidateQueries({
+                                            queryKey: [INTERFACE_DATA_USE_QUEY_KEY, QUESTS_USE_QUEY_KEY],
+                                        });
                                     }}
                                 >
                                     {quest.name}
@@ -125,9 +138,9 @@ export default function MemoScreen() {
                     }}
                 >
                     <Stack spacing={1}>
-                        {selectedQuest?.questImage && (
+                        {image && (
                             <AspectRatio maxHeight={"10dvh"} objectFit='cover'>
-                                <img src={selectedQuest.questImage} />
+                                <img src={image} />
                             </AspectRatio>
                         )}
                         <Typography level='h2' textAlign={"center"}>
