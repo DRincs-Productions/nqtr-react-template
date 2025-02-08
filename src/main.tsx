@@ -2,9 +2,8 @@ import { routine, timeTracker } from "@drincs/nqtr";
 import { canvas, clearAllGameDatas, Container, narration, storage } from "@drincs/pixi-vn";
 import { createRoot } from "react-dom/client";
 import App from "./App";
-import { CANVAS_UI_LAYER_NAME } from "./constans";
+import { CANVAS_UI_LAYER_NAME, NAVIGATION_ROUTE } from "./constans";
 import "./index.css";
-import startLabel from "./labels/startLabel";
 import "./values/characters";
 import { timeSlots } from "./values/constants";
 import { fixedRoutine } from "./values/routine";
@@ -44,7 +43,7 @@ narration.onGameEnd = async (props) => {
         clearAllGameDatas();
         props.navigate("/");
     } else {
-        narration.jumpLabel(startLabel, props);
+        props.navigate(NAVIGATION_ROUTE);
     }
 };
 
