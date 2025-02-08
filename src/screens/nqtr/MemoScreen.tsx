@@ -3,15 +3,19 @@ import { useTranslation } from "react-i18next";
 import ModalDialogCustom from "../../components/ModalDialog";
 import useEventListener from "../../hooks/useKeyDetector";
 import useMemoScreenStore from "../../stores/useMemoScreenStore";
+import { useQueryQuests } from "../../use_query/useQueryNQTR";
 
 export default function MemoScreen() {
     const { t } = useTranslation(["ui"]);
+    const {
+        data: { startedQuests, completedQuests } = {
+            startedQuests: [],
+            completedQuests: [],
+        },
+    } = useQueryQuests();
     const open = useMemoScreenStore((state) => state.open);
     const editOpen = useMemoScreenStore((state) => state.editOpen);
-    const quests = useMemoScreenStore((state) => state.startedQuests);
-    const completedQuests = useMemoScreenStore((state) => state.completedQuests);
     const selectedQuest = useMemoScreenStore((state) => state.selectedQuest);
-    const setSelectedQuest = useMemoScreenStore((state) => state.setSelectedQuest);
 
     useEventListener({
         type: "keydown",
@@ -64,7 +68,7 @@ export default function MemoScreen() {
                     }}
                 >
                     <Box>
-                        {quests.map((quest) => (
+                        {startedQuests.map((quest) => (
                             <Box
                                 key={quest.id}
                                 sx={{
