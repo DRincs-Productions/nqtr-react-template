@@ -22,25 +22,25 @@ const napHourLabel = newLabel<{
 ]);
 
 export const sleepLabel = newLabel("SleepLabel", [
-    ({ t }) => {
+    ({ uiTransition }) => {
         showImage(BACKGROUND_ID, navigator.currentRoom?.image.src);
         narration.dialogue = "What time do you want to set the alarm?";
         narration.choiceMenuOptions = [
-            new ChoiceMenuOption(t("allarm_menu_item", { hour: 8 }), sleepHourLabel, { hour: 8 }),
-            new ChoiceMenuOption(t("allarm_menu_item", { hour: 9 }), sleepHourLabel, { hour: 9 }),
-            new ChoiceMenuOption(t("allarm_menu_item", { hour: 10 }), sleepHourLabel, { hour: 10 }),
+            new ChoiceMenuOption(uiTransition("allarm_menu_item", { hour: 8 }), sleepHourLabel, { hour: 8 }),
+            new ChoiceMenuOption(uiTransition("allarm_menu_item", { hour: 9 }), sleepHourLabel, { hour: 9 }),
+            new ChoiceMenuOption(uiTransition("allarm_menu_item", { hour: 10 }), sleepHourLabel, { hour: 10 }),
             new ChoiceMenuOptionClose("Cancel"),
         ];
     },
 ]);
 
 export const napLabel = newLabel("NapLabel", [
-    ({ t }) => {
+    ({ uiTransition }) => {
         showImage(BACKGROUND_ID, navigator.currentRoom?.image.src);
         narration.dialogue = "You are tired and decide to take a nap.";
         narration.choiceMenuOptions = [
-            new ChoiceMenuOption(t("nap_menu_item", { hour: 3 }), napHourLabel, { hour: 3 }),
-            new ChoiceMenuOption(t("sleep"), sleepLabel, { hour: 3 }),
+            new ChoiceMenuOption(uiTransition("nap_menu_item", { hour: 3 }), napHourLabel, { hour: 3 }),
+            new ChoiceMenuOption(uiTransition("sleep"), sleepLabel, { hour: 3 }),
             new ChoiceMenuOptionClose("Cancel"),
         ];
     },
