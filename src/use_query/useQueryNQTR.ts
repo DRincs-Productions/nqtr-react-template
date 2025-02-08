@@ -44,7 +44,7 @@ export function useQueryCurrentRoom() {
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_ROOM_USE_QUEY_KEY],
         queryFn: () => {
             let currentRoom = navigator.currentRoom;
-            return currentRoom ? getRoomInfo(currentRoom) : null;
+            return currentRoom ? getRoomInfo(currentRoom) : undefined;
         },
     });
 }
