@@ -7,16 +7,17 @@ import { SELECTED_QUEST_STORAGE_KEY } from "../../constans";
 import useEventListener from "../../hooks/useKeyDetector";
 import useMemoScreenStore from "../../stores/useMemoScreenStore";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "../../use_query/useQueryInterface";
-import { QUESTS_USE_QUEY_KEY, useQueryQuests } from "../../use_query/useQueryNQTR";
+import { SELECTED_QUEST_USE_QUEY_KEY, useQueryQuests, useQuerySelectedQuest } from "../../use_query/useQueryNQTR";
 
 export default function MemoScreen() {
     const { t } = useTranslation(["ui"]);
     const {
-        data: { startedQuests, completedQuests, selectedQuest } = {
-            startedQuests: [],
+        data: { inProgressQuests, completedQuests } = {
+            inProgressQuests: [],
             completedQuests: [],
         },
     } = useQueryQuests();
+    const { data: selectedQuest } = useQuerySelectedQuest();
     const image = selectedQuest?.questImage
         ? Assets.resolver.resolve(selectedQuest.questImage).src || selectedQuest?.questImage
         : undefined;
@@ -75,7 +76,7 @@ export default function MemoScreen() {
                     }}
                 >
                     <Box>
-                        {startedQuests.map((quest) => (
+                        {inProgressQuests.map((quest) => (
                             <Box
                                 key={quest.id}
                                 sx={{
@@ -89,7 +90,7 @@ export default function MemoScreen() {
                                     onClick={() => {
                                         storage.setVariable(SELECTED_QUEST_STORAGE_KEY, quest.id);
                                         queryClient.invalidateQueries({
-                                            queryKey: [INTERFACE_DATA_USE_QUEY_KEY, QUESTS_USE_QUEY_KEY],
+                                            queryKey: [INTERFACE_DATA_USE_QUEY_KEY, SELECTED_QUEST_USE_QUEY_KEY],
                                         });
                                     }}
                                 >
@@ -114,7 +115,7 @@ export default function MemoScreen() {
                                     onClick={() => {
                                         storage.setVariable(SELECTED_QUEST_STORAGE_KEY, quest.id);
                                         queryClient.invalidateQueries({
-                                            queryKey: [INTERFACE_DATA_USE_QUEY_KEY, QUESTS_USE_QUEY_KEY],
+                                            queryKey: [INTERFACE_DATA_USE_QUEY_KEY, SELECTED_QUEST_USE_QUEY_KEY],
                                         });
                                     }}
                                 >

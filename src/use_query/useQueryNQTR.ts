@@ -1,4 +1,4 @@
-import { navigator, questsNotebook, RoomInterface, routine, timeTracker } from "@drincs/nqtr";
+import { navigator, QuestInterface, questsNotebook, RoomInterface, routine, timeTracker } from "@drincs/nqtr";
 import { Assets, storage } from "@drincs/pixi-vn";
 import { useQuery } from "@tanstack/react-query";
 import { SELECTED_QUEST_STORAGE_KEY } from "../constans";
@@ -91,88 +91,60 @@ export type QuestDescription = {
     isInDevelopment?: boolean;
 };
 
-function getStartedQuests() {
-    let quests: QuestDescription[] = questsNotebook.startedQuests.map((quest) => {
-        let currentStageDescription = "";
-        if (quest.currentStage) {
-            if (quest.completed) {
-                if (quest.inDevelopment) {
-                    currentStageDescription = "quest_is_in_development";
-                } else {
-                    currentStageDescription = "completed";
-                }
-            } else if (!quest.currentStage.started && quest.currentStage.requestDescriptionToStart) {
-                currentStageDescription = quest.currentStage.requestDescriptionToStart;
-            } else if (quest.currentStage.description) {
-                currentStageDescription = quest.currentStage.description;
+function getQuestInfo(quest: QuestInterface) {
+    let currentStageDescription = "";
+    if (quest.currentStage) {
+        if (quest.completed) {
+            if (quest.inDevelopment) {
+                currentStageDescription = "quest_is_in_development";
+            } else {
+                currentStageDescription = "completed";
             }
+        } else if (!quest.currentStage.started && quest.currentStage.requestDescriptionToStart) {
+            currentStageDescription = quest.currentStage.requestDescriptionToStart;
+        } else if (quest.currentStage.description) {
+            currentStageDescription = quest.currentStage.description;
         }
+    }
 
-        return {
-            id: quest.id,
-            name: quest.name,
-            description: quest.description,
-            currentStage: {
-                description: currentStageDescription,
-            },
-            questImage: quest.image?.src,
-            completed: quest.completed,
-            isInDevelopment: quest.inDevelopment,
-        };
-    });
-    return quests.filter((quest) => {
-        return !quest.completed;
-    });
+    return {
+        id: quest.id,
+        name: quest.name,
+        description: quest.description,
+        currentStage: {
+            description: currentStageDescription,
+        },
+        questImage: quest.image?.src,
+        completed: quest.completed,
+        isInDevelopment: quest.inDevelopment,
+    };
 }
 
-function getCompletedQuests() {
-    let quests: QuestDescription[] = questsNotebook.startedQuests.map((quest) => {
-        let currentStageDescription = "";
-        if (quest.currentStage) {
-            if (quest.completed) {
-                if (quest.inDevelopment) {
-                    currentStageDescription = "quest_is_in_development";
-                } else {
-                    currentStageDescription = "completed";
-                }
-            } else if (!quest.currentStage.started && quest.currentStage.requestDescriptionToStart) {
-                currentStageDescription = quest.currentStage.requestDescriptionToStart;
-            } else if (quest.currentStage.description) {
-                currentStageDescription = quest.currentStage.description;
-            }
-        }
-
-        return {
-            id: quest.id,
-            name: quest.name,
-            description: quest.description,
-            currentStage: {
-                description: currentStageDescription,
-            },
-            questImage: quest.image?.src,
-            completed: quest.completed,
-            isInDevelopment: quest.inDevelopment,
-        };
-    });
-    return quests.filter((quest) => {
-        return quest.completed;
-    });
-}
-
-export const QUESTS_USE_QUEY_KEY = "quests_use_quey_key";
+const QUESTS_USE_QUEY_KEY = "quests_use_quey_key";
 export function useQueryQuests() {
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, QUESTS_USE_QUEY_KEY],
         queryFn: () => {
-            let startedQuests = getStartedQuests() || [];
-            let completedQuests = getCompletedQuests() || [];
-            let selectedQuestId = storage.getVariable(SELECTED_QUEST_STORAGE_KEY);
-            let selectedQuest = startedQuests.find((quest) => quest.id === selectedQuestId);
+            let inProgressQuests = questsNotebook.inProgressQuests.map(getQuestInfo);
+            let completedQuests = questsNotebook.completedQuests.map(getQuestInfo);
+            let failedQuests = questsNotebook.failedQuests.map(getQuestInfo);
             return {
-                startedQuests,
+                inProgressQuests,
                 completedQuests,
-                selectedQuest,
+                failedQuests,
             };
+        },
+    });
+}
+
+export const SELECTED_QUEST_USE_QUEY_KEY = "selected_quest_use_quey_key";
+export function useQuerySelectedQuest() {
+    return useQuery({
+        queryKey: [INTERFACE_DATA_USE_QUEY_KEY, SELECTED_QUEST_USE_QUEY_KEY],
+        queryFn: () => {
+            let selectedQuestId = storage.getVariable<string>(SELECTED_QUEST_STORAGE_KEY);
+            let selectedQuest = selectedQuestId ? questsNotebook.find(selectedQuestId) : undefined;
+            return selectedQuest ? getQuestInfo(selectedQuest) : undefined;
         },
     });
 }
