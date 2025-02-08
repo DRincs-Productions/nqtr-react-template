@@ -106,6 +106,10 @@ export async function defineAssets() {
         src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/Alice/terrace0A.webp",
     });
     Assets.add({
+        alias: "alice_terrace0At",
+        src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/Alice/terrace0At.webp",
+    });
+    Assets.add({
         alias: "alice_roomsleep0A",
         src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/Alice/roomsleep0A.webp",
     });

@@ -51,6 +51,7 @@ export const talkSleepLabel = newLabel("TalkSleepLabel", [
 ]);
 
 export const talkAliceQuest = newLabel("talkAliceQuest", () => {
+    showImage(BACKGROUND_ID, "alice_terrace0At");
     if (aliceQuest.currentStageIndex == 0) {
         return [
             () => {
@@ -95,6 +96,7 @@ export const talkAliceQuest = newLabel("talkAliceQuest", () => {
     }
     return [
         () => {
+            showImage(BACKGROUND_ID, "alice_terrace0At");
             narration.dialogue = "Thanks for the book.";
         },
     ];
