@@ -44,7 +44,7 @@ export function useQueryCurrentRoom() {
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_ROOM_USE_QUEY_KEY],
         queryFn: () => {
             let currentRoom = navigator.currentRoom;
-            return currentRoom ? getRoomInfo(currentRoom) : undefined;
+            return currentRoom ? getRoomInfo(currentRoom) : null;
         },
     });
 }
@@ -64,7 +64,7 @@ export function useQueryCurrentActivities() {
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_ACTIVITIES_USE_QUEY_KEY],
         queryFn: () => {
-            return navigator.currentRoom?.activities;
+            return navigator.currentRoom?.activities || [];
         },
     });
 }
@@ -74,7 +74,7 @@ export function useQueryQuickRooms() {
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, QUICK_ROOMS_USE_QUEY_KEY],
         queryFn: () => {
-            return navigator.currentLocation?.rooms.map(getRoomInfo);
+            return navigator.currentLocation?.rooms.map(getRoomInfo) || [];
         },
     });
 }
@@ -144,7 +144,7 @@ export function useQuerySelectedQuest() {
         queryFn: () => {
             let selectedQuestId = storage.getVariable<string>(SELECTED_QUEST_STORAGE_KEY);
             let selectedQuest = selectedQuestId ? questsNotebook.find(selectedQuestId) : undefined;
-            return selectedQuest ? getQuestInfo(selectedQuest) : undefined;
+            return selectedQuest ? getQuestInfo(selectedQuest) : null;
         },
     });
 }
