@@ -9,8 +9,8 @@ export const alice = new Character("alice", {
     name: "Liam",
     surname: "Smith",
     age: 25,
-    icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4eMoz7DH8l_Q-iCzSc1xyu_C2iryWh2O9_FcDBpY04w&s",
-    color: "#9e2e12",
+    icon: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/refs/heads/main/game/images/icon/Alice.webp",
+    color: "#5a129e",
 });
 
 saveCharacter([mc, alice]);
