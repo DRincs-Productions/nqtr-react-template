@@ -16,7 +16,7 @@ export const aliceQuest = new Quest(
         // stages
         new Stage("talk_alice1", {
             onStart: () => {
-                routine.add(aliceQuest_talk1);
+                routine.add(aliceQuest_talk);
             },
             name: "Talk to Alice",
             description: "Talk to Alice on the terrace",
@@ -60,7 +60,7 @@ export const aliceQuest = new Quest(
 
 saveQuest(aliceQuest);
 
-const aliceQuest_talk1 = new Commitment("alice_quest_talk1", alice, terrace, {
+const aliceQuest_talk = new Commitment("alice_quest_talk", alice, terrace, {
     fromHour: 10,
     toHour: 20,
     image: new ImageTimeSlots("alice_terrace0A"),
@@ -69,8 +69,8 @@ const aliceQuest_talk1 = new Commitment("alice_quest_talk1", alice, terrace, {
     onRun: (_, event) => {
         event.navigate(NARRATION_ROUTE);
         narration.jumpLabel(talkAliceQuest, event);
-        routine.remove(aliceQuest_talk1);
+        routine.remove(aliceQuest_talk);
     },
 });
 
-saveCommitment(aliceQuest_talk1);
+saveCommitment(aliceQuest_talk);
