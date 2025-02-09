@@ -67,9 +67,10 @@ const aliceQuest_talk = new Commitment("alice_quest_talk", alice, terrace, {
     executionType: "automatic",
     priority: 1,
     onRun: (_, event) => {
-        event.navigate(NARRATION_ROUTE);
-        narration.jumpLabel(talkAliceQuest, event);
-        routine.remove(aliceQuest_talk);
+        narration.jumpLabel(talkAliceQuest, event).then(() => {
+            routine.remove(aliceQuest_talk);
+            event.navigate(NARRATION_ROUTE);
+        });
     },
 });
 
