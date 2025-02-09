@@ -73,6 +73,7 @@
 		"wait" : "Wait", 
 		"quests" : "Quests",
 		"completed" : "Completed",
+		"failed" : "Failed",
 		"memo" : "Memo",
 		"map" : "Map",
 		"quest_completed_description" : "This quest has been completed.",
