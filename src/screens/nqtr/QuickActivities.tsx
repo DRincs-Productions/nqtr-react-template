@@ -1,20 +1,13 @@
 import { AnimatePresence } from "motion/react";
-import { useEffect } from "react";
 import { NavigationRoundIconButtonConvertor } from "../../components/NavigationRoundIconButton";
 import StackOverflow from "../../components/StackOverflow.tsx";
 import useGameProps from "../../hooks/useGameProps.tsx";
 import { useQueryCurrentRoom } from "../../use_query/useQueryNQTR";
 
 export default function QuickActivities() {
-    const { data: { activities = [], routine = [], automaticCommitment } = {} } = useQueryCurrentRoom();
+    const { data: { activities = [], routine = [] } = {} } = useQueryCurrentRoom();
     const gameProps = useGameProps();
     const { uiTransition: t } = gameProps;
-
-    useEffect(() => {
-        if (automaticCommitment) {
-            automaticCommitment(gameProps);
-        }
-    }, [automaticCommitment]);
 
     return (
         <StackOverflow

@@ -4,6 +4,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { AnimatePresence } from "motion/react";
 import { NavigationRoundIconButtonConvertor } from "../../components/NavigationRoundIconButton";
 import StackOverflow from "../../components/StackOverflow.tsx";
+import useGameProps from "../../hooks/useGameProps.tsx";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "../../use_query/useQueryInterface";
 import { CURRENT_ROOM_USE_QUEY_KEY, useQueryCurrentRoom, useQueryQuickRooms } from "../../use_query/useQueryNQTR.ts";
 
@@ -11,6 +12,7 @@ export default function QuickRooms() {
     const { data: rooms = [] } = useQueryQuickRooms();
     const { data: { room: currentRoom } = {} } = useQueryCurrentRoom();
     const queryClient = useQueryClient();
+    const gameProps = useGameProps();
 
     return (
         <StackOverflow
@@ -43,6 +45,16 @@ export default function QuickRooms() {
                                         [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_ROOM_USE_QUEY_KEY],
                                         props
                                     );
+                                    let currentRoom = navigator.currentRoom;
+                                    let automaticCommitment = currentRoom?.routine.find(
+                                        (commitment) => commitment.executionType === "automatic"
+                                    )?.run;
+                                    if (automaticCommitment) {
+                                        automaticCommitment(gameProps);
+                                    }
+                                    if (automaticCommitment) {
+                                        automaticCommitment(gameProps);
+                                    }
                                 }
                             }}
                             ariaLabel={name}
