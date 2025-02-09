@@ -12,9 +12,10 @@ import { SELECTED_QUEST_USE_QUEY_KEY, useQueryQuests, useQuerySelectedQuest } fr
 export default function MemoScreen() {
     const { t } = useTranslation(["ui"]);
     const {
-        data: { inProgressQuests, completedQuests } = {
+        data: { inProgressQuests, completedQuests, failedQuests } = {
             inProgressQuests: [],
             completedQuests: [],
+            failedQuests: [],
         },
     } = useQueryQuests();
     const { data: selectedQuest } = useQuerySelectedQuest();
@@ -98,10 +99,31 @@ export default function MemoScreen() {
                                 </Link>
                             </Box>
                         ))}
-                    </Box>
-                    <Box>
                         {completedQuests.length > 0 && <Typography level='h4'>{t("completed")}</Typography>}
                         {completedQuests.map((quest) => (
+                            <Box
+                                key={quest.id}
+                                sx={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    gap: 1,
+                                }}
+                            >
+                                <Link
+                                    disabled={selectedQuest?.id === quest.id}
+                                    onClick={() => {
+                                        storage.setVariable(SELECTED_QUEST_STORAGE_KEY, quest.id);
+                                        queryClient.invalidateQueries({
+                                            queryKey: [INTERFACE_DATA_USE_QUEY_KEY, SELECTED_QUEST_USE_QUEY_KEY],
+                                        });
+                                    }}
+                                >
+                                    {quest.name}
+                                </Link>
+                            </Box>
+                        ))}
+                        {failedQuests.length > 0 && <Typography level='h4'>{t("failed")}</Typography>}
+                        {failedQuests.map((quest) => (
                             <Box
                                 key={quest.id}
                                 sx={{
