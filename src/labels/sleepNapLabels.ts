@@ -22,8 +22,8 @@ const napHourLabel = newLabel<{
 ]);
 
 export const sleepLabel = newLabel("SleepLabel", [
-    ({ uiTransition }) => {
-        showImage(BACKGROUND_ID, navigator.currentRoom?.image.src);
+    async ({ uiTransition }) => {
+        await showImage(BACKGROUND_ID, navigator.currentRoom?.image.src);
         narration.dialogue = "What time do you want to set the alarm?";
         narration.choiceMenuOptions = [
             new ChoiceMenuOption(uiTransition("allarm_menu_item", { hour: 8 }), sleepHourLabel, { hour: 8 }),
@@ -35,8 +35,8 @@ export const sleepLabel = newLabel("SleepLabel", [
 ]);
 
 export const napLabel = newLabel("NapLabel", [
-    ({ uiTransition }) => {
-        showImage(BACKGROUND_ID, navigator.currentRoom?.image.src);
+    async ({ uiTransition }) => {
+        await showImage(BACKGROUND_ID, navigator.currentRoom?.image.src);
         narration.dialogue = "You are tired and decide to take a nap.";
         narration.choiceMenuOptions = [
             new ChoiceMenuOption(uiTransition("nap_menu_item", { hour: 3 }), napHourLabel, { hour: 3 }),

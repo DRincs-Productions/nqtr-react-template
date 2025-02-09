@@ -40,8 +40,8 @@ const talkSleepResultLabel = newLabel("TalkSleepResultLabel", [
     },
 ]);
 export const talkSleepLabel = newLabel("TalkSleepLabel", [
-    () => {
-        showImage(BACKGROUND_ID, "alice_roomsleep0A");
+    async () => {
+        await showImage(BACKGROUND_ID, "alice_roomsleep0A");
         narration.dialogue = "zZz zZz ...";
         narration.choiceMenuOptions = [
             new ChoiceMenuOption("Try waking up", talkSleepResultLabel, {}),
@@ -103,7 +103,6 @@ export const talkAliceQuest = newLabel(
         }
         return [
             () => {
-                showImage(BACKGROUND_ID, "alice_terrace0At");
                 narration.dialogue = "Thanks for the book.";
             },
         ];
@@ -117,7 +116,8 @@ export const talkAliceQuest = newLabel(
     }
 );
 export const aliceTalkMenuLabel = newLabel("AliceTalkMenuLabel", [
-    () => {
+    async () => {
+        await showImage(BACKGROUND_ID, "alice_terrace0At");
         narration.dialogue = "Hi, what do you want to talk about?";
         let optionsMenu: ChoiceMenuOptionsType = [];
         if (aliceQuest.started) {

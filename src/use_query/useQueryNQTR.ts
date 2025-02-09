@@ -2,7 +2,6 @@ import { navigator, QuestInterface, questsNotebook, RoomInterface, routine, time
 import { Assets, storage } from "@drincs/pixi-vn";
 import { useQuery } from "@tanstack/react-query";
 import { SELECTED_QUEST_STORAGE_KEY } from "../constans";
-import useGameProps from "../hooks/useGameProps";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "./useQueryInterface";
 
 function getRoomInfo(room: RoomInterface) {
@@ -38,12 +37,7 @@ export function useQueryTime() {
 
 export const CURRENT_ROOM_USE_QUEY_KEY = "current_room_use_quey_key";
 export function useQueryCurrentRoom() {
-    const gameProps = useGameProps();
     const currentRoom = navigator.currentRoom;
-    let automaticCommitment = currentRoom?.routine.find((commitment) => commitment.executionType === "automatic")?.run;
-    if (automaticCommitment) {
-        automaticCommitment(gameProps);
-    }
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_ROOM_USE_QUEY_KEY],
         queryFn: () => {
