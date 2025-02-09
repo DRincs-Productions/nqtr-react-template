@@ -50,57 +50,72 @@ export const talkSleepLabel = newLabel("TalkSleepLabel", [
     },
 ]);
 
-export const talkAliceQuest = newLabel("talkAliceQuest", () => {
-    showImage(BACKGROUND_ID, "alice_terrace0At");
-    if (aliceQuest.currentStageIndex == 0) {
+export const talkAliceQuest = newLabel(
+    "talkAliceQuest",
+    () => {
+        if (aliceQuest.currentStageIndex == 0) {
+            return [
+                async () => {
+                    narration.dialogue = "Hi, can you order me a new book from pc?";
+                },
+                () => {
+                    narration.dialogue = "Ok";
+                },
+                () => {
+                    narration.dialogue = "Thanks";
+                },
+                (props) => {
+                    aliceQuest.completeCurrentStageAndGoNext(props);
+                    narration.goNext(props);
+                },
+            ];
+        } else if (aliceQuest.currentStageIndex == 1) {
+            return [
+                async () => {
+                    narration.dialogue = "What book do you want me to order?";
+                },
+                () => {
+                    narration.dialogue = "For me it is the same.";
+                },
+            ];
+        } else if (aliceQuest.currentStageIndex == 2) {
+            return [
+                async () => {
+                    narration.dialogue = "I ordered the Book, hope you enjoy it.";
+                },
+                () => {
+                    narration.dialogue = "Great, when it arrives remember to bring it to me.";
+                },
+            ];
+        } else if (aliceQuest.currentStageIndex == 3) {
+            return [
+                async () => {
+                    narration.dialogue = "Here's your book.";
+                },
+                () => {
+                    narration.dialogue = "Thank you, I can finally read something new.";
+                },
+                (props) => {
+                    aliceQuest.completeCurrentStageAndGoNext(props);
+                    narration.goNext(props);
+                },
+            ];
+        }
         return [
             () => {
-                narration.dialogue = "Hi, can you order me a new book from pc?";
-            },
-            () => {
-                narration.dialogue = "Ok";
-            },
-            (props) => {
-                narration.dialogue = "Thanks";
-                aliceQuest.completeCurrentStageAndGoNext(props);
+                showImage(BACKGROUND_ID, "alice_terrace0At");
+                narration.dialogue = "Thanks for the book.";
             },
         ];
-    } else if (aliceQuest.currentStageIndex == 1) {
-        return [
-            () => {
-                narration.dialogue = "What book do you want me to order?";
-            },
-            () => {
-                narration.dialogue = "For me it is the same.";
-            },
-        ];
-    } else if (aliceQuest.currentStageIndex == 2) {
-        return [
-            () => {
-                narration.dialogue = "I ordered the Book, hope you enjoy it.";
-            },
-            () => {
-                narration.dialogue = "Great, when it arrives remember to bring it to me.";
-            },
-        ];
-    } else if (aliceQuest.currentStageIndex == 3) {
-        return [
-            () => {
-                narration.dialogue = "Here's your book.";
-            },
-            (props) => {
-                narration.dialogue = "Thank you, I can finally read something new.";
-                aliceQuest.completeCurrentStageAndGoNext(props);
-            },
-        ];
-    }
-    return [
-        () => {
-            showImage(BACKGROUND_ID, "alice_terrace0At");
-            narration.dialogue = "Thanks for the book.";
+    },
+    {
+        onStepStart: async (stepIndex) => {
+            if (stepIndex == 0) {
+                await showImage(BACKGROUND_ID, "alice_terrace0At");
+            }
         },
-    ];
-});
+    }
+);
 export const aliceTalkMenuLabel = newLabel("AliceTalkMenuLabel", [
     () => {
         narration.dialogue = "Hi, what do you want to talk about?";
