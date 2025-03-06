@@ -1,5 +1,5 @@
-import { getCharacterById, narration } from "@drincs/pixi-vn";
-import { useQuery } from "@tanstack/react-query";
+import { CharacterInterface, getCharacterById, narration } from "@drincs/pixi-vn";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import Character from "../models/Character";
 
@@ -39,24 +39,42 @@ export function useQueryInputValue<T>() {
     });
 }
 
+type DialogueModel = {
+    text?: string;
+    oldText?: string;
+    character?: CharacterInterface;
+};
 const DIALOGUE_USE_QUEY_KEY = "dialogue_use_quey_key";
 export function useQueryDialogue() {
     const { t: tNarration } = useTranslation(["narration"]);
+    const queryClient = useQueryClient();
 
-    return useQuery({
+    return useQuery<DialogueModel>({
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, DIALOGUE_USE_QUEY_KEY],
-        queryFn: () => {
+        queryFn: ({ queryKey }) => {
             let dialogue = narration.dialogue;
-            let newText: string | undefined = dialogue?.text;
-            let newCharacter: Character | undefined = undefined;
+            let text: string | undefined = dialogue?.text;
+            let newCharacter: CharacterInterface | undefined = undefined;
             if (dialogue) {
                 newCharacter = dialogue.character ? getCharacterById(dialogue.character) : undefined;
                 if (!newCharacter && dialogue.character) {
                     newCharacter = new Character(dialogue.character, { name: tNarration(dialogue.character) });
                 }
             }
+
+            let prevData = queryClient.getQueryData<DialogueModel>(queryKey) || {};
+            let oldText = (prevData.oldText || "") + (prevData.text || "");
+            if (text && newCharacter?.id === prevData?.character?.id && text.startsWith(oldText)) {
+                let newText = text.slice(oldText.length);
+                return {
+                    text: newText,
+                    oldText: oldText,
+                    character: newCharacter,
+                };
+            }
+
             return {
-                text: newText,
+                text: text,
                 character: newCharacter,
             };
         },
