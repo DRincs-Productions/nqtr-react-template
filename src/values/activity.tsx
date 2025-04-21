@@ -1,22 +1,22 @@
 import { saveActivity, timeTracker } from "@drincs/nqtr";
-import { narration } from "@drincs/pixi-vn";
 import BedIcon from "@mui/icons-material/Bed";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import NqtrRoundIconButton from "../components/NqtrRoundIconButton";
 import { NARRATION_ROUTE } from "../constans";
 import { napLabel, sleepLabel } from "../labels/sleepNapLabels";
+import { navigateAndJumpToLabel } from "../labels/utility-labels";
 import { orderProductLabel, takeKeyLabel } from "../labels/variousActionsLabels";
 import Activity from "../models/nqtr/Activity";
 
 export const bed = new Activity(
     "bed",
-    (_, event) => {
+    async (_, event) => {
         event.navigate(NARRATION_ROUTE);
         if (timeTracker.nowIsBetween(5, 22)) {
-            narration.jumpLabel(napLabel, event);
+            await navigateAndJumpToLabel(napLabel, NARRATION_ROUTE, event);
         } else {
-            narration.jumpLabel(sleepLabel, event);
+            await navigateAndJumpToLabel(sleepLabel, NARRATION_ROUTE, event);
         }
     },
     {
@@ -45,10 +45,7 @@ export const bed = new Activity(
 
 export const orderProduct = new Activity(
     "order_product",
-    (_, event) => {
-        event.navigate(NARRATION_ROUTE);
-        narration.jumpLabel(orderProductLabel, event);
-    },
+    async (_, event) => navigateAndJumpToLabel(orderProductLabel, NARRATION_ROUTE, event),
     {
         name: "order_product",
         icon: (activity, props) => {
@@ -75,10 +72,7 @@ export const orderProduct = new Activity(
 
 export const takeProduct = new Activity(
     "take_product",
-    (_, event) => {
-        event.navigate(NARRATION_ROUTE);
-        narration.jumpLabel(takeKeyLabel, event);
-    },
+    async (_, event) => navigateAndJumpToLabel(takeKeyLabel, NARRATION_ROUTE, event),
     {
         name: "take_product",
         icon: (activity, props) => {

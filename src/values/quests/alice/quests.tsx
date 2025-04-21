@@ -1,6 +1,6 @@
 import { routine, saveCommitment, saveQuest } from "@drincs/nqtr";
-import { narration } from "@drincs/pixi-vn";
-import { navigareNarrationRouteLabel } from "../../../labels/utility-labels";
+import { NARRATION_ROUTE } from "../../../constans";
+import { navigateAndJumpToLabel } from "../../../labels/utility-labels";
 import { talkAliceQuest } from "../../../labels/variousActionsLabels";
 import ImageTimeSlots from "../../../models/ImageTimeSlots";
 import Commitment from "../../../models/nqtr/Commitment";
@@ -67,7 +67,7 @@ const aliceQuest_talk = new Commitment("alice_quest_talk", alice, terrace, {
     executionType: "automatic",
     priority: 1,
     onRun: async (_, event) => {
-        return narration.jumpLabel(navigareNarrationRouteLabel, { ...event, labelToOpen: talkAliceQuest }).then(() => {
+        return await navigateAndJumpToLabel(talkAliceQuest, NARRATION_ROUTE, event).then(() => {
             routine.remove(aliceQuest_talk);
         });
     },

@@ -1,15 +1,23 @@
-import { Label, narration, newLabel } from "@drincs/pixi-vn";
-import { NARRATION_ROUTE } from "../constans";
+import { OnRunProps } from "@drincs/nqtr";
+import { Label, narration, newLabel, StepLabelResultType } from "@drincs/pixi-vn";
 
 /**
  * Navigates to the narration route and jumps to the given label.
  */
-export const navigareNarrationRouteLabel = newLabel<{
+const navigareNarrationRouteLabel = newLabel<{
     labelToOpen: Label;
+    route: string;
 }>("navigare_narration_route", [
     async (props) => {
-        await props.navigate(NARRATION_ROUTE);
+        await props.navigate(props.route);
         await narration.jumpLabel(props.labelToOpen, props);
         await new Promise((resolve) => setTimeout(resolve, 200));
     },
 ]);
+export async function navigateAndJumpToLabel(
+    label: Label,
+    route: string,
+    props: OnRunProps
+): Promise<StepLabelResultType> {
+    return await narration.jumpLabel(navigareNarrationRouteLabel, { ...props, labelToOpen: label, route: route });
+}
