@@ -8,7 +8,8 @@ export const navigareNarrationRouteLabel = newLabel<{
     labelToOpen: Label;
 }>("navigare_narration_route", [
     async (props) => {
+        await props.navigate(NARRATION_ROUTE);
         await narration.jumpLabel(props.labelToOpen, props);
-        props.navigate(NARRATION_ROUTE);
+        await new Promise((resolve) => setTimeout(resolve, 200));
     },
 ]);
