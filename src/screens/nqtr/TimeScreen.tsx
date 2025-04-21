@@ -6,6 +6,7 @@ import { motion } from "motion/react";
 import { useSnackbar } from "notistack";
 import { useTranslation } from "react-i18next";
 import RoundIconButton from "../../components/RoundIconButton";
+import useNqtrScreenStore from "../../stores/useNqtrScreenStore";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "../../use_query/useQueryInterface";
 import { useQueryTime } from "../../use_query/useQueryNQTR";
 import { wait } from "../../utils/time-utility";
@@ -15,6 +16,7 @@ export default function TimeScreen() {
     const { enqueueSnackbar } = useSnackbar();
     const { data: hour = 0 } = useQueryTime();
     const queryClient = useQueryClient();
+    const disable = useNqtrScreenStore((state) => state.disable);
 
     return (
         <Stack
@@ -81,6 +83,7 @@ export default function TimeScreen() {
                         queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] });
                     }}
                     elevation='sm'
+                    disabled={disable}
                 >
                     <AccessTimeIcon
                         sx={{

@@ -66,8 +66,8 @@ const aliceQuest_talk = new Commitment("alice_quest_talk", alice, terrace, {
     image: new ImageTimeSlots("alice_terrace0A"),
     executionType: "automatic",
     priority: 1,
-    onRun: (_, event) => {
-        narration.jumpLabel(navigareNarrationRouteLabel, { ...event, labelToOpen: talkAliceQuest }).then(() => {
+    onRun: async (_, event) => {
+        return narration.jumpLabel(navigareNarrationRouteLabel, { ...event, labelToOpen: talkAliceQuest }).then(() => {
             routine.remove(aliceQuest_talk);
         });
     },

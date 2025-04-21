@@ -2,6 +2,7 @@ import { navigator } from "@drincs/nqtr";
 import { canvas, CanvasImage } from "@drincs/pixi-vn";
 import { useEffect } from "react";
 import { CANVAS_UI_LAYER_NAME } from "../constans";
+import useNqtrScreenStore from "../stores/useNqtrScreenStore";
 import { useQueryCurrentRoom, useQueryTime } from "../use_query/useQueryNQTR";
 import useGameProps from "./useGameProps";
 
@@ -9,6 +10,7 @@ export default function useNQTRDetector() {
     const { data: currentRoom } = useQueryCurrentRoom();
     const { data: hour } = useQueryTime();
     const gameProps = useGameProps();
+    const setDisable = useNqtrScreenStore((state) => state.setDisable);
 
     useEffect(() => {
         const { image } = currentRoom || {};
@@ -49,7 +51,10 @@ export default function useNQTRDetector() {
 
         let automaticFunction = navigator.currentRoom?.automaticFunction;
         if (automaticFunction) {
-            automaticFunction(gameProps);
+            setDisable(true);
+            automaticFunction(gameProps).finally(() => {
+                setDisable(false);
+            });
         }
 
         return () => {
