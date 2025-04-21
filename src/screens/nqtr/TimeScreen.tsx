@@ -16,7 +16,7 @@ export default function TimeScreen() {
     const { enqueueSnackbar } = useSnackbar();
     const { data: hour = 0 } = useQueryTime();
     const queryClient = useQueryClient();
-    const disable = useNqtrScreenStore((state) => state.disable);
+    const disabled = useNqtrScreenStore((state) => state.disabled);
 
     return (
         <Stack
@@ -83,7 +83,7 @@ export default function TimeScreen() {
                         queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] });
                     }}
                     elevation='sm'
-                    disabled={disable}
+                    disabled={disabled}
                 >
                     <AccessTimeIcon
                         sx={{

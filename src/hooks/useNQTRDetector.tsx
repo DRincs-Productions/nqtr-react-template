@@ -10,7 +10,7 @@ export default function useNQTRDetector() {
     const { data: currentRoom } = useQueryCurrentRoom();
     const { data: hour } = useQueryTime();
     const gameProps = useGameProps();
-    const setDisable = useNqtrScreenStore((state) => state.setDisable);
+    const setDisable = useNqtrScreenStore((state) => state.setDisabled);
 
     useEffect(() => {
         const { image } = currentRoom || {};

@@ -2,7 +2,7 @@ import { navigator } from "@drincs/nqtr";
 import { Avatar, AvatarGroup } from "@mui/joy";
 import { useQueryClient } from "@tanstack/react-query";
 import { AnimatePresence } from "motion/react";
-import { NavigationRoundIconButtonConvertor } from "../../components/NavigationRoundIconButton";
+import { NqtrRoundIconButtonConvertor } from "../../components/NqtrRoundIconButton.tsx";
 import StackOverflow from "../../components/StackOverflow.tsx";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "../../use_query/useQueryInterface";
 import { CURRENT_ROOM_USE_QUEY_KEY, useQueryCurrentRoom, useQueryQuickRooms } from "../../use_query/useQueryNQTR.ts";
@@ -32,7 +32,7 @@ export default function QuickRooms() {
                     const { disabled, icon, name, room, characters } = props;
                     const selected = currentRoom?.id === room.id;
                     return (
-                        <NavigationRoundIconButtonConvertor
+                        <NqtrRoundIconButtonConvertor
                             key={"room" + room.id}
                             disabled={disabled || selected}
                             selected={selected}
@@ -90,7 +90,7 @@ export default function QuickRooms() {
                                     </>
                                 )}
                             </AvatarGroup>
-                        </NavigationRoundIconButtonConvertor>
+                        </NqtrRoundIconButtonConvertor>
                     );
                 })}
             </AnimatePresence>

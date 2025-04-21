@@ -1,5 +1,5 @@
 import { AnimatePresence } from "motion/react";
-import { NavigationRoundIconButtonConvertor } from "../../components/NavigationRoundIconButton";
+import { NqtrRoundIconButtonConvertor } from "../../components/NqtrRoundIconButton.tsx";
 import StackOverflow from "../../components/StackOverflow.tsx";
 import useGameProps from "../../hooks/useGameProps.tsx";
 import { useQueryCurrentRoom } from "../../use_query/useQueryNQTR";
@@ -26,7 +26,7 @@ export default function QuickActivities() {
         >
             <AnimatePresence>
                 {activities.map((item) => (
-                    <NavigationRoundIconButtonConvertor
+                    <NqtrRoundIconButtonConvertor
                         key={"activity" + item.id}
                         disabled={item.disabled}
                         onClick={() => {
@@ -37,7 +37,7 @@ export default function QuickActivities() {
                     />
                 ))}
                 {routine.map((item) => (
-                    <NavigationRoundIconButtonConvertor
+                    <NqtrRoundIconButtonConvertor
                         key={"commitment" + item.id}
                         disabled={item.disabled}
                         onClick={() => {

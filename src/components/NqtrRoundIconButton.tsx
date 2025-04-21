@@ -5,14 +5,16 @@ import { motion } from "motion/react";
 import { isValidElement, ReactElement } from "react";
 import useGameProps from "../hooks/useGameProps";
 import ImageTimeSlots from "../models/ImageTimeSlots";
+import useNqtrScreenStore from "../stores/useNqtrScreenStore";
 import RoundIconButton, { RoundIconButtonProps } from "./RoundIconButton";
 
-interface NavigationRoundIconButtonProps extends RoundIconButtonProps {
+interface NqtrRoundIconButtonProps extends RoundIconButtonProps {
     selected?: boolean;
 }
 
-export default function NavigationRoundIconButton(props: NavigationRoundIconButtonProps) {
-    const { selected, sx, ...rest } = props;
+export default function NqtrRoundIconButton(props: NqtrRoundIconButtonProps) {
+    const disabledScreen = useNqtrScreenStore((state) => state.disabled);
+    const { selected, sx, disabled = disabledScreen, ...rest } = props;
 
     return (
         <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }} transition={{ ease: "easeOut" }}>
@@ -30,8 +32,8 @@ export default function NavigationRoundIconButton(props: NavigationRoundIconButt
     );
 }
 
-export function NavigationRoundIconButtonConvertor(
-    props: NavigationRoundIconButtonProps & {
+export function NqtrRoundIconButtonConvertor(
+    props: NqtrRoundIconButtonProps & {
         image?: string | ImageTimeSlots | ReactElement | ((props: OnRunProps) => ReactElement);
     }
 ) {
@@ -57,7 +59,7 @@ export function NavigationRoundIconButtonConvertor(
             image = Assets.resolver.resolve(image).src || image;
         } catch {}
         return (
-            <NavigationRoundIconButton
+            <NqtrRoundIconButton
                 {...rest}
                 sx={{
                     backgroundImage: `url(${image})`,

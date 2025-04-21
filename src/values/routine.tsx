@@ -1,7 +1,7 @@
 import { saveCommitment, timeTracker } from "@drincs/nqtr";
 import { narration } from "@drincs/pixi-vn";
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
-import NavigationRoundIconButton from "../components/NavigationRoundIconButton";
+import NqtrRoundIconButton from "../components/NqtrRoundIconButton";
 import { NARRATION_ROUTE } from "../constans";
 import { aliceTalkMenuLabel, talkSleepLabel } from "../labels/variousActionsLabels";
 import ImageTimeSlots from "../models/ImageTimeSlots";
@@ -16,7 +16,7 @@ const aliceSleep = new Commitment("alice_sleep", alice, aliceRoom, {
     image: new ImageTimeSlots("alice_roomsleep0A"),
     icon: (commitment, props) => {
         return (
-            <NavigationRoundIconButton
+            <NqtrRoundIconButton
                 disabled={commitment.disabled}
                 onClick={() => {
                     if (commitment.run) {
@@ -32,7 +32,7 @@ const aliceSleep = new Commitment("alice_sleep", alice, aliceRoom, {
                         fontSize: { sx: "1.5rem", sm: "2rem", md: "2.5rem", lg: "3rem", xl: "3.5rem" },
                     }}
                 />
-            </NavigationRoundIconButton>
+            </NqtrRoundIconButton>
         );
     },
     onRun: (_, event) => {
@@ -54,7 +54,7 @@ const aliceSmokes = new Commitment("alice_smokes", alice, terrace, {
     image: new ImageTimeSlots("alice_terrace0A"),
     icon: (commitment, props) => {
         return (
-            <NavigationRoundIconButton
+            <NqtrRoundIconButton
                 disabled={commitment.disabled}
                 onClick={() => {
                     if (commitment.run) {
@@ -70,7 +70,7 @@ const aliceSmokes = new Commitment("alice_smokes", alice, terrace, {
                         fontSize: { sx: "1.5rem", sm: "2rem", md: "2.5rem", lg: "3rem", xl: "3.5rem" },
                     }}
                 />
-            </NavigationRoundIconButton>
+            </NqtrRoundIconButton>
         );
     },
     onRun: (_, event) => {

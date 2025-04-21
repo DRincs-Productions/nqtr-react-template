@@ -3,7 +3,7 @@ import { narration } from "@drincs/pixi-vn";
 import BedIcon from "@mui/icons-material/Bed";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import NavigationRoundIconButton from "../components/NavigationRoundIconButton";
+import NqtrRoundIconButton from "../components/NqtrRoundIconButton";
 import { NARRATION_ROUTE } from "../constans";
 import { napLabel, sleepLabel } from "../labels/sleepNapLabels";
 import { orderProductLabel, takeKeyLabel } from "../labels/variousActionsLabels";
@@ -23,7 +23,7 @@ export const bed = new Activity(
         name: "bed",
         icon: (activity, props) => {
             return (
-                <NavigationRoundIconButton
+                <NqtrRoundIconButton
                     disabled={activity.disabled}
                     onClick={() => {
                         activity.run(props);
@@ -37,7 +37,7 @@ export const bed = new Activity(
                             fontSize: { sx: "1.5rem", sm: "2rem", md: "2.5rem", lg: "3rem", xl: "3.5rem" },
                         }}
                     />
-                </NavigationRoundIconButton>
+                </NqtrRoundIconButton>
             );
         },
     }
@@ -53,7 +53,7 @@ export const orderProduct = new Activity(
         name: "order_product",
         icon: (activity, props) => {
             return (
-                <NavigationRoundIconButton
+                <NqtrRoundIconButton
                     disabled={activity.disabled}
                     onClick={() => {
                         activity.run(props);
@@ -67,7 +67,7 @@ export const orderProduct = new Activity(
                             fontSize: { sx: "1.5rem", sm: "2rem", md: "2.5rem", lg: "3rem", xl: "3.5rem" },
                         }}
                     />
-                </NavigationRoundIconButton>
+                </NqtrRoundIconButton>
             );
         },
     }
@@ -83,7 +83,7 @@ export const takeProduct = new Activity(
         name: "take_product",
         icon: (activity, props) => {
             return (
-                <NavigationRoundIconButton
+                <NqtrRoundIconButton
                     disabled={activity.disabled}
                     onClick={() => {
                         activity.run(props);
@@ -97,7 +97,7 @@ export const takeProduct = new Activity(
                             fontSize: { sx: "1.5rem", sm: "2rem", md: "2.5rem", lg: "3rem", xl: "3.5rem" },
                         }}
                     />
-                </NavigationRoundIconButton>
+                </NqtrRoundIconButton>
             );
         },
     }
