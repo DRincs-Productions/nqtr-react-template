@@ -11,7 +11,6 @@ function getRoomInfo(room: RoomInterface) {
     if (currentCommitments.length > 0 && currentCommitments[0].image) {
         image = currentCommitments[0].image;
     }
-    Assets.load(image);
 
     return {
         room: room,
@@ -71,7 +70,12 @@ export function useQueryQuickRooms() {
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, QUICK_ROOMS_USE_QUEY_KEY],
         queryFn: () => {
-            return navigator.currentLocation?.rooms.map(getRoomInfo) || [];
+            let rooms = navigator.currentLocation?.rooms.map((tempRoom) => {
+                let room = getRoomInfo(tempRoom);
+                Assets.load(room.image.src);
+                return room;
+            });
+            return rooms || [];
         },
     });
 }
