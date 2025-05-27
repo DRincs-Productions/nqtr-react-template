@@ -1,4 +1,6 @@
+import { OnRunAsyncFunction } from "@drincs/nqtr";
 import { AnimatePresence } from "motion/react";
+import { useMemo } from "react";
 import { NqtrRoundIconButtonConvertor } from "../../components/NqtrRoundIconButton.tsx";
 import StackOverflow from "../../components/StackOverflow.tsx";
 import useGameProps from "../../hooks/useGameProps.tsx";
@@ -8,6 +10,7 @@ export default function QuickActivities() {
     const { data: { activities = [], routine = [] } = {} } = useQueryCurrentRoom();
     const gameProps = useGameProps();
     const { uiTransition: t } = gameProps;
+    const onClick = useMemo(() => (run: OnRunAsyncFunction) => run(gameProps), [gameProps]);
 
     return (
         <StackOverflow
@@ -29,9 +32,7 @@ export default function QuickActivities() {
                     <NqtrRoundIconButtonConvertor
                         key={"activity" + item.id}
                         disabled={item.disabled}
-                        onClick={() => {
-                            item.run(gameProps);
-                        }}
+                        onClick={() => onClick(item.run)}
                         ariaLabel={t(item.name)}
                         image={item.icon}
                     />
@@ -40,9 +41,7 @@ export default function QuickActivities() {
                     <NqtrRoundIconButtonConvertor
                         key={"commitment" + item.id}
                         disabled={item.disabled}
-                        onClick={() => {
-                            item.run(gameProps);
-                        }}
+                        onClick={() => onClick(item.run)}
                         ariaLabel={t(item.name)}
                         image={item.icon}
                     />
