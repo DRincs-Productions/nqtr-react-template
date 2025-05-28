@@ -1,5 +1,4 @@
-import { ActivityInterface, ActivityStoredClass, OnRunEvent } from "@drincs/nqtr";
-import { OnRunProps } from "@drincs/nqtr/dist/types/OnRunEvent";
+import { ActivityInterface, ActivityStoredClass, OnRunEvent, OnRunProps } from "@drincs/nqtr";
 import { ReactElement } from "react";
 import ImageTimeSlots from "../ImageTimeSlots";
 

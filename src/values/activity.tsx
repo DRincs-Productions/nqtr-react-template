@@ -1,4 +1,4 @@
-import { saveActivity, timeTracker } from "@drincs/nqtr";
+import { RegisteredActivities, timeTracker } from "@drincs/nqtr";
 import BedIcon from "@mui/icons-material/Bed";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -97,4 +97,4 @@ export const takeProduct = new Activity(
     }
 );
 
-saveActivity([bed, orderProduct, takeProduct]);
+RegisteredActivities.add([bed, orderProduct, takeProduct]);

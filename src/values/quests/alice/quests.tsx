@@ -1,4 +1,4 @@
-import { routine, saveCommitment, saveQuest } from "@drincs/nqtr";
+import { RegisteredCommitments, RegisteredQuests, routine } from "@drincs/nqtr";
 import { NARRATION_ROUTE } from "../../../constans";
 import { navigateAndJumpToLabel } from "../../../labels/utility-labels";
 import { talkAliceQuest } from "../../../labels/variousActionsLabels";
@@ -58,7 +58,7 @@ export const aliceQuest = new Quest(
     }
 );
 
-saveQuest(aliceQuest);
+RegisteredQuests.add(aliceQuest);
 
 const aliceQuest_talk = new Commitment("alice_quest_talk", alice, terrace, {
     fromHour: 10,
@@ -73,4 +73,4 @@ const aliceQuest_talk = new Commitment("alice_quest_talk", alice, terrace, {
     },
 });
 
-saveCommitment(aliceQuest_talk);
+RegisteredCommitments.add(aliceQuest_talk);

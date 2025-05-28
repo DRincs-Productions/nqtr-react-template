@@ -1,4 +1,4 @@
-import { saveRoom } from "@drincs/nqtr";
+import { RegisteredRooms } from "@drincs/nqtr";
 import ImageTimeSlots from "../models/ImageTimeSlots";
 import Room from "../models/nqtr/Room";
 import { bed } from "./activity";
@@ -71,4 +71,4 @@ export const classRoom = new Room("class_room", school, {
     image: new ImageTimeSlots(""),
 });
 
-saveRoom([mcRoom, aliceRoom, annRoom, bathroom, lounge, terrace, gymRoom, classRoom]);
+RegisteredRooms.add([mcRoom, aliceRoom, annRoom, bathroom, lounge, terrace, gymRoom, classRoom]);

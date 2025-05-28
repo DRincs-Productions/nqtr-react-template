@@ -1,4 +1,12 @@
-import { navigator, QuestInterface, questsNotebook, RoomInterface, routine, timeTracker } from "@drincs/nqtr";
+import {
+    navigator,
+    QuestInterface,
+    questsNotebook,
+    RegisteredRooms,
+    RoomInterface,
+    routine,
+    timeTracker,
+} from "@drincs/nqtr";
 import { Assets, storage } from "@drincs/pixi-vn";
 import { useQuery } from "@tanstack/react-query";
 import { SELECTED_QUEST_STORAGE_KEY } from "../constans";
@@ -30,6 +38,17 @@ export function useQueryTime() {
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_HOUR_USE_QUEY_KEY],
         queryFn: () => {
             return timeTracker.currentHour;
+        },
+    });
+}
+
+export const ROOM_USE_QUEY_KEY = "room_use_quey_key";
+export function useQueryRoom(id: string) {
+    const room = RegisteredRooms.get(id);
+    return useQuery({
+        queryKey: [INTERFACE_DATA_USE_QUEY_KEY, ROOM_USE_QUEY_KEY, id],
+        queryFn: () => {
+            return room ? getRoomInfo(room) : undefined;
         },
     });
 }
