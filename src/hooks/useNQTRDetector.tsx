@@ -3,11 +3,12 @@ import { canvas, CanvasImage } from "@drincs/pixi-vn";
 import { useEffect } from "react";
 import { CANVAS_UI_LAYER_NAME } from "../constans";
 import useNqtrScreenStore from "../stores/useNqtrScreenStore";
-import { useQueryCurrentRoom, useQueryTime } from "../use_query/useQueryNQTR";
+import { useQueryCurrentRoomId, useQueryRoom, useQueryTime } from "../use_query/useQueryNQTR";
 import useGameProps from "./useGameProps";
 
 export default function useNQTRDetector() {
-    const { data: currentRoom } = useQueryCurrentRoom();
+    const { data: currentRoomId } = useQueryCurrentRoomId();
+    const { data: currentRoom } = useQueryRoom(currentRoomId);
     const { data: hour } = useQueryTime();
     const gameProps = useGameProps();
     const setDisable = useNqtrScreenStore((state) => state.setDisabled);

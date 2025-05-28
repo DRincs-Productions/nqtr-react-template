@@ -21,6 +21,7 @@ function getRoomInfo(room: RoomInterface) {
     }
 
     return {
+        id: room.id,
         room: room,
         image: image,
         icon: icon,
@@ -36,31 +37,24 @@ const CURRENT_HOUR_USE_QUEY_KEY = "current_hour_use_quey_key";
 export function useQueryTime() {
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_HOUR_USE_QUEY_KEY],
-        queryFn: () => {
-            return timeTracker.currentHour;
-        },
+        queryFn: async () => timeTracker.currentHour,
     });
 }
 
 export const ROOM_USE_QUEY_KEY = "room_use_quey_key";
-export function useQueryRoom(id: string) {
-    const room = RegisteredRooms.get(id);
+export function useQueryRoom(id?: string) {
+    const room = id ? RegisteredRooms.get(id) : undefined;
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, ROOM_USE_QUEY_KEY, id],
-        queryFn: () => {
-            return room ? getRoomInfo(room) : undefined;
-        },
+        queryFn: async () => (room ? getRoomInfo(room) : undefined),
     });
 }
 
 export const CURRENT_ROOM_USE_QUEY_KEY = "current_room_use_quey_key";
-export function useQueryCurrentRoom() {
-    const currentRoom = navigator.currentRoom;
+export function useQueryCurrentRoomId() {
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_ROOM_USE_QUEY_KEY],
-        queryFn: () => {
-            return currentRoom ? getRoomInfo(currentRoom) : undefined;
-        },
+        queryFn: async () => navigator.currentRoomId,
     });
 }
 
@@ -68,9 +62,7 @@ const CURRENT_ROUTINE_USE_QUEY_KEY = "current_routine_use_quey_key";
 export function useQueryCurrentRoutine() {
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_ROUTINE_USE_QUEY_KEY],
-        queryFn: () => {
-            return routine.currentRoomRoutine;
-        },
+        queryFn: async () => routine.currentRoomRoutine,
     });
 }
 
@@ -78,23 +70,21 @@ const CURRENT_ACTIVITIES_USE_QUEY_KEY = "current_activities_use_quey_key";
 export function useQueryCurrentActivities() {
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_ACTIVITIES_USE_QUEY_KEY],
-        queryFn: () => {
-            return navigator.currentRoom?.activities || [];
-        },
+        queryFn: async () => navigator.currentRoom?.activities || [],
     });
 }
 
 const QUICK_ROOMS_USE_QUEY_KEY = "quick_rooms_use_quey_key";
 export function useQueryQuickRooms() {
+    const rooms = navigator.currentLocation?.rooms || [];
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, QUICK_ROOMS_USE_QUEY_KEY],
-        queryFn: () => {
-            let rooms = navigator.currentLocation?.rooms.map((tempRoom) => {
-                let room = getRoomInfo(tempRoom);
-                Assets.load(room.image.src);
-                return room;
-            });
-            return rooms || [];
+        queryFn: async () => {
+            const loadRoomsImage = async () => {
+                rooms?.forEach((room) => Assets.backgroundLoad(room.image.src));
+            };
+            loadRoomsImage();
+            return rooms;
         },
     });
 }
@@ -144,7 +134,7 @@ const QUESTS_USE_QUEY_KEY = "quests_use_quey_key";
 export function useQueryQuests() {
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, QUESTS_USE_QUEY_KEY],
-        queryFn: () => {
+        queryFn: async () => {
             let inProgressQuests = questsNotebook.inProgressQuests.map(getQuestInfo);
             let completedQuests = questsNotebook.completedQuests.map(getQuestInfo);
             let failedQuests = questsNotebook.failedQuests.map(getQuestInfo);
@@ -161,7 +151,7 @@ export const SELECTED_QUEST_USE_QUEY_KEY = "selected_quest_use_quey_key";
 export function useQuerySelectedQuest() {
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, SELECTED_QUEST_USE_QUEY_KEY],
-        queryFn: () => {
+        queryFn: async () => {
             let selectedQuestId = storage.getVariable<string>(SELECTED_QUEST_STORAGE_KEY);
             let selectedQuest = selectedQuestId ? questsNotebook.find(selectedQuestId) : undefined;
             return selectedQuest ? getQuestInfo(selectedQuest) : null;

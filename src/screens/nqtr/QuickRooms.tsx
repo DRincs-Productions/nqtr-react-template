@@ -2,15 +2,19 @@ import { navigator } from "@drincs/nqtr";
 import { Avatar, AvatarGroup } from "@mui/joy";
 import { useQueryClient } from "@tanstack/react-query";
 import { AnimatePresence } from "motion/react";
+import { useMemo } from "react";
 import { NqtrRoundIconButtonConvertor } from "../../components/NqtrRoundIconButton.tsx";
 import StackOverflow from "../../components/StackOverflow.tsx";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "../../use_query/useQueryInterface";
-import { CURRENT_ROOM_USE_QUEY_KEY, useQueryCurrentRoom, useQueryQuickRooms } from "../../use_query/useQueryNQTR.ts";
+import {
+    CURRENT_ROOM_USE_QUEY_KEY,
+    useQueryCurrentRoomId,
+    useQueryQuickRooms,
+    useQueryRoom,
+} from "../../use_query/useQueryNQTR.ts";
 
 export default function QuickRooms() {
     const { data: rooms = [] } = useQueryQuickRooms();
-    const { data: { room: currentRoom } = {} } = useQueryCurrentRoom();
-    const queryClient = useQueryClient();
 
     return (
         <StackOverflow
@@ -28,72 +32,68 @@ export default function QuickRooms() {
             }}
         >
             <AnimatePresence>
-                {rooms.map((props) => {
-                    const { disabled, icon, name, room, characters } = props;
-                    const selected = currentRoom?.id === room.id;
-                    return (
-                        <NqtrRoundIconButtonConvertor
-                            key={"room" + room.id}
-                            disabled={disabled || selected}
-                            selected={selected}
-                            onClick={() => {
-                                if (!disabled && !selected) {
-                                    navigator.currentRoom = room;
-                                    queryClient.setQueryData(
-                                        [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_ROOM_USE_QUEY_KEY],
-                                        props
-                                    );
-                                }
-                            }}
-                            ariaLabel={name}
-                            image={icon.src}
-                        >
-                            <AvatarGroup
-                                sx={{
-                                    position: "absolute",
-                                    bottom: 0,
-                                    right: 0,
-                                    "--Avatar-size": { xs: "15px", sm: "22px", md: "28px" },
-                                }}
-                            >
-                                {characters.length <= 3 && (
-                                    <>
-                                        {characters.map((character) => (
-                                            <Avatar
-                                                key={character.id}
-                                                alt={character.name}
-                                                src={character.icon}
-                                                size='sm'
-                                            />
-                                        ))}
-                                    </>
-                                )}
-                                {characters.length > 3 && (
-                                    <>
-                                        {characters.slice(0, 2).map((character) => (
-                                            <Avatar
-                                                key={character.id}
-                                                alt={character.name}
-                                                src={character.icon}
-                                                size='sm'
-                                            />
-                                        ))}
-                                        <Avatar
-                                            sx={{
-                                                backgroundColor: "rgba(0, 0, 0, 0.5)",
-                                                color: "white",
-                                            }}
-                                            size='sm'
-                                        >
-                                            +{characters.length - 2}
-                                        </Avatar>
-                                    </>
-                                )}
-                            </AvatarGroup>
-                        </NqtrRoundIconButtonConvertor>
-                    );
-                })}
+                {rooms.map((room) => (
+                    <QuickRoom key={"room-" + room.id} roomId={room.id} {...room} />
+                ))}
             </AnimatePresence>
         </StackOverflow>
+    );
+}
+
+function QuickRoom({ roomId }: { roomId: string }) {
+    const queryClient = useQueryClient();
+    const { data } = useQueryRoom(roomId);
+    const { data: currentRoomId } = useQueryCurrentRoomId();
+    const { disabled, icon, name, characters, room } = data || {};
+    const selected = useMemo(() => currentRoomId === roomId, [currentRoomId, roomId]);
+
+    return (
+        <NqtrRoundIconButtonConvertor
+            disabled={disabled || selected}
+            selected={selected}
+            onClick={() => {
+                if (!disabled && !selected && room) {
+                    navigator.currentRoom = room;
+                    queryClient.setQueryData([INTERFACE_DATA_USE_QUEY_KEY, CURRENT_ROOM_USE_QUEY_KEY], data);
+                }
+            }}
+            ariaLabel={name || ""}
+            image={icon?.src}
+        >
+            {characters && (
+                <AvatarGroup
+                    sx={{
+                        position: "absolute",
+                        bottom: 0,
+                        right: 0,
+                        "--Avatar-size": { xs: "15px", sm: "22px", md: "28px" },
+                    }}
+                >
+                    {characters.length <= 3 && (
+                        <>
+                            {characters.map((character) => (
+                                <Avatar key={character.id} alt={character.name} src={character.icon} size='sm' />
+                            ))}
+                        </>
+                    )}
+                    {characters.length > 3 && (
+                        <>
+                            {characters.slice(0, 2).map((character) => (
+                                <Avatar key={character.id} alt={character.name} src={character.icon} size='sm' />
+                            ))}
+                            <Avatar
+                                sx={{
+                                    backgroundColor: "rgba(0, 0, 0, 0.5)",
+                                    color: "white",
+                                }}
+                                size='sm'
+                            >
+                                +{characters.length - 2}
+                            </Avatar>
+                        </>
+                    )}
+                </AvatarGroup>
+            )}
+        </NqtrRoundIconButtonConvertor>
     );
 }

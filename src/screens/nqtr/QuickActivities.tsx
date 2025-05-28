@@ -4,10 +4,11 @@ import { useMemo } from "react";
 import { NqtrRoundIconButtonConvertor } from "../../components/NqtrRoundIconButton.tsx";
 import StackOverflow from "../../components/StackOverflow.tsx";
 import useGameProps from "../../hooks/useGameProps.tsx";
-import { useQueryCurrentRoom } from "../../use_query/useQueryNQTR";
+import { useQueryCurrentRoomId, useQueryRoom } from "../../use_query/useQueryNQTR";
 
 export default function QuickActivities() {
-    const { data: { activities = [], routine = [] } = {} } = useQueryCurrentRoom();
+    const { data: currentRoomId } = useQueryCurrentRoomId();
+    const { data: { activities = [], routine = [] } = {} } = useQueryRoom(currentRoomId);
     const gameProps = useGameProps();
     const { uiTransition: t } = gameProps;
     const onClick = useMemo(() => (run: OnRunAsyncFunction) => run(gameProps), [gameProps]);
