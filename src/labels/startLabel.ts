@@ -5,10 +5,10 @@ import { aliceQuest } from "../values/quests/alice/quests";
 import { mcRoom } from "../values/rooms";
 
 const startLabel = newLabel("start", [
-    (props) => {
+    async (props) => {
         navigator.currentRoom = mcRoom;
-        aliceQuest.start(props);
-        props.navigate(NAVIGATION_ROUTE);
+        await aliceQuest.start(props);
+        await props.navigate(NAVIGATION_ROUTE);
         timeTracker.currentHour = 8;
     },
 ]);

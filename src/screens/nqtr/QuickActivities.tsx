@@ -3,7 +3,7 @@ import { AnimatePresence } from "motion/react";
 import { useMemo } from "react";
 import { NqtrRoundIconButtonConvertor } from "../../components/NqtrRoundIconButton.tsx";
 import StackOverflow from "../../components/StackOverflow.tsx";
-import useGameProps from "../../hooks/useGameProps.tsx";
+import useGameProps from "../../hooks/useGameProps.ts";
 import { useQueryCurrentRoomId, useQueryRoom } from "../../use_query/useQueryNQTR";
 
 export default function QuickActivities() {

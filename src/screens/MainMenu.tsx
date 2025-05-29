@@ -4,7 +4,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { motion } from "motion/react";
 import { useEffect } from "react";
 import MenuButton from "../components/MenuButton";
-import { CANVAS_UI_LAYER_NAME, NARRATION_ROUTE } from "../constans";
+import { CANVAS_UI_LAYER_NAME } from "../constans";
 import useGameProps from "../hooks/useGameProps";
 import startLabel from "../labels/startLabel";
 import useGameSaveScreenStore from "../stores/useGameSaveScreenStore";
@@ -76,7 +76,6 @@ export default function MainMenu() {
                     canvas.removeAll();
                     narration.callLabel(startLabel, gameProps).then(() => {
                         queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] });
-                        navigate(NARRATION_ROUTE);
                     });
                 }}
                 transitionDelay={0.2}
