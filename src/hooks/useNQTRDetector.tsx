@@ -1,5 +1,5 @@
 import { navigator } from "@drincs/nqtr";
-import { canvas, CanvasImage } from "@drincs/pixi-vn";
+import { canvas, ImageSprite } from "@drincs/pixi-vn";
 import { useEffect } from "react";
 import { CANVAS_UI_LAYER_NAME } from "../constans";
 import useNqtrScreenStore from "../stores/useNqtrScreenStore";
@@ -17,7 +17,7 @@ export default function useNQTRDetector() {
         const { image } = currentRoom || {};
         if (image) {
             canvas.clear();
-            let component = new CanvasImage({}, image.src);
+            let component = new ImageSprite({}, image.src);
             component.load();
             canvas.getLayer(CANVAS_UI_LAYER_NAME)?.addChild(component);
         }

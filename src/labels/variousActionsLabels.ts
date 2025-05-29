@@ -1,10 +1,10 @@
 import {
-    ChoiceMenuOption,
-    ChoiceMenuOptionClose,
-    ChoiceMenuOptionsType,
     narration,
+    newChoiceOption,
+    newCloseChoiceOption,
     newLabel,
     showImage,
+    StoredChoiceInterface,
 } from "@drincs/pixi-vn";
 import { orderProduct, takeProduct } from "../values/activity";
 import { mc } from "../values/characters";
@@ -44,8 +44,8 @@ export const talkSleepLabel = newLabel("TalkSleepLabel", [
         await showImage(BACKGROUND_ID, "alice_roomsleep0A");
         narration.dialogue = "zZz zZz ...";
         narration.choiceMenuOptions = [
-            new ChoiceMenuOption("Try waking up", talkSleepResultLabel, {}),
-            new ChoiceMenuOptionClose("Leave her alone"),
+            newChoiceOption("Try waking up", talkSleepResultLabel, {}),
+            newCloseChoiceOption("Leave her alone"),
         ];
     },
 ]);
@@ -119,10 +119,10 @@ export const aliceTalkMenuLabel = newLabel("AliceTalkMenuLabel", [
     async () => {
         await showImage(BACKGROUND_ID, "alice_terrace0At");
         narration.dialogue = "Hi, what do you want to talk about?";
-        let optionsMenu: ChoiceMenuOptionsType = [];
+        let optionsMenu: StoredChoiceInterface[] = [];
         if (aliceQuest.started) {
-            optionsMenu.push(new ChoiceMenuOption("About the book", talkAliceQuest, {}));
+            optionsMenu.push(newChoiceOption("About the book", talkAliceQuest, {}));
         }
-        narration.choiceMenuOptions = [...optionsMenu, new ChoiceMenuOptionClose("Cancel")];
+        narration.choiceMenuOptions = [...optionsMenu, newCloseChoiceOption("Cancel")];
     },
 ]);
