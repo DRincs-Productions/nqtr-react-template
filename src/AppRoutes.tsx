@@ -28,20 +28,20 @@ export default function AppRoutes() {
 }
 
 function NarrationElement() {
-    useSkipAutoDetector();
     return (
         <>
             <HistoryScreen />
-            <QuickTools />
             <NarrationScreen />
+            <QuickTools />
             <TextInput />
             <NextButton />
+            <Detectors />
         </>
     );
 }
 
 function NavigationElement() {
-    useNQTRDetector();
+    NavigationDetectors();
     return (
         <>
             <HistoryScreen />
@@ -52,4 +52,14 @@ function NavigationElement() {
             <NqtrQuickTools />
         </>
     );
+}
+
+function Detectors() {
+    useSkipAutoDetector();
+    return <></>;
+}
+
+function NavigationDetectors() {
+    useNQTRDetector();
+    return <></>;
 }

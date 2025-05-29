@@ -4,13 +4,13 @@ import Card from "@mui/joy/Card";
 import CardContent from "@mui/joy/CardContent";
 import Sheet from "@mui/joy/Sheet";
 import Typography from "@mui/joy/Typography";
-import { motion, Variants } from "motion/react";
-import { useCallback, useRef } from "react";
+import { RefObject, useCallback, useMemo, useRef } from "react";
 import Markdown from "react-markdown";
-import { MarkdownTypewriter } from "react-markdown-typewriter";
+import { MarkdownTypewriterHooks } from "react-markdown-typewriter";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 import { useShallow } from "zustand/react/shallow";
+import AnimatedDots from "../components/AnimatedDots";
 import SliderResizer from "../components/SliderResizer";
 import useDialogueCardStore from "../stores/useDialogueCardStore";
 import useInterfaceStore from "../stores/useInterfaceStore";
@@ -20,50 +20,179 @@ import ChoiceMenu from "./ChoiceMenu";
 
 export default function NarrationScreen() {
     const {
-        height: cardHeight,
+        height: cardHeightTemp,
         setHeight: setCardHeight,
         imageWidth: cardImageWidth,
         setImageWidth: setCardImageWidth,
     } = useDialogueCardStore(useShallow((state) => state));
-    const typewriterDelay = useTypewriterStore((state) => state.delay);
-    const startTypewriter = useTypewriterStore((state) => state.start);
-    const endTypewriter = useTypewriterStore((state) => state.end);
-    const { data: { text, character, oldText } = {} } = useQueryDialogue();
-    const hidden = useInterfaceStore((state) => state.hidden || (text || oldText ? false : true));
-    const cardVarians: Variants = {
-        open: {
-            opacity: 1,
-            y: 0,
-        },
-        closed: {
-            opacity: 0,
-            y: 200,
-            pointerEvents: "none",
-        },
-    };
-    const cardElementVarians: Variants = {
-        open: {
-            opacity: 1,
-            scale: 1,
-            pointerEvents: "auto",
-        },
-        closed: {
-            opacity: 0,
-            scale: 0,
-            pointerEvents: "none",
-        },
-    };
-    const cardImageVarians: Variants = {
-        open: {
-            opacity: 1,
-            x: 0,
-        },
-        closed: {
-            opacity: 0,
-            x: -100,
-        },
-    };
+    const { data: { animatedText, character, text } = {} } = useQueryDialogue();
+    const hidden = useInterfaceStore((state) => state.hidden || (animatedText || text ? false : true));
+    const cardHeight = animatedText || text ? cardHeightTemp : 0;
+    const cardVarians = useMemo(
+        () =>
+            hidden
+                ? `motion-opacity-out-0 motion-translate-y-out-[50%]`
+                : `motion-opacity-in-0 motion-translate-y-in-[50%]`,
+        [hidden]
+    );
+    const sliderVarians = useMemo(
+        () =>
+            hidden
+                ? `motion-duration-200/opacity motion-opacity-out-0 motion-translate-y-out-[25%]`
+                : `motion-opacity-in-0 motion-translate-y-in-[25%]`,
+        [hidden]
+    );
+    const cardImageVarians = useMemo(
+        () => (!hidden && character?.icon ? `motion-opacity-in-0 motion-translate-x-in-[-5%]` : `motion-opacity-out-0`),
+        [hidden, character?.icon]
+    );
     const paragraphRef = useRef<HTMLDivElement>(null);
+
+    return (
+        <Box
+            sx={{
+                position: "absolute",
+                display: "flex",
+                flexDirection: "column",
+                height: "100%",
+                width: "100%",
+            }}
+        >
+            <Box sx={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column" }}>
+                <SliderResizer
+                    orientation='vertical'
+                    max={100}
+                    min={0}
+                    value={cardHeight}
+                    onChange={(_, value) => {
+                        if (typeof value === "number") {
+                            setCardHeight(value);
+                        }
+                    }}
+                    stackProps={{
+                        sx: {
+                            top: 0,
+                            paddingBottom: { xs: "0.9rem", sm: "1rem", md: "1.1rem", lg: "1.3rem", xl: "1.4rem" },
+                        },
+                    }}
+                    sx={{
+                        pointerEvents: !hidden ? "auto" : "none",
+                    }}
+                    className={sliderVarians}
+                />
+                <Box sx={{ flex: 1, minHeight: 0 }}>
+                    <ChoiceMenu />
+                </Box>
+                <Box
+                    sx={{
+                        flex: "0 0 auto",
+                        height: `${cardHeight}%`,
+                        minHeight: 0,
+                        pointerEvents: !hidden ? "auto" : "none",
+                    }}
+                    className={cardVarians}
+                >
+                    <Card
+                        key={"dialogue-card"}
+                        orientation='horizontal'
+                        sx={{
+                            overflow: "auto",
+                            gap: 1,
+                            padding: 0,
+                            height: "100%",
+                            marginX: { xs: "0.9rem", sm: "1rem", md: "1.1rem", lg: "1.3rem", xl: "1.4rem" },
+                        }}
+                    >
+                        {character?.icon && (
+                            <AspectRatio
+                                flex
+                                ratio='1'
+                                maxHeight={"20%"}
+                                sx={{
+                                    height: "100%",
+                                    minWidth: `${cardImageWidth}%`,
+                                }}
+                                className={`motion-scale-x-in-0`}
+                            >
+                                <img src={character.icon} loading='lazy' alt='' />
+                            </AspectRatio>
+                        )}
+                        <SliderResizer
+                            orientation='horizontal'
+                            max={100}
+                            min={0}
+                            value={cardImageWidth}
+                            onChange={(_, value) => {
+                                if (typeof value === "number") {
+                                    if (value > 75) {
+                                        value = 75;
+                                    }
+                                    if (value < 5) {
+                                        value = 5;
+                                    }
+                                    setCardImageWidth(value);
+                                }
+                            }}
+                            sx={{
+                                pointerEvents: !hidden && character?.icon ? "auto" : "none",
+                            }}
+                            className={cardImageVarians}
+                        />
+                        <CardContent>
+                            <Typography
+                                fontSize='xl'
+                                fontWeight='lg'
+                                sx={{
+                                    color: character?.color,
+                                    paddingLeft: 1,
+                                    height: { sx: undefined, md: 30 },
+                                    marginLeft: 2,
+                                }}
+                                className={
+                                    character && character.name
+                                        ? `motion-opacity-in-0 motion-translate-x-in-[-3%]`
+                                        : `motion-opacity-out-0`
+                                }
+                            >
+                                {`${character?.name || ""} ${character?.surname || ""}`}
+                            </Typography>
+                            <Sheet
+                                ref={paragraphRef}
+                                sx={{
+                                    bgcolor: "background.level1",
+                                    borderRadius: "sm",
+                                    p: 1.5,
+                                    minHeight: 10,
+                                    display: "flex",
+                                    flex: 1,
+                                    overflow: "auto",
+                                    height: "100%",
+                                    marginX: { xs: 0, md: 3 },
+                                    marginBottom: { xs: 0, md: 3 },
+                                }}
+                            >
+                                <NarrationScreenText paragraphRef={paragraphRef} />
+                            </Sheet>
+                        </CardContent>
+                    </Card>
+                </Box>
+            </Box>
+            <Box
+                sx={{
+                    flex: "0 0 auto",
+                    height: { xs: "0.9rem", sm: "1rem", md: "1.1rem", lg: "1.3rem", xl: "1.4rem" },
+                    minHeight: 0,
+                }}
+            ></Box>
+        </Box>
+    );
+}
+
+function NarrationScreenText({ paragraphRef }: { paragraphRef: RefObject<HTMLDivElement | null> }) {
+    const typewriterDelay = useTypewriterStore(useShallow((state) => state.delay));
+    const startTypewriter = useTypewriterStore(useShallow((state) => state.start));
+    const endTypewriter = useTypewriterStore(useShallow((state) => state.end));
+    const { data: { animatedText, text } = {} } = useQueryDialogue();
 
     const handleCharacterAnimationComplete = useCallback((ref: { current: HTMLSpanElement | null }) => {
         if (paragraphRef.current && ref.current) {
@@ -76,180 +205,38 @@ export default function NarrationScreen() {
     }, []);
 
     return (
-        <Box
-            sx={{
-                height: "95%",
-                width: "100%",
-                position: "absolute",
-                left: 0,
-                right: 0,
-                top: 0,
-            }}
-        >
-            <ChoiceMenu fullscreen={text || oldText ? false : true} />
-            <SliderResizer
-                orientation='vertical'
-                max={100}
-                min={0}
-                value={cardHeight}
-                onChange={(_, value) => {
-                    if (typeof value === "number") {
-                        setCardHeight(value);
-                    }
-                }}
-                variants={cardVarians}
-                initial={"closed"}
-                animate={hidden ? "closed" : "open"}
-                exit={"closed"}
-                transition={{ type: "tween" }}
-            />
-            <Box
-                sx={{
-                    position: "absolute",
-                    height: `${cardHeight}%`,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                }}
-            >
-                <Box
-                    sx={{
-                        position: "absolute",
-                        left: 0,
-                        right: 0,
-                        top: 0,
-                        height: "100%",
+        <p style={{ margin: 0, padding: 0 }}>
+            <span>
+                <Markdown
+                    remarkPlugins={[remarkGfm]}
+                    rehypePlugins={[rehypeRaw]}
+                    components={{
+                        p: (props) => <span {...props} />,
                     }}
-                    component={motion.div}
-                    variants={cardVarians}
-                    initial={"closed"}
-                    animate={hidden ? "closed" : "open"}
-                    exit={"closed"}
-                    transition={{ type: "tween" }}
                 >
-                    <Card
-                        key={"dialogue-card"}
-                        orientation='horizontal'
-                        sx={{
-                            overflow: "auto",
-                            gap: 1,
-                            padding: 0,
-                            height: "100%",
-                        }}
-                    >
-                        {character?.icon && (
-                            <AspectRatio
-                                flex
-                                ratio='1'
-                                maxHeight={"20%"}
-                                sx={{
-                                    height: "100%",
-                                    minWidth: `${cardImageWidth}%`,
-                                }}
-                                component={motion.div}
-                                variants={cardElementVarians}
-                                initial={"closed"}
-                                animate={character?.icon ? "open" : "closed"}
-                                exit={"closed"}
-                                transition={{ type: "tween" }}
-                            >
-                                <img src={character.icon} loading='lazy' alt='' />
-                            </AspectRatio>
-                        )}
-                        {character && (
-                            <SliderResizer
-                                orientation='horizontal'
-                                max={100}
-                                min={0}
-                                value={cardImageWidth}
-                                onChange={(_, value) => {
-                                    if (typeof value === "number") {
-                                        if (value > 75) {
-                                            value = 75;
-                                        }
-                                        if (value < 5) {
-                                            value = 5;
-                                        }
-                                        setCardImageWidth(value);
-                                    }
-                                }}
-                                variants={cardImageVarians}
-                                initial={"closed"}
-                                animate={character?.icon ? "open" : "closed"}
-                                exit={"closed"}
-                                transition={{ type: "tween" }}
-                            />
-                        )}
-                        <CardContent>
-                            {character && character.name && (
-                                <Typography
-                                    fontSize='xl'
-                                    fontWeight='lg'
-                                    sx={{
-                                        color: character.color,
-                                        paddingLeft: 1,
-                                    }}
-                                    component={motion.div}
-                                    variants={cardElementVarians}
-                                    initial={"closed"}
-                                    animate={character.name ? "open" : "closed"}
-                                    exit={"closed"}
-                                >
-                                    {character.name + (character.surname ? " " + character.surname : "")}
-                                </Typography>
-                            )}
-                            <Sheet
-                                ref={paragraphRef}
-                                sx={{
-                                    bgcolor: "background.level1",
-                                    borderRadius: "sm",
-                                    p: 1.5,
-                                    minHeight: 10,
-                                    display: "flex",
-                                    flex: 1,
-                                    overflow: "auto",
-                                    height: "100%",
-                                    marginRight: 2,
-                                    marginBottom: 2,
-                                }}
-                            >
-                                <p style={{ margin: 0, padding: 0 }}>
-                                    {
-                                        <span>
-                                            <Markdown
-                                                remarkPlugins={[remarkGfm]}
-                                                rehypePlugins={[rehypeRaw]}
-                                                components={{
-                                                    p: (props) => <span {...props} />,
-                                                }}
-                                            >
-                                                {oldText}
-                                            </Markdown>
-                                        </span>
-                                    }
-                                    {
-                                        <span>
-                                            <span> </span>
-                                            <MarkdownTypewriter
-                                                remarkPlugins={[remarkGfm]}
-                                                rehypePlugins={[rehypeRaw]}
-                                                delay={typewriterDelay}
-                                                motionProps={{
-                                                    onAnimationStart: startTypewriter,
-                                                    onAnimationComplete: endTypewriter,
-                                                    onCharacterAnimationComplete: handleCharacterAnimationComplete,
-                                                }}
-                                            >
-                                                {text}
-                                            </MarkdownTypewriter>
-                                        </span>
-                                    }
-                                </p>
-                            </Sheet>
-                        </CardContent>
-                    </Card>
-                </Box>
-            </Box>
-        </Box>
+                    {text}
+                </Markdown>
+            </span>
+            <span>
+                <span> </span>
+                <MarkdownTypewriterHooks
+                    remarkPlugins={[remarkGfm]}
+                    rehypePlugins={[rehypeRaw]}
+                    delay={typewriterDelay}
+                    motionProps={{
+                        onAnimationStart: startTypewriter,
+                        onAnimationComplete: (definition: "visible" | "hidden") => {
+                            if (definition == "visible") {
+                                endTypewriter();
+                            }
+                        },
+                        onCharacterAnimationComplete: handleCharacterAnimationComplete,
+                    }}
+                    fallback={<AnimatedDots />}
+                >
+                    {animatedText}
+                </MarkdownTypewriterHooks>
+            </span>
+        </p>
     );
 }
