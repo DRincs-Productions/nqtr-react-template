@@ -54,7 +54,7 @@ function QuickRoom({ roomId }: { roomId: string }) {
             onClick={() => {
                 if (!disabled && !selected && room) {
                     navigator.currentRoom = room;
-                    queryClient.setQueryData([INTERFACE_DATA_USE_QUEY_KEY, CURRENT_ROOM_USE_QUEY_KEY], data);
+                    queryClient.setQueryData([INTERFACE_DATA_USE_QUEY_KEY, CURRENT_ROOM_USE_QUEY_KEY], roomId);
                 }
             }}
             ariaLabel={name || ""}
