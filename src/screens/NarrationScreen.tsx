@@ -58,132 +58,102 @@ export default function NarrationScreen() {
                 width: "100%",
             }}
         >
-            <Box sx={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column" }}>
-                <SliderResizer
-                    orientation='vertical'
-                    max={100}
-                    min={0}
-                    value={cardHeight}
-                    onChange={(_, value) => {
-                        if (typeof value === "number") {
-                            setCardHeight(value);
-                        }
-                    }}
-                    stackProps={{
-                        sx: {
-                            top: 0,
-                            paddingBottom: { xs: "0.9rem", sm: "1rem", md: "1.1rem", lg: "1.3rem", xl: "1.4rem" },
-                        },
-                    }}
-                    sx={{
-                        pointerEvents: !hidden ? "auto" : "none",
-                    }}
-                    className={sliderVarians}
-                />
-                <Box sx={{ flex: 1, minHeight: 0 }}>
-                    <ChoiceMenu />
-                </Box>
-                <Box
-                    sx={{
-                        flex: "0 0 auto",
-                        height: `${cardHeight}%`,
-                        minHeight: 0,
-                        pointerEvents: !hidden ? "auto" : "none",
-                    }}
-                    className={cardVarians}
-                >
-                    <Card
-                        key={"dialogue-card"}
-                        orientation='horizontal'
-                        sx={{
-                            overflow: "auto",
-                            gap: 1,
-                            padding: 0,
-                            height: "100%",
-                            marginX: { xs: "0.9rem", sm: "1rem", md: "1.1rem", lg: "1.3rem", xl: "1.4rem" },
-                        }}
-                    >
-                        {character?.icon && (
-                            <AspectRatio
-                                flex
-                                ratio='1'
-                                maxHeight={"20%"}
-                                sx={{
-                                    height: "100%",
-                                    minWidth: `${cardImageWidth}%`,
-                                }}
-                                className={`motion-scale-x-in-0`}
-                            >
-                                <img src={character.icon} loading='lazy' alt='' />
-                            </AspectRatio>
-                        )}
-                        <SliderResizer
-                            orientation='horizontal'
-                            max={100}
-                            min={0}
-                            value={cardImageWidth}
-                            onChange={(_, value) => {
-                                if (typeof value === "number") {
-                                    if (value > 75) {
-                                        value = 75;
-                                    }
-                                    if (value < 5) {
-                                        value = 5;
-                                    }
-                                    setCardImageWidth(value);
-                                }
-                            }}
-                            sx={{
-                                pointerEvents: !hidden && character?.icon ? "auto" : "none",
-                            }}
-                            className={cardImageVarians}
-                        />
-                        <CardContent>
-                            <Typography
-                                fontSize='xl'
-                                fontWeight='lg'
-                                sx={{
-                                    color: character?.color,
-                                    paddingLeft: 1,
-                                    height: { sx: undefined, md: 30 },
-                                    marginLeft: 2,
-                                }}
-                                className={
-                                    character && character.name
-                                        ? `motion-opacity-in-0 motion-translate-x-in-[-3%]`
-                                        : `motion-opacity-out-0`
-                                }
-                            >
-                                {`${character?.name || ""} ${character?.surname || ""}`}
-                            </Typography>
-                            <Sheet
-                                ref={paragraphRef}
-                                sx={{
-                                    bgcolor: "background.level1",
-                                    borderRadius: "sm",
-                                    p: 1.5,
-                                    minHeight: 10,
-                                    display: "flex",
-                                    flex: 1,
-                                    overflow: "auto",
-                                    height: "100%",
-                                    marginX: { xs: 0, md: 3 },
-                                    marginBottom: { xs: 0, md: 3 },
-                                }}
-                            >
-                                <NarrationScreenText paragraphRef={paragraphRef} />
-                            </Sheet>
-                        </CardContent>
-                    </Card>
-                </Box>
+            <Box sx={{ flex: 1, minHeight: 0 }}>
+                <ChoiceMenu />
             </Box>
             <Box
                 sx={{
                     flex: "0 0 auto",
-                    height: { xs: "0.9rem", sm: "1rem", md: "1.1rem", lg: "1.3rem", xl: "1.4rem" },
+                    height: `${cardHeight}%`,
                     minHeight: 0,
+                    pointerEvents: !hidden ? "auto" : "none",
                 }}
-            ></Box>
+                className={cardVarians}
+            >
+                <Card
+                    key={"dialogue-card"}
+                    orientation='horizontal'
+                    sx={{
+                        overflow: "auto",
+                        gap: 1,
+                        padding: 0,
+                        height: "100%",
+                        marginX: { xs: "0.9rem", sm: "1rem", md: "1.1rem", lg: "1.3rem", xl: "1.4rem" },
+                    }}
+                >
+                    {character?.icon && (
+                        <AspectRatio
+                            flex
+                            ratio='1'
+                            maxHeight={"20%"}
+                            sx={{
+                                height: "100%",
+                                minWidth: `${cardImageWidth}%`,
+                            }}
+                            className={`motion-scale-x-in-0`}
+                        >
+                            <img src={character.icon} loading='lazy' alt='' />
+                        </AspectRatio>
+                    )}
+                    <SliderResizer
+                        orientation='horizontal'
+                        max={100}
+                        min={0}
+                        value={cardImageWidth}
+                        onChange={(_, value) => {
+                            if (typeof value === "number") {
+                                if (value > 75) {
+                                    value = 75;
+                                }
+                                if (value < 5) {
+                                    value = 5;
+                                }
+                                setCardImageWidth(value);
+                            }
+                        }}
+                        sx={{
+                            pointerEvents: !hidden && character?.icon ? "auto" : "none",
+                        }}
+                        className={cardImageVarians}
+                    />
+                    <CardContent>
+                        <Typography
+                            fontSize='xl'
+                            fontWeight='lg'
+                            sx={{
+                                color: character?.color,
+                                paddingLeft: 1,
+                                height: { sx: undefined, md: 30 },
+                                marginLeft: 2,
+                            }}
+                            className={
+                                character && character.name
+                                    ? `motion-opacity-in-0 motion-translate-x-in-[-3%]`
+                                    : `motion-opacity-out-0`
+                            }
+                        >
+                            {`${character?.name || ""} ${character?.surname || ""}`}
+                        </Typography>
+                        <Sheet
+                            ref={paragraphRef}
+                            sx={{
+                                bgcolor: "background.level1",
+                                borderRadius: "sm",
+                                p: 1.5,
+                                minHeight: 10,
+                                display: "flex",
+                                flex: 1,
+                                overflow: "auto",
+                                height: "100%",
+                                marginX: { xs: 0, md: 3 },
+                                marginBottom: { xs: 0, md: 3 },
+                            }}
+                        >
+                            <NarrationScreenText paragraphRef={paragraphRef} />
+                        </Sheet>
+                    </CardContent>
+                </Card>
+            </Box>
         </Box>
     );
 }
