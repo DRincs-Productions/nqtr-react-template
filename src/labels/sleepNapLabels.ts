@@ -1,5 +1,5 @@
 import { navigator } from "@drincs/nqtr";
-import { ChoiceMenuOption, ChoiceMenuOptionClose, narration, newLabel, showImage } from "@drincs/pixi-vn";
+import { narration, newChoiceOption, newCloseChoiceOption, newLabel, showImage } from "@drincs/pixi-vn";
 import { sleep, wait } from "../utils/time-utility";
 import { BACKGROUND_ID } from "../values/constants";
 
@@ -26,10 +26,10 @@ export const sleepLabel = newLabel("SleepLabel", [
         await showImage(BACKGROUND_ID, navigator.currentRoom?.image.src);
         narration.dialogue = "What time do you want to set the alarm?";
         narration.choiceMenuOptions = [
-            new ChoiceMenuOption(uiTransition("allarm_menu_item", { hour: 8 }), sleepHourLabel, { hour: 8 }),
-            new ChoiceMenuOption(uiTransition("allarm_menu_item", { hour: 9 }), sleepHourLabel, { hour: 9 }),
-            new ChoiceMenuOption(uiTransition("allarm_menu_item", { hour: 10 }), sleepHourLabel, { hour: 10 }),
-            new ChoiceMenuOptionClose("Cancel"),
+            newChoiceOption(uiTransition("allarm_menu_item", { hour: 8 }), sleepHourLabel, { hour: 8 }),
+            newChoiceOption(uiTransition("allarm_menu_item", { hour: 9 }), sleepHourLabel, { hour: 9 }),
+            newChoiceOption(uiTransition("allarm_menu_item", { hour: 10 }), sleepHourLabel, { hour: 10 }),
+            newCloseChoiceOption("Cancel"),
         ];
     },
 ]);
@@ -39,9 +39,9 @@ export const napLabel = newLabel("NapLabel", [
         await showImage(BACKGROUND_ID, navigator.currentRoom?.image.src);
         narration.dialogue = "You are tired and decide to take a nap.";
         narration.choiceMenuOptions = [
-            new ChoiceMenuOption(uiTransition("nap_menu_item", { hour: 3 }), napHourLabel, { hour: 3 }),
-            new ChoiceMenuOption(uiTransition("sleep"), sleepLabel, { hour: 3 }),
-            new ChoiceMenuOptionClose("Cancel"),
+            newChoiceOption(uiTransition("nap_menu_item", { hour: 3 }), napHourLabel, { hour: 3 }),
+            newChoiceOption(uiTransition("sleep"), sleepLabel, { hour: 3 }),
+            newCloseChoiceOption("Cancel"),
         ];
     },
 ]);
