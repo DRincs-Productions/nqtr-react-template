@@ -5,10 +5,10 @@ import { useShallow } from "zustand/react/shallow";
 import ChoiceButton from "../components/ChoiceButton";
 import useDebouncedEffect from "../hooks/useDebouncedEffect";
 import useNarrationFunctions from "../hooks/useNarrationFunctions";
+import { useQueryChoiceMenuOptions } from "../hooks/useQueryInterface";
 import useInterfaceStore from "../stores/useInterfaceStore";
 import useStepStore from "../stores/useStepStore";
 import useTypewriterStore from "../stores/useTypewriterStore";
-import { useQueryChoiceMenuOptions } from "../use_query/useQueryInterface";
 
 export default function ChoiceMenu() {
     const nextStepLoading = useStepStore((state) => state.loading);

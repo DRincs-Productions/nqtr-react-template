@@ -5,13 +5,13 @@ import { AnimatePresence } from "motion/react";
 import { useMemo } from "react";
 import { NqtrRoundIconButtonConvertor } from "../../components/NqtrRoundIconButton.tsx";
 import StackOverflow from "../../components/StackOverflow.tsx";
-import { INTERFACE_DATA_USE_QUEY_KEY } from "../../use_query/useQueryInterface";
+import { INTERFACE_DATA_USE_QUEY_KEY } from "../../hooks/useQueryInterface";
 import {
     CURRENT_ROOM_USE_QUEY_KEY,
     useQueryCurrentRoomId,
     useQueryQuickRooms,
     useQueryRoom,
-} from "../../use_query/useQueryNQTR.ts";
+} from "../../hooks/useQueryNQTR.ts";
 
 export default function QuickRooms() {
     const { data: rooms = [] } = useQueryQuickRooms();

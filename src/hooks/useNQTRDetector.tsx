@@ -2,8 +2,8 @@ import { navigator } from "@drincs/nqtr";
 import { canvas, ImageSprite } from "@drincs/pixi-vn";
 import { useEffect } from "react";
 import { CANVAS_UI_LAYER_NAME } from "../constans";
+import { useQueryCurrentRoomId, useQueryRoom, useQueryTime } from "../hooks/useQueryNQTR";
 import useNqtrScreenStore from "../stores/useNqtrScreenStore";
-import { useQueryCurrentRoomId, useQueryRoom, useQueryTime } from "../use_query/useQueryNQTR";
 import useGameProps from "./useGameProps";
 
 export default function useNQTRDetector() {

@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import { NqtrRoundIconButtonConvertor } from "../../components/NqtrRoundIconButton.tsx";
 import StackOverflow from "../../components/StackOverflow.tsx";
 import useGameProps from "../../hooks/useGameProps.ts";
-import { useQueryCurrentRoomId, useQueryRoom } from "../../use_query/useQueryNQTR";
+import { useQueryCurrentRoomId, useQueryRoom } from "../../hooks/useQueryNQTR";
 
 export default function QuickActivities() {
     const { data: currentRoomId } = useQueryCurrentRoomId();

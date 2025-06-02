@@ -6,9 +6,9 @@ import { motion } from "motion/react";
 import { useSnackbar } from "notistack";
 import { useTranslation } from "react-i18next";
 import RoundIconButton from "../../components/RoundIconButton";
+import { INTERFACE_DATA_USE_QUEY_KEY } from "../../hooks/useQueryInterface";
+import { useQueryTime } from "../../hooks/useQueryNQTR";
 import useNqtrScreenStore from "../../stores/useNqtrScreenStore";
-import { INTERFACE_DATA_USE_QUEY_KEY } from "../../use_query/useQueryInterface";
-import { useQueryTime } from "../../use_query/useQueryNQTR";
 import { wait } from "../../utils/time-utility";
 
 export default function TimeScreen() {

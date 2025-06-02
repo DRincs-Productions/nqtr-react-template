@@ -5,9 +5,9 @@ import { useTranslation } from "react-i18next";
 import ModalDialogCustom from "../../components/ModalDialog";
 import { SELECTED_QUEST_STORAGE_KEY } from "../../constans";
 import useEventListener from "../../hooks/useKeyDetector";
+import { INTERFACE_DATA_USE_QUEY_KEY } from "../../hooks/useQueryInterface";
+import { SELECTED_QUEST_USE_QUEY_KEY, useQueryQuests, useQuerySelectedQuest } from "../../hooks/useQueryNQTR";
 import useMemoScreenStore from "../../stores/useMemoScreenStore";
-import { INTERFACE_DATA_USE_QUEY_KEY } from "../../use_query/useQueryInterface";
-import { SELECTED_QUEST_USE_QUEY_KEY, useQueryQuests, useQuerySelectedQuest } from "../../use_query/useQueryNQTR";
 
 export default function MemoScreen() {
     const { t } = useTranslation(["ui"]);
