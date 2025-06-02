@@ -1,6 +1,6 @@
 import { AssetsManifest } from "@drincs/pixi-vn";
 import { MAIN_MENU_ROUTE } from "../constans";
-import { mcHome } from "../values/locations";
+import { aliceRoom, annRoom, bathroom, gymRoom, lounge, mcRoom, terrace } from "../values/rooms";
 
 /**
  * Manifest for the assets used in the game.
@@ -20,9 +20,9 @@ const manifest: AssetsManifest = {
         },
         // labels
         // characters
-        // location
+        // rooms
         {
-            name: mcHome.id,
+            name: mcRoom.id,
             assets: [
                 {
                     alias: "location_myroom-0",
@@ -40,6 +40,11 @@ const manifest: AssetsManifest = {
                     alias: "location_myroom-3",
                     src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/location/myroom-3.webp",
                 },
+            ],
+        },
+        {
+            name: aliceRoom.id,
+            assets: [
                 {
                     alias: "location_aliceroom-0",
                     src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/location/aliceroom-0.webp",
@@ -56,6 +61,11 @@ const manifest: AssetsManifest = {
                     alias: "location_aliceroom-3",
                     src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/location/aliceroom-3.webp",
                 },
+            ],
+        },
+        {
+            name: annRoom.id,
+            assets: [
                 {
                     alias: "location_annroom-0",
                     src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/location/annroom-0.webp",
@@ -72,10 +82,20 @@ const manifest: AssetsManifest = {
                     alias: "location_annroom-3",
                     src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/location/annroom-3.webp",
                 },
+            ],
+        },
+        {
+            name: bathroom.id,
+            assets: [
                 {
                     alias: "location_bathroom",
                     src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/location/bathroom.webp",
                 },
+            ],
+        },
+        {
+            name: lounge.id,
+            assets: [
                 {
                     alias: "location_lounge-0",
                     src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/location/lounge-0.webp",
@@ -92,6 +112,11 @@ const manifest: AssetsManifest = {
                     alias: "location_lounge-3",
                     src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/location/lounge-3.webp",
                 },
+            ],
+        },
+        {
+            name: terrace.id,
+            assets: [
                 {
                     alias: "location_terrace-0",
                     src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/location/terrace-0.webp",
@@ -108,11 +133,21 @@ const manifest: AssetsManifest = {
                     alias: "location_terrace-3",
                     src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/location/terrace-3.webp",
                 },
+            ],
+        },
+        {
+            name: gymRoom.id,
+            assets: [
                 {
                     alias: "location_gym",
                     src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/location/gym.webp",
                 },
-                // alice
+            ],
+        },
+        // alice
+        {
+            name: "alice",
+            assets: [
                 {
                     alias: "alice_terrace0A",
                     src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/Alice/terrace0A.webp",

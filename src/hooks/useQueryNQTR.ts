@@ -81,7 +81,10 @@ export function useQueryQuickRooms() {
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, QUICK_ROOMS_USE_QUEY_KEY],
         queryFn: async () => {
             const loadRoomsImage = async () => {
-                rooms?.forEach((room) => Assets.backgroundLoad(room.image.src));
+                rooms?.forEach((room) => {
+                    Assets.backgroundLoad(room.image.src);
+                    Assets.backgroundLoadBundle(room.id);
+                });
             };
             loadRoomsImage();
             return rooms;

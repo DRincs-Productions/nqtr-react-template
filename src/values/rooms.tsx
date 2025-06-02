@@ -35,7 +35,7 @@ export const annRoom = new Room("ann_room", mcHome, {
     }),
 });
 
-const bathroom = new Room("bathroom", mcHome, {
+export const bathroom = new Room("bathroom", mcHome, {
     name: "Bathroom",
     image: new ImageTimeSlots("location_bathroom"),
 });
