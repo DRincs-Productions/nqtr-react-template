@@ -6,7 +6,7 @@ import NqtrRoundIconButton from "../components/NqtrRoundIconButton";
 import { NARRATION_ROUTE } from "../constans";
 import { napLabel, sleepLabel } from "../labels/sleepNapLabels";
 import { navigateAndJumpToLabel } from "../labels/utility-labels";
-import { orderProductLabel, takeKeyLabel } from "../labels/variousActionsLabels";
+import { ORDER_PRODUCT_LABEL_KEY, TAKE_KEY_LABEL_KEY } from "../labels/variousActionsLabelKeys";
 import Activity from "../models/nqtr/Activity";
 
 export const bed = new Activity(
@@ -45,7 +45,7 @@ export const bed = new Activity(
 
 export const orderProduct = new Activity(
     "order_product",
-    async (_, event) => navigateAndJumpToLabel(orderProductLabel, NARRATION_ROUTE, event),
+    async (_, event) => navigateAndJumpToLabel(ORDER_PRODUCT_LABEL_KEY, NARRATION_ROUTE, event),
     {
         name: "order_product",
         icon: (activity, props) => {
@@ -72,7 +72,7 @@ export const orderProduct = new Activity(
 
 export const takeProduct = new Activity(
     "take_product",
-    async (_, event) => navigateAndJumpToLabel(takeKeyLabel, NARRATION_ROUTE, event),
+    async (_, event) => navigateAndJumpToLabel(TAKE_KEY_LABEL_KEY, NARRATION_ROUTE, event),
     {
         name: "take_product",
         icon: (activity, props) => {

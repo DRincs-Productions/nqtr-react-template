@@ -11,8 +11,15 @@ import { mc } from "../values/characters";
 import { BACKGROUND_ID } from "../values/constants";
 import { aliceQuest } from "../values/quests/alice/quests";
 import { mcRoom, terrace } from "../values/rooms";
+import {
+    ALICE_TALK_MENU_LABEL_KEY,
+    ORDER_PRODUCT_LABEL_KEY,
+    TAKE_KEY_LABEL_KEY,
+    TALK_ALICE_QUEST_KEY,
+    TALK_SLEEP_LABEL_KEY,
+} from "./variousActionsLabelKeys";
 
-export const orderProductLabel = newLabel("OrderProductLabel", [
+export const orderProductLabel = newLabel(ORDER_PRODUCT_LABEL_KEY, [
     () => {
         narration.dialogue = `OK! Let's see, let's look for a book....`;
     },
@@ -23,7 +30,7 @@ export const orderProductLabel = newLabel("OrderProductLabel", [
     },
 ]);
 
-export const takeKeyLabel = newLabel("TakeKeyLabel", [
+export const takeKeyLabel = newLabel(TAKE_KEY_LABEL_KEY, [
     (props) => {
         narration.dialogue = `Are these the car keys?! Well... I should try to access the car!`;
         terrace.removeActivity(takeProduct);
@@ -39,7 +46,7 @@ const talkSleepResultLabel = newLabel("TalkSleepResultLabel", [
         narration.dialogue = "Get out of here! Now!";
     },
 ]);
-export const talkSleepLabel = newLabel("TalkSleepLabel", [
+export const talkSleepLabel = newLabel(TALK_SLEEP_LABEL_KEY, [
     async () => {
         await showImage(BACKGROUND_ID, "alice_roomsleep0A");
         narration.dialogue = "zZz zZz ...";
@@ -51,7 +58,7 @@ export const talkSleepLabel = newLabel("TalkSleepLabel", [
 ]);
 
 export const talkAliceQuest = newLabel(
-    "talkAliceQuest",
+    TALK_ALICE_QUEST_KEY,
     () => {
         if (aliceQuest.currentStageIndex == 0) {
             return [
@@ -115,7 +122,7 @@ export const talkAliceQuest = newLabel(
         },
     }
 );
-export const aliceTalkMenuLabel = newLabel("AliceTalkMenuLabel", [
+export const aliceTalkMenuLabel = newLabel(ALICE_TALK_MENU_LABEL_KEY, [
     async () => {
         await showImage(BACKGROUND_ID, "alice_terrace0At");
         narration.dialogue = "Hi, what do you want to talk about?";

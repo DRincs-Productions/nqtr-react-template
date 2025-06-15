@@ -5,7 +5,7 @@ import { Label, narration, newLabel, StepLabelResultType } from "@drincs/pixi-vn
  * Navigates to the narration route and jumps to the given label.
  */
 const navigareNarrationRouteLabel = newLabel<{
-    labelToOpen: Label;
+    labelToOpen: Label | string;
     route: string;
 }>("navigare_narration_route", [
     async (props) => {
@@ -15,7 +15,7 @@ const navigareNarrationRouteLabel = newLabel<{
     },
 ]);
 export async function navigateAndJumpToLabel(
-    label: Label,
+    label: Label | string,
     route: string,
     props: OnRunProps
 ): Promise<StepLabelResultType> {
