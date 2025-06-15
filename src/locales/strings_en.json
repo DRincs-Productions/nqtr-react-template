@@ -68,7 +68,7 @@
 		"sunday" : "Sunday",
 		"nap" : "Nap",
 		"sleep" : "Sleep",
-		"allarm_menu_item" : "{{hour}}:00",
+		"allarm_menu_item" : "{{hour}} 00",
 		"nap_menu_item" : "{{hour}} hours",
 		"wait" : "Wait", 
 		"quests" : "Quests",
