@@ -2,7 +2,7 @@ import { IconButton, IconButtonProps, Shadow, Tooltip } from "@mui/joy";
 
 export interface RoundIconButtonProps extends IconButtonProps {
     circumference?: string | {} | number;
-    ariaLabel: string;
+    ariaLabel?: string;
     elevation?: keyof Shadow;
 }
 

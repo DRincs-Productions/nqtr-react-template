@@ -5,12 +5,15 @@ import { AnimatePresence, motion } from "motion/react";
 import { useTranslation } from "react-i18next";
 import RoundIconButton, { RoundIconButtonProps } from "../../components/RoundIconButton.tsx";
 import StackOverflow from "../../components/StackOverflow.tsx.tsx";
+import { MAP_ROUTE } from "../../constans.ts";
+import useMyNavigate from "../../hooks/useMyNavigate.ts";
 import useMemoScreenStore from "../../stores/useMemoScreenStore.ts";
 import useSettingsScreenStore from "../../stores/useSettingsScreenStore.ts";
 
 export default function NqtrQuickTools() {
     const editOpenMemo = useMemoScreenStore((state) => state.editOpen);
     const editOpenSettings = useSettingsScreenStore((state) => state.editOpen);
+    const navigate = useMyNavigate();
     const { t } = useTranslation(["ui"]);
 
     return (
@@ -61,7 +64,7 @@ export default function NqtrQuickTools() {
                 }}
             >
                 <AnimatePresence>
-                    <QuickToolButton ariaLabel={t("map")}>
+                    <QuickToolButton ariaLabel={t("map")} onClick={() => navigate(MAP_ROUTE)}>
                         <MapIcon
                             sx={{
                                 fontSize: { xs: "1.5rem", sm: "2rem", md: "2.5rem", lg: "3rem", xl: "3.5rem" },

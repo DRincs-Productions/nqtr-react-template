@@ -1,5 +1,6 @@
 import { AssetsManifest } from "@drincs/pixi-vn";
 import { MAIN_MENU_ROUTE } from "../constans";
+import { mainMap } from "../values/maps";
 import { aliceRoom, annRoom, bathroom, gymRoom, lounge, mcRoom, terrace } from "../values/rooms";
 
 /**
@@ -20,6 +21,28 @@ const manifest: AssetsManifest = {
         },
         // labels
         // characters
+        // map
+        {
+            name: mainMap.id,
+            assets: [
+                {
+                    alias: "map-0",
+                    src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/refs/heads/main/game/images/location/map-0.webp",
+                },
+                {
+                    alias: "map-1",
+                    src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/refs/heads/main/game/images/location/map-1.webp",
+                },
+                {
+                    alias: "map-2",
+                    src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/refs/heads/main/game/images/location/map-2.webp",
+                },
+                {
+                    alias: "map-3",
+                    src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/refs/heads/main/game/images/location/map-3.webp",
+                },
+            ],
+        },
         // rooms
         {
             name: mcRoom.id,

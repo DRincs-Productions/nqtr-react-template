@@ -161,3 +161,11 @@ export function useQuerySelectedQuest() {
         },
     });
 }
+
+export const CURRENT_MAP_USE_QUEY_KEY = "current_map_use_quey_key";
+export function useQueryCurrentMap() {
+    return useQuery({
+        queryKey: [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_MAP_USE_QUEY_KEY],
+        queryFn: async () => navigator.currentMap,
+    });
+}
