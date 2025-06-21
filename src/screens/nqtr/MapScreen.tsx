@@ -33,42 +33,54 @@ export default function MapScreen() {
 
     return (
         <>
-            <RoundIconButton
-                sx={{
-                    position: "absolute",
-                    top: "0.1rem",
-                    left: "50%",
-                }}
-            >
-                <KeyboardDoubleArrowUpIcon />
-            </RoundIconButton>
-            <RoundIconButton
-                sx={{
-                    position: "absolute",
-                    top: "50%",
-                    left: "0.1rem",
-                }}
-            >
-                <KeyboardDoubleArrowLeftIcon />
-            </RoundIconButton>
-            <RoundIconButton
-                sx={{
-                    position: "absolute",
-                    top: "50%",
-                    right: "0.1rem",
-                }}
-            >
-                <KeyboardDoubleArrowDownIcon />
-            </RoundIconButton>
-            <RoundIconButton
-                sx={{
-                    position: "absolute",
-                    top: "50%",
-                    right: "0.1rem",
-                }}
-            >
-                <KeyboardDoubleArrowRightIcon />
-            </RoundIconButton>
+            {map?.neighboringMaps.north && (
+                <RoundIconButton
+                    variant='soft'
+                    sx={{
+                        position: "absolute",
+                        top: "0.1rem",
+                        left: "50%",
+                    }}
+                >
+                    <KeyboardDoubleArrowUpIcon />
+                </RoundIconButton>
+            )}
+            {map?.neighboringMaps.west && (
+                <RoundIconButton
+                    variant='soft'
+                    sx={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "0.1rem",
+                    }}
+                >
+                    <KeyboardDoubleArrowLeftIcon />
+                </RoundIconButton>
+            )}
+            {map?.neighboringMaps.south && (
+                <RoundIconButton
+                    variant='soft'
+                    sx={{
+                        position: "absolute",
+                        bottom: "0.1rem",
+                        left: "50%",
+                    }}
+                >
+                    <KeyboardDoubleArrowDownIcon />
+                </RoundIconButton>
+            )}
+            {map?.neighboringMaps.east && (
+                <RoundIconButton
+                    variant='soft'
+                    sx={{
+                        position: "absolute",
+                        top: "50%",
+                        right: "0.1rem",
+                    }}
+                >
+                    <KeyboardDoubleArrowRightIcon />
+                </RoundIconButton>
+            )}
             <Stack
                 direction='column'
                 justifyContent='center'
