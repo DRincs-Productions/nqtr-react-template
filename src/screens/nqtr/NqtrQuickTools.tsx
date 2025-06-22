@@ -1,12 +1,15 @@
 import MapIcon from "@mui/icons-material/Map";
 import NoteAltIcon from "@mui/icons-material/NoteAlt";
 import SettingsIcon from "@mui/icons-material/Settings";
+import { useQueryClient } from "@tanstack/react-query";
 import { AnimatePresence, motion } from "motion/react";
 import { useTranslation } from "react-i18next";
 import RoundIconButton, { RoundIconButtonProps } from "../../components/RoundIconButton.tsx";
 import StackOverflow from "../../components/StackOverflow.tsx.tsx";
 import { MAP_ROUTE } from "../../constans.ts";
 import useMyNavigate from "../../hooks/useMyNavigate.ts";
+import { INTERFACE_DATA_USE_QUEY_KEY } from "../../hooks/useQueryInterface.ts";
+import { CURRENT_MAP_USE_QUEY_KEY } from "../../hooks/useQueryNQTR.ts";
 import useMemoScreenStore from "../../stores/useMemoScreenStore.ts";
 import useSettingsScreenStore from "../../stores/useSettingsScreenStore.ts";
 
@@ -14,6 +17,7 @@ export default function NqtrQuickTools() {
     const editOpenMemo = useMemoScreenStore((state) => state.editOpen);
     const editOpenSettings = useSettingsScreenStore((state) => state.editOpen);
     const navigate = useMyNavigate();
+    const queryClient = useQueryClient();
     const { t } = useTranslation(["ui"]);
 
     return (
@@ -64,7 +68,15 @@ export default function NqtrQuickTools() {
                 }}
             >
                 <AnimatePresence>
-                    <QuickToolButton ariaLabel={t("map")} onClick={() => navigate(MAP_ROUTE)}>
+                    <QuickToolButton
+                        ariaLabel={t("map")}
+                        onClick={() => {
+                            queryClient.invalidateQueries({
+                                queryKey: [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_MAP_USE_QUEY_KEY],
+                            });
+                            navigate(MAP_ROUTE);
+                        }}
+                    >
                         <MapIcon
                             sx={{
                                 fontSize: { xs: "1.5rem", sm: "2rem", md: "2.5rem", lg: "3rem", xl: "3.5rem" },
