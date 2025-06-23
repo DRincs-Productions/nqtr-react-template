@@ -1,3 +1,4 @@
+import { RegisteredLocations } from "@drincs/nqtr";
 import ImageTimeSlots from "../models/ImageTimeSlots";
 import Location from "../models/nqtr/Location";
 import { mainMap } from "./maps";
@@ -21,3 +22,5 @@ export const school = new Location("school", mainMap, {
     name: "School",
     icon: new ImageTimeSlots(""),
 });
+
+RegisteredLocations.add([mcHome, gym, school]);

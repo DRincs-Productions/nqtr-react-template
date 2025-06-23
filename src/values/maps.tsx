@@ -1,3 +1,4 @@
+import { RegisteredMaps } from "@drincs/nqtr";
 import ImageTimeSlots from "../models/ImageTimeSlots";
 import Map from "../models/nqtr/Map";
 
@@ -21,3 +22,5 @@ export const nightcityMap = new Map("nightcity_map", {
         south: "main_map",
     },
 });
+
+RegisteredMaps.add([mainMap, nightcityMap]);
