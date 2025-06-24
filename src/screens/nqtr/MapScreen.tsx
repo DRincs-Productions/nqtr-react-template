@@ -1,4 +1,4 @@
-import { navigator } from "@drincs/nqtr";
+import { RegisteredMaps } from "@drincs/nqtr";
 import { canvas, ImageSprite } from "@drincs/pixi-vn";
 import CloseIcon from "@mui/icons-material/Close";
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
@@ -49,8 +49,9 @@ export default function MapScreen() {
                         left: "50%",
                     }}
                     onClick={() => {
-                        const newMap = navigator.getMapById(map.neighboringMaps.north!);
-                        queryClient.setQueryData([INTERFACE_DATA_USE_QUEY_KEY, CURRENT_MAP_USE_QUEY_KEY], newMap);
+                        const newMap = RegisteredMaps.get(map.neighboringMaps.north!);
+                        newMap &&
+                            queryClient.setQueryData([INTERFACE_DATA_USE_QUEY_KEY, CURRENT_MAP_USE_QUEY_KEY], newMap);
                     }}
                 >
                     <KeyboardDoubleArrowUpIcon />
@@ -65,8 +66,9 @@ export default function MapScreen() {
                         left: "0.1rem",
                     }}
                     onClick={() => {
-                        const newMap = navigator.getMapById(map.neighboringMaps.north!);
-                        queryClient.setQueryData([INTERFACE_DATA_USE_QUEY_KEY, CURRENT_MAP_USE_QUEY_KEY], newMap);
+                        const newMap = RegisteredMaps.get(map.neighboringMaps.north!);
+                        newMap &&
+                            queryClient.setQueryData([INTERFACE_DATA_USE_QUEY_KEY, CURRENT_MAP_USE_QUEY_KEY], newMap);
                     }}
                 >
                     <KeyboardDoubleArrowLeftIcon />
@@ -81,8 +83,9 @@ export default function MapScreen() {
                         left: "50%",
                     }}
                     onClick={() => {
-                        const newMap = navigator.getMapById(map.neighboringMaps.north!);
-                        queryClient.setQueryData([INTERFACE_DATA_USE_QUEY_KEY, CURRENT_MAP_USE_QUEY_KEY], newMap);
+                        const newMap = RegisteredMaps.get(map.neighboringMaps.north!);
+                        newMap &&
+                            queryClient.setQueryData([INTERFACE_DATA_USE_QUEY_KEY, CURRENT_MAP_USE_QUEY_KEY], newMap);
                     }}
                 >
                     <KeyboardDoubleArrowDownIcon />
@@ -97,8 +100,9 @@ export default function MapScreen() {
                         right: "0.1rem",
                     }}
                     onClick={() => {
-                        const newMap = navigator.getMapById(map.neighboringMaps.north!);
-                        queryClient.setQueryData([INTERFACE_DATA_USE_QUEY_KEY, CURRENT_MAP_USE_QUEY_KEY], newMap);
+                        const newMap = RegisteredMaps.get(map.neighboringMaps.north!);
+                        newMap &&
+                            queryClient.setQueryData([INTERFACE_DATA_USE_QUEY_KEY, CURRENT_MAP_USE_QUEY_KEY], newMap);
                     }}
                 >
                     <KeyboardDoubleArrowRightIcon />
