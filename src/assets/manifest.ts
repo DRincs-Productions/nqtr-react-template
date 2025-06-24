@@ -167,6 +167,20 @@ const manifest: AssetsManifest = {
                 },
             ],
         },
+        // locations
+        {
+            name: "locations",
+            assets: [
+                {
+                    alias: "icon_location_home",
+                    src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/refs/heads/main/game/nqtr_interface/home-00.webp",
+                },
+                {
+                    alias: "icon_location_gym",
+                    src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/refs/heads/main/game/nqtr_interface/gym.webp",
+                },
+            ],
+        },
         // alice
         {
             name: "alice",

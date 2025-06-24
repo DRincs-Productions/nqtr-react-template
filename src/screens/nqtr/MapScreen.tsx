@@ -30,6 +30,9 @@ export default function MapScreen() {
             let layer = canvas.getLayer(CANVAS_UI_LAYER_NAME);
             if (layer) {
                 layer.addChild(bg);
+                map.locations.forEach(({ icon }) => {
+                    layer.addChild(icon);
+                });
             }
 
             return () => {

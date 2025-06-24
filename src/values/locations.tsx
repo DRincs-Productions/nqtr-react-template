@@ -1,26 +1,41 @@
-import { RegisteredLocations } from "@drincs/nqtr";
-import ImageTimeSlots from "../models/ImageTimeSlots";
+import { navigator, RegisteredLocations } from "@drincs/nqtr";
+import { ImageSprite } from "@drincs/pixi-vn";
 import Location from "../models/nqtr/Location";
 import { mainMap } from "./maps";
 
 export const mcHome = new Location("mc_home", mainMap, {
     name: "MC Home",
-    icon: new ImageTimeSlots(""),
-    // icon: new CanvasImage({
-    //     x: 100,
-    //     y: 100,
-    //     texture: Texture.EMPTY,
-    // }, "https://cdn-icons-png.freepik.com/512/5426/5426899.png?ga=GA1.1.2068448463.1715274700")
+    icon: (location) => {
+        const icon = new ImageSprite({ xAlign: 0.3, yAlign: 0.2 }, "icon map home");
+        icon.on("click", () => {
+            const entrance = location.entrance;
+            if (entrance) {
+                navigator.currentRoom = entrance;
+            }
+        });
+        icon.load();
+        return icon;
+    },
 });
 
 export const gym = new Location("gym", mainMap, {
     name: "Gym",
-    icon: new ImageTimeSlots(""),
+    icon: (location) => {
+        const icon = new ImageSprite({ xAlign: 0.5, yAlign: 0.3 }, "icon map gym");
+        icon.on("click", () => {
+            const entrance = location.entrance;
+            if (entrance) {
+                navigator.currentRoom = entrance;
+            }
+        });
+        icon.load();
+        return icon;
+    },
 });
 
 export const school = new Location("school", mainMap, {
     name: "School",
-    icon: new ImageTimeSlots(""),
+    icon: () => new ImageSprite(),
 });
 
 RegisteredLocations.add([mcHome, gym, school]);

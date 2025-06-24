@@ -1,4 +1,4 @@
-import { StepLabelProps } from "@drincs/pixi-vn";
+import { ImageSprite, StepLabelProps } from "@drincs/pixi-vn";
 import { ReactElement } from "react";
 import ImageTimeSlots from "./models/ImageTimeSlots";
 
@@ -61,7 +61,11 @@ declare module "@drincs/nqtr" {
         /**
          * The icon of the location.
          */
-        readonly icon: ImageTimeSlots | ReactElement;
+        readonly icon: ImageSprite;
+        /**
+         * The entrance room of the location.
+         */
+        readonly entrance: RoomInterface | undefined;
     }
     interface MapInterface {
         /**

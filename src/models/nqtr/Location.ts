@@ -1,6 +1,5 @@
 import { ActivityInterface, LocationInterface, LocationStoredClass, MapInterface, RoomInterface } from "@drincs/nqtr";
-import { ReactElement } from "react";
-import ImageTimeSlots from "../ImageTimeSlots";
+import { ImageSprite } from "@drincs/pixi-vn";
 
 export default class Location extends LocationStoredClass implements LocationInterface {
     constructor(
@@ -11,7 +10,7 @@ export default class Location extends LocationStoredClass implements LocationInt
             name: string;
             disabled?: boolean | (() => boolean);
             hidden?: boolean | (() => boolean);
-            icon: ImageTimeSlots | ReactElement | ((props: Location) => ReactElement);
+            icon: ImageSprite | ((props: Location) => ImageSprite);
         }
     ) {
         super(id, map, props.activities);
@@ -21,8 +20,8 @@ export default class Location extends LocationStoredClass implements LocationInt
         this._icon = props.icon;
     }
     readonly name: string;
-    private readonly _icon: ImageTimeSlots | ReactElement | ((props: Location) => ReactElement);
-    get icon(): ImageTimeSlots | ReactElement {
+    private readonly _icon: ImageSprite | ((props: Location) => ImageSprite);
+    get icon(): ImageSprite {
         if (typeof this._icon === "function") {
             return this._icon(this);
         }
@@ -52,5 +51,11 @@ export default class Location extends LocationStoredClass implements LocationInt
     }
     override get rooms(): RoomInterface[] {
         return super.rooms.filter((room) => !room.hidden);
+    }
+    get entrance(): RoomInterface | undefined {
+        if (super.rooms.length === 0) {
+            return undefined;
+        }
+        return super.rooms.find((room) => room.isEntrance) || super.rooms[0];
     }
 }
