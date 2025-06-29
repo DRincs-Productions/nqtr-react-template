@@ -61,7 +61,7 @@ declare module "@drincs/nqtr" {
         /**
          * The icon of the location.
          */
-        readonly icon: ImageSprite;
+        getIcon(props: StepLabelProps): ImageSprite;
         /**
          * The entrance room of the location.
          */

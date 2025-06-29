@@ -11,6 +11,7 @@ import { motion } from "motion/react";
 import { useEffect } from "react";
 import RoundIconButton from "../../components/RoundIconButton";
 import { CANVAS_UI_LAYER_NAME, NAVIGATION_ROUTE } from "../../constans";
+import useGameProps from "../../hooks/useGameProps";
 import useMyNavigate from "../../hooks/useMyNavigate";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "../../hooks/useQueryInterface";
 import { CURRENT_MAP_USE_QUEY_KEY, useQueryCurrentMap } from "../../hooks/useQueryNQTR";
@@ -20,6 +21,7 @@ export default function MapScreen() {
     const { data: map } = useQueryCurrentMap();
     const queryClient = useQueryClient();
     const navigate = useMyNavigate();
+    const gameProps = useGameProps();
     const editHideInterface = useInterfaceStore((state) => state.setHidden);
 
     useEffect(() => {
@@ -30,7 +32,8 @@ export default function MapScreen() {
             let layer = canvas.getLayer(CANVAS_UI_LAYER_NAME);
             if (layer) {
                 layer.addChild(bg);
-                map.locations.forEach(({ icon }) => {
+                map.locations.forEach((location) => {
+                    const icon = location.getIcon(gameProps);
                     layer.addChild(icon);
                 });
             }
