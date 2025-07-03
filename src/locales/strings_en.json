@@ -80,7 +80,9 @@
 		"quest_is_in_development" : "That is all for the moment. The quest is in development.",
 		"notify_quest_is_started" : "The \"{{quest}}\" quest has started.",
 		"notify_quest_is_updated" : "The \"{{quest}}\" quest has been updated.",
-		"bed": "Bed"
+		"bed": "Bed",
+		"order_product": "Order Products",
+		"take_product": "Take Product"
 	},
 	"narration": {}
 }
