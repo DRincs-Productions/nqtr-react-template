@@ -10,3 +10,12 @@ export const SELECTED_QUEST_STORAGE_KEY = "selected_quest";
 export const CANVAS_UI_LAYER_NAME = "ui";
 
 export const SKIP_DELAY = 100;
+
+export const timeSlots = {
+    morning: { description: "morning", value: 5 },
+    afternoon: { description: "afternoon", value: 12 },
+    evening: { description: "evening", value: 18 },
+    night: { description: "night", value: 22 },
+};
+
+export const BACKGROUND_ID = "background";

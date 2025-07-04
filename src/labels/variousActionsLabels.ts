@@ -6,9 +6,9 @@ import {
     showImage,
     StoredChoiceInterface,
 } from "@drincs/pixi-vn";
+import { BACKGROUND_ID } from "../constans";
 import { orderProduct, takeProduct } from "../values/activity";
 import { mc } from "../values/characters";
-import { BACKGROUND_ID } from "../values/constants";
 import { aliceQuest } from "../values/quests/alice/quests";
 import { mcRoom, terrace } from "../values/rooms";
 import {
