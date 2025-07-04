@@ -51,9 +51,7 @@ Game.onError((type, error, { notify, t }) => {
     console.error(`Error occurred: ${type}`, error);
 });
 
-Game.onLoadingLabel((_stepId, { id }) => {
-    Assets.backgroundLoadBundle(id);
-});
+Game.onLoadingLabel((_stepId, { id }) => Assets.backgroundLoadBundle(id));
 
 timeTracker.initialize({
     defaultTimeSpent: 1,
