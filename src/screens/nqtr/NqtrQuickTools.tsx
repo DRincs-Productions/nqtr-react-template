@@ -2,7 +2,6 @@ import MapIcon from "@mui/icons-material/Map";
 import NoteAltIcon from "@mui/icons-material/NoteAlt";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { useQueryClient } from "@tanstack/react-query";
-import { AnimatePresence, motion } from "motion/react";
 import { useTranslation } from "react-i18next";
 import RoundIconButton, { RoundIconButtonProps } from "../../components/RoundIconButton.tsx";
 import StackOverflow from "../../components/StackOverflow.tsx.tsx";
@@ -36,22 +35,20 @@ export default function NqtrQuickTools() {
                     pointerEvents: "auto",
                 }}
             >
-                <AnimatePresence>
-                    <QuickToolButton ariaLabel={t("settings")} onClick={editOpenSettings}>
-                        <SettingsIcon
-                            sx={{
-                                fontSize: { xs: "1.5rem", sm: "2rem", md: "2.5rem", lg: "3rem", xl: "3.5rem" },
-                            }}
-                        />
-                    </QuickToolButton>
-                    <QuickToolButton ariaLabel={t("memo")} onClick={editOpenMemo}>
-                        <NoteAltIcon
-                            sx={{
-                                fontSize: { xs: "1.5rem", sm: "2rem", md: "2.5rem", lg: "3rem", xl: "3.5rem" },
-                            }}
-                        />
-                    </QuickToolButton>
-                </AnimatePresence>
+                <QuickToolButton ariaLabel={t("settings")} onClick={editOpenSettings}>
+                    <SettingsIcon
+                        sx={{
+                            fontSize: { xs: "1.5rem", sm: "2rem", md: "2.5rem", lg: "3rem", xl: "3.5rem" },
+                        }}
+                    />
+                </QuickToolButton>
+                <QuickToolButton ariaLabel={t("memo")} onClick={editOpenMemo}>
+                    <NoteAltIcon
+                        sx={{
+                            fontSize: { xs: "1.5rem", sm: "2rem", md: "2.5rem", lg: "3rem", xl: "3.5rem" },
+                        }}
+                    />
+                </QuickToolButton>
             </StackOverflow>
             <StackOverflow
                 direction='row'
@@ -67,23 +64,21 @@ export default function NqtrQuickTools() {
                     pointerEvents: "auto",
                 }}
             >
-                <AnimatePresence>
-                    <QuickToolButton
-                        ariaLabel={t("map")}
-                        onClick={() => {
-                            queryClient.invalidateQueries({
-                                queryKey: [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_MAP_USE_QUEY_KEY],
-                            });
-                            navigate(MAP_ROUTE);
+                <QuickToolButton
+                    ariaLabel={t("map")}
+                    onClick={() => {
+                        queryClient.invalidateQueries({
+                            queryKey: [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_MAP_USE_QUEY_KEY],
+                        });
+                        navigate(MAP_ROUTE);
+                    }}
+                >
+                    <MapIcon
+                        sx={{
+                            fontSize: { xs: "1.5rem", sm: "2rem", md: "2.5rem", lg: "3rem", xl: "3.5rem" },
                         }}
-                    >
-                        <MapIcon
-                            sx={{
-                                fontSize: { xs: "1.5rem", sm: "2rem", md: "2.5rem", lg: "3rem", xl: "3.5rem" },
-                            }}
-                        />
-                    </QuickToolButton>
-                </AnimatePresence>
+                    />
+                </QuickToolButton>
             </StackOverflow>
         </>
     );
@@ -91,18 +86,17 @@ export default function NqtrQuickTools() {
 
 function QuickToolButton(props: RoundIconButtonProps) {
     return (
-        <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }} transition={{ ease: "easeOut" }}>
-            <RoundIconButton
-                sx={{
-                    border: 3,
-                    "--IconButton-size": { xs: "40px", sm: "60px", md: "80px" },
-                    fontSize: { xs: "1rem", sm: "1.5rem", md: "2rem", lg: "2.5rem", xl: "3rem" },
-                }}
-                elevation='lg'
-                variant='solid'
-                color='primary'
-                {...props}
-            />
-        </motion.div>
+        <RoundIconButton
+            sx={{
+                border: 3,
+                "--IconButton-size": { xs: "40px", sm: "60px", md: "80px" },
+                fontSize: { xs: "1rem", sm: "1.5rem", md: "2rem", lg: "2.5rem", xl: "3rem" },
+            }}
+            elevation='lg'
+            variant='solid'
+            color='primary'
+            className='motion-scale-in-[0]'
+            {...props}
+        />
     );
 }

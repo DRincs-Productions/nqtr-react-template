@@ -2,7 +2,6 @@ import { timeTracker } from "@drincs/nqtr";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { Stack, Typography, useTheme } from "@mui/joy";
 import { useQueryClient } from "@tanstack/react-query";
-import { motion } from "motion/react";
 import { useSnackbar } from "notistack";
 import { useTranslation } from "react-i18next";
 import RoundIconButton from "../../components/RoundIconButton";
@@ -31,23 +30,7 @@ export default function TimeScreen() {
                     opacity: 1,
                 },
             }}
-            component={motion.div}
-            variants={{
-                open: {
-                    opacity: 1,
-                    y: 0,
-                    pointerEvents: "auto",
-                },
-                closed: {
-                    opacity: 0,
-                    y: -100,
-                    pointerEvents: "none",
-                },
-            }}
-            initial={"closed"}
-            animate={"open"}
-            exit={"closed"}
-            transition={{ type: "tween" }}
+            className='motion-preset-bounce'
         >
             <Stack
                 direction='row'

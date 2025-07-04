@@ -1,7 +1,6 @@
 import { OnRunProps } from "@drincs/nqtr";
 import { Assets } from "@drincs/pixi-vn";
 import { useTheme } from "@mui/joy";
-import { motion } from "motion/react";
 import { isValidElement, ReactElement } from "react";
 import useGameProps from "../hooks/useGameProps";
 import ImageTimeSlots from "../models/ImageTimeSlots";
@@ -17,18 +16,17 @@ export default function NqtrRoundIconButton(props: NqtrRoundIconButtonProps) {
     const { selected, sx, disabled = disabledScreen, ...rest } = props;
 
     return (
-        <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }} transition={{ ease: "easeOut" }}>
-            <RoundIconButton
-                sx={{
-                    "--IconButton-size": { xs: "40px", sm: "60px", md: "80px" },
-                    border: 3,
-                    borderColor: selected ? useTheme().palette.primary[800] : useTheme().palette.background.body,
-                    ...sx,
-                }}
-                elevation='lg'
-                {...rest}
-            />
-        </motion.div>
+        <RoundIconButton
+            className='motion-preset-pop'
+            sx={{
+                "--IconButton-size": { xs: "40px", sm: "60px", md: "80px" },
+                border: 3,
+                borderColor: selected ? useTheme().palette.primary[800] : useTheme().palette.background.body,
+                ...sx,
+            }}
+            elevation='lg'
+            {...rest}
+        />
     );
 }
 

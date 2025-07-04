@@ -5,9 +5,8 @@ import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrow
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp";
-import { IconButton, Stack } from "@mui/joy";
+import { IconButton } from "@mui/joy";
 import { useQueryClient } from "@tanstack/react-query";
-import { motion } from "motion/react";
 import { useEffect } from "react";
 import RoundIconButton from "../../components/RoundIconButton";
 import { CANVAS_UI_LAYER_NAME, NAVIGATION_ROUTE } from "../../constans";
@@ -125,36 +124,6 @@ export default function MapScreen() {
             >
                 <CloseIcon />
             </IconButton>
-            <Stack
-                direction='column'
-                justifyContent='center'
-                alignItems='center'
-                spacing={0}
-                sx={{
-                    marginTop: "0.5rem",
-                    opacity: 0.5,
-                    ":hover": {
-                        opacity: 1,
-                    },
-                }}
-                component={motion.div}
-                variants={{
-                    open: {
-                        opacity: 1,
-                        y: 0,
-                        pointerEvents: "auto",
-                    },
-                    closed: {
-                        opacity: 0,
-                        y: -100,
-                        pointerEvents: "none",
-                    },
-                }}
-                initial={"closed"}
-                animate={"open"}
-                exit={"closed"}
-                transition={{ type: "tween" }}
-            ></Stack>
         </>
     );
 }
