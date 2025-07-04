@@ -3,7 +3,8 @@ import { narration } from "@drincs/pixi-vn";
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import NqtrRoundIconButton from "../components/NqtrRoundIconButton";
 import { NARRATION_ROUTE } from "../constans";
-import { aliceTalkMenuLabel, talkSleepLabel } from "../labels/variousActionsLabels";
+import { TALK_SLEEP_LABEL_KEY } from "../labels/variousActionsLabelKeys";
+import { aliceTalkMenuLabel } from "../labels/variousActionsLabels";
 import ImageTimeSlots from "../models/ImageTimeSlots";
 import Commitment from "../models/nqtr/Commitment";
 import { alice } from "./characters";
@@ -37,7 +38,7 @@ const aliceSleep = new Commitment("alice_sleep", alice, aliceRoom, {
     },
     onRun: (_, event) => {
         event.navigate(NARRATION_ROUTE);
-        narration.jumpLabel(talkSleepLabel, event);
+        narration.jumpLabel(TALK_SLEEP_LABEL_KEY, event);
     },
 });
 
