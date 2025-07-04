@@ -4,9 +4,10 @@ import { useI18n } from "./i18n";
 import LoadingScreen from "./screens/LoadingScreen";
 import { defineAssets } from "./utils/assets-utility";
 import { initializeIndexedDB } from "./utils/indexedDB-utility";
+import { importAllInkLabels } from "./utils/ink-utility";
 
 const Home = lazy(async () => {
-    await Promise.all([initializeIndexedDB(), defineAssets(), useI18n()]);
+    await Promise.all([initializeIndexedDB(), defineAssets(), useI18n(), importAllInkLabels()]);
     return import("./Home");
 });
 

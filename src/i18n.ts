@@ -1,3 +1,4 @@
+import { getCharacterById } from "@drincs/pixi-vn";
 import i18n from "i18next";
 import Backend from "i18next-chained-backend";
 import resourcesToBackend from "i18next-resources-to-backend";
@@ -27,6 +28,17 @@ export const useI18n = () => {
                             return object[ns];
                         }),
                     ],
+                },
+                missingInterpolationHandler(_text, value, _options) {
+                    let key = value[1];
+                    if (key === "steph_fullname") {
+                        return "Stephanie";
+                    }
+                    let character = getCharacterById(key);
+                    if (character) {
+                        return character.name;
+                    }
+                    return `[${key}]`;
                 },
             });
     }
