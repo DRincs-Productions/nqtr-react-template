@@ -8,7 +8,6 @@ import {
 } from "@drincs/pixi-vn";
 import { BACKGROUND_ID } from "../constans";
 import { orderProduct, takeProduct } from "../values/activity";
-import { mc } from "../values/characters";
 import { aliceQuest } from "../values/quests/alice/quests";
 import { mcRoom, terrace } from "../values/rooms";
 import {
@@ -16,7 +15,6 @@ import {
     ORDER_PRODUCT_LABEL_KEY,
     TAKE_KEY_LABEL_KEY,
     TALK_ALICE_QUEST_KEY,
-    TALK_SLEEP_LABEL_KEY,
 } from "./variousActionsLabelKeys";
 
 export const orderProductLabel = newLabel(ORDER_PRODUCT_LABEL_KEY, [
@@ -35,25 +33,6 @@ export const takeKeyLabel = newLabel(TAKE_KEY_LABEL_KEY, [
         narration.dialogue = `Are these the car keys?! Well... I should try to access the car!`;
         terrace.removeActivity(takeProduct);
         aliceQuest.completeCurrentStageAndGoNext(props);
-    },
-]);
-
-const talkSleepResultLabel = newLabel("TalkSleepResultLabel", [
-    () => {
-        narration.dialogue = mc.name + "!!!! What are you doing?!!";
-    },
-    () => {
-        narration.dialogue = "Get out of here! Now!";
-    },
-]);
-export const talkSleepLabel = newLabel(TALK_SLEEP_LABEL_KEY, [
-    async () => {
-        await showImage(BACKGROUND_ID, "alice_roomsleep0A");
-        narration.dialogue = "zZz zZz ...";
-        narration.choiceMenuOptions = [
-            newChoiceOption("Try waking up", talkSleepResultLabel, {}),
-            newCloseChoiceOption("Leave her alone"),
-        ];
     },
 ]);
 
