@@ -8,6 +8,7 @@ import {
 } from "@drincs/pixi-vn";
 import { BACKGROUND_ID } from "../constans";
 import { orderProduct, takeProduct } from "../values/activity";
+import { alice, mc } from "../values/characters";
 import { aliceQuest } from "../values/quests/alice/quests";
 import { mcRoom, terrace } from "../values/rooms";
 import {
@@ -19,10 +20,10 @@ import {
 
 export const orderProductLabel = newLabel(ORDER_PRODUCT_LABEL_KEY, [
     () => {
-        narration.dialogue = `OK! Let's see, let's look for a book....`;
+        narration.dialogue = { character: mc, text: `OK! Let's see, let's look for a book....` };
     },
     (props) => {
-        narration.dialogue = `Here's R****, for $1. Just the thing for me.`;
+        narration.dialogue = { character: mc, text: `Here's R****, for $1. Just the thing for me.` };
         mcRoom.removeActivity(orderProduct);
         aliceQuest.completeCurrentStageAndGoNext(props);
     },
@@ -30,7 +31,10 @@ export const orderProductLabel = newLabel(ORDER_PRODUCT_LABEL_KEY, [
 
 export const takeKeyLabel = newLabel(TAKE_KEY_LABEL_KEY, [
     (props) => {
-        narration.dialogue = `Are these the car keys?! Well... I should try to access the car!`;
+        narration.dialogue = {
+            character: mc,
+            text: `Are these the car keys?! Well... I should try to access the car!`,
+        };
         terrace.removeActivity(takeProduct);
         aliceQuest.completeCurrentStageAndGoNext(props);
     },
@@ -42,13 +46,13 @@ export const talkAliceQuest = newLabel(
         if (aliceQuest.currentStageIndex == 0) {
             return [
                 async () => {
-                    narration.dialogue = "Hi, can you order me a new book from pc?";
+                    narration.dialogue = { character: alice, text: "Hi, can you order me a new book from pc?" };
                 },
                 () => {
-                    narration.dialogue = "Ok";
+                    narration.dialogue = { character: alice, text: "Ok" };
                 },
                 () => {
-                    narration.dialogue = "Thanks";
+                    narration.dialogue = { character: alice, text: "Thanks" };
                 },
                 (props) => {
                     aliceQuest.completeCurrentStageAndGoNext(props);
@@ -58,28 +62,31 @@ export const talkAliceQuest = newLabel(
         } else if (aliceQuest.currentStageIndex == 1) {
             return [
                 async () => {
-                    narration.dialogue = "What book do you want me to order?";
+                    narration.dialogue = { character: mc, text: "What book do you want me to order?" };
                 },
                 () => {
-                    narration.dialogue = "For me it is the same.";
+                    narration.dialogue = { character: alice, text: "For me it is the same." };
                 },
             ];
         } else if (aliceQuest.currentStageIndex == 2) {
             return [
                 async () => {
-                    narration.dialogue = "I ordered the Book, hope you enjoy it.";
+                    narration.dialogue = { character: mc, text: "I ordered the Book, hope you enjoy it." };
                 },
                 () => {
-                    narration.dialogue = "Great, when it arrives remember to bring it to me.";
+                    narration.dialogue = {
+                        character: alice,
+                        text: "Great, when it arrives remember to bring it to me.",
+                    };
                 },
             ];
         } else if (aliceQuest.currentStageIndex == 3) {
             return [
                 async () => {
-                    narration.dialogue = "Here's your book.";
+                    narration.dialogue = { character: mc, text: "Here's your book." };
                 },
                 () => {
-                    narration.dialogue = "Thank you, I can finally read something new.";
+                    narration.dialogue = { character: alice, text: "Thank you, I can finally read something new." };
                 },
                 (props) => {
                     aliceQuest.completeCurrentStageAndGoNext(props);
@@ -89,7 +96,7 @@ export const talkAliceQuest = newLabel(
         }
         return [
             () => {
-                narration.dialogue = "Thanks for the book.";
+                narration.dialogue = { character: alice, text: "Thanks for the book." };
             },
         ];
     },
@@ -104,7 +111,7 @@ export const talkAliceQuest = newLabel(
 export const aliceTalkMenuLabel = newLabel(ALICE_TALK_MENU_LABEL_KEY, [
     async () => {
         await showImage(BACKGROUND_ID, "alice_terrace0At");
-        narration.dialogue = "Hi, what do you want to talk about?";
+        narration.dialogue = { character: alice, text: "Hi, what do you want to talk about?" };
         let optionsMenu: StoredChoiceInterface[] = [];
         if (aliceQuest.started) {
             optionsMenu.push(newChoiceOption("About the book", talkAliceQuest, {}));

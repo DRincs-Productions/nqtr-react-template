@@ -11,7 +11,14 @@ export default function QuickActivities() {
     const { data: { activities = [], routine = [] } = {} } = useQueryRoom(currentRoomId);
     const gameProps = useGameProps();
     const { uiTransition: t } = gameProps;
-    const onClick = useMemo(() => (run: OnRunAsyncFunction) => run(gameProps), [gameProps]);
+    const onClick = useMemo(
+        () => async (run: OnRunAsyncFunction) => {
+            run(gameProps).then(() => {
+                gameProps.invalidateInterfaceData();
+            });
+        },
+        [gameProps]
+    );
 
     return (
         <StackOverflow
