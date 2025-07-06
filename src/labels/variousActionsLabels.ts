@@ -82,28 +82,31 @@ export const talkAliceQuest = newLabel(
         } else if (aliceQuest.currentStageIndex == 1) {
             return [
                 async () => {
-                    narration.dialogue = "What book do you want me to order?";
+                    narration.dialogue = { character: mc, text: "What book do you want me to order?" };
                 },
                 () => {
-                    narration.dialogue = "For me it is the same.";
+                    narration.dialogue = { character: alice, text: "For me it is the same." };
                 },
             ];
         } else if (aliceQuest.currentStageIndex == 2) {
             return [
                 async () => {
-                    narration.dialogue = "I ordered the Book, hope you enjoy it.";
+                    narration.dialogue = { character: mc, text: "I ordered the Book, hope you enjoy it." };
                 },
                 () => {
-                    narration.dialogue = "Great, when it arrives remember to bring it to me.";
+                    narration.dialogue = {
+                        character: alice,
+                        text: "Great, when it arrives remember to bring it to me.",
+                    };
                 },
             ];
         } else if (aliceQuest.currentStageIndex == 3) {
             return [
                 async () => {
-                    narration.dialogue = "Here's your book.";
+                    narration.dialogue = { character: mc, text: "Here's your book." };
                 },
                 () => {
-                    narration.dialogue = "Thank you, I can finally read something new.";
+                    narration.dialogue = { character: alice, text: "Thank you, I can finally read something new." };
                 },
                 (props) => {
                     aliceQuest.completeCurrentStageAndGoNext(props);
@@ -113,7 +116,7 @@ export const talkAliceQuest = newLabel(
         }
         return [
             () => {
-                narration.dialogue = "Thanks for the book.";
+                narration.dialogue = { character: alice, text: "Thanks for the book." };
             },
         ];
     },
@@ -128,7 +131,7 @@ export const talkAliceQuest = newLabel(
 export const aliceTalkMenuLabel = newLabel(ALICE_TALK_MENU_LABEL_KEY, [
     async () => {
         await showImage(BACKGROUND_ID, "alice_terrace0At");
-        narration.dialogue = "Hi, what do you want to talk about?";
+        narration.dialogue = { character: alice, text: "Hi, what do you want to talk about?" };
         let optionsMenu: StoredChoiceInterface[] = [];
         if (aliceQuest.started) {
             optionsMenu.push(newChoiceOption("About the book", talkAliceQuest, {}));
