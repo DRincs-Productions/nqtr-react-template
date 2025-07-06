@@ -12,7 +12,6 @@ import Activity from "../models/nqtr/Activity";
 export const bed = new Activity(
     "bed",
     async (_, event) => {
-        event.navigate(NARRATION_ROUTE);
         if (timeTracker.nowIsBetween(5, 22)) {
             await navigateAndJumpToLabel(napLabel, NARRATION_ROUTE, event);
         } else {
@@ -26,7 +25,9 @@ export const bed = new Activity(
                 <NqtrRoundIconButton
                     disabled={activity.disabled}
                     onClick={() => {
-                        activity.run(props);
+                        activity.run(props).then(() => {
+                            props.invalidateInterfaceData();
+                        });
                     }}
                     ariaLabel={props.uiTransition(activity.name)}
                     variant='solid'
@@ -45,7 +46,7 @@ export const bed = new Activity(
 
 export const orderProduct = new Activity(
     "order_product",
-    async (_, event) => navigateAndJumpToLabel(ORDER_PRODUCT_LABEL_KEY, NARRATION_ROUTE, event),
+    async (_, event) => await navigateAndJumpToLabel(ORDER_PRODUCT_LABEL_KEY, NARRATION_ROUTE, event),
     {
         name: "order_product",
         icon: (activity, props) => {
@@ -53,7 +54,9 @@ export const orderProduct = new Activity(
                 <NqtrRoundIconButton
                     disabled={activity.disabled}
                     onClick={() => {
-                        activity.run(props);
+                        activity.run(props).then(() => {
+                            props.invalidateInterfaceData();
+                        });
                     }}
                     ariaLabel={props.uiTransition(activity.name)}
                     variant='solid'
@@ -72,7 +75,7 @@ export const orderProduct = new Activity(
 
 export const takeProduct = new Activity(
     "take_product",
-    async (_, event) => navigateAndJumpToLabel(TAKE_KEY_LABEL_KEY, NARRATION_ROUTE, event),
+    async (_, event) => await navigateAndJumpToLabel(TAKE_KEY_LABEL_KEY, NARRATION_ROUTE, event),
     {
         name: "take_product",
         icon: (activity, props) => {
@@ -80,7 +83,9 @@ export const takeProduct = new Activity(
                 <NqtrRoundIconButton
                     disabled={activity.disabled}
                     onClick={() => {
-                        activity.run(props);
+                        activity.run(props).then(() => {
+                            props.invalidateInterfaceData();
+                        });
                     }}
                     ariaLabel={props.uiTransition(activity.name)}
                     variant='solid'
