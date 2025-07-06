@@ -6,8 +6,8 @@ VAR _input_value_ = ""
 # show image alice_roomsleep0A
 alice: zZz zZz ...
 
-- Try waking up
++ Try waking up
 	alice: [mc]!!!! What are you doing?!!
 	alice: Get out of here! Now!
-- Leave her alone
++ Leave her alone
 	-> DONE
