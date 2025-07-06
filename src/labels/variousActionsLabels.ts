@@ -8,7 +8,7 @@ import {
 } from "@drincs/pixi-vn";
 import { BACKGROUND_ID } from "../constans";
 import { orderProduct, takeProduct } from "../values/activity";
-import { mc } from "../values/characters";
+import { alice, mc } from "../values/characters";
 import { aliceQuest } from "../values/quests/alice/quests";
 import { mcRoom, terrace } from "../values/rooms";
 import {
@@ -21,10 +21,10 @@ import {
 
 export const orderProductLabel = newLabel(ORDER_PRODUCT_LABEL_KEY, [
     () => {
-        narration.dialogue = `OK! Let's see, let's look for a book....`;
+        narration.dialogue = { character: mc, text: `OK! Let's see, let's look for a book....` };
     },
     (props) => {
-        narration.dialogue = `Here's R****, for $1. Just the thing for me.`;
+        narration.dialogue = { character: mc, text: `Here's R****, for $1. Just the thing for me.` };
         mcRoom.removeActivity(orderProduct);
         aliceQuest.completeCurrentStageAndGoNext(props);
     },
@@ -32,7 +32,10 @@ export const orderProductLabel = newLabel(ORDER_PRODUCT_LABEL_KEY, [
 
 export const takeKeyLabel = newLabel(TAKE_KEY_LABEL_KEY, [
     (props) => {
-        narration.dialogue = `Are these the car keys?! Well... I should try to access the car!`;
+        narration.dialogue = {
+            character: mc,
+            text: `Are these the car keys?! Well... I should try to access the car!`,
+        };
         terrace.removeActivity(takeProduct);
         aliceQuest.completeCurrentStageAndGoNext(props);
     },
@@ -40,16 +43,16 @@ export const takeKeyLabel = newLabel(TAKE_KEY_LABEL_KEY, [
 
 const talkSleepResultLabel = newLabel("TalkSleepResultLabel", [
     () => {
-        narration.dialogue = mc.name + "!!!! What are you doing?!!";
+        narration.dialogue = { character: alice, text: `${mc.name}!!!! What are you doing?!!` };
     },
     () => {
-        narration.dialogue = "Get out of here! Now!";
+        narration.dialogue = { character: alice, text: "Get out of here! Now!" };
     },
 ]);
 export const talkSleepLabel = newLabel(TALK_SLEEP_LABEL_KEY, [
     async () => {
         await showImage(BACKGROUND_ID, "alice_roomsleep0A");
-        narration.dialogue = "zZz zZz ...";
+        narration.dialogue = { character: alice, text: "zZz zZz ..." };
         narration.choiceMenuOptions = [
             newChoiceOption("Try waking up", talkSleepResultLabel, {}),
             newCloseChoiceOption("Leave her alone"),
@@ -63,13 +66,13 @@ export const talkAliceQuest = newLabel(
         if (aliceQuest.currentStageIndex == 0) {
             return [
                 async () => {
-                    narration.dialogue = "Hi, can you order me a new book from pc?";
+                    narration.dialogue = { character: alice, text: "Hi, can you order me a new book from pc?" };
                 },
                 () => {
-                    narration.dialogue = "Ok";
+                    narration.dialogue = { character: alice, text: "Ok" };
                 },
                 () => {
-                    narration.dialogue = "Thanks";
+                    narration.dialogue = { character: alice, text: "Thanks" };
                 },
                 (props) => {
                     aliceQuest.completeCurrentStageAndGoNext(props);
