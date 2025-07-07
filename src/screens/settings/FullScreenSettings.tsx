@@ -2,9 +2,16 @@ import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
 import { Box, Button, FormHelperText, FormLabel } from "@mui/joy";
 import { useQueryClient } from "@tanstack/react-query";
+import * as app from "@tauri-apps/api";
+import { getCurrentWindow } from "@tauri-apps/api/window";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import useQueryIsFullModeScreen, { IS_FULL_SCREEN_MODE_USE_QUEY_KEY } from "../../hooks/useQueryIsFullModeScreen";
+declare global {
+    interface Window {
+        __TAURI__: typeof app;
+    }
+}
 
 export default function FullScreenSettings() {
     const { data: isFullScreenMode } = useQueryIsFullModeScreen();
@@ -27,7 +34,9 @@ export default function FullScreenSettings() {
                 onClick={() => {
                     setLoading(true);
                     let promise: Promise<void>;
-                    if (isFullScreenMode) {
+                    if (window.__TAURI__) {
+                        promise = getCurrentWindow().setFullscreen(!isFullScreenMode);
+                    } else if (isFullScreenMode) {
                         promise = document.exitFullscreen();
                     } else {
                         promise = document.documentElement.requestFullscreen();
