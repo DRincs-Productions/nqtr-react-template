@@ -31,7 +31,7 @@ export function initializeInk() {
             if (script[0] === "remove" && script[3] === "room" && script.length >= 5) {
                 let room = RegisteredRooms.get(script[4]);
                 if (room) {
-                    const props = convertListStringToObj(script.slice(4));
+                    const props = convertListStringToObj(script.slice(5));
                     room.removeActivity(script[2], props);
                 }
             }
