@@ -1,3 +1,4 @@
+import { RegisteredRooms } from "@drincs/nqtr";
 import { RegisteredCharacters } from "@drincs/pixi-vn";
 import { importInkText, onInkHashtagScript, onReplaceTextBeforeTranslation } from "@drincs/pixi-vn-ink";
 
@@ -11,8 +12,8 @@ export async function importAllInkLabels() {
     await importInkText(fileEntries);
 }
 
-export function initializeInk({ navigate }: { navigate: (path: string) => void }) {
-    onInkHashtagScript((script, _convertListStringToObj) => {
+export function initializeInk() {
+    onInkHashtagScript((script, { navigate }, convertListStringToObj) => {
         if (script.length === 2) {
             if (script[0] === "navigate") {
                 navigate(script[1]);
@@ -25,6 +26,15 @@ export function initializeInk({ navigate }: { navigate: (path: string) => void }
                 character.name = script[2];
             }
             return true;
+        }
+        if (script[1] === "activity") {
+            if (script[0] === "remove" && script[3] === "room" && script.length >= 5) {
+                let room = RegisteredRooms.get(script[4]);
+                if (room) {
+                    const props = convertListStringToObj(script.slice(4));
+                    room.removeActivity(script[2], props);
+                }
+            }
         }
         return false;
     });
