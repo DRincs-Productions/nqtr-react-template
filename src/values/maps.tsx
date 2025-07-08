@@ -17,7 +17,7 @@ export const mainMap = new Map("main_map", {
 
 export const nightcityMap = new Map("nightcity_map", {
     name: "Nightcity",
-    image: new ImageTimeSlots(""),
+    image: new ImageTimeSlots("map-nightcity"),
     neighboringMaps: {
         south: "main_map",
     },
