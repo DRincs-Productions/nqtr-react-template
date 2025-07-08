@@ -71,7 +71,7 @@ export default function MapScreen() {
                         left: "0.1rem",
                     }}
                     onClick={() => {
-                        const newMap = RegisteredMaps.get(map.neighboringMaps.north!);
+                        const newMap = RegisteredMaps.get(map.neighboringMaps.west!);
                         newMap &&
                             queryClient.setQueryData([INTERFACE_DATA_USE_QUEY_KEY, CURRENT_MAP_USE_QUEY_KEY], newMap);
                     }}
@@ -88,7 +88,7 @@ export default function MapScreen() {
                         left: "50%",
                     }}
                     onClick={() => {
-                        const newMap = RegisteredMaps.get(map.neighboringMaps.north!);
+                        const newMap = RegisteredMaps.get(map.neighboringMaps.south!);
                         newMap &&
                             queryClient.setQueryData([INTERFACE_DATA_USE_QUEY_KEY, CURRENT_MAP_USE_QUEY_KEY], newMap);
                     }}
@@ -105,7 +105,7 @@ export default function MapScreen() {
                         right: "0.1rem",
                     }}
                     onClick={() => {
-                        const newMap = RegisteredMaps.get(map.neighboringMaps.north!);
+                        const newMap = RegisteredMaps.get(map.neighboringMaps.east!);
                         newMap &&
                             queryClient.setQueryData([INTERFACE_DATA_USE_QUEY_KEY, CURRENT_MAP_USE_QUEY_KEY], newMap);
                     }}

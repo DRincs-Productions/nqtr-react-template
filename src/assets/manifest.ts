@@ -43,6 +43,15 @@ const manifest: AssetsManifest = {
                 },
             ],
         },
+        {
+            name: mainMap.id,
+            assets: [
+                {
+                    alias: "map-nightcity",
+                    src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/refs/heads/main/game/images/location/nightcity.webp",
+                },
+            ],
+        },
         // rooms
         {
             name: mcRoom.id,
