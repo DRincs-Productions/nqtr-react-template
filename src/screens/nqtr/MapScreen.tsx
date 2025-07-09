@@ -1,5 +1,5 @@
 import { RegisteredMaps } from "@drincs/nqtr";
-import { canvas, ImageSprite } from "@drincs/pixi-vn";
+import { Assets, canvas, ImageSprite } from "@drincs/pixi-vn";
 import CloseIcon from "@mui/icons-material/Close";
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
@@ -36,6 +36,11 @@ export default function MapScreen() {
                     layer.addChild(icon);
                 });
             }
+
+            map.neighboringMaps.north && Assets.backgroundLoadBundle(map.neighboringMaps.north);
+            map.neighboringMaps.south && Assets.backgroundLoadBundle(map.neighboringMaps.south);
+            map.neighboringMaps.east && Assets.backgroundLoadBundle(map.neighboringMaps.east);
+            map.neighboringMaps.west && Assets.backgroundLoadBundle(map.neighboringMaps.west);
 
             return () => {
                 canvas.getLayer(CANVAS_UI_LAYER_NAME)?.removeChildren();
