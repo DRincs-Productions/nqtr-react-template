@@ -61,8 +61,10 @@ export const aliceQuest = new Quest(
 RegisteredQuests.add(aliceQuest);
 
 const aliceQuest_talk = new Commitment("alice_quest_talk", alice, terrace, {
-    fromHour: 10,
-    toHour: 20,
+    timeSlot: {
+        from: 10,
+        to: 20,
+    },
     image: new ImageTimeSlots("alice_terrace0A"),
     executionType: "automatic",
     priority: 1,

@@ -3,6 +3,7 @@ import { Avatar, AvatarGroup } from "@mui/joy";
 import { useQueryClient } from "@tanstack/react-query";
 import { AnimatePresence } from "motion/react";
 import { useMemo } from "react";
+import { useShallow } from "zustand/react/shallow";
 import { NqtrRoundIconButtonConvertor } from "../../components/NqtrRoundIconButton.tsx";
 import StackOverflow from "../../components/StackOverflow.tsx";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "../../hooks/useQueryInterface";
@@ -12,9 +13,11 @@ import {
     useQueryQuickRooms,
     useQueryRoom,
 } from "../../hooks/useQueryNQTR.ts";
+import useInterfaceStore from "../../stores/useInterfaceStore.ts";
 
 export default function QuickRooms() {
     const { data: rooms = [] } = useQueryQuickRooms();
+    const hidden = useInterfaceStore(useShallow((state) => state.hidden));
 
     return (
         <StackOverflow
@@ -30,6 +33,7 @@ export default function QuickRooms() {
                 left: 0,
                 pointerEvents: "auto",
             }}
+            className={hidden ? `motion-opacity-out-0 motion-translate-y-out-[50%]` : undefined}
         >
             <AnimatePresence>
                 {rooms.map((room) => (

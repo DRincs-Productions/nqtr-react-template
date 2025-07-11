@@ -3,12 +3,14 @@ import NoteAltIcon from "@mui/icons-material/NoteAlt";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import { useShallow } from "zustand/react/shallow";
 import RoundIconButton, { RoundIconButtonProps } from "../../components/RoundIconButton.tsx";
 import StackOverflow from "../../components/StackOverflow.tsx.tsx";
 import { MAP_ROUTE } from "../../constans.ts";
 import useMyNavigate from "../../hooks/useMyNavigate.ts";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "../../hooks/useQueryInterface.ts";
 import { CURRENT_MAP_USE_QUEY_KEY } from "../../hooks/useQueryNQTR.ts";
+import useInterfaceStore from "../../stores/useInterfaceStore.ts";
 import useMemoScreenStore from "../../stores/useMemoScreenStore.ts";
 import useSettingsScreenStore from "../../stores/useSettingsScreenStore.ts";
 
@@ -18,6 +20,7 @@ export default function NqtrQuickTools() {
     const navigate = useMyNavigate();
     const queryClient = useQueryClient();
     const { t } = useTranslation(["ui"]);
+    const hidden = useInterfaceStore(useShallow((state) => state.hidden));
 
     return (
         <>
@@ -32,8 +35,9 @@ export default function NqtrQuickTools() {
                     position: "absolute",
                     left: 0,
                     top: 0,
-                    pointerEvents: "auto",
+                    pointerEvents: hidden ? "none" : "auto",
                 }}
+                className={hidden ? `motion-opacity-out-0 motion-translate-y-out-[-50%]` : undefined}
             >
                 <QuickToolButton ariaLabel={t("settings")} onClick={editOpenSettings}>
                     <SettingsIcon
@@ -61,8 +65,9 @@ export default function NqtrQuickTools() {
                     position: "absolute",
                     right: 0,
                     top: 0,
-                    pointerEvents: "auto",
+                    pointerEvents: hidden ? "none" : "auto",
                 }}
+                className={hidden ? `motion-opacity-out-0 motion-translate-y-out-[-50%]` : undefined}
             >
                 <QuickToolButton
                     ariaLabel={t("map")}

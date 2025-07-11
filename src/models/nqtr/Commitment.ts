@@ -1,10 +1,12 @@
 import {
     CommitmentInterface,
     CommitmentStoredClass,
+    DateSchedulingInterface,
     ExecutionType,
     OnRunEvent,
     OnRunProps,
     RoomInterface,
+    TimeSchedulingInterface,
 } from "@drincs/nqtr";
 import { CharacterInterface } from "@drincs/pixi-vn";
 import { ReactElement } from "react";
@@ -22,10 +24,8 @@ export default class Commitment extends CommitmentStoredClass implements Commitm
             onRun?: OnRunEvent<CommitmentInterface>;
             executionType?: ExecutionType;
             priority?: number;
-            fromHour?: number;
-            toHour?: number;
-            fromDay?: number;
-            toDay?: number;
+            timeSlot?: TimeSchedulingInterface;
+            dateScheduling?: DateSchedulingInterface;
             disabled?: boolean | (() => boolean);
             hidden?: boolean | (() => boolean);
         }
