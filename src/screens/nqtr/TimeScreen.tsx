@@ -2,17 +2,16 @@ import { timeTracker } from "@drincs/nqtr";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { Stack, Typography, useTheme } from "@mui/joy";
 import { useQueryClient } from "@tanstack/react-query";
-import { useSnackbar } from "notistack";
 import { useTranslation } from "react-i18next";
 import RoundIconButton from "../../components/RoundIconButton";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "../../hooks/useQueryInterface";
 import { useQueryTime } from "../../hooks/useQueryNQTR";
-import { wait } from "../../hooks/useTimeTracker";
+import useTimeTracker from "../../hooks/useTimeTracker";
 import useNqtrScreenStore from "../../stores/useNqtrScreenStore";
 
 export default function TimeScreen() {
     const { t } = useTranslation(["ui"]);
-    const { enqueueSnackbar } = useSnackbar();
+    const { wait } = useTimeTracker();
     const { data: hour = 0 } = useQueryTime();
     const queryClient = useQueryClient();
     const disabled = useNqtrScreenStore((state) => state.disabled);
@@ -62,7 +61,7 @@ export default function TimeScreen() {
                         backgroundColor: "#0000007c",
                     }}
                     onClick={() => {
-                        wait(1, (message) => enqueueSnackbar(message));
+                        wait(1);
                         queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] });
                     }}
                     elevation='sm'

@@ -1,23 +1,22 @@
 import { navigator } from "@drincs/nqtr";
 import { narration, newChoiceOption, newCloseChoiceOption, newLabel, showImage } from "@drincs/pixi-vn";
 import { BACKGROUND_ID } from "../constans";
-import { sleep, wait } from "../hooks/useTimeTracker";
 
 const sleepHourLabel = newLabel<{
     hour: number;
 }>("Sleep1HourLabel", [
-    ({ hour: wakeupHour, ...rest }) => {
-        sleep(wakeupHour, rest);
-        narration.goNext(rest);
+    ({ hour: wakeupHour, ...props }) => {
+        props.sleep(wakeupHour, props);
+        narration.goNext(props);
     },
 ]);
 
 const napHourLabel = newLabel<{
     hour: number;
 }>("Nap1HourLabel", [
-    ({ hour, ...rest }) => {
-        wait(hour, rest.notify);
-        narration.goNext(rest);
+    ({ hour, ...props }) => {
+        props.wait(hour);
+        narration.goNext(props);
     },
 ]);
 
