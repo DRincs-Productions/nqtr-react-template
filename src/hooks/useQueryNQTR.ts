@@ -37,7 +37,7 @@ const CURRENT_HOUR_USE_QUEY_KEY = "current_hour_use_quey_key";
 export function useQueryTime() {
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_HOUR_USE_QUEY_KEY],
-        queryFn: async () => timeTracker.currentHour,
+        queryFn: async () => timeTracker.currentTime,
     });
 }
 

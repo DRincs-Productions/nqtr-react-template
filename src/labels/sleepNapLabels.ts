@@ -1,7 +1,7 @@
 import { navigator } from "@drincs/nqtr";
 import { narration, newChoiceOption, newCloseChoiceOption, newLabel, showImage } from "@drincs/pixi-vn";
 import { BACKGROUND_ID } from "../constans";
-import { sleep, wait } from "../utils/time-utility";
+import { sleep, wait } from "../hooks/useTimeTracker";
 
 const sleepHourLabel = newLabel<{
     hour: number;

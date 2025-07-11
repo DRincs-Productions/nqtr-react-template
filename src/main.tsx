@@ -55,15 +55,18 @@ Game.onLoadingLabel((_stepId, { id }) => Assets.backgroundLoadBundle(id));
 
 timeTracker.initialize({
     defaultTimeSpent: 1,
-    maxDayHours: 24,
-    minDayHours: 0,
+    dayStartTime: 0,
+    dayEndTime: 24,
     timeSlots: [
-        { name: timeSlots.morning.description, startHour: timeSlots.morning.value },
-        { name: timeSlots.afternoon.description, startHour: timeSlots.afternoon.value },
-        { name: timeSlots.evening.description, startHour: timeSlots.evening.value },
-        { name: timeSlots.night.description, startHour: timeSlots.night.value },
+        { name: timeSlots.morning.description, startTime: timeSlots.morning.value },
+        { name: timeSlots.afternoon.description, startTime: timeSlots.afternoon.value },
+        { name: timeSlots.evening.description, startTime: timeSlots.evening.value },
+        { name: timeSlots.night.description, startTime: timeSlots.night.value },
     ],
-    weekDaysNames: ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"],
+    getDayName: (weekDayNumber: number) => {
+        const weekDaysNames = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+        return weekDaysNames[weekDayNumber];
+    },
     weekendStartDay: 6,
     weekLength: 7,
 });

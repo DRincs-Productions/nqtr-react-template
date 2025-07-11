@@ -7,8 +7,8 @@ import { useTranslation } from "react-i18next";
 import RoundIconButton from "../../components/RoundIconButton";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "../../hooks/useQueryInterface";
 import { useQueryTime } from "../../hooks/useQueryNQTR";
+import { wait } from "../../hooks/useTimeTracker";
 import useNqtrScreenStore from "../../stores/useNqtrScreenStore";
-import { wait } from "../../utils/time-utility";
 
 export default function TimeScreen() {
     const { t } = useTranslation(["ui"]);

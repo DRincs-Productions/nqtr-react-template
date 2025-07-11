@@ -9,7 +9,7 @@ const startLabel = newLabel("start", [
         navigator.currentRoom = mcRoom;
         await aliceQuest.start(props);
         await props.navigate(NAVIGATION_ROUTE);
-        timeTracker.currentHour = 8;
+        timeTracker.currentTime = 8;
     },
 ]);
 export default startLabel;
