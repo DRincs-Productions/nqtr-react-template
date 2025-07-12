@@ -3,14 +3,12 @@ import NoteAltIcon from "@mui/icons-material/NoteAlt";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { useShallow } from "zustand/react/shallow";
 import RoundIconButton, { RoundIconButtonProps } from "../../components/RoundIconButton.tsx";
 import StackOverflow from "../../components/StackOverflow.tsx.tsx";
 import { MAP_ROUTE } from "../../constans.ts";
 import useMyNavigate from "../../hooks/useMyNavigate.ts";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "../../hooks/useQueryInterface.ts";
 import { CURRENT_MAP_USE_QUEY_KEY } from "../../hooks/useQueryNQTR.ts";
-import useInterfaceStore from "../../stores/useInterfaceStore.ts";
 import useMemoScreenStore from "../../stores/useMemoScreenStore.ts";
 import useSettingsScreenStore from "../../stores/useSettingsScreenStore.ts";
 
@@ -85,20 +83,16 @@ export default function NqtrQuickTools() {
 }
 
 function QuickToolButton(props: RoundIconButtonProps) {
-    const hidden = useInterfaceStore(useShallow((state) => state.hidden));
-
     return (
         <RoundIconButton
             sx={{
                 border: 3,
                 "--IconButton-size": { xs: "40px", sm: "60px", md: "80px" },
                 fontSize: { xs: "1rem", sm: "1.5rem", md: "2rem", lg: "2.5rem", xl: "3rem" },
-                pointerEvents: hidden ? "none" : "auto",
             }}
             elevation='lg'
             variant='solid'
             color='primary'
-            className={hidden ? "motion-scale-out-[0]" : "motion-scale-in-[0]"}
             {...props}
         />
     );

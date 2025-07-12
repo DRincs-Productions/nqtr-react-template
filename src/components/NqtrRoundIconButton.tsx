@@ -17,7 +17,6 @@ export default function NqtrRoundIconButton(props: NqtrRoundIconButtonProps) {
 
     return (
         <RoundIconButton
-            className={`motion-scale-in-[0]`}
             sx={{
                 "--IconButton-size": { xs: "40px", sm: "60px", md: "80px" },
                 border: 3,

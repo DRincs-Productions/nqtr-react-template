@@ -1,16 +1,13 @@
 import { OnRunAsyncFunction } from "@drincs/nqtr";
 import { useMemo } from "react";
-import { useShallow } from "zustand/react/shallow";
 import { NqtrRoundIconButtonConvertor } from "../../components/NqtrRoundIconButton.tsx";
 import StackOverflow from "../../components/StackOverflow.tsx";
 import useGameProps from "../../hooks/useGameProps.ts";
 import { useQueryCurrentRoomId, useQueryRoom } from "../../hooks/useQueryNQTR";
-import useInterfaceStore from "../../stores/useInterfaceStore.ts";
 
 export default function QuickActivities() {
     const { data: currentRoomId } = useQueryCurrentRoomId();
     const { data: { activities = [], routine = [] } = {} } = useQueryRoom(currentRoomId);
-    const hidden = useInterfaceStore(useShallow((state) => state.hidden));
     const gameProps = useGameProps();
     const { uiTransition: t } = gameProps;
     const onClick = useMemo(
@@ -36,20 +33,19 @@ export default function QuickActivities() {
                 right: 0,
                 pointerEvents: "auto",
             }}
-            className={hidden ? `motion-opacity-out-0 motion-translate-x-out-[50%]` : undefined}
         >
-            {activities.map((item) => (
+            {activities.map((item, index) => (
                 <NqtrRoundIconButtonConvertor
-                    key={"activity-" + item.id}
+                    key={`activity-${index}-${item.id}`}
                     disabled={item.disabled}
                     onClick={() => onClick(item.run)}
                     ariaLabel={t(item.name)}
                     image={item.icon}
                 />
             ))}
-            {routine.map((item) => (
+            {routine.map((item, index) => (
                 <NqtrRoundIconButtonConvertor
-                    key={"commitment-" + item.id}
+                    key={`commitment-${index}-${item.id}`}
                     disabled={item.disabled}
                     onClick={() => onClick(item.run)}
                     ariaLabel={t(item.name)}
