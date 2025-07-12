@@ -92,18 +92,6 @@ export function useQueryQuickRooms() {
     });
 }
 
-export type QuestDescription = {
-    id: string;
-    name: string;
-    description: string;
-    currentStage: {
-        description: string;
-    };
-    questImage?: string;
-    completed?: boolean;
-    isInDevelopment?: boolean;
-};
-
 function getQuestInfo(quest: QuestInterface) {
     let currentStageDescription = "";
     if (quest.currentStage) {
