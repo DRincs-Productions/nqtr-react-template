@@ -20,7 +20,6 @@ export default function NqtrQuickTools() {
     const navigate = useMyNavigate();
     const queryClient = useQueryClient();
     const { t } = useTranslation(["ui"]);
-    const hidden = useInterfaceStore(useShallow((state) => state.hidden));
 
     return (
         <>
@@ -35,9 +34,7 @@ export default function NqtrQuickTools() {
                     position: "absolute",
                     left: 0,
                     top: 0,
-                    pointerEvents: hidden ? "none" : "auto",
                 }}
-                className={hidden ? `motion-opacity-out-0 motion-translate-y-out-[-50%]` : undefined}
             >
                 <QuickToolButton ariaLabel={t("settings")} onClick={editOpenSettings}>
                     <SettingsIcon
@@ -65,9 +62,7 @@ export default function NqtrQuickTools() {
                     position: "absolute",
                     right: 0,
                     top: 0,
-                    pointerEvents: hidden ? "none" : "auto",
                 }}
-                className={hidden ? `motion-opacity-out-0 motion-translate-y-out-[-50%]` : undefined}
             >
                 <QuickToolButton
                     ariaLabel={t("map")}
@@ -90,17 +85,20 @@ export default function NqtrQuickTools() {
 }
 
 function QuickToolButton(props: RoundIconButtonProps) {
+    const hidden = useInterfaceStore(useShallow((state) => state.hidden));
+
     return (
         <RoundIconButton
             sx={{
                 border: 3,
                 "--IconButton-size": { xs: "40px", sm: "60px", md: "80px" },
                 fontSize: { xs: "1rem", sm: "1.5rem", md: "2rem", lg: "2.5rem", xl: "3rem" },
+                pointerEvents: hidden ? "none" : "auto",
             }}
             elevation='lg'
             variant='solid'
             color='primary'
-            className='motion-scale-in-[0]'
+            className={hidden ? "motion-scale-out-[0]" : "motion-scale-in-[0]"}
             {...props}
         />
     );
