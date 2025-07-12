@@ -1,16 +1,16 @@
 import { RegisteredCommitments, RegisteredQuests, routine } from "@drincs/nqtr";
-import { NARRATION_ROUTE } from "../../../constans";
-import { navigateAndJumpToLabel } from "../../../labels/utility-labels";
-import { talkAliceQuest } from "../../../labels/variousActionsLabels";
-import ImageTimeSlots from "../../../models/ImageTimeSlots";
-import Commitment from "../../../models/nqtr/Commitment";
-import Quest from "../../../models/nqtr/Quest";
-import Stage from "../../../models/nqtr/Stage";
-import { orderProduct, takeProduct } from "../../activity";
-import { alice } from "../../characters";
-import { mcRoom, terrace } from "../../rooms";
+import { NARRATION_ROUTE } from "../../constans";
+import { navigateAndJumpToLabel } from "../../labels/utility-labels";
+import { talkAliceQuest } from "../../labels/variousActionsLabels";
+import ImageTimeSlots from "../../models/ImageTimeSlots";
+import Commitment from "../../models/nqtr/Commitment";
+import Quest from "../../models/nqtr/Quest";
+import Stage from "../../models/nqtr/Stage";
+import { orderProduct, takeProduct } from "../activity";
+import { alice } from "../characters";
+import { mcRoom, terrace } from "../rooms";
 
-export const aliceQuest = new Quest(
+const aliceQuest = new Quest(
     "aliceQuest",
     [
         // stages
@@ -76,3 +76,5 @@ const aliceQuest_talk = new Commitment("alice_quest_talk", alice, terrace, {
 });
 
 RegisteredCommitments.add(aliceQuest_talk);
+
+export default aliceQuest;

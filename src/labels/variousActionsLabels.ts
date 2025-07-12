@@ -9,7 +9,7 @@ import {
 import { BACKGROUND_ID } from "../constans";
 import { orderProduct, takeProduct } from "../values/activity";
 import { alice, mc } from "../values/characters";
-import { aliceQuest } from "../values/quests/alice/quests";
+import aliceQuest from "../values/quests/aliceQuest";
 import { mcRoom, terrace } from "../values/rooms";
 import {
     ALICE_TALK_MENU_LABEL_KEY,
