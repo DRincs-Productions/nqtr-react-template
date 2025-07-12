@@ -40,7 +40,7 @@ export default function QuickActivities() {
         >
             {activities.map((item) => (
                 <NqtrRoundIconButtonConvertor
-                    key={"activity" + item.id}
+                    key={"activity-" + item.id}
                     disabled={item.disabled}
                     onClick={() => onClick(item.run)}
                     ariaLabel={t(item.name)}
@@ -49,7 +49,7 @@ export default function QuickActivities() {
             ))}
             {routine.map((item) => (
                 <NqtrRoundIconButtonConvertor
-                    key={"commitment" + item.id}
+                    key={"commitment-" + item.id}
                     disabled={item.disabled}
                     onClick={() => onClick(item.run)}
                     ariaLabel={t(item.name)}
