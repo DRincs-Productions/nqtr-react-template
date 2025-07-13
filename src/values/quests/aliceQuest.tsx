@@ -36,7 +36,7 @@ const aliceQuest = new Quest(
             name: "Take products",
             description: "Take products on the Terrace",
             requestDescriptionToStart: "Wait for the products you ordered to arrive (2 day)",
-            daysRequired: 2,
+            deltaDateRequired: 2,
         }),
         new Stage("talk_alice2", {
             name: "Talk to Alice",

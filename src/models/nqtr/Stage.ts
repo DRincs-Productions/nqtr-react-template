@@ -8,7 +8,7 @@ export default class Stage extends StageStoredClass implements StageInterface {
         options: {
             onStart?: (stage: StageInterface, props: OnRunProps) => void;
             onEnd?: (stage: StageInterface, props: OnRunProps) => void;
-            daysRequired?: number;
+            deltaDateRequired?: number;
             questsRequired?: QuestsRequiredType[];
             name?: string;
             description?: string;
