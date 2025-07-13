@@ -1,4 +1,4 @@
-import { OnRunProps, QuestsRequiredType, StageInterface, StageStoredClass } from "@drincs/nqtr";
+import { OnRunProps, QuestsRequiredType, StageInterface, StageStoredClass, StageStoredClassProps } from "@drincs/nqtr";
 import { StageFlags } from "../../nqtr";
 import ImageTimeSlots from "../ImageTimeSlots";
 
@@ -17,7 +17,7 @@ export default class Stage extends StageStoredClass implements StageInterface {
             flags?: StageFlags[];
             flagsRequired?: StageFlags[];
             requestDescriptionToStart?: string;
-        }
+        } & StageStoredClassProps
     ) {
         super(id, options);
         this.name = options.name || "";

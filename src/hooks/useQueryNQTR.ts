@@ -50,22 +50,6 @@ export function useQueryCurrentRoomId() {
     });
 }
 
-const CURRENT_ROUTINE_USE_QUEY_KEY = "current_routine_use_quey_key";
-export function useQueryCurrentRoutine() {
-    return useQuery({
-        queryKey: [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_ROUTINE_USE_QUEY_KEY],
-        queryFn: async () => navigator.currentRoom?.routine || [],
-    });
-}
-
-const CURRENT_ACTIVITIES_USE_QUEY_KEY = "current_activities_use_quey_key";
-export function useQueryCurrentActivities() {
-    return useQuery({
-        queryKey: [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_ACTIVITIES_USE_QUEY_KEY],
-        queryFn: async () => navigator.currentRoom?.activities || [],
-    });
-}
-
 const QUICK_ROOMS_USE_QUEY_KEY = "quick_rooms_use_quey_key";
 export function useQueryQuickRooms() {
     const rooms = navigator.currentLocation?.rooms || [];
