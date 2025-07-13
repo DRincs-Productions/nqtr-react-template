@@ -1,11 +1,4 @@
-import {
-    ActivityInterface,
-    ActivityStoredClass,
-    DateSchedulingInterface,
-    OnRunEvent,
-    OnRunProps,
-    TimeSchedulingInterface,
-} from "@drincs/nqtr";
+import { ActivityInterface, ActivityStoredClass, ActivityStoredClassProps, OnRunEvent, OnRunProps } from "@drincs/nqtr";
 import { ReactElement } from "react";
 import ImageTimeSlots from "../ImageTimeSlots";
 
@@ -14,13 +7,11 @@ export default class Activity extends ActivityStoredClass implements ActivityInt
         id: string,
         onRun: OnRunEvent<ActivityInterface>,
         props: {
-            timeSlot?: TimeSchedulingInterface;
-            dateScheduling?: DateSchedulingInterface;
             name?: string;
             icon: ImageTimeSlots | ReactElement | ((props: Activity, runProps: OnRunProps) => ReactElement);
             disabled?: boolean | (() => boolean);
             hidden?: boolean | (() => boolean);
-        }
+        } & ActivityStoredClassProps
     ) {
         super(id, onRun, props);
         this.name = props.name || "";

@@ -1,4 +1,4 @@
-import { OnRunProps, QuestInterface, QuestStoredClass, StageInterface } from "@drincs/nqtr";
+import { QuestInterface, QuestStoredClass, QuestStoredClassProps, StageInterface } from "@drincs/nqtr";
 import ImageTimeSlots from "../ImageTimeSlots";
 
 export default class Quest extends QuestStoredClass implements QuestInterface {
@@ -6,13 +6,11 @@ export default class Quest extends QuestStoredClass implements QuestInterface {
         id: string,
         _stages: StageInterface[],
         props: {
-            onStart?: (stage: QuestInterface, props: OnRunProps) => void;
-            onNextStage?: (stage: QuestInterface, props: OnRunProps) => void;
             name?: string;
             description?: string;
             image?: ImageTimeSlots;
             inDevelopment?: boolean;
-        }
+        } & QuestStoredClassProps
     ) {
         super(id, _stages, props);
         this.name = props.name || "";

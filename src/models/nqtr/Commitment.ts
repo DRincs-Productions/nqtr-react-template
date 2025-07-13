@@ -1,12 +1,10 @@
 import {
     CommitmentInterface,
     CommitmentStoredClass,
-    DateSchedulingInterface,
-    ExecutionType,
+    CommitmentStoredClassProps,
     OnRunEvent,
     OnRunProps,
     RoomInterface,
-    TimeSchedulingInterface,
 } from "@drincs/nqtr";
 import { CharacterInterface } from "@drincs/pixi-vn";
 import { ReactElement } from "react";
@@ -22,13 +20,9 @@ export default class Commitment extends CommitmentStoredClass implements Commitm
             image?: ImageTimeSlots;
             icon?: ImageTimeSlots | ReactElement | ((props: Commitment, runProps: OnRunProps) => ReactElement);
             onRun?: OnRunEvent<CommitmentInterface>;
-            executionType?: ExecutionType;
-            priority?: number;
-            timeSlot?: TimeSchedulingInterface;
-            dateScheduling?: DateSchedulingInterface;
             disabled?: boolean | (() => boolean);
             hidden?: boolean | (() => boolean);
-        }
+        } & CommitmentStoredClassProps
     ) {
         characters = Array.isArray(characters) ? characters : [characters];
         super(id, characters, room, props.onRun, props);
