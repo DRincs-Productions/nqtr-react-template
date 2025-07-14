@@ -69,7 +69,7 @@ timeTracker.initialize({
         { name: timeSlots.night.description, startTime: timeSlots.night.value },
     ],
     getDayName: (weekDayNumber: number) => {
-        const weekDaysNames = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+        const weekDaysNames = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
         return weekDaysNames[weekDayNumber];
     },
     weekendStartDay: 6,
