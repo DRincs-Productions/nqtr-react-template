@@ -1,7 +1,7 @@
 import { RegisteredRooms } from "@drincs/nqtr";
 import ImageTimeSlots from "../models/ImageTimeSlots";
 import Room from "../models/nqtr/Room";
-import { bed } from "./activity";
+import { bed } from "./activities";
 import { gym, mcHome, school } from "./locations";
 
 export const mcRoom = new Room("mc_room", mcHome, {

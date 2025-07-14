@@ -6,7 +6,7 @@ import ImageTimeSlots from "../../models/ImageTimeSlots";
 import Commitment from "../../models/nqtr/Commitment";
 import Quest from "../../models/nqtr/Quest";
 import Stage from "../../models/nqtr/Stage";
-import { orderProduct, takeProduct } from "../activity";
+import { orderProduct, takeProduct } from "../activities";
 import { alice } from "../characters";
 import { mcRoom, terrace } from "../rooms";
 
