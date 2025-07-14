@@ -1,10 +1,10 @@
 import { OnRunProps } from "@drincs/nqtr";
-import { Assets } from "@drincs/pixi-vn";
 import { useTheme } from "@mui/joy";
 import { isValidElement, ReactElement } from "react";
 import useGameProps from "../hooks/useGameProps";
 import ImageTimeSlots from "../models/ImageTimeSlots";
 import useNqtrScreenStore from "../stores/useNqtrScreenStore";
+import { getPixiJSAsset } from "../utils/assets-utility";
 import RoundIconButton, { RoundIconButtonProps } from "./RoundIconButton";
 
 interface NqtrRoundIconButtonProps extends RoundIconButtonProps {
@@ -52,8 +52,7 @@ export function NqtrRoundIconButtonConvertor(
 
     if (typeof image == "string") {
         try {
-            // check if the image is a PixiAsset
-            image = Assets.resolver.resolve(image).src || image;
+            image = getPixiJSAsset(image);
         } catch {}
         return (
             <NqtrRoundIconButton
