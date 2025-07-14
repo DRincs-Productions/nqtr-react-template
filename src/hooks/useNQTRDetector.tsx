@@ -53,8 +53,8 @@ export default function useNQTRDetector() {
         //     }
         // });
 
-        let automaticFunctions = navigator.currentRoom?.automaticFunctions;
-        if (automaticFunctions && automaticFunctions.length > 0) {
+        let automaticFunctions = navigator.currentRoom?.automaticFunctions || [];
+        if (automaticFunctions.length > 0) {
             let automaticFunction = automaticFunctions[0];
             setDisable(true);
             automaticFunction(gameProps).finally(() => {
