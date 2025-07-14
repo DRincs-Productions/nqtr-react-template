@@ -53,8 +53,9 @@ export default function useNQTRDetector() {
         //     }
         // });
 
-        let automaticFunction = navigator.currentRoom?.automaticFunction;
-        if (automaticFunction) {
+        let automaticFunctions = navigator.currentRoom?.automaticFunctions;
+        if (automaticFunctions && automaticFunctions.length > 0) {
+            let automaticFunction = automaticFunctions[0];
             setDisable(true);
             automaticFunction(gameProps).finally(() => {
                 queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] });
