@@ -10,7 +10,7 @@ import { orderProduct, takeProduct } from "../activity";
 import { alice } from "../characters";
 import { mcRoom, terrace } from "../rooms";
 
-const aliceQuest = new Quest(
+export const aliceQuest = new Quest(
     "aliceQuest",
     [
         // stages
@@ -76,5 +76,3 @@ const aliceQuest_talk = new Commitment("alice_quest_talk", alice, terrace, {
 });
 
 RegisteredCommitments.add(aliceQuest_talk);
-
-export default aliceQuest;

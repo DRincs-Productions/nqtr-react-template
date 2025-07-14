@@ -4,7 +4,12 @@ import { createRoot } from "react-dom/client";
 import App from "./App";
 import { CANVAS_UI_LAYER_NAME, NAVIGATION_ROUTE, timeSlots } from "./constans";
 import "./index.css";
+import "./values/activity";
 import "./values/characters";
+import "./values/locations";
+import "./values/maps";
+import "./values/quests";
+import "./values/rooms";
 import { fixedRoutine } from "./values/routine";
 
 // Canvas setup with PIXI
