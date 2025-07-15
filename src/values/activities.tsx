@@ -4,10 +4,10 @@ import InventoryIcon from "@mui/icons-material/Inventory";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import NqtrRoundIconButton from "../components/NqtrRoundIconButton";
 import { NARRATION_ROUTE } from "../constans";
+import { navigateAndJumpToLabel } from "../labels/label-utility";
 import { napLabel, sleepLabel } from "../labels/sleepNapLabels";
 import { ORDER_PRODUCT_LABEL_KEY, TAKE_KEY_LABEL_KEY } from "../labels/variousActionsLabelKeys";
 import Activity from "../models/nqtr/Activity";
-import { navigateAndJumpToLabel } from "../utils/label-utility";
 
 export const bed = new Activity(
     "bed",
