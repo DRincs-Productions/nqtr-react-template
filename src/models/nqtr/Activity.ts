@@ -16,8 +16,8 @@ export default class Activity extends ActivityStoredClass implements ActivityInt
         super(id, onRun, props);
         this.name = props.name || "";
         this._icon = props.icon;
-        this._defaultdisabled = props.disabled || false;
-        this._defaulthidden = props.hidden || false;
+        this._defaultDisabled = props.disabled || false;
+        this._defaultHidden = props.hidden || false;
     }
     readonly name: string;
     private readonly _icon: ImageTimeSlots | ReactElement | ((props: Activity, runProps: OnRunProps) => ReactElement);
@@ -28,9 +28,9 @@ export default class Activity extends ActivityStoredClass implements ActivityInt
         }
         return icon;
     }
-    private _defaultdisabled: boolean | (() => boolean) = false;
+    private _defaultDisabled: boolean | (() => boolean) = false;
     get disabled(): boolean {
-        let value = this.getStorageProperty<boolean>("disabled") || this._defaultdisabled;
+        let value = this.getStorageProperty<boolean>("disabled") || this._defaultDisabled;
         if (typeof value === "function") {
             return value();
         }
@@ -39,9 +39,9 @@ export default class Activity extends ActivityStoredClass implements ActivityInt
     set disabled(value: boolean) {
         this.setStorageProperty("disabled", value);
     }
-    private _defaulthidden: boolean | (() => boolean) = false;
+    private _defaultHidden: boolean | (() => boolean) = false;
     get hidden(): boolean {
-        let value = this.getStorageProperty<boolean>("hidden") || this._defaulthidden;
+        let value = this.getStorageProperty<boolean>("hidden") || this._defaultHidden;
         if (typeof value === "function") {
             return value();
         }
