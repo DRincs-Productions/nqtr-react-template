@@ -1,6 +1,6 @@
-export * as activities from "./activities";
-export * as characters from "./characters";
-export * as locations from "./locations";
-export * as maps from "./maps";
-export * as quests from "./quests";
-export * as rooms from "./rooms";
+import "./activities";
+import "./characters";
+import "./locations";
+import "./maps";
+import "./quests";
+import "./rooms";
