@@ -16,7 +16,7 @@ export default function useTimeTracker() {
                 props.notify(uiTransition("cant_sleep_now"));
                 return false;
             }
-            timeTracker.increaseDate(newDayHour);
+            timeTracker.increaseDate(1, newDayHour);
             routine.clearExpiredRoutine();
             navigator.clearExpiredActivities();
             questsNotebook.startsStageMustBeStarted(props);

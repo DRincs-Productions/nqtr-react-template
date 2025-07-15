@@ -20,7 +20,7 @@ declare module "@drincs/nqtr" {
         /**
          * The icon of the activity.
          */
-        readonly icon: ImageTimeSlots | ReactElement | ((props: OnRunProps) => ReactElement);
+        readonly icon?: ImageSprite | ReactElement | ((props: OnRunProps) => ReactElement | ImageSprite);
     }
     interface CommitmentInterface {
         /**
@@ -34,7 +34,7 @@ declare module "@drincs/nqtr" {
         /**
          * The icon of the commitment.
          */
-        readonly icon?: ImageTimeSlots | ReactElement | ((props: OnRunProps) => ReactElement);
+        readonly icon?: ImageSprite | ReactElement | ((props: OnRunProps) => ReactElement | ImageSprite);
         /**
          * Whether is disabled.
          */
@@ -61,7 +61,7 @@ declare module "@drincs/nqtr" {
         /**
          * The icon of the location.
          */
-        getIcon(props: StepLabelProps): ImageSprite;
+        readonly icon?: ImageSprite | ((props: OnRunProps) => ImageSprite);
         /**
          * The entrance room of the location.
          */

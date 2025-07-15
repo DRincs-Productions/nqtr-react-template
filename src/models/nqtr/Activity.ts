@@ -1,6 +1,6 @@
 import { ActivityInterface, ActivityStoredClass, ActivityStoredClassProps, OnRunEvent, OnRunProps } from "@drincs/nqtr";
+import { ImageSprite } from "@drincs/pixi-vn";
 import { ReactElement } from "react";
-import ImageTimeSlots from "../ImageTimeSlots";
 
 export default class Activity extends ActivityStoredClass implements ActivityInterface {
     constructor(
@@ -8,7 +8,7 @@ export default class Activity extends ActivityStoredClass implements ActivityInt
         onRun: OnRunEvent<ActivityInterface>,
         props: {
             name?: string;
-            icon: ImageTimeSlots | ReactElement | ((props: Activity, runProps: OnRunProps) => ReactElement);
+            icon: ImageSprite | ReactElement | ((props: Activity, runProps: OnRunProps) => ReactElement | ImageSprite);
             disabled?: boolean | (() => boolean);
             hidden?: boolean | (() => boolean);
         } & ActivityStoredClassProps
@@ -20,8 +20,11 @@ export default class Activity extends ActivityStoredClass implements ActivityInt
         this._defaultHidden = props.hidden || false;
     }
     readonly name: string;
-    private readonly _icon: ImageTimeSlots | ReactElement | ((props: Activity, runProps: OnRunProps) => ReactElement);
-    get icon(): ImageTimeSlots | ReactElement | ((props: OnRunProps) => ReactElement) {
+    private readonly _icon:
+        | ImageSprite
+        | ReactElement
+        | ((props: Activity, runProps: OnRunProps) => ReactElement | ImageSprite);
+    get icon(): ImageSprite | ReactElement | ((props: OnRunProps) => ReactElement | ImageSprite) {
         let icon = this._icon;
         if (typeof icon === "function") {
             return (runProps: OnRunProps) => icon(this, runProps);

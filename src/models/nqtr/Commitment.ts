@@ -6,7 +6,7 @@ import {
     OnRunProps,
     RoomInterface,
 } from "@drincs/nqtr";
-import { CharacterInterface } from "@drincs/pixi-vn";
+import { CharacterInterface, ImageSprite } from "@drincs/pixi-vn";
 import { ReactElement } from "react";
 import ImageTimeSlots from "../ImageTimeSlots";
 
@@ -18,7 +18,10 @@ export default class Commitment extends CommitmentStoredClass implements Commitm
         props: {
             name?: string;
             image?: ImageTimeSlots;
-            icon?: ImageTimeSlots | ReactElement | ((props: Commitment, runProps: OnRunProps) => ReactElement);
+            icon?:
+                | ImageSprite
+                | ReactElement
+                | ((props: Commitment, runProps: OnRunProps) => ReactElement | ImageSprite);
             onRun?: OnRunEvent<CommitmentInterface>;
             disabled?: boolean | (() => boolean);
             hidden?: boolean | (() => boolean);
@@ -35,10 +38,10 @@ export default class Commitment extends CommitmentStoredClass implements Commitm
     readonly name: string;
     readonly image?: ImageTimeSlots;
     private readonly _icon?:
-        | ImageTimeSlots
+        | ImageSprite
         | ReactElement
-        | ((props: Commitment, runProps: OnRunProps) => ReactElement);
-    get icon(): ImageTimeSlots | ReactElement | ((props: OnRunProps) => ReactElement) | undefined {
+        | ((props: Commitment, runProps: OnRunProps) => ReactElement | ImageSprite);
+    get icon(): ImageSprite | ReactElement | ((props: OnRunProps) => ReactElement | ImageSprite) | undefined {
         let icon = this._icon;
         if (typeof icon === "function") {
             return (runProps: OnRunProps) => icon(this, runProps);
