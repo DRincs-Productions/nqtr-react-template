@@ -8,7 +8,7 @@ import {
 } from "@drincs/pixi-vn";
 import { BACKGROUND_ID } from "../constans";
 import { alice, mc } from "../values/characters";
-import { aliceQuest } from "../values/quests/alice/quests";
+import { aliceQuest } from "../values/quests";
 import { ALICE_TALK_MENU_LABEL_KEY, TALK_ALICE_QUEST_KEY } from "./variousActionsLabelKeys";
 
 export const talkAliceQuest = newLabel(

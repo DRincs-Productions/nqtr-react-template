@@ -1,7 +1,6 @@
 import { navigator } from "@drincs/nqtr";
 import { Avatar, AvatarGroup } from "@mui/joy";
 import { useQueryClient } from "@tanstack/react-query";
-import { AnimatePresence } from "motion/react";
 import { useMemo } from "react";
 import { NqtrRoundIconButtonConvertor } from "../../components/NqtrRoundIconButton.tsx";
 import StackOverflow from "../../components/StackOverflow.tsx";
@@ -31,11 +30,9 @@ export default function QuickRooms() {
                 pointerEvents: "auto",
             }}
         >
-            <AnimatePresence>
-                {rooms.map((room) => (
-                    <QuickRoom key={"room-" + room.id} roomId={room.id} {...room} />
-                ))}
-            </AnimatePresence>
+            {rooms.map((room) => (
+                <QuickRoom key={"room-" + room.id} roomId={room.id} {...room} />
+            ))}
         </StackOverflow>
     );
 }
@@ -44,7 +41,7 @@ function QuickRoom({ roomId }: { roomId: string }) {
     const queryClient = useQueryClient();
     const { data } = useQueryRoom(roomId);
     const { data: currentRoomId } = useQueryCurrentRoomId();
-    const { disabled, icon, name, characters, room } = data || {};
+    const { disabled, icon, name, characters } = data || {};
     const selected = useMemo(() => currentRoomId === roomId, [currentRoomId, roomId]);
 
     return (
@@ -52,13 +49,13 @@ function QuickRoom({ roomId }: { roomId: string }) {
             disabled={disabled || selected}
             selected={selected}
             onClick={() => {
-                if (!disabled && !selected && room) {
-                    navigator.currentRoom = room;
+                if (!disabled && !selected) {
+                    navigator.currentRoom = roomId;
                     queryClient.setQueryData([INTERFACE_DATA_USE_QUEY_KEY, CURRENT_ROOM_USE_QUEY_KEY], roomId);
                 }
             }}
             ariaLabel={name || ""}
-            image={icon?.src}
+            image={icon}
         >
             {characters && (
                 <AvatarGroup

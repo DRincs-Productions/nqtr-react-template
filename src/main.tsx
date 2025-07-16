@@ -1,10 +1,8 @@
-import { routine, timeTracker } from "@drincs/nqtr";
 import { Assets, canvas, Container, Game, storage } from "@drincs/pixi-vn";
 import { createRoot } from "react-dom/client";
 import App from "./App";
-import { CANVAS_UI_LAYER_NAME, NAVIGATION_ROUTE, timeSlots } from "./constans";
+import { CANVAS_UI_LAYER_NAME, NAVIGATION_ROUTE } from "./constans";
 import "./index.css";
-import { fixedRoutine } from "./values/routine";
 
 // Canvas setup with PIXI
 const body = document.body;
@@ -51,20 +49,3 @@ Game.onError((type, error, { notify, t }) => {
 });
 
 Game.onLoadingLabel((_stepId, { id }) => Assets.backgroundLoadBundle(id));
-
-timeTracker.initialize({
-    defaultTimeSpent: 1,
-    maxDayHours: 24,
-    minDayHours: 0,
-    timeSlots: [
-        { name: timeSlots.morning.description, startHour: timeSlots.morning.value },
-        { name: timeSlots.afternoon.description, startHour: timeSlots.afternoon.value },
-        { name: timeSlots.evening.description, startHour: timeSlots.evening.value },
-        { name: timeSlots.night.description, startHour: timeSlots.night.value },
-    ],
-    weekDaysNames: ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"],
-    weekendStartDay: 6,
-    weekLength: 7,
-});
-
-routine.fixedRoutine = fixedRoutine;

@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { CANVAS_UI_LAYER_NAME } from "../constans";
 import { useQueryCurrentRoomId, useQueryRoom, useQueryTime } from "../hooks/useQueryNQTR";
 import useNqtrScreenStore from "../stores/useNqtrScreenStore";
+import { convertMultiTypeImage } from "../utils/image-utility";
 import useGameProps from "./useGameProps";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "./useQueryInterface";
 
@@ -19,42 +20,46 @@ export default function useNQTRDetector() {
     useEffect(() => {
         const { image } = currentRoom || {};
         if (image) {
-            canvas.clear();
-            let component = new ImageSprite({}, image.src);
-            component.load();
-            canvas.getLayer(CANVAS_UI_LAYER_NAME)?.addChild(component);
+            convertMultiTypeImage(image, gameProps).then((image) => {
+                let layer = canvas.getLayer(CANVAS_UI_LAYER_NAME);
+                if (layer) {
+                    if (typeof image === "string") {
+                        let sprite = new ImageSprite({}, image);
+                        sprite.load();
+                        image = sprite;
+                    }
+                    layer.addChild(image);
+
+                    currentRoom?.activities.forEach(({ image }) => {
+                        image &&
+                            convertMultiTypeImage(image, gameProps).then((image) => {
+                                if (typeof image === "string") {
+                                    let sprite = new ImageSprite({}, image);
+                                    sprite.load();
+                                    image = sprite;
+                                }
+                                layer.addChild(image);
+                            });
+                    });
+                    let currentCommitments = currentRoom?.routine;
+                    if (currentCommitments && currentCommitments.length > 0 && currentCommitments[0].image) {
+                        let image = currentCommitments[0].image;
+                        convertMultiTypeImage(image, gameProps).then((image) => {
+                            if (typeof image === "string") {
+                                let sprite = new ImageSprite({}, image);
+                                sprite.load();
+                                image = sprite;
+                            }
+                            layer.addChild(image);
+                        });
+                    }
+                }
+            });
         }
 
-        // currentRoom.activities.forEach((activity) => {
-        //     if (!activity.renderIcon) {
-        //         return;
-        //     }
-        //     let icon = activity.renderIcon({
-        //         navigate: navigate,
-        //         t: t,
-        //         notify: (t(message), variant) => enqueueSnackbar(message, { variant }),
-        //     });
-        //     if (icon instanceof CanvasBase) {
-        //         container.addChild(icon);
-        //     }
-        // });
-
-        // currentCommitments.forEach((commitment) => {
-        //     if (!commitment.renderIcon) {
-        //         return;
-        //     }
-        //     let icon = commitment.renderIcon({
-        //         navigate: navigate,
-        //         t: t,
-        //         notify: (t(message), variant) => enqueueSnackbar(message, { variant }),
-        //     });
-        //     if (icon instanceof CanvasBase) {
-        //         container.addChild(icon);
-        //     }
-        // });
-
-        let automaticFunction = navigator.currentRoom?.automaticFunction;
-        if (automaticFunction) {
+        let automaticFunctions = navigator.currentRoom?.automaticFunctions || [];
+        if (automaticFunctions.length > 0) {
+            let automaticFunction = automaticFunctions[0];
             setDisable(true);
             automaticFunction(gameProps).finally(() => {
                 queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] });

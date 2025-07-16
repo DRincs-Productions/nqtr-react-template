@@ -1,5 +1,5 @@
-import { ActivityInterface, LocationInterface, RoomInterface, RoomStoredClass } from "@drincs/nqtr";
-import ImageTimeSlots from "../ImageTimeSlots";
+import { ActivityInterface, LocationInterface, OnRunProps, RoomInterface, RoomStoredClass } from "@drincs/nqtr";
+import MultiTypeImage, { MultiTypeImageProp } from "../MultiTypeImage";
 
 export default class Room extends RoomStoredClass implements RoomInterface {
     constructor(
@@ -9,24 +9,31 @@ export default class Room extends RoomStoredClass implements RoomInterface {
             name: string;
             disabled?: boolean | (() => boolean);
             hidden?: boolean | (() => boolean);
-            image: ImageTimeSlots;
+            image: MultiTypeImageProp<Room>;
             activities?: ActivityInterface[];
             isEntrance?: boolean;
         }
     ) {
         super(id, location, props.activities);
         this.name = props.name;
-        this._defaultdisabled = props.disabled || false;
-        this._defaulthidden = props.hidden || false;
-        this.image = props.image;
+        this._defaultDisabled = props.disabled || false;
+        this._defaultHidden = props.hidden || false;
+        this._image = props.image;
         this.isEntrance = props.isEntrance || false;
     }
     readonly name: string;
-    readonly image: ImageTimeSlots;
+    private readonly _image: MultiTypeImageProp<Room>;
+    get image(): MultiTypeImage {
+        let image = this._image;
+        if (typeof image === "function") {
+            return (runProps: OnRunProps) => image(this, runProps);
+        }
+        return image;
+    }
     readonly isEntrance: boolean;
-    private _defaultdisabled: boolean | (() => boolean) = false;
+    private _defaultDisabled: boolean | (() => boolean) = false;
     get disabled(): boolean {
-        let value = this.getStorageProperty<boolean>("disabled") || this._defaultdisabled;
+        let value = this.getStorageProperty<boolean>("disabled") || this._defaultDisabled;
         if (typeof value === "function") {
             return value();
         }
@@ -35,9 +42,9 @@ export default class Room extends RoomStoredClass implements RoomInterface {
     set disabled(value: boolean) {
         this.setStorageProperty("disabled", value);
     }
-    private _defaulthidden: boolean | (() => boolean) = false;
+    private _defaultHidden: boolean | (() => boolean) = false;
     get hidden(): boolean {
-        let value = this.getStorageProperty<boolean>("hidden") || this._defaulthidden;
+        let value = this.getStorageProperty<boolean>("hidden") || this._defaultHidden;
         if (typeof value === "function") {
             return value();
         }

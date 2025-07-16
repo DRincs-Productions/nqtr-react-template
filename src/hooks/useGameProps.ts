@@ -4,6 +4,7 @@ import { useSnackbar } from "notistack";
 import { useTranslation } from "react-i18next";
 import useMyNavigate from "./useMyNavigate";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "./useQueryInterface";
+import useTimeTracker from "./useTimeTracker";
 
 export default function useGameProps(): StepLabelProps {
     const navigate = useMyNavigate();
@@ -11,6 +12,7 @@ export default function useGameProps(): StepLabelProps {
     const { t: uiTransition } = useTranslation(["ui"]);
     const { enqueueSnackbar } = useSnackbar();
     const queryClient = useQueryClient();
+    const { sleep, wait } = useTimeTracker();
 
     return {
         navigate,
@@ -20,5 +22,7 @@ export default function useGameProps(): StepLabelProps {
         invalidateInterfaceData: () => {
             queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] });
         },
+        sleep,
+        wait,
     };
 }

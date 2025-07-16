@@ -1,10 +1,10 @@
 import { OnRunProps } from "@drincs/nqtr";
-import { Assets } from "@drincs/pixi-vn";
 import { useTheme } from "@mui/joy";
 import { isValidElement, ReactElement } from "react";
 import useGameProps from "../hooks/useGameProps";
-import ImageTimeSlots from "../models/ImageTimeSlots";
+import TimeSlotsImage from "../models/TimeSlotsImage";
 import useNqtrScreenStore from "../stores/useNqtrScreenStore";
+import { getPixiJSAsset } from "../utils/assets-utility";
 import RoundIconButton, { RoundIconButtonProps } from "./RoundIconButton";
 
 interface NqtrRoundIconButtonProps extends RoundIconButtonProps {
@@ -17,7 +17,6 @@ export default function NqtrRoundIconButton(props: NqtrRoundIconButtonProps) {
 
     return (
         <RoundIconButton
-            className={`motion-scale-in-[0]`}
             sx={{
                 "--IconButton-size": { xs: "40px", sm: "60px", md: "80px" },
                 border: 3,
@@ -32,7 +31,7 @@ export default function NqtrRoundIconButton(props: NqtrRoundIconButtonProps) {
 
 export function NqtrRoundIconButtonConvertor(
     props: NqtrRoundIconButtonProps & {
-        image?: string | ImageTimeSlots | ReactElement | ((props: OnRunProps) => ReactElement);
+        image?: string | TimeSlotsImage | ReactElement | ((props: OnRunProps) => ReactElement);
     }
 ) {
     let { image, ...rest } = props;
@@ -47,14 +46,13 @@ export function NqtrRoundIconButtonConvertor(
         return image;
     }
 
-    if (image instanceof ImageTimeSlots) {
+    if (image instanceof TimeSlotsImage) {
         image = image.src;
     }
 
     if (typeof image == "string") {
         try {
-            // check if the image is a PixiAsset
-            image = Assets.resolver.resolve(image).src || image;
+            image = getPixiJSAsset(image);
         } catch {}
         return (
             <NqtrRoundIconButton

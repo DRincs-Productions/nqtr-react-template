@@ -1,33 +1,24 @@
-import {
-    navigator,
-    QuestInterface,
-    questsNotebook,
-    RegisteredRooms,
-    RoomInterface,
-    routine,
-    timeTracker,
-} from "@drincs/nqtr";
+import { navigator, QuestInterface, questsNotebook, RegisteredRooms, RoomInterface, timeTracker } from "@drincs/nqtr";
 import { Assets, storage } from "@drincs/pixi-vn";
 import { useQuery } from "@tanstack/react-query";
 import { SELECTED_QUEST_STORAGE_KEY } from "../constans";
+import TimeSlotsImage from "../models/TimeSlotsImage";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "./useQueryInterface";
 
 function getRoomInfo(room: RoomInterface) {
     let image = room.image;
-    let icon = room.image;
-    let currentCommitments = room.routine;
-    if (currentCommitments.length > 0 && currentCommitments[0].image) {
-        image = currentCommitments[0].image;
+    let icon: string | TimeSlotsImage | undefined;
+    if (typeof image === "string" || image instanceof TimeSlotsImage) {
+        icon = image;
     }
 
     return {
         id: room.id,
-        room: room,
         image: image,
         icon: icon,
         name: room.name,
         disabled: room.disabled,
-        routine: currentCommitments,
+        routine: room.routine,
         activities: room.activities,
         characters: room.characters,
     };
@@ -37,7 +28,7 @@ const CURRENT_HOUR_USE_QUEY_KEY = "current_hour_use_quey_key";
 export function useQueryTime() {
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_HOUR_USE_QUEY_KEY],
-        queryFn: async () => timeTracker.currentHour,
+        queryFn: async () => timeTracker.currentTime,
     });
 }
 
@@ -58,22 +49,6 @@ export function useQueryCurrentRoomId() {
     });
 }
 
-const CURRENT_ROUTINE_USE_QUEY_KEY = "current_routine_use_quey_key";
-export function useQueryCurrentRoutine() {
-    return useQuery({
-        queryKey: [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_ROUTINE_USE_QUEY_KEY],
-        queryFn: async () => routine.currentRoomRoutine,
-    });
-}
-
-const CURRENT_ACTIVITIES_USE_QUEY_KEY = "current_activities_use_quey_key";
-export function useQueryCurrentActivities() {
-    return useQuery({
-        queryKey: [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_ACTIVITIES_USE_QUEY_KEY],
-        queryFn: async () => navigator.currentRoom?.activities || [],
-    });
-}
-
 const QUICK_ROOMS_USE_QUEY_KEY = "quick_rooms_use_quey_key";
 export function useQueryQuickRooms() {
     const rooms = navigator.currentLocation?.rooms || [];
@@ -82,7 +57,6 @@ export function useQueryQuickRooms() {
         queryFn: async () => {
             const loadRoomsImage = async () => {
                 rooms?.forEach((room) => {
-                    Assets.backgroundLoad(room.image.src);
                     Assets.backgroundLoadBundle(room.id);
                 });
             };
@@ -91,18 +65,6 @@ export function useQueryQuickRooms() {
         },
     });
 }
-
-export type QuestDescription = {
-    id: string;
-    name: string;
-    description: string;
-    currentStage: {
-        description: string;
-    };
-    questImage?: string;
-    completed?: boolean;
-    isInDevelopment?: boolean;
-};
 
 function getQuestInfo(quest: QuestInterface) {
     let currentStageDescription = "";
@@ -127,7 +89,7 @@ function getQuestInfo(quest: QuestInterface) {
         currentStage: {
             description: currentStageDescription,
         },
-        questImage: quest.image?.src,
+        questImage: quest.image,
         completed: quest.completed,
         isInDevelopment: quest.inDevelopment,
     };
