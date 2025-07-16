@@ -2,9 +2,7 @@ import { OnRunProps } from "@drincs/nqtr";
 import { useTheme } from "@mui/joy";
 import { isValidElement, ReactElement } from "react";
 import useGameProps from "../hooks/useGameProps";
-import ImageTimeSlots from "../models/ImageTimeSlots";
 import useNqtrScreenStore from "../stores/useNqtrScreenStore";
-import { getPixiJSAsset } from "../utils/assets-utility";
 import RoundIconButton, { RoundIconButtonProps } from "./RoundIconButton";
 
 interface NqtrRoundIconButtonProps extends RoundIconButtonProps {
@@ -31,7 +29,7 @@ export default function NqtrRoundIconButton(props: NqtrRoundIconButtonProps) {
 
 export function NqtrRoundIconButtonConvertor(
     props: NqtrRoundIconButtonProps & {
-        image?: string | ImageTimeSlots | ReactElement | ((props: OnRunProps) => ReactElement);
+        image?: ReactElement | ((props: OnRunProps) => ReactElement);
     }
 ) {
     let { image, ...rest } = props;
@@ -46,14 +44,7 @@ export function NqtrRoundIconButtonConvertor(
         return image;
     }
 
-    if (image instanceof ImageTimeSlots) {
-        image = image.src;
-    }
-
     if (typeof image == "string") {
-        try {
-            image = getPixiJSAsset(image);
-        } catch {}
         return (
             <NqtrRoundIconButton
                 {...rest}

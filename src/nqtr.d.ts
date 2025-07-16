@@ -20,7 +20,7 @@ declare module "@drincs/nqtr" {
         /**
          * The icon of the activity.
          */
-        readonly icon?: ImageSprite | ReactElement | ((props: OnRunProps) => ReactElement | ImageSprite);
+        readonly icon?: ReactElement | ((props: OnRunProps) => ReactElement);
     }
     interface CommitmentInterface {
         /**
@@ -34,7 +34,7 @@ declare module "@drincs/nqtr" {
         /**
          * The icon of the commitment.
          */
-        readonly icon?: ImageSprite | ReactElement | ((props: OnRunProps) => ReactElement | ImageSprite);
+        readonly icon?: ReactElement | ((props: OnRunProps) => ReactElement);
         /**
          * Whether is disabled.
          */

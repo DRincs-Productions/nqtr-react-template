@@ -1,5 +1,4 @@
 import { ActivityInterface, ActivityStoredClass, ActivityStoredClassProps, OnRunEvent, OnRunProps } from "@drincs/nqtr";
-import { ImageSprite } from "@drincs/pixi-vn";
 import { ReactElement } from "react";
 
 export default class Activity extends ActivityStoredClass implements ActivityInterface {
@@ -8,7 +7,7 @@ export default class Activity extends ActivityStoredClass implements ActivityInt
         onRun: OnRunEvent<ActivityInterface>,
         props: {
             name?: string;
-            icon: ImageSprite | ReactElement | ((props: Activity, runProps: OnRunProps) => ReactElement | ImageSprite);
+            icon: ReactElement | ((props: Activity, runProps: OnRunProps) => ReactElement);
             disabled?: boolean | (() => boolean);
             hidden?: boolean | (() => boolean);
         } & ActivityStoredClassProps
@@ -20,11 +19,8 @@ export default class Activity extends ActivityStoredClass implements ActivityInt
         this._defaultHidden = props.hidden || false;
     }
     readonly name: string;
-    private readonly _icon:
-        | ImageSprite
-        | ReactElement
-        | ((props: Activity, runProps: OnRunProps) => ReactElement | ImageSprite);
-    get icon(): ImageSprite | ReactElement | ((props: OnRunProps) => ReactElement | ImageSprite) {
+    private readonly _icon: ReactElement | ((props: Activity, runProps: OnRunProps) => ReactElement);
+    get icon(): ReactElement | ((props: OnRunProps) => ReactElement) {
         let icon = this._icon;
         if (typeof icon === "function") {
             return (runProps: OnRunProps) => icon(this, runProps);
