@@ -1,3 +1,4 @@
+import { OnRunProps } from "@drincs/nqtr";
 import { TFunction } from "i18next";
 import { OptionsWithExtraProps, SnackbarKey, SnackbarMessage } from "notistack";
 import { NavigateFunction } from "react-router-dom";
@@ -40,6 +41,19 @@ declare module "@drincs/pixi-vn" {
          * This will cause the interface to be reloaded and the data to be fetched again.
          */
         invalidateInterfaceData: () => void;
+        /**
+         * Sleep for a new day.
+         * @param newDayHour The hour of the new day.
+         * @param props The props of the step label.
+         * @returns Whether the sleep was successful.
+         */
+        sleep: (newDayHour: number, props: OnRunProps) => boolean;
+        /**
+         * Wait for a certain amount of time.
+         * @param timeSpent The amount of time to wait.
+         * @returns Whether the wait was successful.
+         */
+        wait: (timeSpent: number) => boolean;
     }
     interface CharacterInterface {
         /**

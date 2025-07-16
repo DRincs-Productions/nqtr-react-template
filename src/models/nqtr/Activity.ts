@@ -1,40 +1,39 @@
-import { ActivityInterface, ActivityStoredClass, OnRunEvent, OnRunProps } from "@drincs/nqtr";
+import { ActivityInterface, ActivityStoredClass, ActivityStoredClassProps, OnRunEvent, OnRunProps } from "@drincs/nqtr";
 import { ReactElement } from "react";
-import ImageTimeSlots from "../ImageTimeSlots";
+import TimeSlotsImage from "../TimeSlotsImage";
 
 export default class Activity extends ActivityStoredClass implements ActivityInterface {
     constructor(
         id: string,
         onRun: OnRunEvent<ActivityInterface>,
         props: {
-            fromHour?: number;
-            toHour?: number;
-            fromDay?: number;
-            toDay?: number;
             name?: string;
-            icon: ImageTimeSlots | ReactElement | ((props: Activity, runProps: OnRunProps) => ReactElement);
+            image?: TimeSlotsImage;
+            icon: ReactElement | ((props: Activity, runProps: OnRunProps) => ReactElement);
             disabled?: boolean | (() => boolean);
             hidden?: boolean | (() => boolean);
-        }
+        } & ActivityStoredClassProps
     ) {
         super(id, onRun, props);
         this.name = props.name || "";
+        this.image = props.image;
         this._icon = props.icon;
-        this._defaultdisabled = props.disabled || false;
-        this._defaulthidden = props.hidden || false;
+        this._defaultDisabled = props.disabled || false;
+        this._defaultHidden = props.hidden || false;
     }
     readonly name: string;
-    private readonly _icon: ImageTimeSlots | ReactElement | ((props: Activity, runProps: OnRunProps) => ReactElement);
-    get icon(): ImageTimeSlots | ReactElement | ((props: OnRunProps) => ReactElement) {
+    readonly image?: TimeSlotsImage;
+    private readonly _icon: ReactElement | ((props: Activity, runProps: OnRunProps) => ReactElement);
+    get icon(): ReactElement | ((props: OnRunProps) => ReactElement) {
         let icon = this._icon;
         if (typeof icon === "function") {
             return (runProps: OnRunProps) => icon(this, runProps);
         }
         return icon;
     }
-    private _defaultdisabled: boolean | (() => boolean) = false;
+    private _defaultDisabled: boolean | (() => boolean) = false;
     get disabled(): boolean {
-        let value = this.getStorageProperty<boolean>("disabled") || this._defaultdisabled;
+        let value = this.getStorageProperty<boolean>("disabled") || this._defaultDisabled;
         if (typeof value === "function") {
             return value();
         }
@@ -43,9 +42,9 @@ export default class Activity extends ActivityStoredClass implements ActivityInt
     set disabled(value: boolean) {
         this.setStorageProperty("disabled", value);
     }
-    private _defaulthidden: boolean | (() => boolean) = false;
+    private _defaultHidden: boolean | (() => boolean) = false;
     get hidden(): boolean {
-        let value = this.getStorageProperty<boolean>("hidden") || this._defaulthidden;
+        let value = this.getStorageProperty<boolean>("hidden") || this._defaultHidden;
         if (typeof value === "function") {
             return value();
         }

@@ -1,14 +1,14 @@
 import { RegisteredCommitments, RegisteredQuests, routine } from "@drincs/nqtr";
-import { NARRATION_ROUTE } from "../../../constans";
-import { navigateAndJumpToLabel } from "../../../labels/utility-labels";
-import { talkAliceQuest } from "../../../labels/variousActionsLabels";
-import ImageTimeSlots from "../../../models/ImageTimeSlots";
-import Commitment from "../../../models/nqtr/Commitment";
-import Quest from "../../../models/nqtr/Quest";
-import Stage from "../../../models/nqtr/Stage";
-import { orderProduct, takeProduct } from "../../activity";
-import { alice } from "../../characters";
-import { mcRoom, terrace } from "../../rooms";
+import { NARRATION_ROUTE } from "../../constans";
+import { navigateAndJumpToLabel } from "../../labels/label-utility";
+import { talkAliceQuest } from "../../labels/variousActionsLabels";
+import TimeSlotsImage from "../../models/TimeSlotsImage";
+import Commitment from "../../models/nqtr/Commitment";
+import Quest from "../../models/nqtr/Quest";
+import Stage from "../../models/nqtr/Stage";
+import { orderProduct, takeProduct } from "../activities";
+import { alice } from "../characters";
+import { mcRoom, terrace } from "../rooms";
 
 export const aliceQuest = new Quest(
     "aliceQuest",
@@ -36,7 +36,7 @@ export const aliceQuest = new Quest(
             name: "Take products",
             description: "Take products on the Terrace",
             requestDescriptionToStart: "Wait for the products you ordered to arrive (2 day)",
-            daysRequiredToStart: 2,
+            deltaDateRequired: 2,
         }),
         new Stage("talk_alice2", {
             name: "Talk to Alice",
@@ -48,7 +48,7 @@ export const aliceQuest = new Quest(
         name: "Help Alice",
         description:
             'To learn more about how the repo works, Talk to Alice. \nGoing when she is there will automatically start an "Event" (see aliceQuest.tsx to learn more). \nAfter that an action will be added to open the pc, in MC room. \n\n(during the quest you can talk to Alice and you will see her talking during the quests of the same Quest)',
-        image: new ImageTimeSlots("alice_terrace0A"),
+        image: "alice_terrace0A",
         onStart: (quest, { notify, uiTransition }) => {
             notify(uiTransition("notify_quest_is_started", { quest: quest.name }));
         },
@@ -61,9 +61,11 @@ export const aliceQuest = new Quest(
 RegisteredQuests.add(aliceQuest);
 
 const aliceQuest_talk = new Commitment("alice_quest_talk", alice, terrace, {
-    fromHour: 10,
-    toHour: 20,
-    image: new ImageTimeSlots("alice_terrace0A"),
+    timeSlot: {
+        from: 10,
+        to: 20,
+    },
+    image: new TimeSlotsImage("alice_terrace0A"),
     executionType: "automatic",
     priority: 1,
     onRun: async (_, event) => {

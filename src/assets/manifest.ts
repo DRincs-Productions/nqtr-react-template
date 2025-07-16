@@ -1,6 +1,6 @@
 import { AssetsManifest } from "@drincs/pixi-vn";
 import { MAIN_MENU_ROUTE } from "../constans";
-import { mainMap } from "../values/maps";
+import { mainMap, nightcityMap } from "../values/maps";
 import { aliceRoom, annRoom, bathroom, gymRoom, lounge, mcRoom, terrace } from "../values/rooms";
 
 /**
@@ -40,6 +40,23 @@ const manifest: AssetsManifest = {
                 {
                     alias: "map-3",
                     src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/refs/heads/main/game/images/location/map-3.webp",
+                },
+                {
+                    alias: "icon_location_home",
+                    src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/refs/heads/main/game/nqtr_interface/home-00.webp",
+                },
+                {
+                    alias: "icon_location_gym",
+                    src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/refs/heads/main/game/nqtr_interface/gym.webp",
+                },
+            ],
+        },
+        {
+            name: nightcityMap.id,
+            assets: [
+                {
+                    alias: "map-nightcity",
+                    src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/refs/heads/main/game/images/location/nightcity.webp",
                 },
             ],
         },
@@ -164,20 +181,6 @@ const manifest: AssetsManifest = {
                 {
                     alias: "location_gym",
                     src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/main/game/images/location/gym.webp",
-                },
-            ],
-        },
-        // locations
-        {
-            name: "locations",
-            assets: [
-                {
-                    alias: "icon_location_home",
-                    src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/refs/heads/main/game/nqtr_interface/home-00.webp",
-                },
-                {
-                    alias: "icon_location_gym",
-                    src: "https://raw.githubusercontent.com/DRincs-Productions/NQTR-System/refs/heads/main/game/nqtr_interface/gym.webp",
                 },
             ],
         },

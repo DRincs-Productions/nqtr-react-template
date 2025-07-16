@@ -1,2 +1,5 @@
+import "./label-utility";
+import "./sleepNapLabels";
 import "./startLabel";
-import "./utility-labels";
+import "./variousActionsLabelKeys";
+import "./variousActionsLabels";

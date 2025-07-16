@@ -82,7 +82,9 @@
 		"notify_quest_is_updated" : "The \"{{quest}}\" quest has been updated.",
 		"bed": "Bed",
 		"order_product": "Order Products",
-		"take_product": "Take Product"
+		"take_product": "Take Product",
+		"cant_sleep_now": "You can't sleep now",
+		"cant_wait_now": "You can't wait anymore, you should sleep now"
 	},
 	"narration": {}
 }

@@ -5,9 +5,18 @@ import LoadingScreen from "./screens/LoadingScreen";
 import { defineAssets } from "./utils/assets-utility";
 import { initializeIndexedDB } from "./utils/indexedDB-utility";
 import { importAllInkLabels } from "./utils/ink-utility";
+import { initializeNQTR } from "./utils/nqtr-utility";
 
 const Home = lazy(async () => {
-    await Promise.all([initializeIndexedDB(), defineAssets(), useI18n(), importAllInkLabels()]);
+    await Promise.all([
+        import("./values"),
+        import("./labels"),
+        initializeIndexedDB(),
+        defineAssets(),
+        useI18n(),
+        importAllInkLabels(),
+        initializeNQTR(),
+    ]);
     return import("./Home");
 });
 
