@@ -37,7 +37,7 @@ export const annRoom = new Room("ann_room", mcHome, {
 
 export const bathroom = new Room("bathroom", mcHome, {
     name: "Bathroom",
-    image: new TimeSlotsImage("location_bathroom"),
+    image: "location_bathroom",
 });
 
 export const lounge = new Room("lounge", mcHome, {
@@ -63,12 +63,12 @@ export const terrace = new Room("terrace", mcHome, {
 
 export const gymRoom = new Room("gym_room", gym, {
     name: "Gym",
-    image: new TimeSlotsImage("location_gym"),
+    image: "location_gym",
 });
 
 export const classRoom = new Room("class_room", school, {
     name: "School",
-    image: new TimeSlotsImage(""),
+    image: "",
 });
 
 RegisteredRooms.add([mcRoom, aliceRoom, annRoom, bathroom, lounge, terrace, gymRoom, classRoom]);
