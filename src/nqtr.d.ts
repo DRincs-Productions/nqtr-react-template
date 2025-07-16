@@ -18,11 +18,11 @@ declare module "@drincs/nqtr" {
          */
         hidden: boolean;
         /**
-         * The image of the activity.
+         * The PixiJS image of the activity.
          */
         readonly image?: MultiTypeImage;
         /**
-         * The icon of the activity.
+         * The React icon of the activity.
          */
         readonly icon?: ReactElement | ((props: OnRunProps) => ReactElement);
     }
@@ -32,11 +32,11 @@ declare module "@drincs/nqtr" {
          */
         readonly name: string;
         /**
-         * The image of the commitment.
+         * The PixiJS image of the commitment.
          */
         readonly image?: MultiTypeImage;
         /**
-         * The icon of the commitment.
+         * The React icon of the commitment.
          */
         readonly icon?: ReactElement | ((props: OnRunProps) => ReactElement);
         /**
@@ -63,7 +63,7 @@ declare module "@drincs/nqtr" {
          */
         hidden: boolean;
         /**
-         * The icon of the location.
+         * The PixiJS icon of the location.
          */
         readonly icon?: ContainerChild | ((props: OnRunProps) => ContainerChild);
         /**
@@ -77,7 +77,7 @@ declare module "@drincs/nqtr" {
          */
         readonly name: string;
         /**
-         * The image of the map.
+         * The PixiJS image of the map.
          */
         readonly image: MultiTypeImage;
         /**
@@ -95,7 +95,7 @@ declare module "@drincs/nqtr" {
          */
         readonly description: string;
         /**
-         * The function for rendering the image of the quest.
+         * The image of the quest.
          */
         readonly image?: string;
         /**
@@ -110,7 +110,7 @@ declare module "@drincs/nqtr" {
          */
         readonly name: string;
         /**
-         * The image of the room.
+         * The PixiJS image of the room.
          */
         readonly image: MultiTypeImage;
         /**
