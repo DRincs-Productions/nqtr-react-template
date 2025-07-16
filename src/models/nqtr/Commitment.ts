@@ -8,7 +8,7 @@ import {
 } from "@drincs/nqtr";
 import { CharacterInterface } from "@drincs/pixi-vn";
 import { ReactElement } from "react";
-import ImageTimeSlots from "../ImageTimeSlots";
+import TimeSlotsImage from "../TimeSlotsImage";
 
 export default class Commitment extends CommitmentStoredClass implements CommitmentInterface {
     constructor(
@@ -17,7 +17,7 @@ export default class Commitment extends CommitmentStoredClass implements Commitm
         room: RoomInterface,
         props: {
             name?: string;
-            image?: ImageTimeSlots;
+            image?: TimeSlotsImage;
             icon?: ReactElement | ((props: Commitment, runProps: OnRunProps) => ReactElement);
             onRun?: OnRunEvent<CommitmentInterface>;
             disabled?: boolean | (() => boolean);
@@ -33,7 +33,7 @@ export default class Commitment extends CommitmentStoredClass implements Commitm
         this._defaultHidden = props.hidden || false;
     }
     readonly name: string;
-    readonly image?: ImageTimeSlots;
+    readonly image?: TimeSlotsImage;
     private readonly _icon?: ReactElement | ((props: Commitment, runProps: OnRunProps) => ReactElement);
     get icon(): ReactElement | ((props: OnRunProps) => ReactElement) | undefined {
         let icon = this._icon;

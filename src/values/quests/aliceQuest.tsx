@@ -2,7 +2,7 @@ import { RegisteredCommitments, RegisteredQuests, routine } from "@drincs/nqtr";
 import { NARRATION_ROUTE } from "../../constans";
 import { navigateAndJumpToLabel } from "../../labels/label-utility";
 import { talkAliceQuest } from "../../labels/variousActionsLabels";
-import ImageTimeSlots from "../../models/ImageTimeSlots";
+import TimeSlotsImage from "../../models/TimeSlotsImage";
 import Commitment from "../../models/nqtr/Commitment";
 import Quest from "../../models/nqtr/Quest";
 import Stage from "../../models/nqtr/Stage";
@@ -65,7 +65,7 @@ const aliceQuest_talk = new Commitment("alice_quest_talk", alice, terrace, {
         from: 10,
         to: 20,
     },
-    image: new ImageTimeSlots("alice_terrace0A"),
+    image: new TimeSlotsImage("alice_terrace0A"),
     executionType: "automatic",
     priority: 1,
     onRun: async (_, event) => {

@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { CANVAS_UI_LAYER_NAME } from "../constans";
 import { useQueryCurrentRoomId, useQueryRoom, useQueryTime } from "../hooks/useQueryNQTR";
 import useNqtrScreenStore from "../stores/useNqtrScreenStore";
+import { convertMultiTypeImage } from "../utils/image-utility";
 import useGameProps from "./useGameProps";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "./useQueryInterface";
 
@@ -19,10 +20,17 @@ export default function useNQTRDetector() {
     useEffect(() => {
         const { image } = currentRoom || {};
         if (image) {
-            canvas.clear();
-            let component = new ImageSprite({}, image.src);
-            component.load();
-            canvas.getLayer(CANVAS_UI_LAYER_NAME)?.addChild(component);
+            convertMultiTypeImage(image, gameProps).then((image) => {
+                if (typeof image === "string") {
+                    let sprite = new ImageSprite({}, image);
+                    sprite.load();
+                    image = sprite;
+                }
+                let layer = canvas.getLayer(CANVAS_UI_LAYER_NAME);
+                if (layer) {
+                    layer.addChild(image);
+                }
+            });
         }
 
         // currentRoom.activities.forEach((activity) => {

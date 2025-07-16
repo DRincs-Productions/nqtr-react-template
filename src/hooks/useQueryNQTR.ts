@@ -2,11 +2,15 @@ import { navigator, QuestInterface, questsNotebook, RegisteredRooms, RoomInterfa
 import { Assets, storage } from "@drincs/pixi-vn";
 import { useQuery } from "@tanstack/react-query";
 import { SELECTED_QUEST_STORAGE_KEY } from "../constans";
+import TimeSlotsImage from "../models/TimeSlotsImage";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "./useQueryInterface";
 
 function getRoomInfo(room: RoomInterface) {
     let image = room.image;
-    let icon = room.image;
+    let icon: string | TimeSlotsImage | undefined;
+    if (typeof image === "string" || image instanceof TimeSlotsImage) {
+        icon = image;
+    }
     let currentCommitments = room.routine;
     if (currentCommitments.length > 0 && currentCommitments[0].image) {
         image = currentCommitments[0].image;
@@ -58,7 +62,13 @@ export function useQueryQuickRooms() {
         queryFn: async () => {
             const loadRoomsImage = async () => {
                 rooms?.forEach((room) => {
-                    Assets.backgroundLoad(room.image.src);
+                    let image = room.image;
+                    if (image instanceof TimeSlotsImage) {
+                        image = image.src;
+                    }
+                    if (typeof image === "string") {
+                        Assets.backgroundLoad(image);
+                    }
                     Assets.backgroundLoadBundle(room.id);
                 });
             };

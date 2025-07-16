@@ -1,6 +1,6 @@
 import { ContainerChild, StepLabelProps } from "@drincs/pixi-vn";
 import { ReactElement } from "react";
-import ImageTimeSlots from "./models/ImageTimeSlots";
+import MultiTypeImage from "./models/MultiTypeImage";
 
 declare module "@drincs/nqtr" {
     interface OnRunProps extends StepLabelProps {}
@@ -30,7 +30,7 @@ declare module "@drincs/nqtr" {
         /**
          * The image of the commitment.
          */
-        readonly image?: ImageTimeSlots;
+        readonly image?: MultiTypeImage;
         /**
          * The icon of the commitment.
          */
@@ -75,7 +75,7 @@ declare module "@drincs/nqtr" {
         /**
          * The image of the map.
          */
-        readonly image: ImageTimeSlots;
+        readonly image: MultiTypeImage;
         /**
          * Neighboring maps.
          */
@@ -108,7 +108,7 @@ declare module "@drincs/nqtr" {
         /**
          * The image of the room.
          */
-        readonly image: ImageTimeSlots;
+        readonly image: MultiTypeImage;
         /**
          * Whether is disabled.
          */

@@ -1,5 +1,5 @@
 import { ActivityInterface, LocationInterface, RoomInterface, RoomStoredClass } from "@drincs/nqtr";
-import ImageTimeSlots from "../ImageTimeSlots";
+import TimeSlotsImage from "../TimeSlotsImage";
 
 export default class Room extends RoomStoredClass implements RoomInterface {
     constructor(
@@ -9,7 +9,7 @@ export default class Room extends RoomStoredClass implements RoomInterface {
             name: string;
             disabled?: boolean | (() => boolean);
             hidden?: boolean | (() => boolean);
-            image: ImageTimeSlots;
+            image: TimeSlotsImage;
             activities?: ActivityInterface[];
             isEntrance?: boolean;
         }
@@ -22,7 +22,7 @@ export default class Room extends RoomStoredClass implements RoomInterface {
         this.isEntrance = props.isEntrance || false;
     }
     readonly name: string;
-    readonly image: ImageTimeSlots;
+    readonly image: TimeSlotsImage;
     readonly isEntrance: boolean;
     private _defaultDisabled: boolean | (() => boolean) = false;
     get disabled(): boolean {
