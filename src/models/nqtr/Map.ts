@@ -1,6 +1,6 @@
-import { ActivityInterface, LocationInterface, MapInterface, MapStoredClass } from "@drincs/nqtr";
+import { ActivityInterface, LocationInterface, MapInterface, MapStoredClass, OnRunProps } from "@drincs/nqtr";
 import { NeighboringMaps } from "../../nqtr";
-import ImageTimeSlots from "../ImageTimeSlots";
+import MultiTypeImage, { MultiTypeImageProp } from "../MultiTypeImage";
 
 export default class Map extends MapStoredClass implements MapInterface {
     constructor(
@@ -8,17 +8,24 @@ export default class Map extends MapStoredClass implements MapInterface {
         props: {
             activities?: ActivityInterface[];
             name: string;
-            image: ImageTimeSlots;
+            image: MultiTypeImageProp<Map>;
             neighboringMaps: NeighboringMaps;
         }
     ) {
         super(id, props.activities);
         this.name = props.name;
-        this.image = props.image;
+        this._image = props.image;
         this.neighboringMaps = props.neighboringMaps;
     }
     readonly name: string;
-    readonly image: ImageTimeSlots;
+    private readonly _image: MultiTypeImageProp<Map>;
+    get image(): MultiTypeImage {
+        let image = this._image;
+        if (typeof image === "function") {
+            return (runProps: OnRunProps) => image(this, runProps);
+        }
+        return image;
+    }
     readonly neighboringMaps: NeighboringMaps;
     override get locations(): LocationInterface[] {
         return super.locations.filter((location) => !location.hidden);

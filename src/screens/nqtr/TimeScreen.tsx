@@ -2,20 +2,22 @@ import { timeTracker } from "@drincs/nqtr";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { Stack, Typography, useTheme } from "@mui/joy";
 import { useQueryClient } from "@tanstack/react-query";
-import { useSnackbar } from "notistack";
 import { useTranslation } from "react-i18next";
+import { useShallow } from "zustand/react/shallow";
 import RoundIconButton from "../../components/RoundIconButton";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "../../hooks/useQueryInterface";
 import { useQueryTime } from "../../hooks/useQueryNQTR";
+import useTimeTracker from "../../hooks/useTimeTracker";
+import useInterfaceStore from "../../stores/useInterfaceStore";
 import useNqtrScreenStore from "../../stores/useNqtrScreenStore";
-import { wait } from "../../utils/time-utility";
 
 export default function TimeScreen() {
     const { t } = useTranslation(["ui"]);
-    const { enqueueSnackbar } = useSnackbar();
+    const { wait } = useTimeTracker();
     const { data: hour = 0 } = useQueryTime();
     const queryClient = useQueryClient();
     const disabled = useNqtrScreenStore((state) => state.disabled);
+    const hidden = useInterfaceStore(useShallow((state) => state.hidden));
 
     return (
         <Stack
@@ -30,7 +32,7 @@ export default function TimeScreen() {
                     opacity: 1,
                 },
             }}
-            className='motion-preset-bounce'
+            className={hidden ? `motion-opacity-out-0 motion-translate-y-out-[-50%]` : "motion-preset-bounce"}
         >
             <Stack
                 direction='row'
@@ -46,7 +48,7 @@ export default function TimeScreen() {
                         textShadow: `0 0 3px ${useTheme().palette.common.black}, 0 0 5px ${
                             useTheme().palette.common.black
                         }`,
-                        pointerEvents: "auto",
+                        pointerEvents: hidden ? "none" : "auto",
                         userSelect: "none",
                     }}
                 >
@@ -60,9 +62,10 @@ export default function TimeScreen() {
                         border: 0,
                         marginTop: "0.5rem",
                         backgroundColor: "#0000007c",
+                        pointerEvents: hidden ? "none" : "auto",
                     }}
                     onClick={() => {
-                        wait(1, (message) => enqueueSnackbar(message));
+                        wait(1);
                         queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] });
                     }}
                     elevation='sm'
@@ -83,7 +86,7 @@ export default function TimeScreen() {
                     textShadow: `0 0 3px ${useTheme().palette.common.black}, 0 0 5px ${
                         useTheme().palette.common.black
                     }`,
-                    pointerEvents: "auto",
+                    pointerEvents: hidden ? "none" : "auto",
                     userSelect: "none",
                 }}
             >

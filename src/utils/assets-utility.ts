@@ -17,3 +17,14 @@ export async function defineAssets() {
     // The game will start immediately, but these asserts will be loaded in the background.
     Assets.backgroundLoadBundle(mainMap.id);
 }
+
+/**
+ * Get the PixiJS asset from the given asset string.
+ * If the asset is not a PixiAsset, it will return the asset as is.
+ * @param asset - The asset string to resolve.
+ * @returns The resolved PixiJS asset or the original asset string.
+ */
+export function getPixiJSAsset(asset: string) {
+    // check if the asset is a PixiAsset
+    return Assets.resolver.resolve(asset).src || asset;
+}

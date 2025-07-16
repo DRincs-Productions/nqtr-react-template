@@ -1,5 +1,5 @@
 import { ActivityInterface, LocationInterface, LocationStoredClass, MapInterface, RoomInterface } from "@drincs/nqtr";
-import { ImageSprite, StepLabelProps } from "@drincs/pixi-vn";
+import { ContainerChild, StepLabelProps } from "@drincs/pixi-vn";
 
 export default class Location extends LocationStoredClass implements LocationInterface {
     constructor(
@@ -10,26 +10,26 @@ export default class Location extends LocationStoredClass implements LocationInt
             name: string;
             disabled?: boolean | (() => boolean);
             hidden?: boolean | (() => boolean);
-            icon: ImageSprite | ((location: Location, props: StepLabelProps) => ImageSprite);
+            icon: ContainerChild | ((location: Location, props: StepLabelProps) => ContainerChild);
         }
     ) {
         super(id, map, props.activities);
         this.name = props.name;
-        this._defaultdisabled = props.disabled || false;
-        this._defaulthidden = props.hidden || false;
+        this._defaultDisabled = props.disabled || false;
+        this._defaultHidden = props.hidden || false;
         this._icon = props.icon;
     }
     readonly name: string;
-    private readonly _icon: ImageSprite | ((location: Location, props: StepLabelProps) => ImageSprite);
-    getIcon(props: StepLabelProps): ImageSprite {
+    private readonly _icon: ContainerChild | ((location: Location, props: StepLabelProps) => ContainerChild);
+    getIcon(props: StepLabelProps): ContainerChild {
         if (typeof this._icon === "function") {
             return this._icon(this, props);
         }
         return this._icon;
     }
-    private _defaultdisabled: boolean | (() => boolean) = false;
+    private _defaultDisabled: boolean | (() => boolean) = false;
     get disabled(): boolean {
-        let value = this.getStorageProperty<boolean>("disabled") || this._defaultdisabled;
+        let value = this.getStorageProperty<boolean>("disabled") || this._defaultDisabled;
         if (typeof value === "function") {
             return value();
         }
@@ -38,9 +38,9 @@ export default class Location extends LocationStoredClass implements LocationInt
     set disabled(value: boolean) {
         this.setStorageProperty("disabled", value);
     }
-    private _defaulthidden: boolean | (() => boolean) = false;
+    private _defaultHidden: boolean | (() => boolean) = false;
     get hidden(): boolean {
-        let value = this.getStorageProperty<boolean>("hidden") || this._defaulthidden;
+        let value = this.getStorageProperty<boolean>("hidden") || this._defaultHidden;
         if (typeof value === "function") {
             return value();
         }

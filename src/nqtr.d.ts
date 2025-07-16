@@ -1,6 +1,6 @@
-import { ImageSprite, StepLabelProps } from "@drincs/pixi-vn";
+import { ContainerChild, StepLabelProps } from "@drincs/pixi-vn";
 import { ReactElement } from "react";
-import ImageTimeSlots from "./models/ImageTimeSlots";
+import MultiTypeImage from "./models/MultiTypeImage";
 
 declare module "@drincs/nqtr" {
     interface OnRunProps extends StepLabelProps {}
@@ -18,9 +18,13 @@ declare module "@drincs/nqtr" {
          */
         hidden: boolean;
         /**
-         * The icon of the activity.
+         * The PixiJS image of the activity.
          */
-        readonly icon: ImageTimeSlots | ReactElement | ((props: OnRunProps) => ReactElement);
+        readonly image?: MultiTypeImage;
+        /**
+         * The React icon of the activity.
+         */
+        readonly icon?: ReactElement | ((props: OnRunProps) => ReactElement);
     }
     interface CommitmentInterface {
         /**
@@ -28,13 +32,13 @@ declare module "@drincs/nqtr" {
          */
         readonly name: string;
         /**
-         * The image of the commitment.
+         * The PixiJS image of the commitment.
          */
-        readonly image?: ImageTimeSlots;
+        readonly image?: MultiTypeImage;
         /**
-         * The icon of the commitment.
+         * The React icon of the commitment.
          */
-        readonly icon?: ImageTimeSlots | ReactElement | ((props: OnRunProps) => ReactElement);
+        readonly icon?: ReactElement | ((props: OnRunProps) => ReactElement);
         /**
          * Whether is disabled.
          */
@@ -59,9 +63,9 @@ declare module "@drincs/nqtr" {
          */
         hidden: boolean;
         /**
-         * The icon of the location.
+         * The PixiJS icon of the location.
          */
-        getIcon(props: StepLabelProps): ImageSprite;
+        readonly icon?: ContainerChild | ((props: OnRunProps) => ContainerChild);
         /**
          * The entrance room of the location.
          */
@@ -73,9 +77,9 @@ declare module "@drincs/nqtr" {
          */
         readonly name: string;
         /**
-         * The image of the map.
+         * The PixiJS image of the map.
          */
-        readonly image: ImageTimeSlots;
+        readonly image: MultiTypeImage;
         /**
          * Neighboring maps.
          */
@@ -91,9 +95,9 @@ declare module "@drincs/nqtr" {
          */
         readonly description: string;
         /**
-         * The function for rendering the image of the quest.
+         * The image of the quest.
          */
-        readonly image?: ImageTimeSlots;
+        readonly image?: string;
         /**
          * If the quest is in development.
          */
@@ -106,9 +110,9 @@ declare module "@drincs/nqtr" {
          */
         readonly name: string;
         /**
-         * The image of the room.
+         * The PixiJS image of the room.
          */
-        readonly image: ImageTimeSlots;
+        readonly image: MultiTypeImage;
         /**
          * Whether is disabled.
          */
@@ -141,7 +145,7 @@ declare module "@drincs/nqtr" {
         /**
          * The image of the stage.
          */
-        readonly image?: ImageTimeSlots;
+        readonly image?: string;
 
         /**
          * The list of flags that the player must complete to finish the stage.
@@ -151,7 +155,7 @@ declare module "@drincs/nqtr" {
         /**
          * The list of flags required to start the stage.
          */
-        readonly flagsRequiredToStart: StageFlags[];
+        readonly flagsRequired: StageFlags[];
 
         /**
          * The description of the request to start the stage.

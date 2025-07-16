@@ -1,46 +1,62 @@
 import { navigator } from "@drincs/nqtr";
-import { narration, newChoiceOption, newCloseChoiceOption, newLabel, showImage } from "@drincs/pixi-vn";
+import { canvas, narration, newChoiceOption, newCloseChoiceOption, newLabel, showImage } from "@drincs/pixi-vn";
 import { BACKGROUND_ID } from "../constans";
-import { sleep, wait } from "../utils/time-utility";
+import { convertMultiTypeImage } from "../utils/image-utility";
 
 const sleepHourLabel = newLabel<{
     hour: number;
 }>("Sleep1HourLabel", [
-    ({ hour: wakeupHour, ...rest }) => {
-        sleep(wakeupHour, rest);
-        narration.goNext(rest);
+    ({ hour: wakeupHour, ...props }) => {
+        props.sleep(wakeupHour, props);
+        narration.goNext(props);
     },
 ]);
 
 const napHourLabel = newLabel<{
     hour: number;
 }>("Nap1HourLabel", [
-    ({ hour, ...rest }) => {
-        wait(hour, rest.notify);
-        narration.goNext(rest);
+    ({ hour, ...props }) => {
+        props.wait(hour);
+        narration.goNext(props);
     },
 ]);
 
 export const sleepLabel = newLabel("SleepLabel", [
-    async ({ uiTransition }) => {
-        await showImage(BACKGROUND_ID, navigator.currentRoom?.image.src);
+    async (props) => {
+        const currentRoom = navigator.currentRoom;
+        if (currentRoom) {
+            const image = await convertMultiTypeImage(currentRoom.image, props);
+            if (typeof image === "string") {
+                await showImage(BACKGROUND_ID, image);
+            } else {
+                canvas.add(BACKGROUND_ID, image);
+            }
+        }
         narration.dialogue = "What time do you want to set the alarm?";
         narration.choiceMenuOptions = [
-            newChoiceOption(uiTransition("allarm_menu_item", { hour: 8 }), sleepHourLabel, { hour: 8 }),
-            newChoiceOption(uiTransition("allarm_menu_item", { hour: 9 }), sleepHourLabel, { hour: 9 }),
-            newChoiceOption(uiTransition("allarm_menu_item", { hour: 10 }), sleepHourLabel, { hour: 10 }),
+            newChoiceOption(props.uiTransition("allarm_menu_item", { hour: 8 }), sleepHourLabel, { hour: 8 }),
+            newChoiceOption(props.uiTransition("allarm_menu_item", { hour: 9 }), sleepHourLabel, { hour: 9 }),
+            newChoiceOption(props.uiTransition("allarm_menu_item", { hour: 10 }), sleepHourLabel, { hour: 10 }),
             newCloseChoiceOption("Cancel"),
         ];
     },
 ]);
 
 export const napLabel = newLabel("NapLabel", [
-    async ({ uiTransition }) => {
-        await showImage(BACKGROUND_ID, navigator.currentRoom?.image.src);
+    async (props) => {
+        const currentRoom = navigator.currentRoom;
+        if (currentRoom) {
+            const image = await convertMultiTypeImage(currentRoom.image, props);
+            if (typeof image === "string") {
+                await showImage(BACKGROUND_ID, image);
+            } else {
+                canvas.add(BACKGROUND_ID, image);
+            }
+        }
         narration.dialogue = "You are tired and decide to take a nap.";
         narration.choiceMenuOptions = [
-            newChoiceOption(uiTransition("nap_menu_item", { hour: 3 }), napHourLabel, { hour: 3 }),
-            newChoiceOption(uiTransition("sleep"), sleepLabel, { hour: 3 }),
+            newChoiceOption(props.uiTransition("nap_menu_item", { hour: 3 }), napHourLabel, { hour: 3 }),
+            newChoiceOption(props.uiTransition("sleep"), sleepLabel, { hour: 3 }),
             newCloseChoiceOption("Cancel"),
         ];
     },
