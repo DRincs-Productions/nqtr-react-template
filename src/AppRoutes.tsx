@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import NextButton from "./components/NextButton";
+import VisibilityButton from "./components/VisibilityButton";
 import { LOADING_ROUTE, MAIN_MENU_ROUTE, MAP_ROUTE, NARRATION_ROUTE, NAVIGATION_ROUTE } from "./constans";
 import useNQTRDetector from "./hooks/useNQTRDetector";
 import useSkipAutoDetector from "./hooks/useSkipAutoDetector";
@@ -37,7 +38,8 @@ function NarrationElement() {
             <QuickTools />
             <TextInput />
             <NextButton />
-            <Detectors />
+            <NarrationDetectors />
+            <VisibilityButton />
         </>
     );
 }
@@ -52,11 +54,12 @@ function NavigationElement() {
             <QuickRooms />
             <TimeScreen />
             <NqtrQuickTools />
+            <VisibilityButton />
         </>
     );
 }
 
-function Detectors() {
+function NarrationDetectors() {
     useSkipAutoDetector();
     return <></>;
 }

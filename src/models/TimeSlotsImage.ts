@@ -7,7 +7,7 @@ enum TimeSlotsEnumNumber {
     NIGHT = 3,
 }
 
-export default class ImageTimeSlots {
+export default class TimeSlotsImage {
     constructor(data: { morning: string; afternoon: string; evening: string; night: string } | string) {
         if (typeof data === "string") {
             this.morning = data;

@@ -32,7 +32,6 @@ export default function NqtrQuickTools() {
                     position: "absolute",
                     left: 0,
                     top: 0,
-                    pointerEvents: "auto",
                 }}
             >
                 <QuickToolButton ariaLabel={t("settings")} onClick={editOpenSettings}>
@@ -61,7 +60,6 @@ export default function NqtrQuickTools() {
                     position: "absolute",
                     right: 0,
                     top: 0,
-                    pointerEvents: "auto",
                 }}
             >
                 <QuickToolButton
@@ -95,7 +93,6 @@ function QuickToolButton(props: RoundIconButtonProps) {
             elevation='lg'
             variant='solid'
             color='primary'
-            className='motion-scale-in-[0]'
             {...props}
         />
     );

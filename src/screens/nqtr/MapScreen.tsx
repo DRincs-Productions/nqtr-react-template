@@ -1,5 +1,5 @@
 import { RegisteredMaps } from "@drincs/nqtr";
-import { canvas, ImageSprite } from "@drincs/pixi-vn";
+import { Assets, canvas, ImageSprite } from "@drincs/pixi-vn";
 import CloseIcon from "@mui/icons-material/Close";
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
@@ -15,6 +15,7 @@ import useMyNavigate from "../../hooks/useMyNavigate";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "../../hooks/useQueryInterface";
 import { CURRENT_MAP_USE_QUEY_KEY, useQueryCurrentMap } from "../../hooks/useQueryNQTR";
 import useInterfaceStore from "../../stores/useInterfaceStore";
+import { convertMultiTypeImage } from "../../utils/image-utility";
 
 export default function MapScreen() {
     const { data: map } = useQueryCurrentMap();
@@ -26,16 +27,29 @@ export default function MapScreen() {
     useEffect(() => {
         editHideInterface(false);
         if (map) {
-            let bg = new ImageSprite({}, map.image.src);
-            bg.load();
-            let layer = canvas.getLayer(CANVAS_UI_LAYER_NAME);
-            if (layer) {
-                layer.addChild(bg);
-                map.locations.forEach((location) => {
-                    const icon = location.getIcon(gameProps);
-                    layer.addChild(icon);
-                });
-            }
+            convertMultiTypeImage(map.image, gameProps).then((image) => {
+                if (typeof image === "string") {
+                    let sprite = new ImageSprite({}, image);
+                    sprite.load();
+                    image = sprite;
+                }
+                let layer = canvas.getLayer(CANVAS_UI_LAYER_NAME);
+                if (layer) {
+                    layer.addChild(image);
+                    map.locations.forEach((location) => {
+                        let icon = location.icon;
+                        if (typeof icon === "function") {
+                            icon = icon(gameProps);
+                        }
+                        icon && layer.addChild(icon);
+                    });
+                }
+            });
+
+            map.neighboringMaps.north && Assets.backgroundLoadBundle(map.neighboringMaps.north);
+            map.neighboringMaps.south && Assets.backgroundLoadBundle(map.neighboringMaps.south);
+            map.neighboringMaps.east && Assets.backgroundLoadBundle(map.neighboringMaps.east);
+            map.neighboringMaps.west && Assets.backgroundLoadBundle(map.neighboringMaps.west);
 
             return () => {
                 canvas.getLayer(CANVAS_UI_LAYER_NAME)?.removeChildren();

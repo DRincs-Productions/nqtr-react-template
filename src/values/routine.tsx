@@ -5,16 +5,18 @@ import NqtrRoundIconButton from "../components/NqtrRoundIconButton";
 import { NARRATION_ROUTE } from "../constans";
 import { TALK_SLEEP_LABEL_KEY } from "../labels/variousActionsLabelKeys";
 import { aliceTalkMenuLabel } from "../labels/variousActionsLabels";
-import ImageTimeSlots from "../models/ImageTimeSlots";
+import TimeSlotsImage from "../models/TimeSlotsImage";
 import Commitment from "../models/nqtr/Commitment";
 import { alice } from "./characters";
 import { aliceRoom, classRoom, terrace } from "./rooms";
 
 const aliceSleep = new Commitment("alice_sleep", alice, aliceRoom, {
     priority: 1,
-    fromHour: 20,
-    toHour: 10,
-    image: new ImageTimeSlots("alice_roomsleep0A"),
+    timeSlot: {
+        from: 20,
+        to: 10,
+    },
+    image: new TimeSlotsImage("alice_roomsleep0A"),
     icon: (commitment, props) => {
         return (
             <NqtrRoundIconButton
@@ -43,16 +45,20 @@ const aliceSleep = new Commitment("alice_sleep", alice, aliceRoom, {
 });
 
 const aliceGoSchool = new Commitment("alice_go_school", alice, classRoom, {
-    fromHour: 8,
-    toHour: 14,
+    timeSlot: {
+        from: 8,
+        to: 14,
+    },
     hidden: () => timeTracker.isWeekend,
     priority: 2,
 });
 
 const aliceSmokes = new Commitment("alice_smokes", alice, terrace, {
-    fromHour: 10,
-    toHour: 20,
-    image: new ImageTimeSlots("alice_terrace0A"),
+    timeSlot: {
+        from: 10,
+        to: 20,
+    },
+    image: new TimeSlotsImage("alice_terrace0A"),
     icon: (commitment, props) => {
         return (
             <NqtrRoundIconButton

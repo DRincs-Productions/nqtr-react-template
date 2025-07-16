@@ -1,4 +1,4 @@
-import { Assets, storage } from "@drincs/pixi-vn";
+import { storage } from "@drincs/pixi-vn";
 import { AspectRatio, Box, Divider, Link, Sheet, Stack, Typography } from "@mui/joy";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
@@ -8,6 +8,7 @@ import useEventListener from "../../hooks/useKeyDetector";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "../../hooks/useQueryInterface";
 import { SELECTED_QUEST_USE_QUEY_KEY, useQueryQuests, useQuerySelectedQuest } from "../../hooks/useQueryNQTR";
 import useMemoScreenStore from "../../stores/useMemoScreenStore";
+import { getPixiJSAsset } from "../../utils/assets-utility";
 
 export default function MemoScreen() {
     const { t } = useTranslation(["ui"]);
@@ -19,9 +20,7 @@ export default function MemoScreen() {
         },
     } = useQueryQuests();
     const { data: selectedQuest } = useQuerySelectedQuest();
-    const image = selectedQuest?.questImage
-        ? Assets.resolver.resolve(selectedQuest.questImage).src || selectedQuest?.questImage
-        : undefined;
+    const image = selectedQuest?.questImage ? getPixiJSAsset(selectedQuest.questImage) : undefined;
     const open = useMemoScreenStore((state) => state.open);
     const editOpen = useMemoScreenStore((state) => state.editOpen);
     const queryClient = useQueryClient();
