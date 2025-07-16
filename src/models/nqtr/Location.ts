@@ -1,5 +1,12 @@
-import { ActivityInterface, LocationInterface, LocationStoredClass, MapInterface, RoomInterface } from "@drincs/nqtr";
-import { ContainerChild, StepLabelProps } from "@drincs/pixi-vn";
+import {
+    ActivityInterface,
+    LocationInterface,
+    LocationStoredClass,
+    MapInterface,
+    OnRunProps,
+    RoomInterface,
+} from "@drincs/nqtr";
+import { ContainerChild } from "@drincs/pixi-vn";
 
 export default class Location extends LocationStoredClass implements LocationInterface {
     constructor(
@@ -10,22 +17,23 @@ export default class Location extends LocationStoredClass implements LocationInt
             name: string;
             disabled?: boolean | (() => boolean);
             hidden?: boolean | (() => boolean);
-            icon: ContainerChild | ((location: Location, props: StepLabelProps) => ContainerChild);
+            sprite: ContainerChild | ((props: Location, runProps: OnRunProps) => ContainerChild);
         }
     ) {
         super(id, map, props.activities);
         this.name = props.name;
         this._defaultDisabled = props.disabled || false;
         this._defaultHidden = props.hidden || false;
-        this._icon = props.icon;
+        this._sprite = props.sprite;
     }
     readonly name: string;
-    private readonly _icon: ContainerChild | ((location: Location, props: StepLabelProps) => ContainerChild);
-    getIcon(props: StepLabelProps): ContainerChild {
-        if (typeof this._icon === "function") {
-            return this._icon(this, props);
+    private readonly _sprite: ContainerChild | ((props: Location, runProps: OnRunProps) => ContainerChild);
+    get sprite(): ContainerChild | ((props: OnRunProps) => ContainerChild) {
+        let sprite = this._sprite;
+        if (typeof sprite === "function") {
+            return (runProps: OnRunProps) => sprite(this, runProps);
         }
-        return this._icon;
+        return sprite;
     }
     private _defaultDisabled: boolean | (() => boolean) = false;
     get disabled(): boolean {

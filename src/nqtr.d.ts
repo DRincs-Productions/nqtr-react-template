@@ -69,7 +69,7 @@ declare module "@drincs/nqtr" {
         /**
          * The sprite of the location.
          */
-        readonly sprite?: ContainerChild | ((props: OnRunProps) => ContainerChild);
+        readonly sprite: ContainerChild | ((props: OnRunProps) => ContainerChild);
         /**
          * The entrance room of the location.
          */
