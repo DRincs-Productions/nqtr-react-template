@@ -11,19 +11,14 @@ function getRoomInfo(room: RoomInterface) {
     if (typeof image === "string" || image instanceof TimeSlotsImage) {
         icon = image;
     }
-    let currentCommitments = room.routine;
-    if (currentCommitments.length > 0 && currentCommitments[0].image) {
-        image = currentCommitments[0].image;
-    }
 
     return {
         id: room.id,
-        room: room,
         image: image,
         icon: icon,
         name: room.name,
         disabled: room.disabled,
-        routine: currentCommitments,
+        routine: room.routine,
         activities: room.activities,
         characters: room.characters,
     };
@@ -62,13 +57,6 @@ export function useQueryQuickRooms() {
         queryFn: async () => {
             const loadRoomsImage = async () => {
                 rooms?.forEach((room) => {
-                    let image = room.image;
-                    if (image instanceof TimeSlotsImage) {
-                        image = image.src;
-                    }
-                    if (typeof image === "string") {
-                        Assets.backgroundLoad(image);
-                    }
                     Assets.backgroundLoadBundle(room.id);
                 });
             };

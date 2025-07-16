@@ -1,5 +1,6 @@
 import { ActivityInterface, ActivityStoredClass, ActivityStoredClassProps, OnRunEvent, OnRunProps } from "@drincs/nqtr";
 import { ReactElement } from "react";
+import TimeSlotsImage from "../TimeSlotsImage";
 
 export default class Activity extends ActivityStoredClass implements ActivityInterface {
     constructor(
@@ -7,6 +8,7 @@ export default class Activity extends ActivityStoredClass implements ActivityInt
         onRun: OnRunEvent<ActivityInterface>,
         props: {
             name?: string;
+            image?: TimeSlotsImage;
             icon: ReactElement | ((props: Activity, runProps: OnRunProps) => ReactElement);
             disabled?: boolean | (() => boolean);
             hidden?: boolean | (() => boolean);
@@ -14,11 +16,13 @@ export default class Activity extends ActivityStoredClass implements ActivityInt
     ) {
         super(id, onRun, props);
         this.name = props.name || "";
+        this.image = props.image;
         this._icon = props.icon;
         this._defaultDisabled = props.disabled || false;
         this._defaultHidden = props.hidden || false;
     }
     readonly name: string;
+    readonly image?: TimeSlotsImage;
     private readonly _icon: ReactElement | ((props: Activity, runProps: OnRunProps) => ReactElement);
     get icon(): ReactElement | ((props: OnRunProps) => ReactElement) {
         let icon = this._icon;

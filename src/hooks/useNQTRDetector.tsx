@@ -21,45 +21,41 @@ export default function useNQTRDetector() {
         const { image } = currentRoom || {};
         if (image) {
             convertMultiTypeImage(image, gameProps).then((image) => {
-                if (typeof image === "string") {
-                    let sprite = new ImageSprite({}, image);
-                    sprite.load();
-                    image = sprite;
-                }
                 let layer = canvas.getLayer(CANVAS_UI_LAYER_NAME);
                 if (layer) {
+                    if (typeof image === "string") {
+                        let sprite = new ImageSprite({}, image);
+                        sprite.load();
+                        image = sprite;
+                    }
                     layer.addChild(image);
+
+                    currentRoom?.activities.forEach(({ image }) => {
+                        image &&
+                            convertMultiTypeImage(image, gameProps).then((image) => {
+                                if (typeof image === "string") {
+                                    let sprite = new ImageSprite({}, image);
+                                    sprite.load();
+                                    image = sprite;
+                                }
+                                layer.addChild(image);
+                            });
+                    });
+                    let currentCommitments = currentRoom?.routine;
+                    if (currentCommitments && currentCommitments.length > 0 && currentCommitments[0].image) {
+                        let image = currentCommitments[0].image;
+                        convertMultiTypeImage(image, gameProps).then((image) => {
+                            if (typeof image === "string") {
+                                let sprite = new ImageSprite({}, image);
+                                sprite.load();
+                                image = sprite;
+                            }
+                            layer.addChild(image);
+                        });
+                    }
                 }
             });
         }
-
-        // currentRoom.activities.forEach((activity) => {
-        //     if (!activity.renderIcon) {
-        //         return;
-        //     }
-        //     let icon = activity.renderIcon({
-        //         navigate: navigate,
-        //         t: t,
-        //         notify: (t(message), variant) => enqueueSnackbar(message, { variant }),
-        //     });
-        //     if (icon instanceof CanvasBase) {
-        //         container.addChild(icon);
-        //     }
-        // });
-
-        // currentCommitments.forEach((commitment) => {
-        //     if (!commitment.renderIcon) {
-        //         return;
-        //     }
-        //     let icon = commitment.renderIcon({
-        //         navigate: navigate,
-        //         t: t,
-        //         notify: (t(message), variant) => enqueueSnackbar(message, { variant }),
-        //     });
-        //     if (icon instanceof CanvasBase) {
-        //         container.addChild(icon);
-        //     }
-        // });
 
         let automaticFunctions = navigator.currentRoom?.automaticFunctions || [];
         if (automaticFunctions.length > 0) {

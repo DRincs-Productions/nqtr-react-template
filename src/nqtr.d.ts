@@ -18,6 +18,10 @@ declare module "@drincs/nqtr" {
          */
         hidden: boolean;
         /**
+         * The image of the activity.
+         */
+        readonly image?: MultiTypeImage;
+        /**
          * The icon of the activity.
          */
         readonly icon?: ReactElement | ((props: OnRunProps) => ReactElement);
