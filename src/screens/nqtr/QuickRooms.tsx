@@ -55,7 +55,7 @@ function QuickRoom({ roomId }: { roomId: string }) {
                 }
             }}
             ariaLabel={name || ""}
-            image={icon?.src}
+            image={icon}
         >
             {characters && (
                 <AvatarGroup
