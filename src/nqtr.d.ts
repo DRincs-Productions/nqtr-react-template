@@ -93,7 +93,7 @@ declare module "@drincs/nqtr" {
         /**
          * The function for rendering the image of the quest.
          */
-        readonly image?: ImageTimeSlots;
+        readonly image?: string;
         /**
          * If the quest is in development.
          */
@@ -141,7 +141,7 @@ declare module "@drincs/nqtr" {
         /**
          * The image of the stage.
          */
-        readonly image?: ImageTimeSlots;
+        readonly image?: string;
 
         /**
          * The list of flags that the player must complete to finish the stage.

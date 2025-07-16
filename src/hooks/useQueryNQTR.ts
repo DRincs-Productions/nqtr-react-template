@@ -91,7 +91,7 @@ function getQuestInfo(quest: QuestInterface) {
         currentStage: {
             description: currentStageDescription,
         },
-        questImage: quest.image?.src,
+        questImage: quest.image,
         completed: quest.completed,
         isInDevelopment: quest.inDevelopment,
     };

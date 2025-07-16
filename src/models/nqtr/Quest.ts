@@ -1,5 +1,4 @@
 import { QuestInterface, QuestStoredClass, QuestStoredClassProps, StageInterface } from "@drincs/nqtr";
-import ImageTimeSlots from "../ImageTimeSlots";
 
 export default class Quest extends QuestStoredClass implements QuestInterface {
     constructor(
@@ -8,7 +7,7 @@ export default class Quest extends QuestStoredClass implements QuestInterface {
         props: {
             name?: string;
             description?: string;
-            image?: ImageTimeSlots;
+            image?: string;
             inDevelopment?: boolean;
         } & QuestStoredClassProps
     ) {
@@ -20,6 +19,6 @@ export default class Quest extends QuestStoredClass implements QuestInterface {
     }
     readonly name: string;
     readonly description: string;
-    readonly image?: ImageTimeSlots;
+    readonly image?: string;
     readonly inDevelopment: boolean;
 }
