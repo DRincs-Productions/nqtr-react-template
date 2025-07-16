@@ -1,13 +1,13 @@
 import { OnRunProps } from "@drincs/nqtr";
-import MultiTypeImage from "../models/MultiTypeImage";
+import MultiTypeSprite from "../models/MultiTypeSprite";
 import TimeSlotsImage from "../models/TimeSlotsImage";
 
-export async function convertMultiTypeImage(image: MultiTypeImage, props: OnRunProps) {
-    if (typeof image === "function") {
-        image = await image(props);
+export async function convertMultiTypeSprite(sprite: MultiTypeSprite, props: OnRunProps) {
+    if (typeof sprite === "function") {
+        sprite = await sprite(props);
     }
-    if (image instanceof TimeSlotsImage) {
-        image = image.src;
+    if (sprite instanceof TimeSlotsImage) {
+        sprite = sprite.src;
     }
-    return image;
+    return sprite;
 }
