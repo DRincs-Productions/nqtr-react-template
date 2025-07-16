@@ -4,7 +4,7 @@ import Map from "../models/nqtr/Map";
 
 export const mainMap = new Map("main_map", {
     name: "Main Map",
-    image: new TimeSlotsImage({
+    background: new TimeSlotsImage({
         morning: "map-0",
         afternoon: "map-1",
         evening: "map-2",
@@ -17,7 +17,7 @@ export const mainMap = new Map("main_map", {
 
 export const nightcityMap = new Map("nightcity_map", {
     name: "Nightcity",
-    image: new TimeSlotsImage("map-nightcity"),
+    background: "map-nightcity",
     neighboringMaps: {
         south: "main_map",
     },

@@ -8,7 +8,7 @@ import {
 } from "@drincs/nqtr";
 import { CharacterInterface } from "@drincs/pixi-vn";
 import { ReactElement } from "react";
-import MultiTypeImage, { MultiTypeImageProp } from "../MultiTypeImage";
+import MultiTypeSprite, { MultiTypeSpriteProp } from "../MultiTypeSprite";
 
 export default class Commitment extends CommitmentStoredClass implements CommitmentInterface {
     constructor(
@@ -17,7 +17,7 @@ export default class Commitment extends CommitmentStoredClass implements Commitm
         room: RoomInterface,
         props: {
             name?: string;
-            image?: MultiTypeImageProp<Commitment>;
+            image?: MultiTypeSpriteProp<Commitment>;
             icon?: ReactElement | ((props: Commitment, runProps: OnRunProps) => ReactElement);
             onRun?: OnRunEvent<CommitmentInterface>;
             disabled?: boolean | (() => boolean);
@@ -33,9 +33,9 @@ export default class Commitment extends CommitmentStoredClass implements Commitm
         this._defaultHidden = props.hidden || false;
     }
     readonly name: string;
-    private readonly _image?: MultiTypeImageProp<Commitment>;
-    get image(): MultiTypeImage | undefined {
-        let image = this._image;
+    private readonly _image?: MultiTypeSpriteProp<Commitment>;
+    get image(): MultiTypeSprite | undefined {
+        const image = this._image;
         if (typeof image === "function") {
             return (runProps: OnRunProps) => image(this, runProps);
         }
@@ -43,7 +43,7 @@ export default class Commitment extends CommitmentStoredClass implements Commitm
     }
     private readonly _icon?: ReactElement | ((props: Commitment, runProps: OnRunProps) => ReactElement);
     get icon(): ReactElement | ((props: OnRunProps) => ReactElement) | undefined {
-        let icon = this._icon;
+        const icon = this._icon;
         if (typeof icon === "function") {
             return (runProps: OnRunProps) => icon(this, runProps);
         }

@@ -6,15 +6,15 @@ import TimeSlotsImage from "../models/TimeSlotsImage";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "./useQueryInterface";
 
 function getRoomInfo(room: RoomInterface) {
-    let image = room.image;
+    let background = room.background;
     let icon: string | TimeSlotsImage | undefined;
-    if (typeof image === "string" || image instanceof TimeSlotsImage) {
-        icon = image;
+    if (typeof background === "string" || background instanceof TimeSlotsImage) {
+        icon = background;
     }
 
     return {
         id: room.id,
-        image: image,
+        background: background,
         icon: icon,
         name: room.name,
         disabled: room.disabled,

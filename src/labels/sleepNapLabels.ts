@@ -1,7 +1,7 @@
 import { navigator } from "@drincs/nqtr";
 import { canvas, narration, newChoiceOption, newCloseChoiceOption, newLabel, showImage } from "@drincs/pixi-vn";
 import { BACKGROUND_ID } from "../constans";
-import { convertMultiTypeImage } from "../utils/image-utility";
+import { convertMultiTypeSprite } from "../utils/image-utility";
 
 const sleepHourLabel = newLabel<{
     hour: number;
@@ -25,11 +25,11 @@ export const sleepLabel = newLabel("SleepLabel", [
     async (props) => {
         const currentRoom = navigator.currentRoom;
         if (currentRoom) {
-            const image = await convertMultiTypeImage(currentRoom.image, props);
-            if (typeof image === "string") {
-                await showImage(BACKGROUND_ID, image);
+            const bg = await convertMultiTypeSprite(currentRoom.background, props);
+            if (typeof bg === "string") {
+                await showImage(BACKGROUND_ID, bg);
             } else {
-                canvas.add(BACKGROUND_ID, image);
+                canvas.add(BACKGROUND_ID, bg);
             }
         }
         narration.dialogue = "What time do you want to set the alarm?";
@@ -46,11 +46,11 @@ export const napLabel = newLabel("NapLabel", [
     async (props) => {
         const currentRoom = navigator.currentRoom;
         if (currentRoom) {
-            const image = await convertMultiTypeImage(currentRoom.image, props);
-            if (typeof image === "string") {
-                await showImage(BACKGROUND_ID, image);
+            const bg = await convertMultiTypeSprite(currentRoom.background, props);
+            if (typeof bg === "string") {
+                await showImage(BACKGROUND_ID, bg);
             } else {
-                canvas.add(BACKGROUND_ID, image);
+                canvas.add(BACKGROUND_ID, bg);
             }
         }
         narration.dialogue = "You are tired and decide to take a nap.";

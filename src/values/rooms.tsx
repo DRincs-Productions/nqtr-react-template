@@ -6,7 +6,7 @@ import { gym, mcHome, school } from "./locations";
 
 export const mcRoom = new Room("mc_room", mcHome, {
     name: "MC room",
-    image: new TimeSlotsImage({
+    background: new TimeSlotsImage({
         morning: "location_myroom-0",
         afternoon: "location_myroom-1",
         evening: "location_myroom-2",
@@ -17,7 +17,7 @@ export const mcRoom = new Room("mc_room", mcHome, {
 
 export const aliceRoom = new Room("alice_room", mcHome, {
     name: "Alice room",
-    image: new TimeSlotsImage({
+    background: new TimeSlotsImage({
         morning: "location_aliceroom-0",
         afternoon: "location_aliceroom-1",
         evening: "location_aliceroom-2",
@@ -27,7 +27,7 @@ export const aliceRoom = new Room("alice_room", mcHome, {
 
 export const annRoom = new Room("ann_room", mcHome, {
     name: "Ann room",
-    image: new TimeSlotsImage({
+    background: new TimeSlotsImage({
         morning: "location_annroom-0",
         afternoon: "location_annroom-1",
         evening: "location_annroom-2",
@@ -37,12 +37,12 @@ export const annRoom = new Room("ann_room", mcHome, {
 
 export const bathroom = new Room("bathroom", mcHome, {
     name: "Bathroom",
-    image: "location_bathroom",
+    background: "location_bathroom",
 });
 
 export const lounge = new Room("lounge", mcHome, {
     name: "Lounge",
-    image: new TimeSlotsImage({
+    background: new TimeSlotsImage({
         morning: "location_lounge-0",
         afternoon: "location_lounge-1",
         evening: "location_lounge-2",
@@ -53,7 +53,7 @@ export const lounge = new Room("lounge", mcHome, {
 export const terrace = new Room("terrace", mcHome, {
     name: "Terrace",
     isEntrance: true,
-    image: new TimeSlotsImage({
+    background: new TimeSlotsImage({
         morning: "location_terrace-0",
         afternoon: "location_terrace-1",
         evening: "location_terrace-2",
@@ -63,12 +63,12 @@ export const terrace = new Room("terrace", mcHome, {
 
 export const gymRoom = new Room("gym_room", gym, {
     name: "Gym",
-    image: "location_gym",
+    background: "location_gym",
 });
 
 export const classRoom = new Room("class_room", school, {
     name: "School",
-    image: "",
+    background: "",
 });
 
 RegisteredRooms.add([mcRoom, aliceRoom, annRoom, bathroom, lounge, terrace, gymRoom, classRoom]);
