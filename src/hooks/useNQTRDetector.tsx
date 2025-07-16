@@ -41,18 +41,17 @@ export default function useNQTRDetector() {
                                 layer.addChild(image);
                             });
                     });
-                    let currentCommitments = currentRoom?.routine;
-                    if (currentCommitments && currentCommitments.length > 0 && currentCommitments[0].image) {
-                        let image = currentCommitments[0].image;
-                        convertMultiTypeSprite(image, gameProps).then((image) => {
-                            if (typeof image === "string") {
-                                let sprite = new ImageSprite({}, image);
-                                sprite.load();
-                                image = sprite;
-                            }
-                            layer.addChild(image);
-                        });
-                    }
+                    currentRoom?.routine.forEach(({ sprite }) => {
+                        sprite &&
+                            convertMultiTypeSprite(sprite, gameProps).then((image) => {
+                                if (typeof image === "string") {
+                                    let sprite = new ImageSprite({}, image);
+                                    sprite.load();
+                                    image = sprite;
+                                }
+                                layer.addChild(image);
+                            });
+                    });
                 }
             });
         }

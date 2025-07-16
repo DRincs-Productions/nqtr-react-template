@@ -32,9 +32,13 @@ declare module "@drincs/nqtr" {
          */
         readonly name: string;
         /**
-         * The image of the commitment.
+         * The sprite of the commitment.
          */
-        readonly image?: MultiTypeSprite;
+        readonly sprite?: MultiTypeSprite;
+        /**
+         * The background of the commitment.
+         */
+        readonly background?: MultiTypeSprite;
         /**
          * The React icon of the commitment.
          */

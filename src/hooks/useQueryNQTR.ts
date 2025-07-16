@@ -6,7 +6,8 @@ import TimeSlotsImage from "../models/TimeSlotsImage";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "./useQueryInterface";
 
 function getRoomInfo(room: RoomInterface) {
-    let background = room.background;
+    const routine = room.routine;
+    const background = routine.length > 0 ? routine[0].background : room.background;
     let icon: string | TimeSlotsImage | undefined;
     if (typeof background === "string" || background instanceof TimeSlotsImage) {
         icon = background;
@@ -18,7 +19,7 @@ function getRoomInfo(room: RoomInterface) {
         icon: icon,
         name: room.name,
         disabled: room.disabled,
-        routine: room.routine,
+        routine: routine,
         activities: room.activities,
         characters: room.characters,
     };

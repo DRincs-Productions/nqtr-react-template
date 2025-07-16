@@ -18,6 +18,7 @@ export default class Commitment extends CommitmentStoredClass implements Commitm
         props: {
             name?: string;
             image?: MultiTypeSpriteProp<Commitment>;
+            background?: MultiTypeSpriteProp<Commitment>;
             icon?: ReactElement | ((props: Commitment, runProps: OnRunProps) => ReactElement);
             onRun?: OnRunEvent<CommitmentInterface>;
             disabled?: boolean | (() => boolean);
@@ -28,18 +29,27 @@ export default class Commitment extends CommitmentStoredClass implements Commitm
         super(id, characters, room, props.onRun, props);
         this.name = props.name || "";
         this._image = props.image;
+        this._background = props.background;
         this._icon = props.icon;
         this._defaultDisabled = props.disabled || false;
         this._defaultHidden = props.hidden || false;
     }
     readonly name: string;
     private readonly _image?: MultiTypeSpriteProp<Commitment>;
-    get image(): MultiTypeSprite | undefined {
+    get sprite(): MultiTypeSprite | undefined {
         const image = this._image;
         if (typeof image === "function") {
             return (runProps: OnRunProps) => image(this, runProps);
         }
         return image;
+    }
+    private readonly _background?: MultiTypeSpriteProp<Commitment>;
+    get background(): MultiTypeSprite | undefined {
+        const background = this._background;
+        if (typeof background === "function") {
+            return (runProps: OnRunProps) => background(this, runProps);
+        }
+        return background;
     }
     private readonly _icon?: ReactElement | ((props: Commitment, runProps: OnRunProps) => ReactElement);
     get icon(): ReactElement | ((props: OnRunProps) => ReactElement) | undefined {
