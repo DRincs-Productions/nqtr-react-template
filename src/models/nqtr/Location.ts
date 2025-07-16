@@ -1,5 +1,5 @@
 import { ActivityInterface, LocationInterface, LocationStoredClass, MapInterface, RoomInterface } from "@drincs/nqtr";
-import { ImageSprite, StepLabelProps } from "@drincs/pixi-vn";
+import { ContainerChild, StepLabelProps } from "@drincs/pixi-vn";
 
 export default class Location extends LocationStoredClass implements LocationInterface {
     constructor(
@@ -10,7 +10,7 @@ export default class Location extends LocationStoredClass implements LocationInt
             name: string;
             disabled?: boolean | (() => boolean);
             hidden?: boolean | (() => boolean);
-            icon: ImageSprite | ((location: Location, props: StepLabelProps) => ImageSprite);
+            icon: ContainerChild | ((location: Location, props: StepLabelProps) => ContainerChild);
         }
     ) {
         super(id, map, props.activities);
@@ -20,8 +20,8 @@ export default class Location extends LocationStoredClass implements LocationInt
         this._icon = props.icon;
     }
     readonly name: string;
-    private readonly _icon: ImageSprite | ((location: Location, props: StepLabelProps) => ImageSprite);
-    getIcon(props: StepLabelProps): ImageSprite {
+    private readonly _icon: ContainerChild | ((location: Location, props: StepLabelProps) => ContainerChild);
+    getIcon(props: StepLabelProps): ContainerChild {
         if (typeof this._icon === "function") {
             return this._icon(this, props);
         }

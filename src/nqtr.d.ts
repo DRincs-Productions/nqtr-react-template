@@ -1,4 +1,4 @@
-import { ImageSprite, StepLabelProps } from "@drincs/pixi-vn";
+import { ContainerChild, StepLabelProps } from "@drincs/pixi-vn";
 import { ReactElement } from "react";
 import ImageTimeSlots from "./models/ImageTimeSlots";
 
@@ -61,7 +61,7 @@ declare module "@drincs/nqtr" {
         /**
          * The icon of the location.
          */
-        readonly icon?: ImageSprite | ((props: OnRunProps) => ImageSprite);
+        readonly icon?: ContainerChild | ((props: OnRunProps) => ContainerChild);
         /**
          * The entrance room of the location.
          */

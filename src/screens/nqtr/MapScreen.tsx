@@ -32,8 +32,11 @@ export default function MapScreen() {
             if (layer) {
                 layer.addChild(bg);
                 map.locations.forEach((location) => {
-                    const icon = location.getIcon(gameProps);
-                    layer.addChild(icon);
+                    let icon = location.icon;
+                    if (typeof icon === "function") {
+                        icon = icon(gameProps);
+                    }
+                    icon && layer.addChild(icon);
                 });
             }
 
