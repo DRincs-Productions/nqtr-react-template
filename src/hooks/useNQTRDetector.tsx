@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { CANVAS_UI_LAYER_NAME } from "../constans";
 import { useQueryCurrentRoomId, useQueryRoom, useQueryTime } from "../hooks/useQueryNQTR";
 import useNqtrScreenStore from "../stores/useNqtrScreenStore";
-import { convertMultiTypeImage } from "../utils/image-utility";
+import { convertMultiTypeSprite } from "../utils/image-utility";
 import useGameProps from "./useGameProps";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "./useQueryInterface";
 
@@ -18,43 +18,41 @@ export default function useNQTRDetector() {
     const setDisable = useNqtrScreenStore((state) => state.setDisabled);
 
     useEffect(() => {
-        const { image } = currentRoom || {};
-        if (image) {
-            convertMultiTypeImage(image, gameProps).then((image) => {
-                let layer = canvas.getLayer(CANVAS_UI_LAYER_NAME);
-                if (layer) {
-                    if (typeof image === "string") {
-                        let sprite = new ImageSprite({}, image);
-                        sprite.load();
-                        image = sprite;
-                    }
-                    layer.addChild(image);
-
-                    currentRoom?.activities.forEach(({ image }) => {
-                        image &&
-                            convertMultiTypeImage(image, gameProps).then((image) => {
-                                if (typeof image === "string") {
-                                    let sprite = new ImageSprite({}, image);
-                                    sprite.load();
-                                    image = sprite;
-                                }
-                                layer.addChild(image);
-                            });
-                    });
-                    let currentCommitments = currentRoom?.routine;
-                    if (currentCommitments && currentCommitments.length > 0 && currentCommitments[0].image) {
-                        let image = currentCommitments[0].image;
-                        convertMultiTypeImage(image, gameProps).then((image) => {
-                            if (typeof image === "string") {
-                                let sprite = new ImageSprite({}, image);
-                                sprite.load();
-                                image = sprite;
-                            }
-                            layer.addChild(image);
-                        });
-                    }
+        const { background } = currentRoom || {};
+        if (background) {
+            let image = convertMultiTypeSprite(background, gameProps);
+            let layer = canvas.getLayer(CANVAS_UI_LAYER_NAME);
+            if (layer) {
+                if (typeof image === "string") {
+                    let sprite = new ImageSprite({}, image);
+                    sprite.load();
+                    image = sprite;
                 }
-            });
+                layer.addChild(image);
+
+                currentRoom?.activities.forEach(({ sprite }) => {
+                    if (sprite) {
+                        let icon = convertMultiTypeSprite(sprite, gameProps);
+                        if (typeof icon === "string") {
+                            let sprite = new ImageSprite({}, icon);
+                            sprite.load();
+                            icon = sprite;
+                        }
+                        layer.addChild(icon);
+                    }
+                });
+                currentRoom?.routine.forEach(({ sprite }) => {
+                    if (sprite) {
+                        let icon = convertMultiTypeSprite(sprite, gameProps);
+                        if (typeof icon === "string") {
+                            let sprite = new ImageSprite({}, icon);
+                            sprite.load();
+                            icon = sprite;
+                        }
+                        layer.addChild(icon);
+                    }
+                });
+            }
         }
 
         let automaticFunctions = navigator.currentRoom?.automaticFunctions || [];
