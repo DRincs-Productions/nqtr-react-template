@@ -37,6 +37,8 @@ export default function MapScreen() {
             if (layer) {
                 layer.addChild(background);
                 map.locations.forEach((location) => {
+                    const entrance = location.entrance;
+                    entrance && Assets.backgroundLoadBundle(entrance.id);
                     let sprite = location.sprite;
                     if (typeof sprite === "function") {
                         sprite = sprite(gameProps);

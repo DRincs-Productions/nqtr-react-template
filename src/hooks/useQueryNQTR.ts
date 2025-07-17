@@ -59,6 +59,8 @@ export function useQueryQuickRooms() {
             const loadRoomsImage = async () => {
                 rooms?.forEach((room) => {
                     Assets.backgroundLoadBundle(room.id);
+                    Assets.backgroundLoadBundle(room.activitiesIds);
+                    Assets.backgroundLoadBundle(room.routine.map((commitment) => commitment.id));
                 });
             };
             loadRoomsImage();
