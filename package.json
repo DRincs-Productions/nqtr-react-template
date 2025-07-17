@@ -12,7 +12,7 @@
     "tauri": "tauri"
   },
   "dependencies": {
-    "@drincs/nqtr": "^0.5.4",
+    "@drincs/nqtr": "^0.5.5",
     "@drincs/pixi-vn": "^1.2.22",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
@@ -33,6 +33,7 @@
     "react-dom": "^19.1.0",
     "react-error-boundary": "^6.0.0",
     "react-i18next": "^15.6.0",
+    "react-lazy-load-image-component": "^1.6.3",
     "react-markdown": "^10.1.0",
     "react-markdown-typewriter": "^1.1.4",
     "react-router-dom": "^7.6.3",
@@ -50,6 +51,7 @@
     "@types/node": "^24.0.14",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
+    "@types/react-lazy-load-image-component": "^1.6.4",
     "@typescript-eslint/eslint-plugin": "^8.37.0",
     "@typescript-eslint/parser": "^8.37.0",
     "@vitejs/plugin-react": "^4.6.0",
