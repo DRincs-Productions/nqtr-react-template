@@ -1,6 +1,6 @@
 import { ContainerChild, StepLabelProps } from "@drincs/pixi-vn";
 import { ReactElement } from "react";
-import MultiTypeImage from "./models/MultiTypeImage";
+import MultiTypeSprite from "./models/MultiTypeSprite";
 
 declare module "@drincs/nqtr" {
     interface OnRunProps extends StepLabelProps {}
@@ -18,9 +18,9 @@ declare module "@drincs/nqtr" {
          */
         hidden: boolean;
         /**
-         * The PixiJS image of the activity.
+         * The sprite of the activity.
          */
-        readonly image?: MultiTypeImage;
+        readonly sprite?: MultiTypeSprite;
         /**
          * The React icon of the activity.
          */
@@ -32,9 +32,13 @@ declare module "@drincs/nqtr" {
          */
         readonly name: string;
         /**
-         * The PixiJS image of the commitment.
+         * The sprite of the commitment.
          */
-        readonly image?: MultiTypeImage;
+        readonly sprite?: MultiTypeSprite;
+        /**
+         * The background of the commitment.
+         */
+        readonly background?: MultiTypeSprite;
         /**
          * The React icon of the commitment.
          */
@@ -63,9 +67,9 @@ declare module "@drincs/nqtr" {
          */
         hidden: boolean;
         /**
-         * The PixiJS icon of the location.
+         * The sprite of the location.
          */
-        readonly icon?: ContainerChild | ((props: OnRunProps) => ContainerChild);
+        readonly sprite: ContainerChild | ((props: OnRunProps) => ContainerChild);
         /**
          * The entrance room of the location.
          */
@@ -77,9 +81,9 @@ declare module "@drincs/nqtr" {
          */
         readonly name: string;
         /**
-         * The PixiJS image of the map.
+         * The background of the map.
          */
-        readonly image: MultiTypeImage;
+        readonly background: MultiTypeSprite;
         /**
          * Neighboring maps.
          */
@@ -110,9 +114,9 @@ declare module "@drincs/nqtr" {
          */
         readonly name: string;
         /**
-         * The PixiJS image of the room.
+         * The background of the room.
          */
-        readonly image: MultiTypeImage;
+        readonly background: MultiTypeSprite;
         /**
          * Whether is disabled.
          */

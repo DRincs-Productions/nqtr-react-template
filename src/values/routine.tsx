@@ -5,7 +5,6 @@ import NqtrRoundIconButton from "../components/NqtrRoundIconButton";
 import { NARRATION_ROUTE } from "../constans";
 import { TALK_SLEEP_LABEL_KEY } from "../labels/variousActionsLabelKeys";
 import { aliceTalkMenuLabel } from "../labels/variousActionsLabels";
-import TimeSlotsImage from "../models/TimeSlotsImage";
 import Commitment from "../models/nqtr/Commitment";
 import { alice } from "./characters";
 import { aliceRoom, classRoom, terrace } from "./rooms";
@@ -16,7 +15,7 @@ const aliceSleep = new Commitment("alice_sleep", alice, aliceRoom, {
         from: 20,
         to: 10,
     },
-    image: new TimeSlotsImage("alice_roomsleep0A"),
+    background: "alice_roomsleep0A",
     icon: (commitment, props) => {
         return (
             <NqtrRoundIconButton
@@ -58,7 +57,7 @@ const aliceSmokes = new Commitment("alice_smokes", alice, terrace, {
         from: 10,
         to: 20,
     },
-    image: new TimeSlotsImage("alice_terrace0A"),
+    background: "alice_terrace0A",
     icon: (commitment, props) => {
         return (
             <NqtrRoundIconButton

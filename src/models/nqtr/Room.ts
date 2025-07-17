@@ -1,5 +1,5 @@
 import { ActivityInterface, LocationInterface, OnRunProps, RoomInterface, RoomStoredClass } from "@drincs/nqtr";
-import MultiTypeImage, { MultiTypeImageProp } from "../MultiTypeImage";
+import MultiTypeSprite, { MultiTypeSpriteProp } from "../MultiTypeSprite";
 
 export default class Room extends RoomStoredClass implements RoomInterface {
     constructor(
@@ -9,7 +9,7 @@ export default class Room extends RoomStoredClass implements RoomInterface {
             name: string;
             disabled?: boolean | (() => boolean);
             hidden?: boolean | (() => boolean);
-            image: MultiTypeImageProp<Room>;
+            background: MultiTypeSpriteProp<Room>;
             activities?: ActivityInterface[];
             isEntrance?: boolean;
         }
@@ -18,17 +18,17 @@ export default class Room extends RoomStoredClass implements RoomInterface {
         this.name = props.name;
         this._defaultDisabled = props.disabled || false;
         this._defaultHidden = props.hidden || false;
-        this._image = props.image;
+        this._background = props.background;
         this.isEntrance = props.isEntrance || false;
     }
     readonly name: string;
-    private readonly _image: MultiTypeImageProp<Room>;
-    get image(): MultiTypeImage {
-        let image = this._image;
-        if (typeof image === "function") {
-            return (runProps: OnRunProps) => image(this, runProps);
+    private readonly _background: MultiTypeSpriteProp<Room>;
+    get background(): MultiTypeSprite {
+        const background = this._background;
+        if (typeof background === "function") {
+            return (runProps: OnRunProps) => background(this, runProps);
         }
-        return image;
+        return background;
     }
     readonly isEntrance: boolean;
     private _defaultDisabled: boolean | (() => boolean) = false;

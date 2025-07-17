@@ -1,6 +1,7 @@
 import { OnRunProps } from "@drincs/nqtr";
 import { useTheme } from "@mui/joy";
 import { isValidElement, ReactElement } from "react";
+import { LazyLoadComponent } from "react-lazy-load-image-component";
 import useGameProps from "../hooks/useGameProps";
 import TimeSlotsImage from "../models/TimeSlotsImage";
 import useNqtrScreenStore from "../stores/useNqtrScreenStore";
@@ -55,16 +56,18 @@ export function NqtrRoundIconButtonConvertor(
             image = getPixiJSAsset(image);
         } catch {}
         return (
-            <NqtrRoundIconButton
-                {...rest}
-                sx={{
-                    backgroundImage: `url(${image})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    fontSize: { xs: "1rem", sm: "1.5rem", md: "2rem", lg: "2.5rem", xl: "3rem" },
-                    ...rest.sx,
-                }}
-            />
+            <LazyLoadComponent>
+                <NqtrRoundIconButton
+                    {...rest}
+                    sx={{
+                        backgroundImage: `url(${image})`,
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                        fontSize: { xs: "1rem", sm: "1.5rem", md: "2rem", lg: "2.5rem", xl: "3rem" },
+                        ...rest.sx,
+                    }}
+                />
+            </LazyLoadComponent>
         );
     }
 }
