@@ -6,7 +6,7 @@ import { mainMap } from "./maps";
 
 export const mcHome = new Location("mc_home", mainMap, {
     name: "MC Home",
-    icon: (location, { navigate }) => {
+    sprite: (location, { navigate }) => {
         const icon = new ImageSprite(
             { xAlign: 0.3, yAlign: 0.2, height: 120, width: 120, eventMode: "static", cursor: "pointer" },
             "icon_location_home"
@@ -25,7 +25,7 @@ export const mcHome = new Location("mc_home", mainMap, {
 
 export const gym = new Location("gym", mainMap, {
     name: "Gym",
-    icon: (location, { navigate }) => {
+    sprite: (location, { navigate }) => {
         const icon = new ImageSprite(
             { xAlign: 0.5, yAlign: 0.3, height: 120, width: 120, eventMode: "static", cursor: "pointer" },
             "icon_location_gym"
@@ -44,7 +44,7 @@ export const gym = new Location("gym", mainMap, {
 
 export const school = new Location("school", mainMap, {
     name: "School",
-    icon: () => new ImageSprite(),
+    sprite: () => new ImageSprite(),
 });
 
 RegisteredLocations.add([mcHome, gym, school]);

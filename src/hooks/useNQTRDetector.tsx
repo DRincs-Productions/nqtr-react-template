@@ -18,42 +18,41 @@ export default function useNQTRDetector() {
     const setDisable = useNqtrScreenStore((state) => state.setDisabled);
 
     useEffect(() => {
-        const { background: image } = currentRoom || {};
-        if (image) {
-            convertMultiTypeSprite(image, gameProps).then((image) => {
-                let layer = canvas.getLayer(CANVAS_UI_LAYER_NAME);
-                if (layer) {
-                    if (typeof image === "string") {
-                        let sprite = new ImageSprite({}, image);
-                        sprite.load();
-                        image = sprite;
-                    }
-                    layer.addChild(image);
-
-                    currentRoom?.activities.forEach(({ sprite }) => {
-                        sprite &&
-                            convertMultiTypeSprite(sprite, gameProps).then((image) => {
-                                if (typeof image === "string") {
-                                    let sprite = new ImageSprite({}, image);
-                                    sprite.load();
-                                    image = sprite;
-                                }
-                                layer.addChild(image);
-                            });
-                    });
-                    currentRoom?.routine.forEach(({ sprite }) => {
-                        sprite &&
-                            convertMultiTypeSprite(sprite, gameProps).then((image) => {
-                                if (typeof image === "string") {
-                                    let sprite = new ImageSprite({}, image);
-                                    sprite.load();
-                                    image = sprite;
-                                }
-                                layer.addChild(image);
-                            });
-                    });
+        const { background } = currentRoom || {};
+        if (background) {
+            let image = convertMultiTypeSprite(background, gameProps);
+            let layer = canvas.getLayer(CANVAS_UI_LAYER_NAME);
+            if (layer) {
+                if (typeof image === "string") {
+                    let sprite = new ImageSprite({}, image);
+                    sprite.load();
+                    image = sprite;
                 }
-            });
+                layer.addChild(image);
+
+                currentRoom?.activities.forEach(({ sprite }) => {
+                    if (sprite) {
+                        let icon = convertMultiTypeSprite(sprite, gameProps);
+                        if (typeof icon === "string") {
+                            let sprite = new ImageSprite({}, icon);
+                            sprite.load();
+                            icon = sprite;
+                        }
+                        layer.addChild(icon);
+                    }
+                });
+                currentRoom?.routine.forEach(({ sprite }) => {
+                    if (sprite) {
+                        let icon = convertMultiTypeSprite(sprite, gameProps);
+                        if (typeof icon === "string") {
+                            let sprite = new ImageSprite({}, icon);
+                            sprite.load();
+                            icon = sprite;
+                        }
+                        layer.addChild(icon);
+                    }
+                });
+            }
         }
 
         let automaticFunctions = navigator.currentRoom?.automaticFunctions || [];
