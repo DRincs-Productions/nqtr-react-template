@@ -41,7 +41,7 @@ export default function MapScreen() {
                     if (typeof sprite === "function") {
                         sprite = sprite(gameProps);
                     }
-                    sprite && layer.addChild(sprite);
+                    layer.addChild(sprite);
                 });
             }
 
