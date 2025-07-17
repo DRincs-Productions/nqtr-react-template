@@ -25,7 +25,7 @@ export const sleepLabel = newLabel("SleepLabel", [
     async (props) => {
         const currentRoom = navigator.currentRoom;
         if (currentRoom) {
-            const bg = await convertMultiTypeSprite(currentRoom.background, props);
+            const bg = convertMultiTypeSprite(currentRoom.background, props);
             if (typeof bg === "string") {
                 await showImage(BACKGROUND_ID, bg);
             } else {
@@ -46,7 +46,7 @@ export const napLabel = newLabel("NapLabel", [
     async (props) => {
         const currentRoom = navigator.currentRoom;
         if (currentRoom) {
-            const bg = await convertMultiTypeSprite(currentRoom.background, props);
+            const bg = convertMultiTypeSprite(currentRoom.background, props);
             if (typeof bg === "string") {
                 await showImage(BACKGROUND_ID, bg);
             } else {

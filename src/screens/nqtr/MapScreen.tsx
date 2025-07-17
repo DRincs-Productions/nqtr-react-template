@@ -27,24 +27,23 @@ export default function MapScreen() {
     useEffect(() => {
         editHideInterface(false);
         if (map) {
-            convertMultiTypeSprite(map.background, gameProps).then((background) => {
-                if (typeof background === "string") {
-                    let sprite = new ImageSprite({}, background);
-                    sprite.load();
-                    background = sprite;
-                }
-                let layer = canvas.getLayer(CANVAS_UI_LAYER_NAME);
-                if (layer) {
-                    layer.addChild(background);
-                    map.locations.forEach((location) => {
-                        let sprite = location.sprite;
-                        if (typeof sprite === "function") {
-                            sprite = sprite(gameProps);
-                        }
-                        sprite && layer.addChild(sprite);
-                    });
-                }
-            });
+            let background = convertMultiTypeSprite(map.background, gameProps);
+            if (typeof background === "string") {
+                let sprite = new ImageSprite({}, background);
+                sprite.load();
+                background = sprite;
+            }
+            let layer = canvas.getLayer(CANVAS_UI_LAYER_NAME);
+            if (layer) {
+                layer.addChild(background);
+                map.locations.forEach((location) => {
+                    let sprite = location.sprite;
+                    if (typeof sprite === "function") {
+                        sprite = sprite(gameProps);
+                    }
+                    sprite && layer.addChild(sprite);
+                });
+            }
 
             map.neighboringMaps.north && Assets.backgroundLoadBundle(map.neighboringMaps.north);
             map.neighboringMaps.south && Assets.backgroundLoadBundle(map.neighboringMaps.south);
