@@ -56,10 +56,10 @@ export function useQueryCurrentRoomId() {
 
 const QUICK_ROOMS_USE_QUEY_KEY = "quick_rooms_use_quey_key";
 export function useQueryQuickRooms() {
-    const rooms = navigator.currentLocation?.rooms || [];
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, QUICK_ROOMS_USE_QUEY_KEY],
         queryFn: async () => {
+            const rooms = navigator.currentLocation?.rooms || [];
             const loadRoomsImage = async () => {
                 rooms?.forEach((room) => {
                     Assets.backgroundLoadBundle(room.id);

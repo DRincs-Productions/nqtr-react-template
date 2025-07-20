@@ -19,6 +19,7 @@ export default function useNQTRDetector() {
 
     useEffect(() => {
         const { background } = currentRoom || {};
+        canvas.removeAll();
         if (background) {
             let image = convertMultiTypeSprite(background, gameProps);
             let layer = canvas.getLayer(CANVAS_UI_LAYER_NAME);
