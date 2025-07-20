@@ -7,10 +7,14 @@ import { INTERFACE_DATA_USE_QUEY_KEY } from "./useQueryInterface";
 
 function getRoomInfo(room: RoomInterface) {
     const routine = room.routine;
-    const background = routine.length > 0 ? routine[0].background : room.background;
+    let background = room.background;
     let icon: string | TimeSlotsImage | undefined;
     if (typeof background === "string" || background instanceof TimeSlotsImage) {
         icon = background;
+    }
+
+    if (routine.length > 0 && routine[0].background) {
+        background = routine[0].background;
     }
 
     return {
