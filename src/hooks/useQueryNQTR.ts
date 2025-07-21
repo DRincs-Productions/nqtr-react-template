@@ -7,10 +7,14 @@ import { INTERFACE_DATA_USE_QUEY_KEY } from "./useQueryInterface";
 
 function getRoomInfo(room: RoomInterface) {
     const routine = room.routine;
-    const background = routine.length > 0 ? routine[0].background : room.background;
+    let background = room.background;
     let icon: string | TimeSlotsImage | undefined;
     if (typeof background === "string" || background instanceof TimeSlotsImage) {
         icon = background;
+    }
+
+    if (routine.length > 0 && routine[0].background) {
+        background = routine[0].background;
     }
 
     return {
@@ -52,10 +56,10 @@ export function useQueryCurrentRoomId() {
 
 const QUICK_ROOMS_USE_QUEY_KEY = "quick_rooms_use_quey_key";
 export function useQueryQuickRooms() {
-    const rooms = navigator.currentLocation?.rooms || [];
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, QUICK_ROOMS_USE_QUEY_KEY],
         queryFn: async () => {
+            const rooms = navigator.currentLocation?.rooms || [];
             const loadRoomsImage = async () => {
                 rooms?.forEach((room) => {
                     Assets.backgroundLoadBundle(room.id);

@@ -9,7 +9,7 @@ export default class Activity extends ActivityStoredClass implements ActivityInt
         props: {
             name?: string;
             sprite?: MultiTypeSpriteProp<Activity>;
-            icon: ReactElement | ((props: Activity, runProps: OnRunProps) => ReactElement);
+            icon?: ReactElement | ((props: Activity, runProps: OnRunProps) => ReactElement);
             disabled?: boolean | (() => boolean);
             hidden?: boolean | (() => boolean);
         } & ActivityStoredClassProps
@@ -24,15 +24,15 @@ export default class Activity extends ActivityStoredClass implements ActivityInt
     readonly name: string;
     private readonly _sprite?: MultiTypeSpriteProp<Activity>;
     get sprite(): MultiTypeSprite | undefined {
-        let sprite = this._sprite;
+        const sprite = this._sprite;
         if (typeof sprite === "function") {
             return (runProps: OnRunProps) => sprite(this, runProps);
         }
         return sprite;
     }
-    private readonly _icon: ReactElement | ((props: Activity, runProps: OnRunProps) => ReactElement);
-    get icon(): ReactElement | ((props: OnRunProps) => ReactElement) {
-        let icon = this._icon;
+    private readonly _icon?: ReactElement | ((props: Activity, runProps: OnRunProps) => ReactElement);
+    get icon(): ReactElement | ((props: OnRunProps) => ReactElement) | undefined {
+        const icon = this._icon;
         if (typeof icon === "function") {
             return (runProps: OnRunProps) => icon(this, runProps);
         }
