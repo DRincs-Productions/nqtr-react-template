@@ -7,14 +7,8 @@ import { initializeIndexedDB } from "./utils/indexedDB-utility";
 import { initializeNQTR } from "./utils/nqtr-utility";
 
 const Home = lazy(async () => {
-    await Promise.all([
-        import("./values"),
-        import("./labels"),
-        initializeIndexedDB(),
-        defineAssets(),
-        useI18n(),
-        initializeNQTR(),
-    ]);
+    await Promise.all([import("./values"), import("./labels")]);
+    await Promise.all([initializeIndexedDB(), defineAssets(), useI18n(), initializeNQTR()]);
     return import("./Home");
 });
 
