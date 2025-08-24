@@ -1,10 +1,10 @@
 import { Assets, canvas, Container, Game, storage } from "@drincs/pixi-vn";
+import { setupInkHmrListener } from "@drincs/pixi-vn-ink";
 import { createRoot } from "react-dom/client";
 import App from "./App";
 import { CANVAS_UI_LAYER_NAME, NAVIGATION_ROUTE } from "./constans";
 import "./index.css";
 
-// Canvas setup with PIXI
 const body = document.body;
 if (!body) {
     throw new Error("body element not found");
@@ -49,3 +49,5 @@ Game.onError((type, error, { notify, t }) => {
 });
 
 Game.onLoadingLabel((_stepId, { id }) => Assets.backgroundLoadBundle(id));
+
+setupInkHmrListener();
