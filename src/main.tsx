@@ -1,5 +1,5 @@
 import { Assets, canvas, Container, Game, storage } from "@drincs/pixi-vn";
-import { setupInkHmrListener } from "@drincs/pixi-vn-ink";
+import { setupInkHmrListener } from "@drincs/pixi-vn-ink/vite-listener";
 import { createRoot } from "react-dom/client";
 import App from "./App";
 import { CANVAS_UI_LAYER_NAME, NAVIGATION_ROUTE } from "./constans";
