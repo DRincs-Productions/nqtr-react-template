@@ -1,4 +1,4 @@
-import { noHmrInkPlugin } from "@drincs/pixi-vn-ink/vite";
+import { vitePluginInk } from "@drincs/pixi-vn-ink/vite";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
@@ -41,7 +41,7 @@ export default defineConfig({
                 ],
             },
         }),
-        noHmrInkPlugin(),
+        vitePluginInk(),
     ],
     assetsInclude: ["**/ink/*.ink"],
     define: {
@@ -54,6 +54,7 @@ export default defineConfig({
                 manualChunks: {
                     "lib/@mui/joy": ["@mui/joy"],
                     "lib/react-markdown": ["react-markdown", "rehype-raw", "remark-gfm"],
+                    "lib/@drincs/pixi-vn": ["@drincs/pixi-vn"],
                 },
             },
         },
