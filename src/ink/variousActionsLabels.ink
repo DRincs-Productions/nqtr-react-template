@@ -9,6 +9,7 @@ alice: zZz zZz ...
 + Try waking up
 	alice: [mc]!!!! What are you doing?!!
 	alice: Get out of here! Now!
+	-> DONE
 + Leave her alone
 	-> DONE
 
@@ -17,8 +18,10 @@ mc: OK! Let's see, let's look for a book....
 mc: Here's R****, for $1. Just the thing for me.
 # remove activity order_product room mc_room
 # complete queststage aliceQuest
+-> DONE
 
 === TakeKeyLabel ===
 mc: Are these the car keys?! Well... I should try to access the car!
 # remove activity take_product room terrace
 # complete queststage aliceQuest
+-> DONE
