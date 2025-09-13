@@ -26,7 +26,7 @@ export const orderProductLabel = newLabel(ORDER_PRODUCT_LABEL_KEY, [
     (props) => {
         narration.dialogue = { character: mc, text: `Here's R****, for $1. Just the thing for me.` };
         mcRoom.removeActivity(orderProduct);
-        aliceQuest.completeCurrentStageAndGoNext(props);
+        aliceQuest.goNext(props);
     },
 ]);
 
@@ -37,7 +37,7 @@ export const takeKeyLabel = newLabel(TAKE_KEY_LABEL_KEY, [
             text: `Are these the car keys?! Well... I should try to access the car!`,
         };
         terrace.removeActivity(takeProduct);
-        aliceQuest.completeCurrentStageAndGoNext(props);
+        aliceQuest.goNext(props);
     },
 ]);
 
@@ -75,7 +75,7 @@ export const talkAliceQuest = newLabel(
                     narration.dialogue = { character: alice, text: "Thanks" };
                 },
                 (props) => {
-                    aliceQuest.completeCurrentStageAndGoNext(props);
+                    aliceQuest.goNext(props);
                     narration.goNext(props);
                 },
             ];
@@ -109,7 +109,7 @@ export const talkAliceQuest = newLabel(
                     narration.dialogue = { character: alice, text: "Thank you, I can finally read something new." };
                 },
                 (props) => {
-                    aliceQuest.completeCurrentStageAndGoNext(props);
+                    aliceQuest.goNext(props);
                     narration.goNext(props);
                 },
             ];
