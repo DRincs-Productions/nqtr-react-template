@@ -124,7 +124,7 @@ export function useQuerySelectedQuest() {
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, SELECTED_QUEST_USE_QUEY_KEY],
         queryFn: async () => {
-            let selectedQuestId = storage.getVariable<string>(SELECTED_QUEST_STORAGE_KEY);
+            let selectedQuestId = storage.get<string>(SELECTED_QUEST_STORAGE_KEY);
             let selectedQuest = selectedQuestId ? questsNotebook.find(selectedQuestId) : undefined;
             return selectedQuest ? getQuestInfo(selectedQuest) : null;
         },
