@@ -80,7 +80,7 @@ export default function MainMenu() {
                     setLoading(true);
                     canvas.removeAll();
                     narration
-                        .callLabel(startLabel, gameProps)
+                        .call(startLabel, gameProps)
                         .then(() => queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] }))
                         .finally(() => setLoading(false));
                 }}
