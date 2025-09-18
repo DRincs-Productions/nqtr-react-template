@@ -88,7 +88,7 @@ export default function MemoScreen() {
                                 <Link
                                     disabled={selectedQuest?.id === quest.id}
                                     onClick={() => {
-                                        storage.setVariable(SELECTED_QUEST_STORAGE_KEY, quest.id);
+                                        storage.set(SELECTED_QUEST_STORAGE_KEY, quest.id);
                                         queryClient.invalidateQueries({
                                             queryKey: [INTERFACE_DATA_USE_QUEY_KEY, SELECTED_QUEST_USE_QUEY_KEY],
                                         });
@@ -111,7 +111,7 @@ export default function MemoScreen() {
                                 <Link
                                     disabled={selectedQuest?.id === quest.id}
                                     onClick={() => {
-                                        storage.setVariable(SELECTED_QUEST_STORAGE_KEY, quest.id);
+                                        storage.set(SELECTED_QUEST_STORAGE_KEY, quest.id);
                                         queryClient.invalidateQueries({
                                             queryKey: [INTERFACE_DATA_USE_QUEY_KEY, SELECTED_QUEST_USE_QUEY_KEY],
                                         });
@@ -134,7 +134,7 @@ export default function MemoScreen() {
                                 <Link
                                     disabled={selectedQuest?.id === quest.id}
                                     onClick={() => {
-                                        storage.setVariable(SELECTED_QUEST_STORAGE_KEY, quest.id);
+                                        storage.set(SELECTED_QUEST_STORAGE_KEY, quest.id);
                                         queryClient.invalidateQueries({
                                             queryKey: [INTERFACE_DATA_USE_QUEY_KEY, SELECTED_QUEST_USE_QUEY_KEY],
                                         });
