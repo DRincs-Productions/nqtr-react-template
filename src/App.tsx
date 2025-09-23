@@ -1,3 +1,4 @@
+import { setupPixivnViteData } from "@drincs/pixi-vn/vite-listener";
 import { lazy, Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { useI18n } from "./i18n";
@@ -10,6 +11,7 @@ import { initializeNQTR } from "./utils/nqtr-utility";
 const Home = lazy(async () => {
     await Promise.all([import("./values"), import("./labels")]);
     await Promise.all([initializeIndexedDB(), defineAssets(), useI18n(), importAllInkLabels(), initializeNQTR()]);
+    setupPixivnViteData();
     return import("./Home");
 });
 
