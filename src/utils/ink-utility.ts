@@ -56,7 +56,7 @@ export function initializeInk(options: { t: (key: string) => string }) {
             if (script[0] === "complete" && script.length === 3) {
                 let quest = RegisteredQuests.get(script[2]);
                 if (quest) {
-                    quest.completeCurrentStageAndGoNext(props);
+                    quest.goNext(props);
                 }
             }
         }
