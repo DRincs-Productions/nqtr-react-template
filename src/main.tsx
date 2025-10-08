@@ -1,10 +1,12 @@
 import { Assets, canvas, Container, Game, storage } from "@drincs/pixi-vn";
 import { setupInkHmrListener } from "@drincs/pixi-vn-ink/vite-listener";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createRoot } from "react-dom/client";
 import App from "./App";
 import { CANVAS_UI_LAYER_NAME, NAVIGATION_ROUTE } from "./constans";
 import "./index.css";
 
+// Canvas setup with PIXI
 const body = document.body;
 if (!body) {
     throw new Error("body element not found");
@@ -29,8 +31,13 @@ Game.init(body, {
         throw new Error("htmlLayout not found");
     }
     const reactRoot = createRoot(htmlLayout);
+    const queryClient = new QueryClient();
 
-    reactRoot.render(<App />);
+    reactRoot.render(
+        <QueryClientProvider client={queryClient}>
+            <App />
+        </QueryClientProvider>
+    );
 });
 
 Game.onEnd(async (props) => {
