@@ -10,7 +10,7 @@ const navigareNarrationRouteLabel = newLabel<{
 }>("navigare_narration_route", [
     async (props) => {
         await props.navigate(props.route);
-        await narration.jumpLabel(props.labelToOpen, props);
+        await narration.jump(props.labelToOpen, props);
         await new Promise((resolve) => setTimeout(resolve, 200));
     },
 ]);
@@ -19,5 +19,5 @@ export async function navigateAndJumpToLabel(
     route: string,
     props: OnRunProps
 ): Promise<StepLabelResultType> {
-    return await narration.jumpLabel(navigareNarrationRouteLabel, { ...props, labelToOpen: label, route: route });
+    return await narration.jump(navigareNarrationRouteLabel, { ...props, labelToOpen: label, route: route });
 }

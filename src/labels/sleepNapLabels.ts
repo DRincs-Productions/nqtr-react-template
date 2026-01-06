@@ -8,7 +8,7 @@ const sleepHourLabel = newLabel<{
 }>("Sleep1HourLabel", [
     ({ hour: wakeupHour, ...props }) => {
         props.sleep(wakeupHour, props);
-        narration.goNext(props);
+        narration.continue(props);
     },
 ]);
 
@@ -17,7 +17,7 @@ const napHourLabel = newLabel<{
 }>("Nap1HourLabel", [
     ({ hour, ...props }) => {
         props.wait(hour);
-        narration.goNext(props);
+        narration.continue(props);
     },
 ]);
 
@@ -33,7 +33,7 @@ export const sleepLabel = newLabel("SleepLabel", [
             }
         }
         narration.dialogue = "What time do you want to set the alarm?";
-        narration.choiceMenuOptions = [
+        narration.choices = [
             newChoiceOption(props.uiTransition("allarm_menu_item", { hour: 8 }), sleepHourLabel, { hour: 8 }),
             newChoiceOption(props.uiTransition("allarm_menu_item", { hour: 9 }), sleepHourLabel, { hour: 9 }),
             newChoiceOption(props.uiTransition("allarm_menu_item", { hour: 10 }), sleepHourLabel, { hour: 10 }),
@@ -54,7 +54,7 @@ export const napLabel = newLabel("NapLabel", [
             }
         }
         narration.dialogue = "You are tired and decide to take a nap.";
-        narration.choiceMenuOptions = [
+        narration.choices = [
             newChoiceOption(props.uiTransition("nap_menu_item", { hour: 3 }), napHourLabel, { hour: 3 }),
             newChoiceOption(props.uiTransition("sleep"), sleepLabel, { hour: 3 }),
             newCloseChoiceOption("Cancel"),
