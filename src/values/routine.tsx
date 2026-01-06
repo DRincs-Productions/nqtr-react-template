@@ -39,7 +39,7 @@ const aliceSleep = new Commitment("alice_sleep", alice, aliceRoom, {
     },
     onRun: (_, event) => {
         event.navigate(NARRATION_ROUTE);
-        narration.jumpLabel(TALK_SLEEP_LABEL_KEY, event);
+        narration.jump(TALK_SLEEP_LABEL_KEY, event);
     },
 });
 
@@ -81,7 +81,7 @@ const aliceSmokes = new Commitment("alice_smokes", alice, terrace, {
     },
     onRun: (_, event) => {
         event.navigate(NARRATION_ROUTE);
-        narration.jumpLabel(aliceTalkMenuLabel, event);
+        narration.jump(aliceTalkMenuLabel, event);
     },
 });
 

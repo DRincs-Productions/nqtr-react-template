@@ -53,7 +53,7 @@ export const talkSleepLabel = newLabel(TALK_SLEEP_LABEL_KEY, [
     async () => {
         await showImage(BACKGROUND_ID, "alice_roomsleep0A");
         narration.dialogue = { character: alice, text: "zZz zZz ..." };
-        narration.choiceMenuOptions = [
+        narration.choices = [
             newChoiceOption("Try waking up", talkSleepResultLabel, {}),
             newCloseChoiceOption("Leave her alone"),
         ];
@@ -76,7 +76,7 @@ export const talkAliceQuest = newLabel(
                 },
                 (props) => {
                     aliceQuest.goNext(props);
-                    narration.goNext(props);
+                    narration.continue(props);
                 },
             ];
         } else if (aliceQuest.currentStageIndex == 1) {
@@ -110,7 +110,7 @@ export const talkAliceQuest = newLabel(
                 },
                 (props) => {
                     aliceQuest.goNext(props);
-                    narration.goNext(props);
+                    narration.continue(props);
                 },
             ];
         }
@@ -136,6 +136,6 @@ export const aliceTalkMenuLabel = newLabel(ALICE_TALK_MENU_LABEL_KEY, [
         if (aliceQuest.started) {
             optionsMenu.push(newChoiceOption("About the book", talkAliceQuest, {}));
         }
-        narration.choiceMenuOptions = [...optionsMenu, newCloseChoiceOption("Cancel")];
+        narration.choices = [...optionsMenu, newCloseChoiceOption("Cancel")];
     },
 ]);
