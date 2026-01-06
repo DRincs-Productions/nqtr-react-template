@@ -1,4 +1,6 @@
-import { Route, Routes } from "react-router-dom";
+import { Game } from "@drincs/pixi-vn";
+import { useEffect } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import NextButton from "./components/NextButton";
 import VisibilityButton from "./components/VisibilityButton";
 import { LOADING_ROUTE, MAIN_MENU_ROUTE, MAP_ROUTE, NARRATION_ROUTE, NAVIGATION_ROUTE } from "./constans";
@@ -18,6 +20,11 @@ import TimeScreen from "./screens/nqtr/TimeScreen";
 import QuickTools from "./screens/QuickTools";
 
 export default function AppRoutes() {
+    const navigate = useNavigate();
+    useEffect(() => {
+        Game.onNavigate(navigate);
+    }, []);
+
     return (
         <Routes>
             <Route key={"main_menu"} path={MAIN_MENU_ROUTE} element={<MainMenu />} />
