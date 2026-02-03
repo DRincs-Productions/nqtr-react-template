@@ -126,7 +126,7 @@ export const talkAliceQuest = newLabel(
                 await showImage(BACKGROUND_ID, "alice_terrace0At");
             }
         },
-    }
+    },
 );
 export const aliceTalkMenuLabel = newLabel(ALICE_TALK_MENU_LABEL_KEY, [
     async () => {
