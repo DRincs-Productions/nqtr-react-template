@@ -24,6 +24,7 @@ Game.init(body, {
     height: 1080,
     width: 1920,
     backgroundColor: "#303030",
+    resizeMode: "contain",
 }).then(() => {
     // Pixi.JS UI Layer
     canvas.addLayer(CANVAS_UI_LAYER_NAME, new Container());
@@ -48,13 +49,13 @@ Game.init(body, {
     );
 });
 
-Game.onEnd(async (props) => {
+Game.onEnd(async ({ navigate }) => {
     let isTheEnd = storage.getFlag("is_the_end");
     if (isTheEnd) {
         Game.clear();
-        props.navigate("/");
+        navigate("/");
     } else {
-        props.navigate(NAVIGATION_ROUTE);
+        navigate(NAVIGATION_ROUTE);
     }
 });
 
