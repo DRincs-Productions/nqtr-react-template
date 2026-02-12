@@ -1,9 +1,9 @@
-import { RegisteredQuests, RegisteredRooms } from "@drincs/nqtr";
+import { nqtrHandler } from "@drincs/nqtr/ink";
 import { RegisteredCharacters } from "@drincs/pixi-vn";
 import {
     convertInkText,
+    HashtagCommands,
     importInkText,
-    onInkHashtagScript,
     onInkTranslate,
     onReplaceTextBeforeTranslation,
 } from "@drincs/pixi-vn-ink";
@@ -13,7 +13,7 @@ async function getInkText() {
     return await Promise.all(
         Object.values(files).map(async (importFile) => {
             return importFile;
-        })
+        }),
     );
 }
 
@@ -29,7 +29,8 @@ export async function convertInkToJson() {
 
 export function initializeInk(options: { t: (key: string) => string }) {
     const { t } = options;
-    onInkHashtagScript((script, props, convertListStringToObj) => {
+    HashtagCommands.add(nqtrHandler());
+    HashtagCommands.add((script, props, _convertListStringToObj) => {
         if (script.length === 2) {
             if (script[0] === "navigate") {
                 props.navigate(script[1]);
@@ -42,23 +43,6 @@ export function initializeInk(options: { t: (key: string) => string }) {
                 character.name = script[2];
             }
             return true;
-        }
-        if (script[1] === "activity") {
-            if (script[0] === "remove" && script[3] === "room" && script.length >= 5) {
-                let room = RegisteredRooms.get(script[4]);
-                if (room) {
-                    const props = convertListStringToObj(script.slice(5));
-                    room.removeActivity(script[2], props);
-                }
-            }
-        }
-        if (script[1] === "queststage") {
-            if (script[0] === "complete" && script.length === 3) {
-                let quest = RegisteredQuests.get(script[2]);
-                if (quest) {
-                    quest.goNext(props);
-                }
-            }
         }
         return false;
     });

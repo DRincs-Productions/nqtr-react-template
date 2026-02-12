@@ -26,7 +26,7 @@ export const talkAliceQuest = newLabel(
                     narration.dialogue = { character: alice, text: "Thanks" };
                 },
                 (props) => {
-                    aliceQuest.goNext(props);
+                    aliceQuest.continue(props);
                     narration.continue(props);
                 },
             ];
@@ -60,7 +60,7 @@ export const talkAliceQuest = newLabel(
                     narration.dialogue = { character: alice, text: "Thank you, I can finally read something new." };
                 },
                 (props) => {
-                    aliceQuest.goNext(props);
+                    aliceQuest.continue(props);
                     narration.continue(props);
                 },
             ];
