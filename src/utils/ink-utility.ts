@@ -1,4 +1,4 @@
-import { RegisteredQuests, RegisteredRooms } from "@drincs/nqtr";
+import { nqtrHandler } from "@drincs/nqtr/ink";
 import { RegisteredCharacters } from "@drincs/pixi-vn";
 import {
     convertInkText,
@@ -29,6 +29,7 @@ export async function convertInkToJson() {
 
 export function initializeInk(options: { t: (key: string) => string }) {
     const { t } = options;
+    HashtagCommands.add(nqtrHandler);
     HashtagCommands.add((script, props, _convertListStringToObj) => {
         if (script.length === 2) {
             if (script[0] === "navigate") {
@@ -42,23 +43,6 @@ export function initializeInk(options: { t: (key: string) => string }) {
                 character.name = script[2];
             }
             return true;
-        }
-        if (script[1] === "activity") {
-            if (script[0] === "remove" && script[3] === "room" && script.length >= 5) {
-                let room = RegisteredRooms.get(script[4]);
-                if (room) {
-                    const props = convertListStringToObj(script.slice(5));
-                    room.removeActivity(script[2], props);
-                }
-            }
-        }
-        if (script[1] === "queststage") {
-            if (script[0] === "complete" && script.length === 3) {
-                let quest = RegisteredQuests.get(script[2]);
-                if (quest) {
-                    quest.goNext(props);
-                }
-            }
         }
         return false;
     });
