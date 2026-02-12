@@ -2,8 +2,8 @@ import { RegisteredQuests, RegisteredRooms } from "@drincs/nqtr";
 import { RegisteredCharacters } from "@drincs/pixi-vn";
 import {
     convertInkText,
+    HashtagCommands,
     importInkText,
-    onInkHashtagScript,
     onInkTranslate,
     onReplaceTextBeforeTranslation,
 } from "@drincs/pixi-vn-ink";
@@ -13,7 +13,7 @@ async function getInkText() {
     return await Promise.all(
         Object.values(files).map(async (importFile) => {
             return importFile;
-        })
+        }),
     );
 }
 
@@ -29,7 +29,7 @@ export async function convertInkToJson() {
 
 export function initializeInk(options: { t: (key: string) => string }) {
     const { t } = options;
-    onInkHashtagScript((script, props, convertListStringToObj) => {
+    HashtagCommands.add((script, props, _convertListStringToObj) => {
         if (script.length === 2) {
             if (script[0] === "navigate") {
                 props.navigate(script[1]);
