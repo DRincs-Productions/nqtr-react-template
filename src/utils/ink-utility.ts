@@ -30,10 +30,10 @@ export async function convertInkToJson() {
 export function initializeInk(options: { t: (key: string) => string }) {
     const { t } = options;
     HashtagCommands.add(nqtrHandler());
-    HashtagCommands.add((script, props, _convertListStringToObj) => {
+    HashtagCommands.add(async (script, props, _convertListStringToObj) => {
         if (script.length === 2) {
             if (script[0] === "navigate") {
-                props.navigate(script[1]);
+                await props.navigate(script[1]);
                 return true;
             }
         }
