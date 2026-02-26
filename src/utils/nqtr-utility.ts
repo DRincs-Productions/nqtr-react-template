@@ -2,6 +2,7 @@ import { routine, timeTracker } from "@drincs/nqtr";
 import { timeSlots } from "../constans";
 import { fixedRoutine } from "../values/routine";
 
+const weekDaysNames = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
 export function initializeNQTR() {
     timeTracker.initialize({
         defaultTimeSpent: 1,
@@ -14,7 +15,6 @@ export function initializeNQTR() {
             { name: timeSlots.night.description, startTime: timeSlots.night.value },
         ],
         getDayName: (weekDayNumber: number) => {
-            const weekDaysNames = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
             return weekDaysNames[weekDayNumber];
         },
         weekendStartDay: 6,
