@@ -1,4 +1,3 @@
-import { RegisteredMaps } from "@drincs/nqtr";
 import { Assets, canvas } from "@drincs/pixi-vn";
 import CloseIcon from "@mui/icons-material/Close";
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
@@ -13,12 +12,13 @@ import { CANVAS_UI_LAYER_NAME, NAVIGATION_ROUTE } from "../../constans";
 import useGameProps from "../../hooks/useGameProps";
 import useMyNavigate from "../../hooks/useMyNavigate";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "../../hooks/useQueryInterface";
-import { CURRENT_MAP_USE_QUEY_KEY, useQueryCurrentMap } from "../../hooks/useQueryNQTR";
+import { CURRENT_MAP_USE_QUEY_KEY, useQueryCurrentMapId, useQueryMap } from "../../hooks/useQueryNQTR";
 import useInterfaceStore from "../../stores/useInterfaceStore";
 
 export default function MapScreen() {
-    const { data } = useQueryCurrentMap();
-    const { map, background } = data || {};
+    const { data: currentMapId } = useQueryCurrentMapId();
+    const { data } = useQueryMap(currentMapId);
+    const { background, map } = data || {};
     const queryClient = useQueryClient();
     const navigate = useMyNavigate();
     const gameProps = useGameProps();
@@ -63,11 +63,12 @@ export default function MapScreen() {
                         top: "0.1rem",
                         left: "50%",
                     }}
-                    onClick={() => {
-                        const newMap = RegisteredMaps.get(map.neighboringMaps.north!);
-                        newMap &&
-                            queryClient.setQueryData([INTERFACE_DATA_USE_QUEY_KEY, CURRENT_MAP_USE_QUEY_KEY], newMap);
-                    }}
+                    onClick={() =>
+                        queryClient.setQueryData(
+                            [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_MAP_USE_QUEY_KEY],
+                            map.neighboringMaps.north!,
+                        )
+                    }
                 >
                     <KeyboardDoubleArrowUpIcon />
                 </RoundIconButton>
@@ -80,11 +81,12 @@ export default function MapScreen() {
                         top: "50%",
                         left: "0.1rem",
                     }}
-                    onClick={() => {
-                        const newMap = RegisteredMaps.get(map.neighboringMaps.west!);
-                        newMap &&
-                            queryClient.setQueryData([INTERFACE_DATA_USE_QUEY_KEY, CURRENT_MAP_USE_QUEY_KEY], newMap);
-                    }}
+                    onClick={() =>
+                        queryClient.setQueryData(
+                            [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_MAP_USE_QUEY_KEY],
+                            map.neighboringMaps.west!,
+                        )
+                    }
                 >
                     <KeyboardDoubleArrowLeftIcon />
                 </RoundIconButton>
@@ -97,11 +99,12 @@ export default function MapScreen() {
                         bottom: "0.1rem",
                         left: "50%",
                     }}
-                    onClick={() => {
-                        const newMap = RegisteredMaps.get(map.neighboringMaps.south!);
-                        newMap &&
-                            queryClient.setQueryData([INTERFACE_DATA_USE_QUEY_KEY, CURRENT_MAP_USE_QUEY_KEY], newMap);
-                    }}
+                    onClick={() =>
+                        queryClient.setQueryData(
+                            [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_MAP_USE_QUEY_KEY],
+                            map.neighboringMaps.south!,
+                        )
+                    }
                 >
                     <KeyboardDoubleArrowDownIcon />
                 </RoundIconButton>
@@ -114,11 +117,12 @@ export default function MapScreen() {
                         top: "50%",
                         right: "0.1rem",
                     }}
-                    onClick={() => {
-                        const newMap = RegisteredMaps.get(map.neighboringMaps.east!);
-                        newMap &&
-                            queryClient.setQueryData([INTERFACE_DATA_USE_QUEY_KEY, CURRENT_MAP_USE_QUEY_KEY], newMap);
-                    }}
+                    onClick={() =>
+                        queryClient.setQueryData(
+                            [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_MAP_USE_QUEY_KEY],
+                            map.neighboringMaps.east!,
+                        )
+                    }
                 >
                     <KeyboardDoubleArrowRightIcon />
                 </RoundIconButton>

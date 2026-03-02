@@ -1,4 +1,4 @@
-import { navigator, QuestInterface, questsNotebook, RegisteredRooms, timeTracker } from "@drincs/nqtr";
+import { navigator, QuestInterface, questsNotebook, RegisteredMaps, RegisteredRooms, timeTracker } from "@drincs/nqtr";
 import { Assets, ImageSprite, storage } from "@drincs/pixi-vn";
 import { useQuery } from "@tanstack/react-query";
 import { useCallback } from "react";
@@ -150,14 +150,15 @@ export function useQuerySelectedQuest() {
     });
 }
 
-export const CURRENT_MAP_USE_QUEY_KEY = "current_map_use_quey_key";
-export function useQueryCurrentMap() {
+export const MAP_USE_QUEY_KEY = "map_use_quey_key";
+export function useQueryMap(id?: string) {
     const gameProps = useGameProps();
 
     return useQuery({
-        queryKey: [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_MAP_USE_QUEY_KEY],
+        queryKey: [INTERFACE_DATA_USE_QUEY_KEY, MAP_USE_QUEY_KEY, id],
         queryFn: async () => {
-            const map = navigator.currentMap;
+            if (!id) return undefined;
+            const map = RegisteredMaps.get(id);
             if (!map) return undefined;
 
             let background = await normalizePixiElement(map.background, gameProps);
@@ -171,5 +172,13 @@ export function useQueryCurrentMap() {
                 background: background,
             };
         },
+    });
+}
+
+export const CURRENT_MAP_USE_QUEY_KEY = "current_map_use_quey_key";
+export function useQueryCurrentMapId() {
+    return useQuery({
+        queryKey: [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_MAP_USE_QUEY_KEY],
+        queryFn: async () => navigator.currentMap?.id,
     });
 }
