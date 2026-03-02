@@ -1,6 +1,5 @@
 import { ContainerChild, StepLabelProps } from "@drincs/pixi-vn";
-import { ReactElement } from "react";
-import MultiTypeSprite from "./models/MultiTypeSprite";
+import { PixiUIProp, ReactUIProp } from "./models/nqtr/ui-elements";
 
 declare module "@drincs/nqtr" {
     interface OnRunProps extends StepLabelProps {}
@@ -20,11 +19,11 @@ declare module "@drincs/nqtr" {
         /**
          * The sprite of the activity.
          */
-        readonly sprite?: MultiTypeSprite;
+        readonly sprite?: PixiUIProp;
         /**
          * The React icon of the activity.
          */
-        readonly icon?: ReactElement | ((props: OnRunProps) => ReactElement);
+        readonly icon?: ReactUIProp;
     }
     interface CommitmentInterface {
         /**
@@ -34,15 +33,15 @@ declare module "@drincs/nqtr" {
         /**
          * The sprite of the commitment.
          */
-        readonly sprite?: MultiTypeSprite;
+        readonly sprite?: PixiUIProp;
         /**
          * The background of the commitment.
          */
-        readonly background?: MultiTypeSprite;
+        readonly background?: PixiUIProp;
         /**
          * The React icon of the commitment.
          */
-        readonly icon?: ReactElement | ((props: OnRunProps) => ReactElement);
+        readonly icon?: ReactUIProp;
         /**
          * Whether is disabled.
          */
@@ -83,7 +82,7 @@ declare module "@drincs/nqtr" {
         /**
          * The background of the map.
          */
-        readonly background: MultiTypeSprite;
+        readonly background: PixiUIProp;
         /**
          * Neighboring maps.
          */
@@ -116,7 +115,7 @@ declare module "@drincs/nqtr" {
         /**
          * The background of the room.
          */
-        readonly background: MultiTypeSprite;
+        readonly background: PixiUIProp;
         /**
          * Whether is disabled.
          */

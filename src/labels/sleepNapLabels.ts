@@ -1,7 +1,7 @@
 import { navigator } from "@drincs/nqtr";
 import { canvas, narration, newChoiceOption, newCloseChoiceOption, newLabel, showImage } from "@drincs/pixi-vn";
 import { BACKGROUND_ID } from "../constans";
-import { convertMultiTypeSprite } from "../utils/image-utility";
+import { normalizePixiElement } from "../utils/image-utility";
 
 const sleepHourLabel = newLabel<{
     hour: number;
@@ -25,7 +25,7 @@ export const sleepLabel = newLabel("SleepLabel", [
     async (props) => {
         const currentRoom = navigator.currentRoom;
         if (currentRoom) {
-            const bg = convertMultiTypeSprite(currentRoom.background, props);
+            const bg = await normalizePixiElement(currentRoom.background, props);
             if (typeof bg === "string") {
                 await showImage(BACKGROUND_ID, bg);
             } else {
@@ -46,7 +46,7 @@ export const napLabel = newLabel("NapLabel", [
     async (props) => {
         const currentRoom = navigator.currentRoom;
         if (currentRoom) {
-            const bg = convertMultiTypeSprite(currentRoom.background, props);
+            const bg = await normalizePixiElement(currentRoom.background, props);
             if (typeof bg === "string") {
                 await showImage(BACKGROUND_ID, bg);
             } else {

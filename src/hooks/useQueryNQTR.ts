@@ -3,6 +3,8 @@ import { Assets, storage } from "@drincs/pixi-vn";
 import { useQuery } from "@tanstack/react-query";
 import { SELECTED_QUEST_STORAGE_KEY } from "../constans";
 import TimeSlotsImage from "../models/TimeSlotsImage";
+import { normalizePixiElement } from "../utils/image-utility";
+import useGameProps from "./useGameProps";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "./useQueryInterface";
 
 function getRoomInfo(room: RoomInterface) {
@@ -133,8 +135,16 @@ export function useQuerySelectedQuest() {
 
 export const CURRENT_MAP_USE_QUEY_KEY = "current_map_use_quey_key";
 export function useQueryCurrentMap() {
+    const gameProps = useGameProps();
+
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_MAP_USE_QUEY_KEY],
-        queryFn: async () => navigator.currentMap,
+        queryFn: async () =>
+            navigator.currentMap
+                ? {
+                      ...navigator.currentMap,
+                      background: await normalizePixiElement(navigator.currentMap?.background, gameProps),
+                  }
+                : undefined,
     });
 }

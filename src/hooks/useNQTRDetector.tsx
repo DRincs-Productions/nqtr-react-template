@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { CANVAS_UI_LAYER_NAME } from "../constans";
 import { useQueryCurrentRoomId, useQueryRoom, useQueryTime } from "../hooks/useQueryNQTR";
 import useNqtrScreenStore from "../stores/useNqtrScreenStore";
-import { convertMultiTypeSprite } from "../utils/image-utility";
+import { normalizePixiElement } from "../utils/image-utility";
 import useGameProps from "./useGameProps";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "./useQueryInterface";
 
@@ -21,39 +21,42 @@ export default function useNQTRDetector() {
         const { background } = currentRoom || {};
         canvas.removeAll();
         if (background) {
-            let image = convertMultiTypeSprite(background, gameProps);
-            let layer = canvas.getLayer(CANVAS_UI_LAYER_NAME);
-            if (layer) {
-                if (typeof image === "string") {
-                    let sprite = new ImageSprite({}, image);
-                    sprite.load();
-                    image = sprite;
-                }
-                layer.addChild(image);
+            normalizePixiElement(background, gameProps).then((image) => {
+                let layer = canvas.getLayer(CANVAS_UI_LAYER_NAME);
+                if (layer) {
+                    if (typeof image === "string") {
+                        let sprite = new ImageSprite({}, image);
+                        sprite.load();
+                        image = sprite;
+                    }
+                    layer.addChild(image);
 
-                currentRoom?.activities.forEach(({ sprite }) => {
-                    if (sprite) {
-                        let icon = convertMultiTypeSprite(sprite, gameProps);
-                        if (typeof icon === "string") {
-                            let sprite = new ImageSprite({}, icon);
-                            sprite.load();
-                            icon = sprite;
+                    currentRoom?.activities.forEach(({ sprite }) => {
+                        if (sprite) {
+                            normalizePixiElement(sprite, gameProps).then((icon) => {
+                                if (typeof icon === "string") {
+                                    let sprite = new ImageSprite({}, icon);
+                                    sprite.load();
+                                    icon = sprite;
+                                }
+                                layer.addChild(icon);
+                            });
                         }
-                        layer.addChild(icon);
-                    }
-                });
-                currentRoom?.routine.forEach(({ sprite }) => {
-                    if (sprite) {
-                        let icon = convertMultiTypeSprite(sprite, gameProps);
-                        if (typeof icon === "string") {
-                            let sprite = new ImageSprite({}, icon);
-                            sprite.load();
-                            icon = sprite;
+                    });
+                    currentRoom?.routine.forEach(({ sprite }) => {
+                        if (sprite) {
+                            normalizePixiElement(sprite, gameProps).then((icon) => {
+                                if (typeof icon === "string") {
+                                    let sprite = new ImageSprite({}, icon);
+                                    sprite.load();
+                                    icon = sprite;
+                                }
+                                layer.addChild(icon);
+                            });
                         }
-                        layer.addChild(icon);
-                    }
-                });
-            }
+                    });
+                }
+            });
         }
 
         let automaticFunctions = navigator.currentRoom?.automaticFunctions || [];

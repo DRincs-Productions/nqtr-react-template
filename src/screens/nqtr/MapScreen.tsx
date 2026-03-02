@@ -15,7 +15,6 @@ import useMyNavigate from "../../hooks/useMyNavigate";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "../../hooks/useQueryInterface";
 import { CURRENT_MAP_USE_QUEY_KEY, useQueryCurrentMap } from "../../hooks/useQueryNQTR";
 import useInterfaceStore from "../../stores/useInterfaceStore";
-import { convertMultiTypeSprite } from "../../utils/image-utility";
 
 export default function MapScreen() {
     const { data: map } = useQueryCurrentMap();
@@ -27,7 +26,7 @@ export default function MapScreen() {
     useEffect(() => {
         editHideInterface(false);
         if (map) {
-            let background = convertMultiTypeSprite(map.background, gameProps);
+            let background = map.background;
             if (typeof background === "string") {
                 let sprite = new ImageSprite({}, background);
                 sprite.load();
