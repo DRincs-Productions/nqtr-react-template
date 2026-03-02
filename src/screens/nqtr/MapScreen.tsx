@@ -1,5 +1,5 @@
 import { RegisteredMaps } from "@drincs/nqtr";
-import { Assets, canvas, ImageSprite } from "@drincs/pixi-vn";
+import { Assets, canvas } from "@drincs/pixi-vn";
 import CloseIcon from "@mui/icons-material/Close";
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
@@ -17,7 +17,8 @@ import { CURRENT_MAP_USE_QUEY_KEY, useQueryCurrentMap } from "../../hooks/useQue
 import useInterfaceStore from "../../stores/useInterfaceStore";
 
 export default function MapScreen() {
-    const { data: map } = useQueryCurrentMap();
+    const { data } = useQueryCurrentMap();
+    const { map, background } = data || {};
     const queryClient = useQueryClient();
     const navigate = useMyNavigate();
     const gameProps = useGameProps();
@@ -25,16 +26,12 @@ export default function MapScreen() {
 
     useEffect(() => {
         editHideInterface(false);
-        if (map) {
-            let background = map.background;
-            if (typeof background === "string") {
-                let sprite = new ImageSprite({}, background);
-                sprite.load();
-                background = sprite;
-            }
-            let layer = canvas.getLayer(CANVAS_UI_LAYER_NAME);
-            if (layer) {
+        let layer = canvas.getLayer(CANVAS_UI_LAYER_NAME);
+        if (layer) {
+            if (background) {
                 layer.addChild(background);
+            }
+            if (map) {
                 map.locations.forEach((location) => {
                     const entrance = location.entrance;
                     entrance && Assets.backgroundLoadBundle(entrance.id);
@@ -44,12 +41,12 @@ export default function MapScreen() {
                     }
                     layer.addChild(sprite);
                 });
-            }
 
-            map.neighboringMaps.north && Assets.backgroundLoadBundle(map.neighboringMaps.north);
-            map.neighboringMaps.south && Assets.backgroundLoadBundle(map.neighboringMaps.south);
-            map.neighboringMaps.east && Assets.backgroundLoadBundle(map.neighboringMaps.east);
-            map.neighboringMaps.west && Assets.backgroundLoadBundle(map.neighboringMaps.west);
+                map.neighboringMaps.north && Assets.backgroundLoadBundle(map.neighboringMaps.north);
+                map.neighboringMaps.south && Assets.backgroundLoadBundle(map.neighboringMaps.south);
+                map.neighboringMaps.east && Assets.backgroundLoadBundle(map.neighboringMaps.east);
+                map.neighboringMaps.west && Assets.backgroundLoadBundle(map.neighboringMaps.west);
+            }
 
             return () => {
                 canvas.getLayer(CANVAS_UI_LAYER_NAME)?.removeChildren();

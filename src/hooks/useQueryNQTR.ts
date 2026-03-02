@@ -1,5 +1,5 @@
 import { navigator, QuestInterface, questsNotebook, RegisteredRooms, RoomInterface, timeTracker } from "@drincs/nqtr";
-import { Assets, storage } from "@drincs/pixi-vn";
+import { Assets, ImageSprite, storage } from "@drincs/pixi-vn";
 import { useQuery } from "@tanstack/react-query";
 import { SELECTED_QUEST_STORAGE_KEY } from "../constans";
 import TimeSlotsImage from "../models/TimeSlotsImage";
@@ -139,12 +139,19 @@ export function useQueryCurrentMap() {
 
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_MAP_USE_QUEY_KEY],
-        queryFn: async () =>
-            navigator.currentMap
-                ? {
-                      ...navigator.currentMap,
-                      background: await normalizePixiElement(navigator.currentMap?.background, gameProps),
-                  }
-                : undefined,
+        queryFn: async () => {
+            const map = navigator.currentMap;
+            if (!map) return undefined;
+            let background = await normalizePixiElement(map.background, gameProps);
+            if (typeof background === "string") {
+                let sprite = new ImageSprite({}, background);
+                sprite.load();
+                background = sprite;
+            }
+            return {
+                map: map,
+                background: background,
+            };
+        },
     });
 }
