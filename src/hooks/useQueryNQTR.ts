@@ -1,35 +1,10 @@
-import { navigator, QuestInterface, questsNotebook, RegisteredRooms, RoomInterface, timeTracker } from "@drincs/nqtr";
+import { navigator, QuestInterface, questsNotebook, RegisteredRooms, timeTracker } from "@drincs/nqtr";
 import { Assets, ImageSprite, storage } from "@drincs/pixi-vn";
 import { useQuery } from "@tanstack/react-query";
 import { SELECTED_QUEST_STORAGE_KEY } from "../constans";
-import TimeSlotsImage from "../models/TimeSlotsImage";
 import { normalizePixiElement } from "../utils/image-utility";
 import useGameProps from "./useGameProps";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "./useQueryInterface";
-
-function getRoomInfo(room: RoomInterface) {
-    const routine = room.routine;
-    let background = room.background;
-    let icon: string | TimeSlotsImage | undefined;
-    if (typeof background === "string" || background instanceof TimeSlotsImage) {
-        icon = background;
-    }
-
-    if (routine.length > 0 && routine[0].background) {
-        background = routine[0].background;
-    }
-
-    return {
-        id: room.id,
-        background: background,
-        icon: icon,
-        name: room.name,
-        disabled: room.disabled,
-        routine: routine,
-        activities: room.activities,
-        characters: room.characters,
-    };
-}
 
 const CURRENT_HOUR_USE_QUEY_KEY = "current_hour_use_quey_key";
 export function useQueryTime() {
@@ -41,10 +16,31 @@ export function useQueryTime() {
 
 export const ROOM_USE_QUEY_KEY = "room_use_quey_key";
 export function useQueryRoom(id?: string) {
-    const room = id ? RegisteredRooms.get(id) : undefined;
+    const gameProps = useGameProps();
+
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, ROOM_USE_QUEY_KEY, id],
-        queryFn: async () => (room ? getRoomInfo(room) : undefined),
+        queryFn: async () => {
+            if (!id) return undefined;
+            const room = RegisteredRooms.get(id);
+            if (!room) return undefined;
+
+            let background = await normalizePixiElement(room.background, gameProps);
+
+            let icon = typeof background === "string" ? background : undefined;
+
+            if (typeof background === "string") {
+                let sprite = new ImageSprite({}, background);
+                await sprite.load();
+                background = sprite;
+            }
+
+            return {
+                room,
+                background,
+                icon,
+            };
+        },
     });
 }
 
@@ -142,10 +138,11 @@ export function useQueryCurrentMap() {
         queryFn: async () => {
             const map = navigator.currentMap;
             if (!map) return undefined;
+
             let background = await normalizePixiElement(map.background, gameProps);
             if (typeof background === "string") {
                 let sprite = new ImageSprite({}, background);
-                sprite.load();
+                await sprite.load();
                 background = sprite;
             }
             return {

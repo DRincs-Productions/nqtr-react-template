@@ -7,7 +7,8 @@ import { useQueryCurrentRoomId, useQueryRoom } from "../../hooks/useQueryNQTR";
 
 export default function QuickActivities() {
     const { data: currentRoomId } = useQueryCurrentRoomId();
-    const { data: { activities = [], routine = [] } = {} } = useQueryRoom(currentRoomId);
+    const { data } = useQueryRoom(currentRoomId);
+    const { activities = [], routine = [] } = data?.room || {};
     const gameProps = useGameProps();
     const { uiTransition: t } = gameProps;
     const onClick = useMemo(
@@ -16,7 +17,7 @@ export default function QuickActivities() {
                 gameProps.invalidateInterfaceData();
             });
         },
-        [gameProps]
+        [gameProps],
     );
 
     return (

@@ -28,9 +28,8 @@ export default function MapScreen() {
         editHideInterface(false);
         let layer = canvas.getLayer(CANVAS_UI_LAYER_NAME);
         if (layer) {
-            if (background) {
-                layer.addChild(background);
-            }
+            if (background) layer.addChild(background);
+
             if (map) {
                 map.locations.forEach((location) => {
                     const entrance = location.entrance;
