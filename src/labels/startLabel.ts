@@ -7,9 +7,9 @@ import { mcRoom } from "../values/rooms";
 const startLabel = newLabel("start", [
     async (props) => {
         navigator.currentRoom = mcRoom;
+        timeTracker.currentTime = 8;
         await aliceQuest.start(props);
         await props.navigate(NAVIGATION_ROUTE);
-        timeTracker.currentTime = 8;
     },
 ]);
 export default startLabel;
