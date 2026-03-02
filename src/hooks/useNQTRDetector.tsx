@@ -1,18 +1,17 @@
 import { navigator } from "@drincs/nqtr";
-import { canvas, ImageSprite } from "@drincs/pixi-vn";
+import { canvas } from "@drincs/pixi-vn";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { CANVAS_UI_LAYER_NAME } from "../constans";
 import { useQueryCurrentRoomId, useQueryRoom, useQueryTime } from "../hooks/useQueryNQTR";
 import useNqtrScreenStore from "../stores/useNqtrScreenStore";
-import { normalizePixiElement } from "../utils/image-utility";
 import useGameProps from "./useGameProps";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "./useQueryInterface";
 
 export default function useNQTRDetector() {
     const { data: currentRoomId } = useQueryCurrentRoomId();
     const { data } = useQueryRoom(currentRoomId);
-    const { room: currentRoom, background } = data || {};
+    const { room: currentRoom, background, activities, routine } = data || {};
     const { data: hour } = useQueryTime();
     const gameProps = useGameProps();
     const queryClient = useQueryClient();
@@ -25,30 +24,8 @@ export default function useNQTRDetector() {
             if (layer) {
                 if (background) layer.addChild(background);
 
-                currentRoom?.activities.forEach(({ sprite }) => {
-                    if (sprite) {
-                        normalizePixiElement(sprite, gameProps).then((icon) => {
-                            if (typeof icon === "string") {
-                                let sprite = new ImageSprite({}, icon);
-                                sprite.load();
-                                icon = sprite;
-                            }
-                            layer.addChild(icon);
-                        });
-                    }
-                });
-                currentRoom?.routine.forEach(({ sprite }) => {
-                    if (sprite) {
-                        normalizePixiElement(sprite, gameProps).then((icon) => {
-                            if (typeof icon === "string") {
-                                let sprite = new ImageSprite({}, icon);
-                                sprite.load();
-                                icon = sprite;
-                            }
-                            layer.addChild(icon);
-                        });
-                    }
-                });
+                activities?.forEach((icon) => layer.addChild(icon));
+                routine?.forEach((icon) => layer.addChild(icon));
             }
         }
 

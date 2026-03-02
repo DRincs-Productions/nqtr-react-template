@@ -1,6 +1,7 @@
 import { navigator, QuestInterface, questsNotebook, RegisteredRooms, timeTracker } from "@drincs/nqtr";
 import { Assets, ImageSprite, storage } from "@drincs/pixi-vn";
 import { useQuery } from "@tanstack/react-query";
+import { useCallback } from "react";
 import { SELECTED_QUEST_STORAGE_KEY } from "../constans";
 import { normalizePixiElement } from "../utils/image-utility";
 import useGameProps from "./useGameProps";
@@ -17,6 +18,21 @@ export function useQueryTime() {
 export const ROOM_USE_QUEY_KEY = "room_use_quey_key";
 export function useQueryRoom(id?: string) {
     const gameProps = useGameProps();
+
+    const loadIcons = useCallback(async (items: Array<{ sprite?: any }>) => {
+        const promises = items.map(async ({ sprite }) => {
+            if (!sprite) return undefined;
+            let icon = await normalizePixiElement(sprite, gameProps);
+            if (typeof icon === "string") {
+                const s = new ImageSprite({}, icon);
+                await s.load();
+                return s;
+            }
+            return icon;
+        });
+        const results = await Promise.all(promises);
+        return results.filter((i) => i !== undefined) as any[];
+    }, []);
 
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, ROOM_USE_QUEY_KEY, id],
@@ -35,10 +51,15 @@ export function useQueryRoom(id?: string) {
                 background = sprite;
             }
 
+            const activities = await loadIcons(room.activities);
+            const routine = await loadIcons(room.routine);
+
             return {
                 room,
                 background,
                 icon,
+                activities,
+                routine,
             };
         },
     });
