@@ -15,7 +15,7 @@ export function useQueryTime() {
     });
 }
 
-export const ROOM_USE_QUEY_KEY = "room_use_quey_key";
+const ROOM_USE_QUEY_KEY = "room_use_quey_key";
 export function useQueryRoom(id?: string) {
     const gameProps = useGameProps();
 
@@ -150,7 +150,7 @@ export function useQuerySelectedQuest() {
     });
 }
 
-export const MAP_USE_QUEY_KEY = "map_use_quey_key";
+const MAP_USE_QUEY_KEY = "map_use_quey_key";
 export function useQueryMap(id?: string) {
     const gameProps = useGameProps();
 
