@@ -3,6 +3,7 @@ import { Assets, ImageSprite, storage } from "@drincs/pixi-vn";
 import { useQuery } from "@tanstack/react-query";
 import { useCallback } from "react";
 import { SELECTED_QUEST_STORAGE_KEY } from "../constans";
+import { PixiUIProp } from "../models/nqtr/ui-elements";
 import { normalizePixiElement } from "../utils/image-utility";
 import useGameProps from "./useGameProps";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "./useQueryInterface";
@@ -19,20 +20,23 @@ const ROOM_USE_QUEY_KEY = "room_use_quey_key";
 export function useQueryRoom(id?: string) {
     const gameProps = useGameProps();
 
-    const loadIcons = useCallback(async (items: Array<{ sprite?: any }>) => {
-        const promises = items.map(async ({ sprite }) => {
-            if (!sprite) return undefined;
-            let icon = await normalizePixiElement(sprite, gameProps);
-            if (typeof icon === "string") {
-                const s = new ImageSprite({}, icon);
-                await s.load();
-                return s;
-            }
-            return icon;
-        });
-        const results = await Promise.all(promises);
-        return results.filter((i) => i !== undefined) as any[];
-    }, []);
+    const loadIcons = useCallback(
+        async (items: Array<{ sprite?: PixiUIProp }>) => {
+            const promises = items.map(async ({ sprite }) => {
+                if (!sprite) return undefined;
+                let icon = await normalizePixiElement(sprite, gameProps);
+                if (typeof icon === "string") {
+                    const s = new ImageSprite({}, icon);
+                    await s.load();
+                    return s;
+                }
+                return icon;
+            });
+            const results = await Promise.all(promises);
+            return results.filter((i) => i !== undefined) as any[];
+        },
+        [gameProps],
+    );
 
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, ROOM_USE_QUEY_KEY, id],
@@ -154,6 +158,24 @@ const MAP_USE_QUEY_KEY = "map_use_quey_key";
 export function useQueryMap(id?: string) {
     const gameProps = useGameProps();
 
+    const loadIcons = useCallback(
+        async (items: Array<{ sprite?: PixiUIProp }>) => {
+            const promises = items.map(async ({ sprite }) => {
+                if (!sprite) return undefined;
+                let icon = await normalizePixiElement(sprite, gameProps);
+                if (typeof icon === "string") {
+                    const s = new ImageSprite({}, icon);
+                    await s.load();
+                    return s;
+                }
+                return icon;
+            });
+            const results = await Promise.all(promises);
+            return results.filter((i) => i !== undefined) as any[];
+        },
+        [gameProps],
+    );
+
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, MAP_USE_QUEY_KEY, id],
         queryFn: async () => {
@@ -167,9 +189,18 @@ export function useQueryMap(id?: string) {
                 await sprite.load();
                 background = sprite;
             }
+
+            const locations = await loadIcons(map.locations);
+
+            map.neighboringMaps.north && Assets.backgroundLoadBundle(map.neighboringMaps.north);
+            map.neighboringMaps.south && Assets.backgroundLoadBundle(map.neighboringMaps.south);
+            map.neighboringMaps.east && Assets.backgroundLoadBundle(map.neighboringMaps.east);
+            map.neighboringMaps.west && Assets.backgroundLoadBundle(map.neighboringMaps.west);
+
             return {
                 map: map,
                 background: background,
+                locations,
             };
         },
     });
