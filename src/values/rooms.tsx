@@ -4,14 +4,15 @@ import Room from "../models/nqtr/Room";
 import { bed } from "./activities";
 import { gym, mcHome, school } from "./locations";
 
+export const mcRoomBackground = new TimeSlotsImage({
+    morning: "location_myroom-0",
+    afternoon: "location_myroom-1",
+    evening: "location_myroom-2",
+    night: "location_myroom-3",
+});
 export const mcRoom = new Room("mc_room", mcHome, {
     name: "MC room",
-    background: new TimeSlotsImage({
-        morning: "location_myroom-0",
-        afternoon: "location_myroom-1",
-        evening: "location_myroom-2",
-        night: "location_myroom-3",
-    }),
+    background: mcRoomBackground,
     activities: [bed],
 });
 
