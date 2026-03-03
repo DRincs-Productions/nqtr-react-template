@@ -1,4 +1,4 @@
-import { ContainerChild, StepLabelProps } from "@drincs/pixi-vn";
+import { StepLabelProps } from "@drincs/pixi-vn";
 import { PixiUIProp, ReactUIProp } from "./models/nqtr/ui-elements";
 
 declare module "@drincs/nqtr" {
@@ -68,7 +68,7 @@ declare module "@drincs/nqtr" {
         /**
          * The sprite of the location.
          */
-        readonly sprite: ContainerChild | ((props: OnRunProps) => ContainerChild);
+        readonly sprite: PixiUIProp;
         /**
          * The entrance room of the location.
          */

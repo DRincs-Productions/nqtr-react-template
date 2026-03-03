@@ -1,5 +1,5 @@
 import { OnRunProps } from "@drincs/nqtr";
-import { ContainerChild } from "@drincs/pixi-vn";
+import { ContainerChild } from "@drincs/pixi-vn/pixi.js";
 import { ReactElement } from "react";
 import TimeSlotsImage from "../TimeSlotsImage";
 
