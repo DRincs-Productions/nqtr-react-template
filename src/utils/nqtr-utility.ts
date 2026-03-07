@@ -1,6 +1,5 @@
-import { routine, timeTracker } from "@drincs/nqtr";
+import { timeTracker } from "@drincs/nqtr";
 import { timeSlots } from "../constans";
-import { fixedRoutine } from "../values/routine";
 
 const weekDaysNames = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
 export function initializeNQTR() {
@@ -20,6 +19,4 @@ export function initializeNQTR() {
         weekendStartDay: 6,
         weekLength: 7,
     });
-
-    routine.fixedRoutine = fixedRoutine;
 }
