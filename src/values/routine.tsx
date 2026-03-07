@@ -7,9 +7,8 @@ import { TALK_SLEEP_LABEL_KEY } from "../labels/variousActionsLabelKeys";
 import { aliceTalkMenuLabel } from "../labels/variousActionsLabels";
 import Commitment from "../models/nqtr/Commitment";
 import { alice } from "./characters";
-import { aliceRoom, classRoom, terrace } from "./rooms";
 
-const aliceSleep = new Commitment("alice_sleep", alice, aliceRoom, {
+export const aliceSleep = new Commitment("alice_sleep", alice, {
     priority: 1,
     timeSlot: {
         from: 20,
@@ -43,7 +42,7 @@ const aliceSleep = new Commitment("alice_sleep", alice, aliceRoom, {
     },
 });
 
-const aliceGoSchool = new Commitment("alice_go_school", alice, classRoom, {
+export const aliceGoSchool = new Commitment("alice_go_school", alice, {
     timeSlot: {
         from: 8,
         to: 14,
@@ -52,7 +51,7 @@ const aliceGoSchool = new Commitment("alice_go_school", alice, classRoom, {
     priority: 2,
 });
 
-const aliceSmokes = new Commitment("alice_smokes", alice, terrace, {
+export const aliceSmokes = new Commitment("alice_smokes", alice, {
     timeSlot: {
         from: 10,
         to: 20,
@@ -85,6 +84,4 @@ const aliceSmokes = new Commitment("alice_smokes", alice, terrace, {
     },
 });
 
-export const fixedRoutine = [aliceSleep, aliceGoSchool, aliceSmokes];
-
-RegisteredCommitments.add(fixedRoutine);
+RegisteredCommitments.add([aliceSleep, aliceGoSchool, aliceSmokes]);
