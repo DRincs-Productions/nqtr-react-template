@@ -1,4 +1,11 @@
-import { ActivityInterface, LocationInterface, OnRunProps, RoomInterface, RoomStoredClass } from "@drincs/nqtr";
+import {
+    ActivityInterface,
+    CommitmentInterface,
+    LocationInterface,
+    OnRunProps,
+    RoomInterface,
+    RoomStoredClass,
+} from "@drincs/nqtr";
 import { PixiUIParam, PixiUIProp } from "./ui-elements";
 
 export default class Room extends RoomStoredClass implements RoomInterface {
@@ -11,10 +18,14 @@ export default class Room extends RoomStoredClass implements RoomInterface {
             hidden?: boolean | (() => boolean);
             background: PixiUIParam<Room>;
             activities?: ActivityInterface[];
+            routine?: CommitmentInterface[];
             isEntrance?: boolean;
         },
     ) {
-        super(id, location, props.activities);
+        super(id, location, {
+            activities: props.activities || [],
+            routine: props.routine || [],
+        });
         this.name = props.name;
         this._defaultDisabled = props.disabled || false;
         this._defaultHidden = props.hidden || false;

@@ -1,4 +1,11 @@
-import { ActivityInterface, ActivityStoredClass, ActivityStoredClassProps, OnRunEvent, OnRunProps } from "@drincs/nqtr";
+import {
+    ActiveScheduling,
+    ActivityInterface,
+    ActivityStoredClass,
+    ActivityStoredClassProps,
+    OnRunEvent,
+    OnRunProps,
+} from "@drincs/nqtr";
 import { PixiUIParam, PixiUIProp, ReactUIParam, ReactUIProp } from "./ui-elements";
 
 export default class Activity extends ActivityStoredClass implements ActivityInterface {
@@ -59,10 +66,10 @@ export default class Activity extends ActivityStoredClass implements ActivityInt
     set hidden(value: boolean) {
         this.setStorageProperty("hidden", value);
     }
-    override get isActive(): boolean {
+    override isActive(options?: ActiveScheduling): boolean {
         if (this.hidden) {
             return false;
         }
-        return super.isActive;
+        return super.isActive(options);
     }
 }

@@ -1,10 +1,10 @@
 import {
+    ActiveScheduling,
     CommitmentInterface,
     CommitmentStoredClass,
     CommitmentStoredClassProps,
     OnRunEvent,
     OnRunProps,
-    RoomInterface,
 } from "@drincs/nqtr";
 import { CharacterInterface } from "@drincs/pixi-vn";
 import { PixiUIParam, PixiUIProp, ReactUIParam, ReactUIProp } from "./ui-elements";
@@ -13,7 +13,6 @@ export default class Commitment extends CommitmentStoredClass implements Commitm
     constructor(
         id: string,
         characters: CharacterInterface | CharacterInterface[],
-        room: RoomInterface,
         props: {
             name?: string;
             image?: PixiUIParam<Commitment>;
@@ -25,7 +24,7 @@ export default class Commitment extends CommitmentStoredClass implements Commitm
         } & CommitmentStoredClassProps,
     ) {
         characters = Array.isArray(characters) ? characters : [characters];
-        super(id, characters, room, props.onRun, props);
+        super(id, characters, props.onRun, props);
         this.name = props.name || "";
         this._image = props.image;
         this._background = props.background;
@@ -80,10 +79,10 @@ export default class Commitment extends CommitmentStoredClass implements Commitm
     set hidden(value: boolean) {
         this.setStorageProperty("hidden", value);
     }
-    override get isActive(): boolean {
+    override isActive(options?: ActiveScheduling): boolean {
         if (this.hidden) {
             return false;
         }
-        return super.isActive;
+        return super.isActive(options);
     }
 }
