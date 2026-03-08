@@ -33,7 +33,7 @@ export function useQueryRoom(id?: string) {
                 return icon;
             });
             const results = await Promise.all(promises);
-            return results.filter((i) => i !== undefined) as any[];
+            return results.filter((i) => i !== undefined);
         },
         [gameProps],
     );
@@ -45,7 +45,9 @@ export function useQueryRoom(id?: string) {
             const room = RegisteredRooms.get(id);
             if (!room) return undefined;
 
-            let background = await normalizePixiElement(room.background, gameProps);
+            const routine = room.routine;
+            const routineBackground = room.routine.find((c) => c.background)?.background;
+            let background = await normalizePixiElement(routineBackground || room.background, gameProps);
 
             let icon = typeof background === "string" ? background : undefined;
 
@@ -55,15 +57,15 @@ export function useQueryRoom(id?: string) {
                 background = sprite;
             }
 
-            const activities = await loadIcons(room.activities);
-            const routine = await loadIcons(room.routine);
+            const activitiesIcons = await loadIcons(room.activities);
+            const routineIcons = await loadIcons(routine);
 
             return {
                 room,
                 background,
                 icon,
-                activities,
-                routine,
+                activities: activitiesIcons,
+                routine: routineIcons,
             };
         },
     });
@@ -171,7 +173,7 @@ export function useQueryMap(id?: string) {
                 return icon;
             });
             const results = await Promise.all(promises);
-            return results.filter((i) => i !== undefined) as any[];
+            return results.filter((i) => i !== undefined);
         },
         [gameProps],
     );

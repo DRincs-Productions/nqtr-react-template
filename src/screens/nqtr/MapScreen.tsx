@@ -28,7 +28,7 @@ export default function MapScreen() {
         if (layer) {
             if (background) layer.addChild(background);
 
-            locations?.forEach((location) => layer.addChild(location.icon));
+            locations?.forEach((location) => layer.addChild(location));
         }
 
         return () => {
