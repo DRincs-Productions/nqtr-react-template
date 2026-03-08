@@ -3,6 +3,7 @@ import TimeSlotsImage from "../models/TimeSlotsImage";
 import Room from "../models/nqtr/Room";
 import { bed } from "./activities";
 import { gym, mcHome, school } from "./locations";
+import { aliceGoSchool, aliceSleep, aliceSmokes } from "./routine";
 
 export const mcRoomBackground = new TimeSlotsImage({
     morning: "location_myroom-0",
@@ -24,6 +25,7 @@ export const aliceRoom = new Room("alice_room", mcHome, {
         evening: "location_aliceroom-2",
         night: "location_aliceroom-3",
     }),
+    routine: [aliceSleep],
 });
 
 export const annRoom = new Room("ann_room", mcHome, {
@@ -60,6 +62,7 @@ export const terrace = new Room("terrace", mcHome, {
         evening: "location_terrace-2",
         night: "location_terrace-3",
     }),
+    routine: [aliceSmokes],
 });
 
 export const gymRoom = new Room("gym_room", gym, {
@@ -70,6 +73,7 @@ export const gymRoom = new Room("gym_room", gym, {
 export const classRoom = new Room("class_room", school, {
     name: "School",
     background: "",
+    routine: [aliceGoSchool],
 });
 
 RegisteredRooms.add([mcRoom, aliceRoom, annRoom, bathroom, lounge, terrace, gymRoom, classRoom]);
