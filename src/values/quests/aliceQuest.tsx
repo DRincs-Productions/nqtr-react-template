@@ -16,7 +16,7 @@ export const aliceQuest = new Quest(
         // stages
         new Stage("talk_alice1", {
             onStart: () => {
-                routine.add(aliceQuest_talk);
+                terrace.addCommitment(aliceQuest_talk);
             },
             name: "Talk to Alice",
             description: "Talk to Alice on the terrace",
@@ -60,7 +60,7 @@ export const aliceQuest = new Quest(
 
 RegisteredQuests.add(aliceQuest);
 
-const aliceQuest_talk = new Commitment("alice_quest_talk", alice, terrace, {
+const aliceQuest_talk = new Commitment("alice_quest_talk", alice, {
     timeSlot: {
         from: 10,
         to: 20,
