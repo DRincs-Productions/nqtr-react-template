@@ -91,7 +91,7 @@ export const takeProduct = new Activity(
                     disabled={activity.disabled}
                     onClick={() => {
                         activity.run(props).then(() => {
-                            props.invalidateInterfaceData();
+                            props.invalidateInterfaceData(200);
                         });
                     }}
                     ariaLabel={props.uiTransition(activity.name)}
