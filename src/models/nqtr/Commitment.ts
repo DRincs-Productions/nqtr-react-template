@@ -3,6 +3,7 @@ import {
     CommitmentInterface,
     CommitmentStoredClass,
     CommitmentStoredClassProps,
+    OnRunAsyncFunction,
     OnRunEvent,
     OnRunProps,
 } from "@drincs/nqtr";
@@ -84,5 +85,11 @@ export default class Commitment extends CommitmentStoredClass implements Commitm
             return false;
         }
         return super.isActive(options);
+    }
+    override get run(): OnRunAsyncFunction {
+        return async (runProps: OnRunProps) => {
+            await runProps.invalidateInterfaceData(200);
+            return await super.run(runProps);
+        };
     }
 }

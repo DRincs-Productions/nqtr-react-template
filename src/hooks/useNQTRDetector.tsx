@@ -31,7 +31,6 @@ export default function useNQTRDetector() {
             let automaticFunction = automaticFunctions[0];
             setDisable(true);
             automaticFunction(gameProps).finally(() => {
-                gameProps.invalidateInterfaceData();
                 setDisable(false);
             });
         }

@@ -7,6 +7,7 @@ import {
     OnRunProps,
 } from "@drincs/nqtr";
 import { PixiUIParam, PixiUIProp, ReactUIParam, ReactUIProp } from "./ui-elements";
+import { OnRunAsyncFunction } from "@drincs/nqtr";
 
 export default class Activity extends ActivityStoredClass implements ActivityInterface {
     constructor(
@@ -71,5 +72,11 @@ export default class Activity extends ActivityStoredClass implements ActivityInt
             return false;
         }
         return super.isActive(options);
+    }
+    override get run(): OnRunAsyncFunction {
+        return async (runProps: OnRunProps) => {
+            await runProps.invalidateInterfaceData(200);
+            return await super.run(runProps);
+        };
     }
 }

@@ -26,9 +26,7 @@ export const bed = new Activity(
                 <NqtrRoundIconButton
                     disabled={activity.disabled}
                     onClick={() => {
-                        activity.run(props).then(() => {
-                            props.invalidateInterfaceData();
-                        });
+                        activity.run(props);
                     }}
                     ariaLabel={props.uiTransition(activity.name)}
                     variant='solid'
@@ -58,9 +56,7 @@ export const orderProduct = new Activity(
                 <NqtrRoundIconButton
                     disabled={activity.disabled}
                     onClick={() => {
-                        activity.run(props).then(() => {
-                            props.invalidateInterfaceData();
-                        });
+                        activity.run(props);
                     }}
                     ariaLabel={props.uiTransition(activity.name)}
                     variant='solid'
@@ -90,9 +86,7 @@ export const takeProduct = new Activity(
                 <NqtrRoundIconButton
                     disabled={activity.disabled}
                     onClick={() => {
-                        activity.run(props).then(() => {
-                            props.invalidateInterfaceData(200);
-                        });
+                        activity.run(props);
                     }}
                     ariaLabel={props.uiTransition(activity.name)}
                     variant='solid'
