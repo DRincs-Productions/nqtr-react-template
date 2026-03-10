@@ -1,6 +1,13 @@
-import { ActivityInterface, ActivityStoredClass, ActivityStoredClassProps, OnRunEvent, OnRunProps } from "@drincs/nqtr";
-import { ReactElement } from "react";
-import MultiTypeSprite, { MultiTypeSpriteProp } from "../MultiTypeSprite";
+import {
+    ActiveScheduling,
+    ActivityInterface,
+    ActivityStoredClass,
+    ActivityStoredClassProps,
+    OnRunEvent,
+    OnRunProps,
+} from "@drincs/nqtr";
+import { PixiUIParam, PixiUIProp, ReactUIParam, ReactUIProp } from "./ui-elements";
+import { OnRunAsyncFunction } from "@drincs/nqtr";
 
 export default class Activity extends ActivityStoredClass implements ActivityInterface {
     constructor(
@@ -8,11 +15,11 @@ export default class Activity extends ActivityStoredClass implements ActivityInt
         onRun: OnRunEvent<ActivityInterface>,
         props: {
             name?: string;
-            sprite?: MultiTypeSpriteProp<Activity>;
-            icon?: ReactElement | ((props: Activity, runProps: OnRunProps) => ReactElement);
+            sprite?: PixiUIParam<Activity>;
+            icon?: ReactUIParam<Activity>;
             disabled?: boolean | (() => boolean);
             hidden?: boolean | (() => boolean);
-        } & ActivityStoredClassProps
+        } & ActivityStoredClassProps,
     ) {
         super(id, onRun, props);
         this.name = props.name || "";
@@ -22,16 +29,16 @@ export default class Activity extends ActivityStoredClass implements ActivityInt
         this._defaultHidden = props.hidden || false;
     }
     readonly name: string;
-    private readonly _sprite?: MultiTypeSpriteProp<Activity>;
-    get sprite(): MultiTypeSprite | undefined {
+    private readonly _sprite?: PixiUIParam<Activity>;
+    get sprite(): PixiUIProp | undefined {
         const sprite = this._sprite;
         if (typeof sprite === "function") {
             return (runProps: OnRunProps) => sprite(this, runProps);
         }
         return sprite;
     }
-    private readonly _icon?: ReactElement | ((props: Activity, runProps: OnRunProps) => ReactElement);
-    get icon(): ReactElement | ((props: OnRunProps) => ReactElement) | undefined {
+    private readonly _icon?: ReactUIParam<Activity>;
+    get icon(): ReactUIProp | undefined {
         const icon = this._icon;
         if (typeof icon === "function") {
             return (runProps: OnRunProps) => icon(this, runProps);
@@ -60,10 +67,16 @@ export default class Activity extends ActivityStoredClass implements ActivityInt
     set hidden(value: boolean) {
         this.setStorageProperty("hidden", value);
     }
-    override get isActive(): boolean {
+    override isActive(options?: ActiveScheduling): boolean {
         if (this.hidden) {
             return false;
         }
-        return super.isActive;
+        return super.isActive(options);
+    }
+    override get run(): OnRunAsyncFunction {
+        return async (runProps: OnRunProps) => {
+            await runProps.invalidateInterfaceData(200);
+            return await super.run(runProps);
+        };
     }
 }

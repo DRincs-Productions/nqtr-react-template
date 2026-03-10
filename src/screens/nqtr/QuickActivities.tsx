@@ -1,5 +1,3 @@
-import { OnRunAsyncFunction } from "@drincs/nqtr";
-import { useMemo } from "react";
 import { NqtrRoundIconButtonConvertor } from "../../components/NqtrRoundIconButton.tsx";
 import StackOverflow from "../../components/StackOverflow.tsx";
 import useGameProps from "../../hooks/useGameProps.ts";
@@ -7,17 +5,10 @@ import { useQueryCurrentRoomId, useQueryRoom } from "../../hooks/useQueryNQTR";
 
 export default function QuickActivities() {
     const { data: currentRoomId } = useQueryCurrentRoomId();
-    const { data: { activities = [], routine = [] } = {} } = useQueryRoom(currentRoomId);
+    const { data } = useQueryRoom(currentRoomId);
+    const { activities = [], routine = [] } = data?.room || {};
     const gameProps = useGameProps();
     const { uiTransition: t } = gameProps;
-    const onClick = useMemo(
-        () => async (run: OnRunAsyncFunction) => {
-            run(gameProps).then(() => {
-                gameProps.invalidateInterfaceData();
-            });
-        },
-        [gameProps]
-    );
 
     return (
         <StackOverflow
@@ -38,7 +29,7 @@ export default function QuickActivities() {
                 <NqtrRoundIconButtonConvertor
                     key={`activity-${index}-${item.id}`}
                     disabled={item.disabled}
-                    onClick={() => onClick(item.run)}
+                    onClick={() => item.run(gameProps)}
                     ariaLabel={t(item.name)}
                     image={item.icon}
                 />
@@ -47,7 +38,7 @@ export default function QuickActivities() {
                 <NqtrRoundIconButtonConvertor
                     key={`commitment-${index}-${item.id}`}
                     disabled={item.disabled}
-                    onClick={() => onClick(item.run)}
+                    onClick={() => item.run(gameProps)}
                     ariaLabel={t(item.name)}
                     image={item.icon}
                 />

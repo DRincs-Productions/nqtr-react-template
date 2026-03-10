@@ -41,7 +41,8 @@ function QuickRoom({ roomId }: { roomId: string }) {
     const queryClient = useQueryClient();
     const { data } = useQueryRoom(roomId);
     const { data: currentRoomId } = useQueryCurrentRoomId();
-    const { disabled, icon, name, characters } = data || {};
+    const { room, icon } = data || {};
+    const { disabled, name, characters } = room || {};
     const selected = useMemo(() => currentRoomId === roomId, [currentRoomId, roomId]);
 
     return (

@@ -6,7 +6,7 @@ import {
     OnRunProps,
     RoomInterface,
 } from "@drincs/nqtr";
-import { ContainerChild } from "@drincs/pixi-vn";
+import { PixiUIParam, PixiUIProp } from "./ui-elements";
 
 export default class Location extends LocationStoredClass implements LocationInterface {
     constructor(
@@ -17,8 +17,8 @@ export default class Location extends LocationStoredClass implements LocationInt
             name: string;
             disabled?: boolean | (() => boolean);
             hidden?: boolean | (() => boolean);
-            sprite: ContainerChild | ((props: Location, runProps: OnRunProps) => ContainerChild);
-        }
+            sprite: PixiUIParam<Location>;
+        },
     ) {
         super(id, map, props.activities);
         this.name = props.name;
@@ -27,8 +27,8 @@ export default class Location extends LocationStoredClass implements LocationInt
         this._sprite = props.sprite;
     }
     readonly name: string;
-    private readonly _sprite: ContainerChild | ((props: Location, runProps: OnRunProps) => ContainerChild);
-    get sprite(): ContainerChild | ((props: OnRunProps) => ContainerChild) {
+    private readonly _sprite: PixiUIParam<Location>;
+    get sprite(): PixiUIProp {
         let sprite = this._sprite;
         if (typeof sprite === "function") {
             return (runProps: OnRunProps) => sprite(this, runProps);
