@@ -1,32 +1,31 @@
 import {
+    ActiveScheduling,
     CommitmentInterface,
     CommitmentStoredClass,
     CommitmentStoredClassProps,
+    OnRunAsyncFunction,
     OnRunEvent,
     OnRunProps,
-    RoomInterface,
 } from "@drincs/nqtr";
 import { CharacterInterface } from "@drincs/pixi-vn";
-import { ReactElement } from "react";
-import MultiTypeSprite, { MultiTypeSpriteProp } from "../MultiTypeSprite";
+import { PixiUIParam, PixiUIProp, ReactUIParam, ReactUIProp } from "./ui-elements";
 
 export default class Commitment extends CommitmentStoredClass implements CommitmentInterface {
     constructor(
         id: string,
         characters: CharacterInterface | CharacterInterface[],
-        room: RoomInterface,
         props: {
             name?: string;
-            image?: MultiTypeSpriteProp<Commitment>;
-            background?: MultiTypeSpriteProp<Commitment>;
-            icon?: ReactElement | ((props: Commitment, runProps: OnRunProps) => ReactElement);
+            image?: PixiUIParam<Commitment>;
+            background?: PixiUIParam<Commitment>;
+            icon?: ReactUIParam<Commitment>;
             onRun?: OnRunEvent<CommitmentInterface>;
             disabled?: boolean | (() => boolean);
             hidden?: boolean | (() => boolean);
-        } & CommitmentStoredClassProps
+        } & CommitmentStoredClassProps,
     ) {
         characters = Array.isArray(characters) ? characters : [characters];
-        super(id, characters, room, props.onRun, props);
+        super(id, characters, props.onRun, props);
         this.name = props.name || "";
         this._image = props.image;
         this._background = props.background;
@@ -35,24 +34,24 @@ export default class Commitment extends CommitmentStoredClass implements Commitm
         this._defaultHidden = props.hidden || false;
     }
     readonly name: string;
-    private readonly _image?: MultiTypeSpriteProp<Commitment>;
-    get sprite(): MultiTypeSprite | undefined {
+    private readonly _image?: PixiUIParam<Commitment>;
+    get sprite(): PixiUIProp | undefined {
         const image = this._image;
         if (typeof image === "function") {
             return (runProps: OnRunProps) => image(this, runProps);
         }
         return image;
     }
-    private readonly _background?: MultiTypeSpriteProp<Commitment>;
-    get background(): MultiTypeSprite | undefined {
+    private readonly _background?: PixiUIParam<Commitment>;
+    get background(): PixiUIProp | undefined {
         const background = this._background;
         if (typeof background === "function") {
             return (runProps: OnRunProps) => background(this, runProps);
         }
         return background;
     }
-    private readonly _icon?: ReactElement | ((props: Commitment, runProps: OnRunProps) => ReactElement);
-    get icon(): ReactElement | ((props: OnRunProps) => ReactElement) | undefined {
+    private readonly _icon?: ReactUIParam<Commitment>;
+    get icon(): ReactUIProp | undefined {
         const icon = this._icon;
         if (typeof icon === "function") {
             return (runProps: OnRunProps) => icon(this, runProps);
@@ -81,10 +80,16 @@ export default class Commitment extends CommitmentStoredClass implements Commitm
     set hidden(value: boolean) {
         this.setStorageProperty("hidden", value);
     }
-    override get isActive(): boolean {
+    override isActive(options?: ActiveScheduling): boolean {
         if (this.hidden) {
             return false;
         }
-        return super.isActive;
+        return super.isActive(options);
+    }
+    override get run(): OnRunAsyncFunction {
+        return async (runProps: OnRunProps) => {
+            await runProps.invalidateInterfaceData(200);
+            return await super.run(runProps);
+        };
     }
 }

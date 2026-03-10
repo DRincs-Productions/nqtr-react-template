@@ -1,11 +1,10 @@
 import { timeTracker } from "@drincs/nqtr";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { Stack, Typography, useTheme } from "@mui/joy";
-import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { useShallow } from "zustand/react/shallow";
 import RoundIconButton from "../../components/RoundIconButton";
-import { INTERFACE_DATA_USE_QUEY_KEY } from "../../hooks/useQueryInterface";
+import useGameProps from "../../hooks/useGameProps";
 import { useQueryTime } from "../../hooks/useQueryNQTR";
 import useTimeTracker from "../../hooks/useTimeTracker";
 import useInterfaceStore from "../../stores/useInterfaceStore";
@@ -15,7 +14,7 @@ export default function TimeScreen() {
     const { t } = useTranslation(["ui"]);
     const { wait } = useTimeTracker();
     const { data: hour = 0 } = useQueryTime();
-    const queryClient = useQueryClient();
+    const gameProps = useGameProps();
     const disabled = useNqtrScreenStore((state) => state.disabled);
     const hidden = useInterfaceStore(useShallow((state) => state.hidden));
 
@@ -66,7 +65,7 @@ export default function TimeScreen() {
                     }}
                     onClick={() => {
                         wait(1);
-                        queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] });
+                        gameProps.invalidateInterfaceData();
                     }}
                     elevation='sm'
                     disabled={disabled}
