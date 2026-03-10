@@ -1,33 +1,12 @@
-import { navigator, QuestInterface, questsNotebook, RegisteredRooms, RoomInterface, timeTracker } from "@drincs/nqtr";
-import { Assets, storage } from "@drincs/pixi-vn";
+import { navigator, QuestInterface, questsNotebook, RegisteredMaps, RegisteredRooms, timeTracker } from "@drincs/nqtr";
+import { Assets, ImageSprite, storage } from "@drincs/pixi-vn";
 import { useQuery } from "@tanstack/react-query";
+import { useCallback } from "react";
 import { SELECTED_QUEST_STORAGE_KEY } from "../constans";
-import TimeSlotsImage from "../models/TimeSlotsImage";
+import { PixiUIProp } from "../models/nqtr/ui-elements";
+import { normalizePixiElement } from "../utils/image-utility";
+import useGameProps from "./useGameProps";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "./useQueryInterface";
-
-function getRoomInfo(room: RoomInterface) {
-    const routine = room.routine;
-    let background = room.background;
-    let icon: string | TimeSlotsImage | undefined;
-    if (typeof background === "string" || background instanceof TimeSlotsImage) {
-        icon = background;
-    }
-
-    if (routine.length > 0 && routine[0].background) {
-        background = routine[0].background;
-    }
-
-    return {
-        id: room.id,
-        background: background,
-        icon: icon,
-        name: room.name,
-        disabled: room.disabled,
-        routine: routine,
-        activities: room.activities,
-        characters: room.characters,
-    };
-}
 
 const CURRENT_HOUR_USE_QUEY_KEY = "current_hour_use_quey_key";
 export function useQueryTime() {
@@ -37,12 +16,58 @@ export function useQueryTime() {
     });
 }
 
-export const ROOM_USE_QUEY_KEY = "room_use_quey_key";
+const ROOM_USE_QUEY_KEY = "room_use_quey_key";
 export function useQueryRoom(id?: string) {
-    const room = id ? RegisteredRooms.get(id) : undefined;
+    const gameProps = useGameProps();
+
+    const loadIcons = useCallback(
+        async (items: Array<{ sprite?: PixiUIProp }>) => {
+            const promises = items.map(async ({ sprite }) => {
+                if (!sprite) return undefined;
+                let icon = await normalizePixiElement(sprite, gameProps);
+                if (typeof icon === "string") {
+                    const s = new ImageSprite({}, icon);
+                    await s.load();
+                    return s;
+                }
+                return icon;
+            });
+            const results = await Promise.all(promises);
+            return results.filter((i) => i !== undefined);
+        },
+        [gameProps],
+    );
+
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, ROOM_USE_QUEY_KEY, id],
-        queryFn: async () => (room ? getRoomInfo(room) : undefined),
+        queryFn: async () => {
+            if (!id) return undefined;
+            const room = RegisteredRooms.get(id);
+            if (!room) return undefined;
+
+            const routine = room.routine;
+            const routineBackground = room.routine.find((c) => c.background)?.background;
+            let background = await normalizePixiElement(routineBackground || room.background, gameProps);
+
+            let icon = typeof background === "string" ? background : undefined;
+
+            if (typeof background === "string") {
+                let sprite = new ImageSprite({}, background);
+                await sprite.load();
+                background = sprite;
+            }
+
+            const activitiesIcons = await loadIcons(room.activities);
+            const routineIcons = await loadIcons(routine);
+
+            return {
+                room,
+                background,
+                icon,
+                activities: activitiesIcons,
+                routine: routineIcons,
+            };
+        },
     });
 }
 
@@ -131,10 +156,62 @@ export function useQuerySelectedQuest() {
     });
 }
 
+const MAP_USE_QUEY_KEY = "map_use_quey_key";
+export function useQueryMap(id?: string) {
+    const gameProps = useGameProps();
+
+    const loadIcons = useCallback(
+        async (items: Array<{ sprite?: PixiUIProp }>) => {
+            const promises = items.map(async ({ sprite }) => {
+                if (!sprite) return undefined;
+                let icon = await normalizePixiElement(sprite, gameProps);
+                if (typeof icon === "string") {
+                    const s = new ImageSprite({}, icon);
+                    await s.load();
+                    return s;
+                }
+                return icon;
+            });
+            const results = await Promise.all(promises);
+            return results.filter((i) => i !== undefined);
+        },
+        [gameProps],
+    );
+
+    return useQuery({
+        queryKey: [INTERFACE_DATA_USE_QUEY_KEY, MAP_USE_QUEY_KEY, id],
+        queryFn: async () => {
+            if (!id) return undefined;
+            const map = RegisteredMaps.get(id);
+            if (!map) return undefined;
+
+            let background = await normalizePixiElement(map.background, gameProps);
+            if (typeof background === "string") {
+                let sprite = new ImageSprite({}, background);
+                await sprite.load();
+                background = sprite;
+            }
+
+            const locations = await loadIcons(map.locations);
+
+            map.neighboringMaps.north && Assets.backgroundLoadBundle(map.neighboringMaps.north);
+            map.neighboringMaps.south && Assets.backgroundLoadBundle(map.neighboringMaps.south);
+            map.neighboringMaps.east && Assets.backgroundLoadBundle(map.neighboringMaps.east);
+            map.neighboringMaps.west && Assets.backgroundLoadBundle(map.neighboringMaps.west);
+
+            return {
+                map: map,
+                background: background,
+                locations,
+            };
+        },
+    });
+}
+
 export const CURRENT_MAP_USE_QUEY_KEY = "current_map_use_quey_key";
-export function useQueryCurrentMap() {
+export function useQueryCurrentMapId() {
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_MAP_USE_QUEY_KEY],
-        queryFn: async () => navigator.currentMap,
+        queryFn: async () => navigator.currentMap?.id,
     });
 }

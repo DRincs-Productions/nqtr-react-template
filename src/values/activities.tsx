@@ -1,21 +1,22 @@
 import { RegisteredActivities, timeTracker } from "@drincs/nqtr";
+import { narration } from "@drincs/pixi-vn";
 import BedIcon from "@mui/icons-material/Bed";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import NqtrRoundIconButton from "../components/NqtrRoundIconButton";
 import { NARRATION_ROUTE } from "../constans";
-import { navigateAndJumpToLabel } from "../labels/label-utility";
 import { napLabel, sleepLabel } from "../labels/sleepNapLabels";
 import { ORDER_PRODUCT_LABEL_KEY, TAKE_KEY_LABEL_KEY } from "../labels/variousActionsLabelKeys";
 import Activity from "../models/nqtr/Activity";
 
 export const bed = new Activity(
     "bed",
-    async (_, event) => {
+    async (_, props) => {
+        await props.navigate(NARRATION_ROUTE);
         if (timeTracker.nowIsBetween(5, 22)) {
-            await navigateAndJumpToLabel(napLabel, NARRATION_ROUTE, event);
+            await narration.jump(napLabel, props);
         } else {
-            await navigateAndJumpToLabel(sleepLabel, NARRATION_ROUTE, event);
+            await narration.jump(sleepLabel, props);
         }
     },
     {
@@ -25,9 +26,7 @@ export const bed = new Activity(
                 <NqtrRoundIconButton
                     disabled={activity.disabled}
                     onClick={() => {
-                        activity.run(props).then(() => {
-                            props.invalidateInterfaceData();
-                        });
+                        activity.run(props);
                     }}
                     ariaLabel={props.uiTransition(activity.name)}
                     variant='solid'
@@ -41,12 +40,15 @@ export const bed = new Activity(
                 </NqtrRoundIconButton>
             );
         },
-    }
+    },
 );
 
 export const orderProduct = new Activity(
     "order_product",
-    async (_, event) => await navigateAndJumpToLabel(ORDER_PRODUCT_LABEL_KEY, NARRATION_ROUTE, event),
+    async (_, props) => {
+        await props.navigate(NARRATION_ROUTE);
+        await narration.jump(ORDER_PRODUCT_LABEL_KEY, props);
+    },
     {
         name: "order_product",
         icon: (activity, props) => {
@@ -54,9 +56,7 @@ export const orderProduct = new Activity(
                 <NqtrRoundIconButton
                     disabled={activity.disabled}
                     onClick={() => {
-                        activity.run(props).then(() => {
-                            props.invalidateInterfaceData();
-                        });
+                        activity.run(props);
                     }}
                     ariaLabel={props.uiTransition(activity.name)}
                     variant='solid'
@@ -70,12 +70,15 @@ export const orderProduct = new Activity(
                 </NqtrRoundIconButton>
             );
         },
-    }
+    },
 );
 
 export const takeProduct = new Activity(
     "take_product",
-    async (_, event) => await navigateAndJumpToLabel(TAKE_KEY_LABEL_KEY, NARRATION_ROUTE, event),
+    async (_, props) => {
+        await props.navigate(NARRATION_ROUTE);
+        await narration.jump(TAKE_KEY_LABEL_KEY, props);
+    },
     {
         name: "take_product",
         icon: (activity, props) => {
@@ -83,9 +86,7 @@ export const takeProduct = new Activity(
                 <NqtrRoundIconButton
                     disabled={activity.disabled}
                     onClick={() => {
-                        activity.run(props).then(() => {
-                            props.invalidateInterfaceData();
-                        });
+                        activity.run(props);
                     }}
                     ariaLabel={props.uiTransition(activity.name)}
                     variant='solid'
@@ -99,7 +100,7 @@ export const takeProduct = new Activity(
                 </NqtrRoundIconButton>
             );
         },
-    }
+    },
 );
 
 RegisteredActivities.add([bed, orderProduct, takeProduct]);

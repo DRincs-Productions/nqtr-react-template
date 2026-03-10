@@ -1,5 +1,12 @@
-import { ActivityInterface, LocationInterface, OnRunProps, RoomInterface, RoomStoredClass } from "@drincs/nqtr";
-import MultiTypeSprite, { MultiTypeSpriteProp } from "../MultiTypeSprite";
+import {
+    ActivityInterface,
+    CommitmentInterface,
+    LocationInterface,
+    OnRunProps,
+    RoomInterface,
+    RoomStoredClass,
+} from "@drincs/nqtr";
+import { PixiUIParam, PixiUIProp } from "./ui-elements";
 
 export default class Room extends RoomStoredClass implements RoomInterface {
     constructor(
@@ -9,12 +16,16 @@ export default class Room extends RoomStoredClass implements RoomInterface {
             name: string;
             disabled?: boolean | (() => boolean);
             hidden?: boolean | (() => boolean);
-            background: MultiTypeSpriteProp<Room>;
+            background: PixiUIParam<Room>;
             activities?: ActivityInterface[];
+            routine?: CommitmentInterface[];
             isEntrance?: boolean;
-        }
+        },
     ) {
-        super(id, location, props.activities);
+        super(id, location, {
+            activities: props.activities || [],
+            routine: props.routine || [],
+        });
         this.name = props.name;
         this._defaultDisabled = props.disabled || false;
         this._defaultHidden = props.hidden || false;
@@ -22,8 +33,8 @@ export default class Room extends RoomStoredClass implements RoomInterface {
         this.isEntrance = props.isEntrance || false;
     }
     readonly name: string;
-    private readonly _background: MultiTypeSpriteProp<Room>;
-    get background(): MultiTypeSprite {
+    private readonly _background: PixiUIParam<Room>;
+    get background(): PixiUIProp {
         const background = this._background;
         if (typeof background === "function") {
             return (runProps: OnRunProps) => background(this, runProps);

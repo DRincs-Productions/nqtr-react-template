@@ -1,6 +1,6 @@
 import { RegisteredCommitments, RegisteredQuests, routine } from "@drincs/nqtr";
+import { narration } from "@drincs/pixi-vn";
 import { NARRATION_ROUTE } from "../../constans";
-import { navigateAndJumpToLabel } from "../../labels/label-utility";
 import { talkAliceQuest } from "../../labels/variousActionsLabels";
 import TimeSlotsImage from "../../models/TimeSlotsImage";
 import Commitment from "../../models/nqtr/Commitment";
@@ -16,7 +16,7 @@ export const aliceQuest = new Quest(
         // stages
         new Stage("talk_alice1", {
             onStart: () => {
-                routine.add(aliceQuest_talk);
+                terrace.addCommitment(aliceQuest_talk);
             },
             name: "Talk to Alice",
             description: "Talk to Alice on the terrace",
@@ -55,12 +55,12 @@ export const aliceQuest = new Quest(
         onNextStage: (stage, { notify, uiTransition }) => {
             notify(uiTransition("notify_quest_is_updated", { quest: stage.name }));
         },
-    }
+    },
 );
 
 RegisteredQuests.add(aliceQuest);
 
-const aliceQuest_talk = new Commitment("alice_quest_talk", alice, terrace, {
+const aliceQuest_talk = new Commitment("alice_quest_talk", alice, {
     timeSlot: {
         from: 10,
         to: 20,
@@ -68,10 +68,10 @@ const aliceQuest_talk = new Commitment("alice_quest_talk", alice, terrace, {
     image: new TimeSlotsImage("alice_terrace0A"),
     executionType: "automatic",
     priority: 1,
-    onRun: async (_, event) => {
-        return await navigateAndJumpToLabel(talkAliceQuest, NARRATION_ROUTE, event).then(() => {
-            routine.remove(aliceQuest_talk);
-        });
+    onRun: async (_, props) => {
+        await props.navigate(NARRATION_ROUTE);
+        await narration.jump(talkAliceQuest, props);
+        routine.remove(aliceQuest_talk);
     },
 });
 

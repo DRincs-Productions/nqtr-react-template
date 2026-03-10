@@ -1,13 +1,13 @@
 import { OnRunProps } from "@drincs/nqtr";
-import MultiTypeSprite from "../models/MultiTypeSprite";
 import TimeSlotsImage from "../models/TimeSlotsImage";
+import { PixiUIProp } from "../models/nqtr/ui-elements";
 
-export function convertMultiTypeSprite(sprite: MultiTypeSprite, props: OnRunProps) {
-    if (typeof sprite === "function") {
-        sprite = sprite(props);
+export async function normalizePixiElement(element: PixiUIProp, props: OnRunProps) {
+    if (typeof element === "function") {
+        element = await element(props);
     }
-    if (sprite instanceof TimeSlotsImage) {
-        sprite = sprite.src;
+    if (element instanceof TimeSlotsImage) {
+        element = element.src;
     }
-    return sprite;
+    return element;
 }
