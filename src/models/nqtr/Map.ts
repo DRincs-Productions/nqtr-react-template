@@ -1,6 +1,6 @@
 import { ActivityInterface, LocationInterface, MapInterface, MapStoredClass, OnRunProps } from "@drincs/nqtr";
 import { NeighboringMaps } from "../../nqtr";
-import MultiTypeSprite, { MultiTypeSpriteProp } from "../MultiTypeSprite";
+import { PixiUIParam, PixiUIProp } from "./ui-elements";
 
 export default class Map extends MapStoredClass implements MapInterface {
     constructor(
@@ -8,9 +8,9 @@ export default class Map extends MapStoredClass implements MapInterface {
         props: {
             activities?: ActivityInterface[];
             name: string;
-            background: MultiTypeSpriteProp<Map>;
+            background: PixiUIParam<Map>;
             neighboringMaps: NeighboringMaps;
-        }
+        },
     ) {
         super(id, props.activities);
         this.name = props.name;
@@ -18,8 +18,8 @@ export default class Map extends MapStoredClass implements MapInterface {
         this.neighboringMaps = props.neighboringMaps;
     }
     readonly name: string;
-    private readonly _background: MultiTypeSpriteProp<Map>;
-    get background(): MultiTypeSprite {
+    private readonly _background: PixiUIParam<Map>;
+    get background(): PixiUIProp {
         const background = this._background;
         if (typeof background === "function") {
             return (runProps: OnRunProps) => background(this, runProps);
