@@ -36,9 +36,9 @@ export const aliceSleep = new Commitment("alice_sleep", alice, {
             </NqtrRoundIconButton>
         );
     },
-    onRun: (_, event) => {
-        event.navigate(NARRATION_ROUTE);
-        narration.jump(TALK_SLEEP_LABEL_KEY, event);
+    onRun: async (_, event) => {
+        await event.navigate(NARRATION_ROUTE);
+        await narration.jump(TALK_SLEEP_LABEL_KEY, event);
     },
 });
 
@@ -78,9 +78,9 @@ export const aliceSmokes = new Commitment("alice_smokes", alice, {
             </NqtrRoundIconButton>
         );
     },
-    onRun: (_, event) => {
-        event.navigate(NARRATION_ROUTE);
-        narration.jump(aliceTalkMenuLabel, event);
+    onRun: async (_, event) => {
+        await event.navigate(NARRATION_ROUTE);
+        await narration.jump(aliceTalkMenuLabel, event);
     },
 });
 
