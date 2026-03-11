@@ -88,8 +88,9 @@ export default class Commitment extends CommitmentStoredClass implements Commitm
     }
     override get run(): OnRunAsyncFunction {
         return async (runProps: OnRunProps) => {
-            await runProps.invalidateInterfaceData(200);
-            return await super.run(runProps);
+            const res = await super.run(runProps);
+            await runProps.invalidateInterfaceData();
+            return res;
         };
     }
 }
