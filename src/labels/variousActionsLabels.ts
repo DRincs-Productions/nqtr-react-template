@@ -69,7 +69,7 @@ export const talkAliceQuest = newLabel(
                     narration.dialogue = { character: alice, text: "Hi, can you order me a new book from pc?" };
                 },
                 () => {
-                    narration.dialogue = { character: alice, text: "Ok" };
+                    narration.dialogue = { character: mc, text: "Ok" };
                 },
                 () => {
                     narration.dialogue = { character: alice, text: "Thanks" };
