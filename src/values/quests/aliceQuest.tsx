@@ -1,7 +1,7 @@
 import { RegisteredCommitments, RegisteredQuests, routine } from "@drincs/nqtr";
 import { narration } from "@drincs/pixi-vn";
 import { NARRATION_ROUTE } from "../../constans";
-import { talkAliceQuest } from "../../labels/variousActionsLabels";
+import { TALK_ALICE_QUEST_KEY } from "../../labels/variousActionsLabelKeys";
 import TimeSlotsImage from "../../models/TimeSlotsImage";
 import Commitment from "../../models/nqtr/Commitment";
 import Quest from "../../models/nqtr/Quest";
@@ -70,7 +70,7 @@ const aliceQuest_talk = new Commitment("alice_quest_talk", alice, {
     priority: 1,
     onRun: async (_, props) => {
         await props.navigate(NARRATION_ROUTE);
-        await narration.jump(talkAliceQuest, props);
+        await narration.jump(TALK_ALICE_QUEST_KEY, props);
         routine.remove(aliceQuest_talk);
     },
 });

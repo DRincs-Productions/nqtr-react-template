@@ -47,15 +47,15 @@ export function useQueryRoom(id?: string) {
 
             const routine = room.routine;
             const routineBackground = room.routine.find((c) => c.background)?.background;
+
             let background = await normalizePixiElement(routineBackground || room.background, gameProps);
-
-            let icon = typeof background === "string" ? background : undefined;
-
             if (typeof background === "string") {
                 let sprite = new ImageSprite({}, background);
                 await sprite.load();
                 background = sprite;
             }
+
+            let icon = await normalizePixiElement(room.background, gameProps);
 
             const activitiesIcons = await loadIcons(room.activities);
             const routineIcons = await loadIcons(routine);
@@ -63,7 +63,7 @@ export function useQueryRoom(id?: string) {
             return {
                 room,
                 background,
-                icon,
+                icon: typeof icon === "string" ? icon : undefined,
                 activities: activitiesIcons,
                 routine: routineIcons,
             };
