@@ -34,7 +34,6 @@ mc: Are these the car keys?! Well... I should try to access the car!
 - 2: 	-> talkAliceQuest2
 - else: alice: Thanks for the book.
 }
-iuhi
 -> DONE
 
 = talkAliceQuest0
