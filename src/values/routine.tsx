@@ -3,8 +3,7 @@ import { narration } from "@drincs/pixi-vn";
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import NqtrRoundIconButton from "../components/NqtrRoundIconButton";
 import { NARRATION_ROUTE } from "../constans";
-import { TALK_SLEEP_LABEL_KEY } from "../labels/variousActionsLabelKeys";
-import { aliceTalkMenuLabel } from "../labels/variousActionsLabels";
+import { ALICE_TALK_MENU_LABEL_KEY, TALK_SLEEP_LABEL_KEY } from "../labels/variousActionsLabelKeys";
 import Commitment from "../models/nqtr/Commitment";
 import { alice } from "./characters";
 
@@ -80,7 +79,7 @@ export const aliceSmokes = new Commitment("alice_smokes", alice, {
     },
     onRun: async (_, event) => {
         await event.navigate(NARRATION_ROUTE);
-        await narration.jump(aliceTalkMenuLabel, event);
+        await narration.jump(ALICE_TALK_MENU_LABEL_KEY, event);
     },
 });
 
