@@ -1,5 +1,5 @@
 import { AssetsManifest } from "@drincs/pixi-vn";
-import { MAIN_MENU_ROUTE } from "../constans";
+import { AUDIO_BUNDLE_NAME, MAIN_MENU_ROUTE } from "../constans";
 import { mainMap, nightcityMap } from "../values/maps";
 import { aliceRoom, annRoom, bathroom, gymRoom, lounge, mcRoom, terrace } from "../values/rooms";
 
@@ -9,6 +9,19 @@ import { aliceRoom, annRoom, bathroom, gymRoom, lounge, mcRoom, terrace } from "
  */
 const manifest: AssetsManifest = {
     bundles: [
+        {
+            name: AUDIO_BUNDLE_NAME,
+            assets: [
+                {
+                    alias: "bgm_cheerful",
+                    src: "https://raw.githubusercontent.com/DRincs-Productions/pixi-vn-bucket/refs/heads/main/audio/bgm_cheerful.wav",
+                },
+                {
+                    alias: "sfx_whoosh",
+                    src: "https://raw.githubusercontent.com/DRincs-Productions/pixi-vn-bucket/refs/heads/main/audio/sfx_whoosh.wav",
+                },
+            ],
+        },
         // screens
         {
             name: MAIN_MENU_ROUTE,
