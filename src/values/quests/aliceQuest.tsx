@@ -52,7 +52,7 @@ export const aliceQuest = new Quest(
         onStart: (quest, { notify, uiTransition }) => {
             notify(uiTransition("notify_quest_is_started", { quest: quest.name }));
         },
-        onNextStage: (stage, { notify, uiTransition }) => {
+        onContinue: (stage, { notify, uiTransition }) => {
             notify(uiTransition("notify_quest_is_updated", { quest: stage.name }));
         },
     },
