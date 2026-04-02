@@ -12,9 +12,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@drincs/nqtr": "^0.8.0",
-    "@drincs/pixi-vn": "^1.5.17",
-    "@drincs/pixi-vn-ink": "^0.12.2",
+    "@drincs/nqtr": "^0.8.1",
+    "@drincs/pixi-vn": "^1.6.2",
+    "@drincs/pixi-vn-ink": "^0.13.3",
     "@drincs/pixi-vn-spine": "^0.2.1",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
