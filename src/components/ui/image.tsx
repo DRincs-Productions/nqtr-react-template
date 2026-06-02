@@ -1,7 +1,12 @@
 import { getPixiJSAsset } from "@/lib/utils/assets-utility";
+import TimeSlotsImage from "@/models/TimeSlotsImage";
 import { Image as UnpicImage } from "@unpic/react";
 import type * as React from "react";
 import { useMemo } from "react";
+
+type ImageProps = Omit<React.ComponentProps<"img">, "src"> & {
+    src?: string | TimeSlotsImage;
+};
 
 export function Image({
     src,
@@ -9,12 +14,13 @@ export function Image({
     width,
     height,
     ...props
-}: React.ComponentProps<"img">) {
+}: ImageProps) {
     const resolvedSrc = useMemo(() => {
-        if (!src) {
+        const rawSrc = src instanceof TimeSlotsImage ? src.src : src;
+        if (!rawSrc) {
             return undefined;
         }
-        return getPixiJSAsset(src);
+        return getPixiJSAsset(rawSrc);
     }, [src]);
 
     if (!resolvedSrc) {
