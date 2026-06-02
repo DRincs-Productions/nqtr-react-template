@@ -11,13 +11,13 @@ import { isValidElement, type ComponentProps, type CSSProperties, type ReactElem
 
 const BORDER_RADIUS_SCALE = 1.2;
 
-export interface NqtrMediaButtonProps extends ComponentProps<typeof Button> {
+export interface MediaButtonProps extends ComponentProps<typeof Button> {
     selected?: boolean;
     circumference?: CSSProperties["width"];
     ariaLabel?: string;
 }
 
-export default function NqtrMediaButton(props: NqtrMediaButtonProps) {
+export default function MediaButton(props: MediaButtonProps) {
     const disabledScreen = useNqtrScreenStore((state: { disabled: boolean }) => state.disabled);
     const {
         selected,
@@ -64,8 +64,8 @@ export default function NqtrMediaButton(props: NqtrMediaButtonProps) {
     );
 }
 
-export function NqtrMediaButtonConverter(
-    props: NqtrMediaButtonProps & {
+export function MediaButtonConverter(
+    props: MediaButtonProps & {
         image?: string | TimeSlotsImage | ReactElement | ((props: OnRunProps) => ReactElement);
     },
 ) {
@@ -94,7 +94,7 @@ export function NqtrMediaButtonConverter(
         } catch {}
 
         return (
-            <NqtrMediaButton {...rest}>
+            <MediaButton {...rest}>
                 <Image
                     src={image}
                     alt={rest.ariaLabel ?? ""}
@@ -104,7 +104,7 @@ export function NqtrMediaButtonConverter(
                     className="absolute inset-0 size-full object-cover"
                 />
                 {children}
-            </NqtrMediaButton>
+            </MediaButton>
         );
     }
 

@@ -14,7 +14,7 @@ import {
     AvatarGroupCount,
     AvatarImage,
 } from "@/components/ui/avatar";
-import { NqtrMediaButtonConverter } from "../../NqtrMediaButton.tsx";
+import { MediaButtonConverter } from "../../MediaButton.tsx";
 import StackOverflow from "../../StackOverflow.tsx.tsx";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "../../hooks/useQueryInterface";
 
@@ -52,7 +52,7 @@ function QuickRoom({ roomId }: { roomId: string }) {
     const selected = useMemo(() => currentRoomId === roomId, [currentRoomId, roomId]);
 
     return (
-        <NqtrMediaButtonConverter
+        <MediaButtonConverter
             disabled={disabled || selected}
             selected={selected}
             onClick={() => {
@@ -92,6 +92,6 @@ function QuickRoom({ roomId }: { roomId: string }) {
                     )}
                 </AvatarGroup>
             )}
-        </NqtrMediaButtonConverter>
+        </MediaButtonConverter>
     );
 }

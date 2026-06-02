@@ -1,7 +1,7 @@
 import { RegisteredActivities, timeTracker } from "@drincs/nqtr";
 import { narration } from "@drincs/pixi-vn";
 import { Bed, Package, ShoppingCart } from "lucide-react";
-import NqtrMediaButton from "../components/NqtrMediaButton";
+import MediaButton from "../components/MediaButton";
 import { NARRATION_ROUTE } from "../constans";
 import { napLabel, sleepLabel } from "../labels/sleepNapLabels";
 import { ORDER_PRODUCT_LABEL_KEY, TAKE_KEY_LABEL_KEY } from "../labels/variousActionsLabelKeys";
@@ -21,7 +21,7 @@ export const bed = new Activity(
         name: "bed",
         icon: (activity, props) => {
             return (
-                <NqtrMediaButton
+                <MediaButton
                     disabled={activity.disabled}
                     onClick={() => {
                         activity.run(props);
@@ -29,7 +29,7 @@ export const bed = new Activity(
                     ariaLabel={props.uiTransition(activity.name)}
                 >
                     <Bed className="size-6 sm:size-8 md:size-10 lg:size-12 xl:size-14" />
-                </NqtrMediaButton>
+                </MediaButton>
             );
         },
     },
@@ -45,7 +45,7 @@ export const orderProduct = new Activity(
         name: "order_product",
         icon: (activity, props) => {
             return (
-                <NqtrMediaButton
+                <MediaButton
                     disabled={activity.disabled}
                     onClick={() => {
                         activity.run(props);
@@ -53,7 +53,7 @@ export const orderProduct = new Activity(
                     ariaLabel={props.uiTransition(activity.name)}
                 >
                     <ShoppingCart className="size-6 sm:size-8 md:size-10 lg:size-12 xl:size-14" />
-                </NqtrMediaButton>
+                </MediaButton>
             );
         },
     },
@@ -69,7 +69,7 @@ export const takeProduct = new Activity(
         name: "take_product",
         icon: (activity, props) => {
             return (
-                <NqtrMediaButton
+                <MediaButton
                     disabled={activity.disabled}
                     onClick={() => {
                         activity.run(props);
@@ -77,7 +77,7 @@ export const takeProduct = new Activity(
                     ariaLabel={props.uiTransition(activity.name)}
                 >
                     <Package className="size-6 sm:size-8 md:size-10 lg:size-12 xl:size-14" />
-                </NqtrMediaButton>
+                </MediaButton>
             );
         },
     },
