@@ -1,12 +1,11 @@
-import { OnRunProps } from "@drincs/nqtr";
-import { useTheme } from "@mui/joy";
-import { isValidElement, ReactElement } from "react";
+import { useGameProps } from "@/lib/hooks/props-hooks";
+import { getPixiJSAsset } from "@/lib/utils/assets-utility";
+import TimeSlotsImage from "@/models/TimeSlotsImage";
+import useNqtrScreenStore from "@/stores/useNqtrScreenStore";
+import type { OnRunProps } from "@drincs/nqtr";
+import { IconButton, type IconButtonProps, type Shadow, Tooltip, useTheme } from "@mui/joy";
+import { isValidElement, type ReactElement } from "react";
 import { LazyLoadComponent } from "react-lazy-load-image-component";
-import useGameProps from "../hooks/useGameProps";
-import TimeSlotsImage from "../models/TimeSlotsImage";
-import useNqtrScreenStore from "../stores/useNqtrScreenStore";
-import { getPixiJSAsset } from "../utils/assets-utility";
-import RoundIconButton, { RoundIconButtonProps } from "./RoundIconButton";
 
 interface NqtrRoundIconButtonProps extends RoundIconButtonProps {
     selected?: boolean;
@@ -21,10 +20,12 @@ export default function NqtrRoundIconButton(props: NqtrRoundIconButtonProps) {
             sx={{
                 "--IconButton-size": { xs: "40px", sm: "60px", md: "80px" },
                 border: 3,
-                borderColor: selected ? useTheme().palette.primary[800] : useTheme().palette.background.body,
+                borderColor: selected
+                    ? useTheme().palette.primary[800]
+                    : useTheme().palette.background.body,
                 ...sx,
             }}
-            elevation='lg'
+            elevation="lg"
             {...rest}
         />
     );
@@ -33,7 +34,7 @@ export default function NqtrRoundIconButton(props: NqtrRoundIconButtonProps) {
 export function NqtrRoundIconButtonConvertor(
     props: NqtrRoundIconButtonProps & {
         image?: string | TimeSlotsImage | ReactElement | ((props: OnRunProps) => ReactElement);
-    }
+    },
 ) {
     let { image, ...rest } = props;
     const gameProps = useGameProps();
@@ -63,11 +64,46 @@ export function NqtrRoundIconButtonConvertor(
                         backgroundImage: `url(${image})`,
                         backgroundSize: "cover",
                         backgroundPosition: "center",
-                        fontSize: { xs: "1rem", sm: "1.5rem", md: "2rem", lg: "2.5rem", xl: "3rem" },
+                        fontSize: {
+                            xs: "1rem",
+                            sm: "1.5rem",
+                            md: "2rem",
+                            lg: "2.5rem",
+                            xl: "3rem",
+                        },
                         ...rest.sx,
                     }}
                 />
             </LazyLoadComponent>
         );
     }
+}
+
+export interface RoundIconButtonProps extends IconButtonProps {
+    circumference?: string | {} | number;
+    ariaLabel?: string;
+    elevation?: keyof Shadow;
+}
+
+export function RoundIconButton(props: RoundIconButtonProps) {
+    const { sx, circumference, ariaLabel, elevation, ...rest } = props;
+
+    return (
+        <Tooltip key={props.key ? "tooltip-" + props.key : undefined} title={ariaLabel}>
+            <div>
+                {/* This div is necessary to avoid the tooltip to be cutted */}
+                <IconButton
+                    title={ariaLabel}
+                    sx={{
+                        borderRadius: "50%",
+                        height: circumference,
+                        width: circumference,
+                        boxShadow: elevation ?? undefined,
+                        ...sx,
+                    }}
+                    {...rest}
+                />
+            </div>
+        </Tooltip>
+    );
 }
