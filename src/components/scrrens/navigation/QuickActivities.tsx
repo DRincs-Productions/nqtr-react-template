@@ -1,5 +1,5 @@
 import { useQueryCurrentRoomId, useQueryRoom } from "../../../hooks/useQueryNQTR.ts";
-import { NqtrRoundIconButtonConvertor } from "../../NqtrRoundIconButton.tsx";
+import { NqtrMediaButtonConverter } from "../../NqtrMediaButton.tsx";
 import StackOverflow from "../../StackOverflow.tsx.tsx";
 import useGameProps from "../../hooks/useGameProps.ts";
 
@@ -26,7 +26,7 @@ export default function QuickActivities() {
             }}
         >
             {activities.map((item, index) => (
-                <NqtrRoundIconButtonConvertor
+                <NqtrMediaButtonConverter
                     key={`activity-${index}-${item.id}`}
                     disabled={item.disabled}
                     onClick={() => item.run(gameProps)}
@@ -35,7 +35,7 @@ export default function QuickActivities() {
                 />
             ))}
             {routine.map((item, index) => (
-                <NqtrRoundIconButtonConvertor
+                <NqtrMediaButtonConverter
                     key={`commitment-${index}-${item.id}`}
                     disabled={item.disabled}
                     onClick={() => item.run(gameProps)}
