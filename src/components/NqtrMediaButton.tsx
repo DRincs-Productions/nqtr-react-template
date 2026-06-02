@@ -7,7 +7,9 @@ import TimeSlotsImage from "@/models/TimeSlotsImage";
 import useNqtrScreenStore from "@/stores/useNqtrScreenStore";
 import type { OnRunProps } from "@drincs/nqtr";
 import { Image } from "@unpic/react";
-import { isValidElement, type ComponentProps, type CSSProperties, type ReactElement, type ReactNode } from "react";
+import { isValidElement, type ComponentProps, type CSSProperties, type ReactElement } from "react";
+
+const BORDER_RADIUS_SCALE = 1.2;
 
 export interface NqtrMediaButtonProps extends ComponentProps<typeof Button> {
     selected?: boolean;
@@ -16,7 +18,7 @@ export interface NqtrMediaButtonProps extends ComponentProps<typeof Button> {
 }
 
 export default function NqtrMediaButton(props: NqtrMediaButtonProps) {
-    const disabledScreen = useNqtrScreenStore((state) => state.disabled);
+    const disabledScreen = useNqtrScreenStore((state: { disabled: boolean }) => state.disabled);
     const {
         selected,
         circumference,
@@ -41,7 +43,7 @@ export default function NqtrMediaButton(props: NqtrMediaButtonProps) {
                 className,
             )}
             style={{
-                borderRadius: "calc(var(--radius-lg) * 1.2)",
+                borderRadius: `calc(var(--radius-lg) * ${BORDER_RADIUS_SCALE})`,
                 ...(circumference ? { width: circumference, height: circumference } : undefined),
                 ...style,
             }}

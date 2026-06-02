@@ -25,18 +25,18 @@ export default function QuickActivities() {
                 pointerEvents: "auto",
             }}
         >
-            {activities.map((item, index) => (
+            {activities.map((item) => (
                 <NqtrMediaButtonConverter
-                    key={`activity-${index}-${item.id}`}
+                    key={`activity-${item.id}`}
                     disabled={item.disabled}
                     onClick={() => item.run(gameProps)}
                     ariaLabel={t(item.name)}
                     image={item.icon}
                 />
             ))}
-            {routine.map((item, index) => (
+            {routine.map((item) => (
                 <NqtrMediaButtonConverter
-                    key={`commitment-${index}-${item.id}`}
+                    key={`commitment-${item.id}`}
                     disabled={item.disabled}
                     onClick={() => item.run(gameProps)}
                     ariaLabel={t(item.name)}

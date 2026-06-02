@@ -37,7 +37,7 @@ export default function QuickRooms() {
             }}
         >
             {rooms.map((room) => (
-                <QuickRoom key={"room-" + room.id} roomId={room.id} {...room} />
+                <QuickRoom key={`room-${room.id}`} roomId={room.id} {...room} />
             ))}
         </StackOverflow>
     );
@@ -70,14 +70,12 @@ function QuickRoom({ roomId }: { roomId: string }) {
             {characters && (
                 <AvatarGroup className="absolute right-0 bottom-0">
                     {characters.length <= 3 && (
-                        <>
-                            {characters.map((character) => (
-                                <Avatar key={character.id} size="sm">
-                                    <AvatarImage src={character.icon} alt={character.name} />
-                                    <AvatarFallback>{character.name.slice(0, 1)}</AvatarFallback>
-                                </Avatar>
-                            ))}
-                        </>
+                        characters.map((character) => (
+                            <Avatar key={character.id} size="sm">
+                                <AvatarImage src={character.icon} alt={character.name} />
+                                <AvatarFallback>{character.name.slice(0, 1)}</AvatarFallback>
+                            </Avatar>
+                        ))
                     )}
                     {characters.length > 3 && (
                         <>
