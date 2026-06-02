@@ -1,14 +1,13 @@
+import { orderProduct, takeProduct } from "@/content/activities";
+import { alice } from "@/content/characters";
+import { talkAliceQuest } from "@/content/labels/various.label";
+import { mcRoom, terrace } from "@/content/rooms";
+import Commitment from "@/models/nqtr/Commitment";
+import Quest from "@/models/nqtr/Quest";
+import Stage from "@/models/nqtr/Stage";
+import TimeSlotsImage from "@/models/TimeSlotsImage";
 import { RegisteredCommitments, RegisteredQuests, routine } from "@drincs/nqtr";
 import { narration } from "@drincs/pixi-vn";
-import { NARRATION_ROUTE } from "../../constans";
-import { talkAliceQuest } from "../../labels/variousActionsLabels";
-import TimeSlotsImage from "../../models/TimeSlotsImage";
-import Commitment from "../../models/nqtr/Commitment";
-import Quest from "../../models/nqtr/Quest";
-import Stage from "../../models/nqtr/Stage";
-import { orderProduct, takeProduct } from "../activities";
-import { alice } from "../characters";
-import { mcRoom, terrace } from "../rooms";
 
 export const aliceQuest = new Quest(
     "aliceQuest",
@@ -29,9 +28,9 @@ export const aliceQuest = new Quest(
             description: "Order the products with your PC",
         }),
         new Stage("take_products", {
-            onStart: (_, { notify }) => {
+            onStart: (_, { toast }) => {
                 terrace.addActivity(takeProduct);
-                notify("You can take the products on the Terrace");
+                toast("You can take the products on the Terrace");
             },
             name: "Take products",
             description: "Take products on the Terrace",
@@ -49,11 +48,11 @@ export const aliceQuest = new Quest(
         description:
             'To learn more about how the repo works, Talk to Alice. \nGoing when she is there will automatically start an "Event" (see aliceQuest.tsx to learn more). \nAfter that an action will be added to open the pc, in MC room. \n\n(during the quest you can talk to Alice and you will see her talking during the quests of the same Quest)',
         image: "alice_terrace0A",
-        onStart: (quest, { notify, uiTransition }) => {
-            notify(uiTransition("notify_quest_is_started", { quest: quest.name }));
+        onStart: (quest, { toast, uiTransition }) => {
+            toast(uiTransition("notify_quest_is_started", { quest: quest.name }));
         },
-        onContinue: (stage, { notify, uiTransition }) => {
-            notify(uiTransition("notify_quest_is_updated", { quest: stage.name }));
+        onContinue: (stage, { toast, uiTransition }) => {
+            toast(uiTransition("notify_quest_is_updated", { quest: stage.name }));
         },
     },
 );
@@ -69,7 +68,7 @@ const aliceQuest_talk = new Commitment("alice_quest_talk", alice, {
     executionType: "automatic",
     priority: 1,
     onRun: async (_, props) => {
-        await props.navigate(NARRATION_ROUTE);
+        await props.navigate({ to: "/game/narration" });
         await narration.jump(talkAliceQuest, props);
         routine.remove(aliceQuest_talk);
     },
