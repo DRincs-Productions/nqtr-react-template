@@ -3,12 +3,12 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { Stack, Typography, useTheme } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 import { useShallow } from "zustand/react/shallow";
-import RoundIconButton from "../../components/RoundIconButton";
+import { useQueryTime } from "../../../hooks/useQueryNQTR";
+import useTimeTracker from "../../../hooks/useTimeTracker";
+import useNqtrScreenStore from "../../../stores/useNqtrScreenStore";
+import RoundIconButton from "../../RoundIconButton";
 import useGameProps from "../../hooks/useGameProps";
-import { useQueryTime } from "../../hooks/useQueryNQTR";
-import useTimeTracker from "../../hooks/useTimeTracker";
 import useInterfaceStore from "../../stores/useInterfaceStore";
-import useNqtrScreenStore from "../../stores/useNqtrScreenStore";
 
 export default function TimeScreen() {
     const { t } = useTranslation(["ui"]);
@@ -20,9 +20,9 @@ export default function TimeScreen() {
 
     return (
         <Stack
-            direction='column'
-            justifyContent='center'
-            alignItems='center'
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
             spacing={0}
             sx={{
                 marginTop: "0.5rem",
@@ -31,12 +31,16 @@ export default function TimeScreen() {
                     opacity: 1,
                 },
             }}
-            className={hidden ? `motion-opacity-out-0 motion-translate-y-out-[-50%]` : "motion-preset-bounce"}
+            className={
+                hidden
+                    ? `motion-opacity-out-0 motion-translate-y-out-[-50%]`
+                    : "motion-preset-bounce"
+            }
         >
             <Stack
-                direction='row'
-                justifyContent='center'
-                alignItems='center'
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
                 spacing={0}
                 height={{ xs: "0.7rem", sm: "1rem", md: "1.5rem", lg: "2rem", xl: "3rem" }}
             >
@@ -54,7 +58,7 @@ export default function TimeScreen() {
                     {hour > 9 ? `${hour}:00` : `0${hour}:00`}
                 </Typography>
                 <RoundIconButton
-                    variant='soft'
+                    variant="soft"
                     ariaLabel={t("wait")}
                     sx={{
                         padding: 0,
@@ -67,12 +71,18 @@ export default function TimeScreen() {
                         wait(1);
                         gameProps.invalidateInterfaceData();
                     }}
-                    elevation='sm'
+                    elevation="sm"
                     disabled={disabled}
                 >
                     <AccessTimeIcon
                         sx={{
-                            fontSize: { xs: "1.5rem", sm: "1.5rem", md: "1.5rem", lg: "1.7rem", xl: "2rem" },
+                            fontSize: {
+                                xs: "1.5rem",
+                                sm: "1.5rem",
+                                md: "1.5rem",
+                                lg: "1.7rem",
+                                xl: "2rem",
+                            },
                             color: useTheme().palette.common.white,
                         }}
                     />

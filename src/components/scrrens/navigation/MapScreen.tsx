@@ -7,11 +7,15 @@ import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp
 import { IconButton } from "@mui/joy";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
-import RoundIconButton from "../../components/RoundIconButton";
+import {
+    CURRENT_MAP_USE_QUEY_KEY,
+    useQueryCurrentMapId,
+    useQueryMap,
+} from "../../../hooks/useQueryNQTR";
+import RoundIconButton from "../../RoundIconButton";
 import { CANVAS_UI_LAYER_NAME, NAVIGATION_ROUTE } from "../../constans";
 import useMyNavigate from "../../hooks/useMyNavigate";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "../../hooks/useQueryInterface";
-import { CURRENT_MAP_USE_QUEY_KEY, useQueryCurrentMapId, useQueryMap } from "../../hooks/useQueryNQTR";
 import useInterfaceStore from "../../stores/useInterfaceStore";
 
 export default function MapScreen() {
@@ -24,7 +28,7 @@ export default function MapScreen() {
 
     useEffect(() => {
         editHideInterface(false);
-        let layer = canvas.getLayer(CANVAS_UI_LAYER_NAME);
+        const layer = canvas.getLayer(CANVAS_UI_LAYER_NAME);
         if (layer) {
             if (background) layer.addChild(background);
 
@@ -40,7 +44,7 @@ export default function MapScreen() {
         <>
             {map?.neighboringMaps.north && (
                 <RoundIconButton
-                    variant='soft'
+                    variant="soft"
                     sx={{
                         position: "absolute",
                         top: "0.1rem",
@@ -58,7 +62,7 @@ export default function MapScreen() {
             )}
             {map?.neighboringMaps.west && (
                 <RoundIconButton
-                    variant='soft'
+                    variant="soft"
                     sx={{
                         position: "absolute",
                         top: "50%",
@@ -76,7 +80,7 @@ export default function MapScreen() {
             )}
             {map?.neighboringMaps.south && (
                 <RoundIconButton
-                    variant='soft'
+                    variant="soft"
                     sx={{
                         position: "absolute",
                         bottom: "0.1rem",
@@ -94,7 +98,7 @@ export default function MapScreen() {
             )}
             {map?.neighboringMaps.east && (
                 <RoundIconButton
-                    variant='soft'
+                    variant="soft"
                     sx={{
                         position: "absolute",
                         top: "50%",
@@ -111,7 +115,7 @@ export default function MapScreen() {
                 </RoundIconButton>
             )}
             <IconButton
-                color='danger'
+                color="danger"
                 sx={{
                     position: "absolute",
                     top: "0.1rem",

@@ -1,7 +1,7 @@
-import { NqtrRoundIconButtonConvertor } from "../../components/NqtrRoundIconButton.tsx";
-import StackOverflow from "../../components/StackOverflow.tsx";
+import { useQueryCurrentRoomId, useQueryRoom } from "../../../hooks/useQueryNQTR.ts";
+import { NqtrRoundIconButtonConvertor } from "../../NqtrRoundIconButton.tsx";
+import StackOverflow from "../../StackOverflow.tsx.tsx";
 import useGameProps from "../../hooks/useGameProps.ts";
-import { useQueryCurrentRoomId, useQueryRoom } from "../../hooks/useQueryNQTR";
 
 export default function QuickActivities() {
     const { data: currentRoomId } = useQueryCurrentRoomId();
@@ -12,9 +12,9 @@ export default function QuickActivities() {
 
     return (
         <StackOverflow
-            direction='column'
-            justifyContent='center'
-            alignItems='flex-end'
+            direction="column"
+            justifyContent="center"
+            alignItems="flex-end"
             spacing={0.5}
             maxLeght={"80%"}
             sx={{

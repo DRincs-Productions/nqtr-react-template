@@ -2,12 +2,16 @@ import { storage } from "@drincs/pixi-vn";
 import { AspectRatio, Box, Divider, Link, Sheet, Stack, Typography } from "@mui/joy";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import {
+    SELECTED_QUEST_USE_QUEY_KEY,
+    useQueryQuests,
+    useQuerySelectedQuest,
+} from "../../../hooks/useQueryNQTR";
+import useMemoScreenStore from "../../../stores/useMemoScreenStore";
 import ModalDialogCustom from "../../components/ModalDialog";
 import { SELECTED_QUEST_STORAGE_KEY } from "../../constans";
 import useEventListener from "../../hooks/useKeyDetector";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "../../hooks/useQueryInterface";
-import { SELECTED_QUEST_USE_QUEY_KEY, useQueryQuests, useQuerySelectedQuest } from "../../hooks/useQueryNQTR";
-import useMemoScreenStore from "../../stores/useMemoScreenStore";
 import { getPixiJSAsset } from "../../utils/assets-utility";
 
 export default function MemoScreen() {
@@ -46,11 +50,11 @@ export default function MemoScreen() {
                     }}
                 >
                     <Stack sx={{ mb: 2 }}>
-                        <Typography level='h2'>{t("quests")}</Typography>
+                        <Typography level="h2">{t("quests")}</Typography>
                     </Stack>
                 </Stack>
             }
-            minWidth='80%'
+            minWidth="80%"
             sx={{
                 maxHeight: "100%",
             }}
@@ -62,7 +66,7 @@ export default function MemoScreen() {
                 }}
             >
                 <Sheet
-                    className='Sidebar'
+                    className="Sidebar"
                     sx={{
                         position: "sticky",
                         transition: "transform 0.4s, width 0.4s",
@@ -90,7 +94,10 @@ export default function MemoScreen() {
                                     onClick={() => {
                                         storage.set(SELECTED_QUEST_STORAGE_KEY, quest.id);
                                         queryClient.invalidateQueries({
-                                            queryKey: [INTERFACE_DATA_USE_QUEY_KEY, SELECTED_QUEST_USE_QUEY_KEY],
+                                            queryKey: [
+                                                INTERFACE_DATA_USE_QUEY_KEY,
+                                                SELECTED_QUEST_USE_QUEY_KEY,
+                                            ],
                                         });
                                     }}
                                 >
@@ -98,7 +105,9 @@ export default function MemoScreen() {
                                 </Link>
                             </Box>
                         ))}
-                        {completedQuests.length > 0 && <Typography level='h4'>{t("completed")}</Typography>}
+                        {completedQuests.length > 0 && (
+                            <Typography level="h4">{t("completed")}</Typography>
+                        )}
                         {completedQuests.map((quest) => (
                             <Box
                                 key={quest.id}
@@ -113,7 +122,10 @@ export default function MemoScreen() {
                                     onClick={() => {
                                         storage.set(SELECTED_QUEST_STORAGE_KEY, quest.id);
                                         queryClient.invalidateQueries({
-                                            queryKey: [INTERFACE_DATA_USE_QUEY_KEY, SELECTED_QUEST_USE_QUEY_KEY],
+                                            queryKey: [
+                                                INTERFACE_DATA_USE_QUEY_KEY,
+                                                SELECTED_QUEST_USE_QUEY_KEY,
+                                            ],
                                         });
                                     }}
                                 >
@@ -121,7 +133,9 @@ export default function MemoScreen() {
                                 </Link>
                             </Box>
                         ))}
-                        {failedQuests.length > 0 && <Typography level='h4'>{t("failed")}</Typography>}
+                        {failedQuests.length > 0 && (
+                            <Typography level="h4">{t("failed")}</Typography>
+                        )}
                         {failedQuests.map((quest) => (
                             <Box
                                 key={quest.id}
@@ -136,7 +150,10 @@ export default function MemoScreen() {
                                     onClick={() => {
                                         storage.set(SELECTED_QUEST_STORAGE_KEY, quest.id);
                                         queryClient.invalidateQueries({
-                                            queryKey: [INTERFACE_DATA_USE_QUEY_KEY, SELECTED_QUEST_USE_QUEY_KEY],
+                                            queryKey: [
+                                                INTERFACE_DATA_USE_QUEY_KEY,
+                                                SELECTED_QUEST_USE_QUEY_KEY,
+                                            ],
                                         });
                                     }}
                                 >
@@ -147,8 +164,8 @@ export default function MemoScreen() {
                     </Box>
                 </Sheet>
                 <Sheet
-                    component='main'
-                    className='MainContent'
+                    component="main"
+                    className="MainContent"
                     sx={{
                         flex: 1,
                         display: "flex",
@@ -161,11 +178,11 @@ export default function MemoScreen() {
                 >
                     <Stack spacing={1}>
                         {image && (
-                            <AspectRatio maxHeight={"10dvh"} objectFit='cover'>
+                            <AspectRatio maxHeight={"10dvh"} objectFit="cover">
                                 <img src={image} />
                             </AspectRatio>
                         )}
-                        <Typography level='h2' textAlign={"center"}>
+                        <Typography level="h2" textAlign={"center"}>
                             {selectedQuest?.name}
                         </Typography>
                         <Typography

@@ -2,24 +2,24 @@ import { navigator } from "@drincs/nqtr";
 import { Avatar, AvatarGroup } from "@mui/joy";
 import { useQueryClient } from "@tanstack/react-query";
 import { useMemo } from "react";
-import { NqtrRoundIconButtonConvertor } from "../../components/NqtrRoundIconButton.tsx";
-import StackOverflow from "../../components/StackOverflow.tsx";
-import { INTERFACE_DATA_USE_QUEY_KEY } from "../../hooks/useQueryInterface";
 import {
     CURRENT_ROOM_USE_QUEY_KEY,
     useQueryCurrentRoomId,
     useQueryQuickRooms,
     useQueryRoom,
-} from "../../hooks/useQueryNQTR.ts";
+} from "../../../hooks/useQueryNQTR.ts";
+import { NqtrRoundIconButtonConvertor } from "../../NqtrRoundIconButton.tsx";
+import StackOverflow from "../../StackOverflow.tsx.tsx";
+import { INTERFACE_DATA_USE_QUEY_KEY } from "../../hooks/useQueryInterface";
 
 export default function QuickRooms() {
     const { data: rooms = [] } = useQueryQuickRooms();
 
     return (
         <StackOverflow
-            direction='row'
-            justifyContent='center'
-            alignItems='flex-end'
+            direction="row"
+            justifyContent="center"
+            alignItems="flex-end"
             spacing={0.5}
             maxLeght={"80%"}
             sx={{
@@ -52,7 +52,10 @@ function QuickRoom({ roomId }: { roomId: string }) {
             onClick={() => {
                 if (!disabled && !selected) {
                     navigator.currentRoom = roomId;
-                    queryClient.setQueryData([INTERFACE_DATA_USE_QUEY_KEY, CURRENT_ROOM_USE_QUEY_KEY], roomId);
+                    queryClient.setQueryData(
+                        [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_ROOM_USE_QUEY_KEY],
+                        roomId,
+                    );
                 }
             }}
             ariaLabel={name || ""}
@@ -70,21 +73,31 @@ function QuickRoom({ roomId }: { roomId: string }) {
                     {characters.length <= 3 && (
                         <>
                             {characters.map((character) => (
-                                <Avatar key={character.id} alt={character.name} src={character.icon} size='sm' />
+                                <Avatar
+                                    key={character.id}
+                                    alt={character.name}
+                                    src={character.icon}
+                                    size="sm"
+                                />
                             ))}
                         </>
                     )}
                     {characters.length > 3 && (
                         <>
                             {characters.slice(0, 2).map((character) => (
-                                <Avatar key={character.id} alt={character.name} src={character.icon} size='sm' />
+                                <Avatar
+                                    key={character.id}
+                                    alt={character.name}
+                                    src={character.icon}
+                                    size="sm"
+                                />
                             ))}
                             <Avatar
                                 sx={{
                                     backgroundColor: "rgba(0, 0, 0, 0.5)",
                                     color: "white",
                                 }}
-                                size='sm'
+                                size="sm"
                             >
                                 +{characters.length - 2}
                             </Avatar>
