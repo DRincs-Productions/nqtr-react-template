@@ -1,7 +1,7 @@
 import { RegisteredCommitments, timeTracker } from "@drincs/nqtr";
 import { narration } from "@drincs/pixi-vn";
 import { MessageCircleQuestion } from "lucide-react";
-import MediaButton from "../components/MediaButton";
+import NavigationButton from "../components/scrrens/navigation/buttons";
 import { NARRATION_ROUTE } from "../constans";
 import { TALK_SLEEP_LABEL_KEY } from "../labels/variousActionsLabelKeys";
 import { aliceTalkMenuLabel } from "../labels/variousActionsLabels";
@@ -17,7 +17,7 @@ export const aliceSleep = new Commitment("alice_sleep", alice, {
     background: "alice_roomsleep0A",
     icon: (commitment, props) => {
         return (
-            <MediaButton
+            <NavigationButton
                 disabled={commitment.disabled}
                 onClick={() => {
                     if (commitment.run) {
@@ -27,7 +27,7 @@ export const aliceSleep = new Commitment("alice_sleep", alice, {
                 ariaLabel={commitment.name}
             >
                 <MessageCircleQuestion className="size-6 sm:size-8 md:size-10 lg:size-12 xl:size-14" />
-            </MediaButton>
+            </NavigationButton>
         );
     },
     onRun: async (_, event) => {
@@ -53,7 +53,7 @@ export const aliceSmokes = new Commitment("alice_smokes", alice, {
     background: "alice_terrace0A",
     icon: (commitment, props) => {
         return (
-            <MediaButton
+            <NavigationButton
                 disabled={commitment.disabled}
                 onClick={() => {
                     if (commitment.run) {
@@ -63,7 +63,7 @@ export const aliceSmokes = new Commitment("alice_smokes", alice, {
                 ariaLabel={commitment.name}
             >
                 <MessageCircleQuestion className="size-6 sm:size-8 md:size-10 lg:size-12 xl:size-14" />
-            </MediaButton>
+            </NavigationButton>
         );
     },
     onRun: async (_, event) => {

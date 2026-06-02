@@ -11,15 +11,18 @@ import { isValidElement, type ComponentProps, type CSSProperties, type ReactElem
 
 const BORDER_RADIUS_SCALE = 1.2;
 
-export interface MediaButtonProps extends ComponentProps<typeof Button> {
+export interface NavigationButtonProps extends ComponentProps<typeof Button> {
     selected?: boolean;
     circumference?: CSSProperties["width"];
     ariaLabel?: string;
+    image?: string | TimeSlotsImage | ReactElement | ((props: OnRunProps) => ReactElement);
 }
 
-export default function MediaButton(props: MediaButtonProps) {
+export default function NavigationButton(props: NavigationButtonProps) {
     const disabledScreen = useNqtrScreenStore((state: { disabled: boolean }) => state.disabled);
+    const gameProps = useGameProps();
     const {
+        image: imageProp,
         selected,
         circumference,
         ariaLabel,
@@ -29,6 +32,35 @@ export default function MediaButton(props: MediaButtonProps) {
         children,
         ...rest
     } = props;
+
+    const hasImageProp = imageProp !== undefined;
+    let image: string | TimeSlotsImage | ReactElement | undefined = imageProp;
+
+    if (typeof image === "function") {
+        image = image(gameProps);
+    }
+
+    if (isValidElement(image)) {
+        return image;
+    }
+
+    if (image instanceof TimeSlotsImage) {
+        image = image.src;
+    }
+
+    let resolvedSrc: string | undefined;
+    if (typeof image === "string") {
+        try {
+            resolvedSrc = getPixiJSAsset(image);
+        } catch {
+            resolvedSrc = image;
+        }
+    }
+
+    // If an image prop was supplied but could not be resolved to renderable content, return null
+    if (hasImageProp && resolvedSrc === undefined) {
+        return null;
+    }
 
     const trigger = (
         <Button
@@ -48,6 +80,16 @@ export default function MediaButton(props: MediaButtonProps) {
                 ...style,
             }}
         >
+            {resolvedSrc && (
+                <Image
+                    src={resolvedSrc}
+                    alt={ariaLabel ?? ""}
+                    layout="constrained"
+                    width={128}
+                    height={128}
+                    className="absolute inset-0 size-full object-cover"
+                />
+            )}
             {children}
         </Button>
     );
@@ -62,51 +104,4 @@ export default function MediaButton(props: MediaButtonProps) {
             <TooltipContent>{ariaLabel}</TooltipContent>
         </Tooltip>
     );
-}
-
-export function MediaButtonConverter(
-    props: MediaButtonProps & {
-        image?: string | TimeSlotsImage | ReactElement | ((props: OnRunProps) => ReactElement);
-    },
-) {
-    let { image, children, ...rest } = props;
-    const gameProps = useGameProps();
-
-    if (!image) {
-        return null;
-    }
-
-    if (typeof image === "function") {
-        image = image(gameProps);
-    }
-
-    if (isValidElement(image)) {
-        return image;
-    }
-
-    if (image instanceof TimeSlotsImage) {
-        image = image.src;
-    }
-
-    if (typeof image === "string") {
-        try {
-            image = getPixiJSAsset(image);
-        } catch {}
-
-        return (
-            <MediaButton {...rest}>
-                <Image
-                    src={image}
-                    alt={rest.ariaLabel ?? ""}
-                    layout="constrained"
-                    width={128}
-                    height={128}
-                    className="absolute inset-0 size-full object-cover"
-                />
-                {children}
-            </MediaButton>
-        );
-    }
-
-    return null;
 }
