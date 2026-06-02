@@ -8,6 +8,6 @@ export const startLabel = newLabel("start", [
         navigator.currentRoom = mcRoom;
         timeTracker.currentTime = 8;
         await aliceQuest.start(props);
-        await props.navigate(NAVIGATION_ROUTE);
+        await props.navigate({ to: "/game/navigation" });
     },
 ]);
