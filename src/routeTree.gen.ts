@@ -9,11 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as NavigationRouteImport } from './routes/navigation'
 import { Route as NarrationRouteImport } from './routes/narration'
 import { Route as GameRouteImport } from './routes/game'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as GameNavigationRouteImport } from './routes/game/navigation'
 import { Route as GameNarrationRouteImport } from './routes/game/narration'
 
+const NavigationRoute = NavigationRouteImport.update({
+  id: '/navigation',
+  path: '/navigation',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NarrationRoute = NarrationRouteImport.update({
   id: '/narration',
   path: '/narration',
@@ -29,6 +36,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GameNavigationRoute = GameNavigationRouteImport.update({
+  id: '/navigation',
+  path: '/navigation',
+  getParentRoute: () => GameRoute,
+} as any)
 const GameNarrationRoute = GameNarrationRouteImport.update({
   id: '/narration',
   path: '/narration',
@@ -39,37 +51,70 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/game': typeof GameRouteWithChildren
   '/narration': typeof NarrationRoute
+  '/navigation': typeof NavigationRoute
   '/game/narration': typeof GameNarrationRoute
+  '/game/navigation': typeof GameNavigationRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/game': typeof GameRouteWithChildren
   '/narration': typeof NarrationRoute
+  '/navigation': typeof NavigationRoute
   '/game/narration': typeof GameNarrationRoute
+  '/game/navigation': typeof GameNavigationRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/game': typeof GameRouteWithChildren
   '/narration': typeof NarrationRoute
+  '/navigation': typeof NavigationRoute
   '/game/narration': typeof GameNarrationRoute
+  '/game/navigation': typeof GameNavigationRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/game' | '/narration' | '/game/narration'
+  fullPaths:
+    | '/'
+    | '/game'
+    | '/narration'
+    | '/navigation'
+    | '/game/narration'
+    | '/game/navigation'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/game' | '/narration' | '/game/narration'
-  id: '__root__' | '/' | '/game' | '/narration' | '/game/narration'
+  to:
+    | '/'
+    | '/game'
+    | '/narration'
+    | '/navigation'
+    | '/game/narration'
+    | '/game/navigation'
+  id:
+    | '__root__'
+    | '/'
+    | '/game'
+    | '/narration'
+    | '/navigation'
+    | '/game/narration'
+    | '/game/navigation'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   GameRoute: typeof GameRouteWithChildren
   NarrationRoute: typeof NarrationRoute
+  NavigationRoute: typeof NavigationRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/navigation': {
+      id: '/navigation'
+      path: '/navigation'
+      fullPath: '/navigation'
+      preLoaderRoute: typeof NavigationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/narration': {
       id: '/narration'
       path: '/narration'
@@ -91,6 +136,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/game/navigation': {
+      id: '/game/navigation'
+      path: '/navigation'
+      fullPath: '/game/navigation'
+      preLoaderRoute: typeof GameNavigationRouteImport
+      parentRoute: typeof GameRoute
+    }
     '/game/narration': {
       id: '/game/narration'
       path: '/narration'
@@ -103,10 +155,12 @@ declare module '@tanstack/react-router' {
 
 interface GameRouteChildren {
   GameNarrationRoute: typeof GameNarrationRoute
+  GameNavigationRoute: typeof GameNavigationRoute
 }
 
 const GameRouteChildren: GameRouteChildren = {
   GameNarrationRoute: GameNarrationRoute,
+  GameNavigationRoute: GameNavigationRoute,
 }
 
 const GameRouteWithChildren = GameRoute._addFileChildren(GameRouteChildren)
@@ -115,6 +169,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   GameRoute: GameRouteWithChildren,
   NarrationRoute: NarrationRoute,
+  NavigationRoute: NavigationRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
