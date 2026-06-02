@@ -3,10 +3,6 @@ import type TimeSlotsImage from "@/models/TimeSlotsImage";
 import { Image as UnpicImage, type ImageProps } from "@unpic/react";
 import { ImageOff } from "lucide-react";
 
-type ImageProps = Omit<React.ComponentProps<"img">, "src"> & {
-    src?: string | TimeSlotsImage;
-};
-
 export function Image({
     src,
     loading = "lazy",
