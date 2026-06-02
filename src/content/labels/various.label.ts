@@ -6,18 +6,6 @@ import {
     showImage,
     StoredChoiceInterface,
 } from "@drincs/pixi-vn";
-import { BACKGROUND_ID } from "../constans";
-import { orderProduct, takeProduct } from "../values/activities";
-import { alice, mc } from "../values/characters";
-import { aliceQuest } from "../values/quests";
-import { mcRoom, terrace } from "../values/rooms";
-import {
-    ALICE_TALK_MENU_LABEL_KEY,
-    ORDER_PRODUCT_LABEL_KEY,
-    TAKE_KEY_LABEL_KEY,
-    TALK_ALICE_QUEST_KEY,
-    TALK_SLEEP_LABEL_KEY,
-} from "./variousActionsLabelKeys";
 
 export const orderProductLabel = newLabel(ORDER_PRODUCT_LABEL_KEY, [
     () => {

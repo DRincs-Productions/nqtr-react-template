@@ -1,6 +1,6 @@
+import { BACKGROUND_ID } from "@/constants";
+import { mcRoomBackground } from "@/content/rooms";
 import { narration, newChoiceOption, newCloseChoiceOption, newLabel, showImage } from "@drincs/pixi-vn";
-import { BACKGROUND_ID } from "../constans";
-import { mcRoomBackground } from "../values/rooms";
 
 const sleepHourLabel = newLabel<{
     hour: number;
