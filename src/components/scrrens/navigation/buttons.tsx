@@ -3,7 +3,7 @@ import { Image } from "@/components/ui/image";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useGameProps } from "@/lib/hooks/props-hooks";
 import { cn } from "@/lib/utils";
-import TimeSlotsImage from "@/models/TimeSlotsImage";
+import type TimeSlotsImage from "@/models/TimeSlotsImage";
 import useNqtrScreenStore from "@/stores/useNqtrScreenStore";
 import type { OnRunProps } from "@drincs/nqtr";
 import { isValidElement, type ComponentProps, type CSSProperties, type ReactElement } from "react";
@@ -32,7 +32,7 @@ export default function NavigationButton(props: NavigationButtonProps) {
         ...rest
     } = props;
 
-    let image: string | TimeSlotsImage | ReactElement | undefined = imageProp;
+    let image = imageProp;
 
     if (typeof image === "function") {
         image = image(gameProps);
@@ -62,7 +62,7 @@ export default function NavigationButton(props: NavigationButtonProps) {
         >
             {image && (
                 <Image
-                    src={image as string | TimeSlotsImage}
+                    src={image}
                     alt={ariaLabel ?? ""}
                     layout="constrained"
                     width={128}
