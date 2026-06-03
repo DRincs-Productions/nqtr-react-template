@@ -1,5 +1,4 @@
 import { navigator } from "@drincs/nqtr";
-import { Avatar, AvatarGroup } from "@mui/joy";
 import { useQueryClient } from "@tanstack/react-query";
 import { useMemo } from "react";
 import {
@@ -8,7 +7,14 @@ import {
     useQueryQuickRooms,
     useQueryRoom,
 } from "../../../hooks/useQueryNQTR.ts";
-import { NqtrRoundIconButtonConvertor } from "../../NqtrRoundIconButton.tsx";
+import {
+    Avatar,
+    AvatarFallback,
+    AvatarGroup,
+    AvatarGroupCount,
+    AvatarImage,
+} from "@/components/ui/avatar";
+import NavigationButton from "./buttons.tsx";
 import StackOverflow from "../../StackOverflow.tsx.tsx";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "../../hooks/useQueryInterface";
 
@@ -31,7 +37,7 @@ export default function QuickRooms() {
             }}
         >
             {rooms.map((room) => (
-                <QuickRoom key={"room-" + room.id} roomId={room.id} {...room} />
+                <QuickRoom key={`room-${room.id}`} roomId={room.id} {...room} />
             ))}
         </StackOverflow>
     );
@@ -46,7 +52,7 @@ function QuickRoom({ roomId }: { roomId: string }) {
     const selected = useMemo(() => currentRoomId === roomId, [currentRoomId, roomId]);
 
     return (
-        <NqtrRoundIconButtonConvertor
+        <NavigationButton
             disabled={disabled || selected}
             selected={selected}
             onClick={() => {
@@ -62,49 +68,30 @@ function QuickRoom({ roomId }: { roomId: string }) {
             image={icon}
         >
             {characters && (
-                <AvatarGroup
-                    sx={{
-                        position: "absolute",
-                        bottom: 0,
-                        right: 0,
-                        "--Avatar-size": { xs: "15px", sm: "22px", md: "28px" },
-                    }}
-                >
+                <AvatarGroup className="absolute right-0 bottom-0">
                     {characters.length <= 3 && (
-                        <>
-                            {characters.map((character) => (
-                                <Avatar
-                                    key={character.id}
-                                    alt={character.name}
-                                    src={character.icon}
-                                    size="sm"
-                                />
-                            ))}
-                        </>
+                        characters.map((character) => (
+                            <Avatar key={character.id} size="sm">
+                                <AvatarImage src={character.icon} alt={character.name} />
+                                <AvatarFallback>{character.name.slice(0, 1)}</AvatarFallback>
+                            </Avatar>
+                        ))
                     )}
                     {characters.length > 3 && (
                         <>
                             {characters.slice(0, 2).map((character) => (
-                                <Avatar
-                                    key={character.id}
-                                    alt={character.name}
-                                    src={character.icon}
-                                    size="sm"
-                                />
+                                <Avatar key={character.id} size="sm">
+                                    <AvatarImage src={character.icon} alt={character.name} />
+                                    <AvatarFallback>{character.name.slice(0, 1)}</AvatarFallback>
+                                </Avatar>
                             ))}
-                            <Avatar
-                                sx={{
-                                    backgroundColor: "rgba(0, 0, 0, 0.5)",
-                                    color: "white",
-                                }}
-                                size="sm"
-                            >
+                            <AvatarGroupCount className="size-6 bg-black/50 text-white">
                                 +{characters.length - 2}
-                            </Avatar>
+                            </AvatarGroupCount>
                         </>
                     )}
                 </AvatarGroup>
             )}
-        </NqtrRoundIconButtonConvertor>
+        </NavigationButton>
     );
 }
