@@ -1,16 +1,15 @@
+import NavigationButton from "@/components/scrrens/navigation/buttons";
+import { napLabel, sleepLabel } from "@/content/labels/sleep.label";
+import { orderProductLabel, takeKeyLabel } from "@/content/labels/various.label";
+import Activity from "@/models/nqtr/Activity";
 import { RegisteredActivities, timeTracker } from "@drincs/nqtr";
 import { narration } from "@drincs/pixi-vn";
 import { Bed, Package, ShoppingCart } from "lucide-react";
-import NavigationButton from "../components/scrrens/navigation/buttons";
-import { NARRATION_ROUTE } from "../constans";
-import { napLabel, sleepLabel } from "../labels/sleepNapLabels";
-import { ORDER_PRODUCT_LABEL_KEY, TAKE_KEY_LABEL_KEY } from "../labels/variousActionsLabelKeys";
-import Activity from "../models/nqtr/Activity";
 
 export const bed = new Activity(
     "bed",
     async (_, props) => {
-        await props.navigate(NARRATION_ROUTE);
+        await props.navigate({ to: "/game/navigation" });
         if (timeTracker.nowIsBetween(5, 22)) {
             await narration.jump(napLabel, props);
         } else {
@@ -38,8 +37,8 @@ export const bed = new Activity(
 export const orderProduct = new Activity(
     "order_product",
     async (_, props) => {
-        await props.navigate(NARRATION_ROUTE);
-        await narration.jump(ORDER_PRODUCT_LABEL_KEY, props);
+        await props.navigate({ to: "/game/navigation" });
+        await narration.jump(orderProductLabel, props);
     },
     {
         name: "order_product",
@@ -62,8 +61,8 @@ export const orderProduct = new Activity(
 export const takeProduct = new Activity(
     "take_product",
     async (_, props) => {
-        await props.navigate(NARRATION_ROUTE);
-        await narration.jump(TAKE_KEY_LABEL_KEY, props);
+        await props.navigate({ to: "/game/navigation" });
+        await narration.jump(takeKeyLabel, props);
     },
     {
         name: "take_product",

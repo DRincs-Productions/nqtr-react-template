@@ -1,7 +1,7 @@
 import { BACKGROUND_ID } from "@/constants";
 import { orderProduct, takeProduct } from "@/content/activities";
 import { alice, mc } from "@/content/characters";
-import { aliceQuest } from "@/content/quests";
+import { aliceQuest } from "@/content/quests/alice.quest";
 import { mcRoom, terrace } from "@/content/rooms";
 import {
     narration,

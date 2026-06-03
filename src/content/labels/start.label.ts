@@ -1,4 +1,4 @@
-import { aliceQuest } from "@/content/quests";
+import { aliceQuest } from "@/content/quests/alice.quest";
 import { mcRoom } from "@/content/rooms";
 import { navigator, timeTracker } from "@drincs/nqtr";
 import { newLabel } from "@drincs/pixi-vn";
