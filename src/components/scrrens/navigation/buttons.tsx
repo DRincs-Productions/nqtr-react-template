@@ -1,12 +1,11 @@
 import { Button } from "@/components/ui/button";
+import { Image } from "@/components/ui/image";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useGameProps } from "@/lib/hooks/props-hooks";
 import { cn } from "@/lib/utils";
-import { getPixiJSAsset } from "@/lib/utils/assets-utility";
 import TimeSlotsImage from "@/models/TimeSlotsImage";
 import useNqtrScreenStore from "@/stores/useNqtrScreenStore";
 import type { OnRunProps } from "@drincs/nqtr";
-import { Image } from "@unpic/react";
 import { isValidElement, type ComponentProps, type CSSProperties, type ReactElement } from "react";
 
 const BORDER_RADIUS_SCALE = 1.2;
@@ -33,7 +32,6 @@ export default function NavigationButton(props: NavigationButtonProps) {
         ...rest
     } = props;
 
-    const hasImageProp = imageProp !== undefined;
     let image: string | TimeSlotsImage | ReactElement | undefined = imageProp;
 
     if (typeof image === "function") {
@@ -42,24 +40,6 @@ export default function NavigationButton(props: NavigationButtonProps) {
 
     if (isValidElement(image)) {
         return image;
-    }
-
-    if (image instanceof TimeSlotsImage) {
-        image = image.src;
-    }
-
-    let resolvedSrc: string | undefined;
-    if (typeof image === "string") {
-        try {
-            resolvedSrc = getPixiJSAsset(image);
-        } catch {
-            resolvedSrc = image;
-        }
-    }
-
-    // If an image prop was supplied but could not be resolved to renderable content, return null
-    if (hasImageProp && resolvedSrc === undefined) {
-        return null;
     }
 
     const trigger = (
@@ -80,9 +60,9 @@ export default function NavigationButton(props: NavigationButtonProps) {
                 ...style,
             }}
         >
-            {resolvedSrc && (
+            {image && (
                 <Image
-                    src={resolvedSrc}
+                    src={image as string | TimeSlotsImage}
                     alt={ariaLabel ?? ""}
                     layout="constrained"
                     width={128}
