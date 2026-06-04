@@ -13,7 +13,7 @@ import {
     useQueryCurrentRoomId,
     useQueryQuickRooms,
     useQueryRoom,
-} from "../../../lib/query/nqtr-query.ts";
+} from "../../../lib/query/room-query.ts";
 import StackOverflow from "../../StackOverflow.tsx.tsx";
 import { INTERFACE_DATA_USE_QUERY_KEY } from "../../hooks/useQueryInterface";
 import NavigationButton from "./buttons.tsx";

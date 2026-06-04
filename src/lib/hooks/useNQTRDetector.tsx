@@ -1,6 +1,6 @@
 import { CANVAS_UI_LAYER_NAME } from "@/constants";
 import { useGameProps } from "@/lib/hooks/props-hooks";
-import { useQueryCurrentRoomId, useQueryRoom, useQueryTime } from "@/lib/query/nqtr-query";
+import { useQueryCurrentRoomId, useQueryRoom, useQueryTime } from "@/lib/query/room-query";
 import { GameStatus } from "@/lib/stores/game-status-store";
 import { navigator } from "@drincs/nqtr";
 import { canvas } from "@drincs/pixi-vn";

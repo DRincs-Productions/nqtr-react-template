@@ -4,7 +4,7 @@ import { Stack, Typography, useTheme } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 import { useShallow } from "zustand/react/shallow";
 import useTimeTracker from "../../../lib/hooks/useTimeTracker";
-import { useQueryTime } from "../../../lib/query/nqtr-query";
+import { useQueryTime } from "../../../lib/query/room-query";
 import useNqtrScreenStore from "../../../lib/stores/useNqtrScreenStore";
 import RoundIconButton from "../../RoundIconButton";
 import useGameProps from "../../hooks/useGameProps";

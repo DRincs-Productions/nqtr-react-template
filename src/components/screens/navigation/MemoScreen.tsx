@@ -6,7 +6,7 @@ import {
     SELECTED_QUEST_USE_QUERY_KEY,
     useQueryQuests,
     useQuerySelectedQuest,
-} from "../../../lib/query/nqtr-query";
+} from "../../../lib/query/room-query";
 import useMemoScreenStore from "../../../lib/stores/useMemoScreenStore";
 import ModalDialogCustom from "../../components/ModalDialog";
 import { SELECTED_QUEST_STORAGE_KEY } from "../../constans";

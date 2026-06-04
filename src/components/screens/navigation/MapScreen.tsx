@@ -11,7 +11,7 @@ import {
     CURRENT_MAP_USE_QUERY_KEY,
     useQueryCurrentMapId,
     useQueryMap,
-} from "../../../lib/query/nqtr-query";
+} from "../../../lib/query/room-query";
 import RoundIconButton from "../../RoundIconButton";
 import { CANVAS_UI_LAYER_NAME, NAVIGATION_ROUTE } from "../../constans";
 import useMyNavigate from "../../hooks/useMyNavigate";
