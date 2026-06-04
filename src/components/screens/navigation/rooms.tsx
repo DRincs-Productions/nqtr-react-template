@@ -1,5 +1,4 @@
 import NavigationButton from "@/components/screens/navigation/buttons";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import {
     Avatar,
     AvatarFallback,
@@ -7,6 +6,7 @@ import {
     AvatarGroupCount,
     AvatarImage,
 } from "@/components/ui/avatar";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { INTERFACE_DATA_USE_QUERY_KEY } from "@/constants";
 import {
     CURRENT_ROOM_ID_USE_QUERY_KEY,
@@ -25,14 +25,14 @@ export function QuickRooms() {
         <ScrollArea className="absolute bottom-0 left-0 max-w-[80%] pointer-events-auto">
             <div className="flex flex-row items-end justify-center gap-0.5">
                 {rooms.map((room) => (
-                    <QuickRoom key={`room-${room.id}`} roomId={room.id} {...room} />
+                    <RoomButton key={`room-${room.id}`} roomId={room.id} {...room} />
                 ))}
             </div>
         </ScrollArea>
     );
 }
 
-function QuickRoom({ roomId }: { roomId: string }) {
+function RoomButton({ roomId }: { roomId: string }) {
     const queryClient = useQueryClient();
     const { data } = useQueryRoom(roomId);
     const { data: currentRoomId } = useQueryCurrentRoomId();
