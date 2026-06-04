@@ -1,116 +1,47 @@
-import MapIcon from "@mui/icons-material/Map";
-import NoteAltIcon from "@mui/icons-material/NoteAlt";
-import SettingsIcon from "@mui/icons-material/Settings";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { INTERFACE_DATA_USE_QUERY_KEY } from "@/constants";
+import { useSetSearchParamState } from "@/lib/hooks/navigation-hooks";
+import { CURRENT_MAP_USE_QUERY_KEY } from "@/lib/query/map-query";
+import { MemoScreen } from "@/lib/stores/memo-screen-store";
 import { useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "@tanstack/react-router";
+import { MapIcon, NotebookPen, Settings } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { CURRENT_MAP_USE_QUERY_KEY } from "../../../lib/query/room-query.ts";
-import { MemoScreen } from "../../../lib/stores/memo-screen-store.ts";
-import RoundIconButton, { type RoundIconButtonProps } from "../../RoundIconButton.tsx";
-import StackOverflow from "../../StackOverflow.tsx.tsx";
-import { MAP_ROUTE } from "../../constans.ts";
-import useMyNavigate from "../../hooks/useMyNavigate.ts";
-import { INTERFACE_DATA_USE_QUERY_KEY } from "../../hooks/useQueryInterface.ts";
-import useSettingsScreenStore from "../../stores/useSettingsScreenStore.ts";
+import NavigationButton from "./buttons";
 
-export default function NqtrQuickTools() {
-    const editOpenSettings = useSettingsScreenStore((state) => state.editOpen);
-    const navigate = useMyNavigate();
+export function NqtrQuickTools() {
+    const setOpenSettings = useSetSearchParamState<boolean>("settings");
+    const navigate = useNavigate();
     const queryClient = useQueryClient();
     const { t } = useTranslation(["ui"]);
 
     return (
         <>
-            <StackOverflow
-                direction="row"
-                justifyContent="center"
-                alignItems="flex-end"
-                spacing={0.5}
-                maxLeght={"80%"}
-                sx={{
-                    display: "flex",
-                    position: "absolute",
-                    left: 0,
-                    top: 0,
-                }}
-            >
-                <QuickToolButton ariaLabel={t("settings")} onClick={editOpenSettings}>
-                    <SettingsIcon
-                        sx={{
-                            fontSize: {
-                                xs: "1.5rem",
-                                sm: "2rem",
-                                md: "2.5rem",
-                                lg: "3rem",
-                                xl: "3.5rem",
-                            },
+            <ScrollArea className="absolute top-0 left-0 pointer-events-auto">
+                <div className="flex flex-row items-end justify-center gap-0.5">
+                    <NavigationButton ariaLabel={t("settings")} onClick={() => setOpenSettings(true)}>
+                        <Settings className="size-6 sm:size-8 md:size-10" />
+                    </NavigationButton>
+                    <NavigationButton ariaLabel={t("memo")} onClick={MemoScreen.toggleOpen}>
+                        <NotebookPen className="size-6 sm:size-8 md:size-10" />
+                    </NavigationButton>
+                </div>
+            </ScrollArea>
+            <ScrollArea className="absolute top-0 right-0 pointer-events-auto">
+                <div className="flex flex-row items-end justify-center gap-0.5">
+                    <NavigationButton
+                        ariaLabel={t("map")}
+                        onClick={() => {
+                            queryClient.invalidateQueries({
+                                queryKey: [INTERFACE_DATA_USE_QUERY_KEY, CURRENT_MAP_USE_QUERY_KEY],
+                            });
+                            navigate({ to: "/game/navigation" });
                         }}
-                    />
-                </QuickToolButton>
-                <QuickToolButton ariaLabel={t("memo")} onClick={MemoScreen.toggleOpen}>
-                    <NoteAltIcon
-                        sx={{
-                            fontSize: {
-                                xs: "1.5rem",
-                                sm: "2rem",
-                                md: "2.5rem",
-                                lg: "3rem",
-                                xl: "3.5rem",
-                            },
-                        }}
-                    />
-                </QuickToolButton>
-            </StackOverflow>
-            <StackOverflow
-                direction="row"
-                justifyContent="center"
-                alignItems="flex-end"
-                spacing={0.5}
-                maxLeght={"80%"}
-                sx={{
-                    display: "flex",
-                    position: "absolute",
-                    right: 0,
-                    top: 0,
-                }}
-            >
-                <QuickToolButton
-                    ariaLabel={t("map")}
-                    onClick={() => {
-                        queryClient.invalidateQueries({
-                            queryKey: [INTERFACE_DATA_USE_QUERY_KEY, CURRENT_MAP_USE_QUERY_KEY],
-                        });
-                        navigate(MAP_ROUTE);
-                    }}
-                >
-                    <MapIcon
-                        sx={{
-                            fontSize: {
-                                xs: "1.5rem",
-                                sm: "2rem",
-                                md: "2.5rem",
-                                lg: "3rem",
-                                xl: "3.5rem",
-                            },
-                        }}
-                    />
-                </QuickToolButton>
-            </StackOverflow>
+                    >
+                        <MapIcon className="size-6 sm:size-8 md:size-10" />
+                    </NavigationButton>
+                </div>
+            </ScrollArea>
         </>
-    );
-}
-
-function QuickToolButton(props: RoundIconButtonProps) {
-    return (
-        <RoundIconButton
-            sx={{
-                border: 3,
-                "--IconButton-size": { xs: "40px", sm: "60px", md: "80px" },
-                fontSize: { xs: "1rem", sm: "1.5rem", md: "2rem", lg: "2.5rem", xl: "3rem" },
-            }}
-            elevation="lg"
-            variant="solid"
-            color="primary"
-            {...props}
-        />
     );
 }
