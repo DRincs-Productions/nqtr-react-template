@@ -7,7 +7,7 @@ interface StackOverflowProps extends StackProps {
 
 function getStyleStackOverflowProps(
     direction: ResponsiveStyleValue<"row" | "row-reverse" | "column" | "column-reverse">,
-    maxLeght?: string | number
+    maxLeght?: string | number,
 ) {
     let result: SxProps = {};
     if (direction === "row" || direction === "row-reverse") {
