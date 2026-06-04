@@ -1,3 +1,5 @@
+import NavigationButton from "@/components/screens/navigation/buttons";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import {
     Avatar,
     AvatarFallback,
@@ -5,41 +7,28 @@ import {
     AvatarGroupCount,
     AvatarImage,
 } from "@/components/ui/avatar";
-import { navigator } from "@drincs/nqtr";
-import { useQueryClient } from "@tanstack/react-query";
-import { useMemo } from "react";
+import { INTERFACE_DATA_USE_QUERY_KEY } from "@/constants";
 import {
     CURRENT_ROOM_ID_USE_QUERY_KEY,
     useQueryCurrentRoomId,
     useQueryQuickRooms,
     useQueryRoom,
-} from "../../../lib/query/room-query.ts";
-import StackOverflow from "../../StackOverflow.tsx.tsx";
-import { INTERFACE_DATA_USE_QUERY_KEY } from "../../hooks/useQueryInterface";
-import NavigationButton from "./buttons.tsx";
+} from "@/lib/query/room-query";
+import { navigator } from "@drincs/nqtr";
+import { useQueryClient } from "@tanstack/react-query";
+import { useMemo } from "react";
 
-export default function QuickRooms() {
+export function QuickRooms() {
     const { data: rooms = [] } = useQueryQuickRooms();
 
     return (
-        <StackOverflow
-            direction="row"
-            justifyContent="center"
-            alignItems="flex-end"
-            spacing={0.5}
-            maxLeght={"80%"}
-            sx={{
-                display: "flex",
-                position: "absolute",
-                bottom: 0,
-                left: 0,
-                pointerEvents: "auto",
-            }}
-        >
-            {rooms.map((room) => (
-                <QuickRoom key={`room-${room.id}`} roomId={room.id} {...room} />
-            ))}
-        </StackOverflow>
+        <ScrollArea className="absolute bottom-0 left-0 max-w-[80%] pointer-events-auto">
+            <div className="flex flex-row items-end justify-center gap-0.5">
+                {rooms.map((room) => (
+                    <QuickRoom key={`room-${room.id}`} roomId={room.id} {...room} />
+                ))}
+            </div>
+        </ScrollArea>
     );
 }
 
