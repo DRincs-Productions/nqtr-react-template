@@ -4,7 +4,6 @@ import {
     CANVAS_UI_LAYER_NAME,
     HTML_CANVAS_LAYER_NAME,
     HTML_UI_LAYER_NAME,
-    NAVIGATION_ROUTE,
     SFX_CHANNEL_NAME,
 } from "@/constants";
 import { ChannelSound } from "@/lib/stores/channel-sound-stores";
@@ -60,12 +59,12 @@ Game.init(body, {
 });
 
 Game.onEnd(async ({ navigate }) => {
-    let isTheEnd = storage.getFlag("is_the_end");
+    const isTheEnd = storage.getFlag("is_the_end");
     if (isTheEnd) {
         Game.clear();
         navigate({ to: "/" });
     } else {
-        navigate({ to: NAVIGATION_ROUTE });
+        navigate({ to: "/game/navigation" });
     }
 });
 
