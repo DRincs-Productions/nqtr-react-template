@@ -5,7 +5,7 @@ import { GameStatus } from "@/lib/stores/game-status-store";
 import { canvas } from "@drincs/pixi-vn";
 import { useEffect } from "react";
 
-export function useNQTRDetector() {
+export function useRoomSync() {
     const { data: { room: currentRoom, background, activities, routine } = {} } =
         useQueryCurrentRoom();
     const gameProps = useGameProps();
