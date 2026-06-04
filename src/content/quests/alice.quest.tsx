@@ -1,6 +1,5 @@
 import { orderProduct, takeProduct } from "@/content/activities";
 import { alice } from "@/content/characters";
-import { talkAliceQuest } from "@/content/labels/various.label";
 import { mcRoom, terrace } from "@/content/rooms";
 import Commitment from "@/models/nqtr/Commitment";
 import Quest from "@/models/nqtr/Quest";
@@ -69,7 +68,7 @@ const aliceQuest_talk = new Commitment("alice_quest_talk", alice, {
     priority: 1,
     onRun: async (_, props) => {
         await props.navigate({ to: "/game/narration" });
-        await narration.jump(talkAliceQuest, props);
+        await narration.jump("talk-alice", props);
         routine.remove(aliceQuest_talk);
     },
 });

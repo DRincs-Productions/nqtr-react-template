@@ -5,16 +5,20 @@
 declare module "@drincs/pixi-vn/characters" {
     interface PixivnCharacterIds {
         "mc": never;
-        "james": never;
-        "steph": never;
-        "sly": never;
+        "alice": never;
     }
 }
 declare module "@drincs/pixi-vn/narration" {
     interface PixivnLabelIds {
-        "animation_01": never;
-        "second_part": never;
+        "sleep": never;
+        "nap": never;
         "start": never;
+        "order-product": never;
+        "take-key": never;
+        "talk-alice-sleep-result": never;
+        "talk-alice-sleep": never;
+        "talk-alice": never;
+        "alice-talk-menu": never;
     }
 }
 export {};

@@ -1,6 +1,4 @@
 import NavigationButton from "@/components/scrrens/navigation/buttons";
-import { napLabel, sleepLabel } from "@/content/labels/sleep.label";
-import { orderProductLabel, takeKeyLabel } from "@/content/labels/various.label";
 import Activity from "@/models/nqtr/Activity";
 import { RegisteredActivities, timeTracker } from "@drincs/nqtr";
 import { narration } from "@drincs/pixi-vn";
@@ -11,9 +9,9 @@ export const bed = new Activity(
     async (_, props) => {
         await props.navigate({ to: "/game/navigation" });
         if (timeTracker.nowIsBetween(5, 22)) {
-            await narration.jump(napLabel, props);
+            await narration.jump("nap", props);
         } else {
-            await narration.jump(sleepLabel, props);
+            await narration.jump("sleep", props);
         }
     },
     {
@@ -38,7 +36,7 @@ export const orderProduct = new Activity(
     "order_product",
     async (_, props) => {
         await props.navigate({ to: "/game/navigation" });
-        await narration.jump(orderProductLabel, props);
+        await narration.jump("order-product", props);
     },
     {
         name: "order_product",
@@ -62,7 +60,7 @@ export const takeProduct = new Activity(
     "take_product",
     async (_, props) => {
         await props.navigate({ to: "/game/navigation" });
-        await narration.jump(takeKeyLabel, props);
+        await narration.jump("take-key", props);
     },
     {
         name: "take_product",
