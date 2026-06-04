@@ -8,14 +8,14 @@ import { IconButton } from "@mui/joy";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
 import {
-    CURRENT_MAP_USE_QUEY_KEY,
+    CURRENT_MAP_USE_QUERY_KEY,
     useQueryCurrentMapId,
     useQueryMap,
 } from "../../../lib/query/nqtr-query";
 import RoundIconButton from "../../RoundIconButton";
 import { CANVAS_UI_LAYER_NAME, NAVIGATION_ROUTE } from "../../constans";
 import useMyNavigate from "../../hooks/useMyNavigate";
-import { INTERFACE_DATA_USE_QUEY_KEY } from "../../hooks/useQueryInterface";
+import { INTERFACE_DATA_USE_QUERY_KEY } from "../../hooks/useQueryInterface";
 import useInterfaceStore from "../../stores/useInterfaceStore";
 
 export default function MapScreen() {
@@ -52,7 +52,7 @@ export default function MapScreen() {
                     }}
                     onClick={() =>
                         queryClient.setQueryData(
-                            [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_MAP_USE_QUEY_KEY],
+                            [INTERFACE_DATA_USE_QUERY_KEY, CURRENT_MAP_USE_QUERY_KEY],
                             map.neighboringMaps.north!,
                         )
                     }
@@ -70,7 +70,7 @@ export default function MapScreen() {
                     }}
                     onClick={() =>
                         queryClient.setQueryData(
-                            [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_MAP_USE_QUEY_KEY],
+                            [INTERFACE_DATA_USE_QUERY_KEY, CURRENT_MAP_USE_QUERY_KEY],
                             map.neighboringMaps.west!,
                         )
                     }
@@ -88,7 +88,7 @@ export default function MapScreen() {
                     }}
                     onClick={() =>
                         queryClient.setQueryData(
-                            [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_MAP_USE_QUEY_KEY],
+                            [INTERFACE_DATA_USE_QUERY_KEY, CURRENT_MAP_USE_QUERY_KEY],
                             map.neighboringMaps.south!,
                         )
                     }
@@ -106,7 +106,7 @@ export default function MapScreen() {
                     }}
                     onClick={() =>
                         queryClient.setQueryData(
-                            [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_MAP_USE_QUEY_KEY],
+                            [INTERFACE_DATA_USE_QUERY_KEY, CURRENT_MAP_USE_QUERY_KEY],
                             map.neighboringMaps.east!,
                         )
                     }

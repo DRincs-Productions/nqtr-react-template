@@ -3,13 +3,13 @@ import NoteAltIcon from "@mui/icons-material/NoteAlt";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { CURRENT_MAP_USE_QUEY_KEY } from "../../../lib/query/nqtr-query.ts";
+import { CURRENT_MAP_USE_QUERY_KEY } from "../../../lib/query/nqtr-query.ts";
 import useMemoScreenStore from "../../../lib/stores/useMemoScreenStore.ts";
 import RoundIconButton, { type RoundIconButtonProps } from "../../RoundIconButton.tsx";
 import StackOverflow from "../../StackOverflow.tsx.tsx";
 import { MAP_ROUTE } from "../../constans.ts";
 import useMyNavigate from "../../hooks/useMyNavigate.ts";
-import { INTERFACE_DATA_USE_QUEY_KEY } from "../../hooks/useQueryInterface.ts";
+import { INTERFACE_DATA_USE_QUERY_KEY } from "../../hooks/useQueryInterface.ts";
 import useSettingsScreenStore from "../../stores/useSettingsScreenStore.ts";
 
 export default function NqtrQuickTools() {
@@ -78,7 +78,7 @@ export default function NqtrQuickTools() {
                     ariaLabel={t("map")}
                     onClick={() => {
                         queryClient.invalidateQueries({
-                            queryKey: [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_MAP_USE_QUEY_KEY],
+                            queryKey: [INTERFACE_DATA_USE_QUERY_KEY, CURRENT_MAP_USE_QUERY_KEY],
                         });
                         navigate(MAP_ROUTE);
                     }}

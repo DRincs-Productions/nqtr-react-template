@@ -3,7 +3,7 @@ import { AspectRatio, Box, Divider, Link, Sheet, Stack, Typography } from "@mui/
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import {
-    SELECTED_QUEST_USE_QUEY_KEY,
+    SELECTED_QUEST_USE_QUERY_KEY,
     useQueryQuests,
     useQuerySelectedQuest,
 } from "../../../lib/query/nqtr-query";
@@ -11,7 +11,7 @@ import useMemoScreenStore from "../../../lib/stores/useMemoScreenStore";
 import ModalDialogCustom from "../../components/ModalDialog";
 import { SELECTED_QUEST_STORAGE_KEY } from "../../constans";
 import useEventListener from "../../hooks/useKeyDetector";
-import { INTERFACE_DATA_USE_QUEY_KEY } from "../../hooks/useQueryInterface";
+import { INTERFACE_DATA_USE_QUERY_KEY } from "../../hooks/useQueryInterface";
 import { getPixiJSAsset } from "../../utils/assets-utility";
 
 export default function MemoScreen() {
@@ -95,8 +95,8 @@ export default function MemoScreen() {
                                         storage.set(SELECTED_QUEST_STORAGE_KEY, quest.id);
                                         queryClient.invalidateQueries({
                                             queryKey: [
-                                                INTERFACE_DATA_USE_QUEY_KEY,
-                                                SELECTED_QUEST_USE_QUEY_KEY,
+                                                INTERFACE_DATA_USE_QUERY_KEY,
+                                                SELECTED_QUEST_USE_QUERY_KEY,
                                             ],
                                         });
                                     }}
@@ -123,8 +123,8 @@ export default function MemoScreen() {
                                         storage.set(SELECTED_QUEST_STORAGE_KEY, quest.id);
                                         queryClient.invalidateQueries({
                                             queryKey: [
-                                                INTERFACE_DATA_USE_QUEY_KEY,
-                                                SELECTED_QUEST_USE_QUEY_KEY,
+                                                INTERFACE_DATA_USE_QUERY_KEY,
+                                                SELECTED_QUEST_USE_QUERY_KEY,
                                             ],
                                         });
                                     }}
@@ -151,8 +151,8 @@ export default function MemoScreen() {
                                         storage.set(SELECTED_QUEST_STORAGE_KEY, quest.id);
                                         queryClient.invalidateQueries({
                                             queryKey: [
-                                                INTERFACE_DATA_USE_QUEY_KEY,
-                                                SELECTED_QUEST_USE_QUEY_KEY,
+                                                INTERFACE_DATA_USE_QUERY_KEY,
+                                                SELECTED_QUEST_USE_QUERY_KEY,
                                             ],
                                         });
                                     }}

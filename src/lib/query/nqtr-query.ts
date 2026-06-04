@@ -13,17 +13,17 @@ import type { PixiUIProp } from "../../models/nqtr/ui-elements";
 import { SELECTED_QUEST_STORAGE_KEY } from "../constans";
 import { normalizePixiElement } from "../utils/image-utility";
 import useGameProps from "./useGameProps";
-import { INTERFACE_DATA_USE_QUEY_KEY } from "./useQueryInterface";
+import { INTERFACE_DATA_USE_QUERY_KEY } from "./useQueryInterface";
 
-const CURRENT_HOUR_USE_QUEY_KEY = "current_hour_use_quey_key";
+const CURRENT_HOUR_USE_QUERY_KEY = "current_hour_use_query_key";
 export function useQueryTime() {
     return useQuery({
-        queryKey: [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_HOUR_USE_QUEY_KEY],
+        queryKey: [INTERFACE_DATA_USE_QUERY_KEY, CURRENT_HOUR_USE_QUERY_KEY],
         queryFn: async () => timeTracker.currentTime,
     });
 }
 
-const ROOM_USE_QUEY_KEY = "room_use_quey_key";
+const ROOM_USE_QUERY_KEY = "room_use_query_key";
 export function useQueryRoom(id?: string) {
     const gameProps = useGameProps();
 
@@ -46,7 +46,7 @@ export function useQueryRoom(id?: string) {
     );
 
     return useQuery({
-        queryKey: [INTERFACE_DATA_USE_QUEY_KEY, ROOM_USE_QUEY_KEY, id],
+        queryKey: [INTERFACE_DATA_USE_QUERY_KEY, ROOM_USE_QUERY_KEY, id],
         queryFn: async () => {
             if (!id) return undefined;
             const room = RegisteredRooms.get(id);
@@ -81,10 +81,10 @@ export function useQueryRoom(id?: string) {
     });
 }
 
-export const CURRENT_ROOM_ID_USE_QUEY_KEY = "current_room_id_use_quey_key";
+export const CURRENT_ROOM_ID_USE_QUERY_KEY = "current_room_id_use_query_key";
 export function useQueryCurrentRoomId() {
     return useQuery({
-        queryKey: [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_ROOM_ID_USE_QUEY_KEY],
+        queryKey: [INTERFACE_DATA_USE_QUERY_KEY, CURRENT_ROOM_ID_USE_QUERY_KEY],
         queryFn: async () => navigator.currentRoomId,
     });
 }
@@ -94,10 +94,10 @@ export function useQueryCurrentRoom() {
     return useQueryRoom(currentRoomId);
 }
 
-const QUICK_ROOMS_USE_QUEY_KEY = "quick_rooms_use_quey_key";
+const QUICK_ROOMS_USE_QUERY_KEY = "quick_rooms_use_query_key";
 export function useQueryQuickRooms() {
     return useQuery({
-        queryKey: [INTERFACE_DATA_USE_QUEY_KEY, QUICK_ROOMS_USE_QUEY_KEY],
+        queryKey: [INTERFACE_DATA_USE_QUERY_KEY, QUICK_ROOMS_USE_QUERY_KEY],
         queryFn: async () => {
             const rooms = navigator.currentLocation?.rooms || [];
             const loadRoomsImage = async () => {
@@ -142,10 +142,10 @@ function getQuestInfo(quest: QuestInterface) {
     };
 }
 
-const QUESTS_USE_QUEY_KEY = "quests_use_quey_key";
+const QUESTS_USE_QUERY_KEY = "quests_use_query_key";
 export function useQueryQuests() {
     return useQuery({
-        queryKey: [INTERFACE_DATA_USE_QUEY_KEY, QUESTS_USE_QUEY_KEY],
+        queryKey: [INTERFACE_DATA_USE_QUERY_KEY, QUESTS_USE_QUERY_KEY],
         queryFn: async () => {
             const inProgressQuests = questsNotebook.inProgressQuests.map(getQuestInfo);
             const completedQuests = questsNotebook.completedQuests.map(getQuestInfo);
@@ -159,10 +159,10 @@ export function useQueryQuests() {
     });
 }
 
-export const SELECTED_QUEST_USE_QUEY_KEY = "selected_quest_use_quey_key";
+export const SELECTED_QUEST_USE_QUERY_KEY = "selected_quest_use_query_key";
 export function useQuerySelectedQuest() {
     return useQuery({
-        queryKey: [INTERFACE_DATA_USE_QUEY_KEY, SELECTED_QUEST_USE_QUEY_KEY],
+        queryKey: [INTERFACE_DATA_USE_QUERY_KEY, SELECTED_QUEST_USE_QUERY_KEY],
         queryFn: async () => {
             const selectedQuestId = storage.get<string>(SELECTED_QUEST_STORAGE_KEY);
             const selectedQuest = selectedQuestId
@@ -173,7 +173,7 @@ export function useQuerySelectedQuest() {
     });
 }
 
-const MAP_USE_QUEY_KEY = "map_use_quey_key";
+const MAP_USE_QUERY_KEY = "map_use_query_key";
 export function useQueryMap(id?: string) {
     const gameProps = useGameProps();
 
@@ -196,7 +196,7 @@ export function useQueryMap(id?: string) {
     );
 
     return useQuery({
-        queryKey: [INTERFACE_DATA_USE_QUEY_KEY, MAP_USE_QUEY_KEY, id],
+        queryKey: [INTERFACE_DATA_USE_QUERY_KEY, MAP_USE_QUERY_KEY, id],
         queryFn: async () => {
             if (!id) return undefined;
             const map = RegisteredMaps.get(id);
@@ -225,10 +225,10 @@ export function useQueryMap(id?: string) {
     });
 }
 
-export const CURRENT_MAP_USE_QUEY_KEY = "current_map_use_quey_key";
+export const CURRENT_MAP_USE_QUERY_KEY = "current_map_use_query_key";
 export function useQueryCurrentMapId() {
     return useQuery({
-        queryKey: [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_MAP_USE_QUEY_KEY],
+        queryKey: [INTERFACE_DATA_USE_QUERY_KEY, CURRENT_MAP_USE_QUERY_KEY],
         queryFn: async () => navigator.currentMap?.id,
     });
 }
