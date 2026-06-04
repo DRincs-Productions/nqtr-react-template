@@ -2,10 +2,11 @@ import { Button } from "@/components/ui/button";
 import { Image } from "@/components/ui/image";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useGameProps } from "@/lib/hooks/props-hooks";
-import useNqtrScreenStore from "@/lib/stores/useNqtrScreenStore";
+import { GameStatus } from "@/lib/stores/game-status-store";
 import { cn } from "@/lib/utils";
 import type TimeSlotsImage from "@/models/TimeSlotsImage";
 import type { OnRunProps } from "@drincs/nqtr";
+import { useSelector } from "@tanstack/react-store";
 import { isValidElement, type ComponentProps, type CSSProperties, type ReactElement } from "react";
 
 const BORDER_RADIUS_SCALE = 1.2;
@@ -18,7 +19,7 @@ export interface NavigationButtonProps extends ComponentProps<typeof Button> {
 }
 
 export default function NavigationButton(props: NavigationButtonProps) {
-    const disabledScreen = useNqtrScreenStore((state: { disabled: boolean }) => state.disabled);
+    const disabledScreen = useSelector(GameStatus.store, (state) => state.loading);
     const gameProps = useGameProps();
     const {
         image: imageProp,
