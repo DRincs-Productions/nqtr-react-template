@@ -17,7 +17,7 @@ export default function useNQTRDetector() {
     useEffect(() => {
         canvas.removeAll();
         if (background) {
-            let layer = canvas.getLayer(CANVAS_UI_LAYER_NAME);
+            const layer = canvas.getLayer(CANVAS_UI_LAYER_NAME);
             if (layer) {
                 if (background) layer.addChild(background);
 
@@ -26,9 +26,9 @@ export default function useNQTRDetector() {
             }
         }
 
-        let automaticFunctions = navigator.currentRoom?.automaticFunctions || [];
+        const automaticFunctions = navigator.currentRoom?.automaticFunctions || [];
         if (automaticFunctions.length > 0) {
-            let automaticFunction = automaticFunctions[0];
+            const automaticFunction = automaticFunctions[0];
             setDisable(true);
             automaticFunction(gameProps).finally(() => {
                 setDisable(false);

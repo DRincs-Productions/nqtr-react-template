@@ -6,8 +6,8 @@ import {
     SELECTED_QUEST_USE_QUEY_KEY,
     useQueryQuests,
     useQuerySelectedQuest,
-} from "../../../hooks/useQueryNQTR";
-import useMemoScreenStore from "../../../stores/useMemoScreenStore";
+} from "../../../lib/hooks/useQueryNQTR";
+import useMemoScreenStore from "../../../lib/stores/useMemoScreenStore";
 import ModalDialogCustom from "../../components/ModalDialog";
 import { SELECTED_QUEST_STORAGE_KEY } from "../../constans";
 import useEventListener from "../../hooks/useKeyDetector";

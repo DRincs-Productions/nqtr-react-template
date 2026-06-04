@@ -1,3 +1,10 @@
+import {
+    Avatar,
+    AvatarFallback,
+    AvatarGroup,
+    AvatarGroupCount,
+    AvatarImage,
+} from "@/components/ui/avatar";
 import { navigator } from "@drincs/nqtr";
 import { useQueryClient } from "@tanstack/react-query";
 import { useMemo } from "react";
@@ -6,17 +13,10 @@ import {
     useQueryCurrentRoomId,
     useQueryQuickRooms,
     useQueryRoom,
-} from "../../../hooks/useQueryNQTR.ts";
-import {
-    Avatar,
-    AvatarFallback,
-    AvatarGroup,
-    AvatarGroupCount,
-    AvatarImage,
-} from "@/components/ui/avatar";
-import NavigationButton from "./buttons.tsx";
+} from "../../../lib/hooks/useQueryNQTR.ts";
 import StackOverflow from "../../StackOverflow.tsx.tsx";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "../../hooks/useQueryInterface";
+import NavigationButton from "./buttons.tsx";
 
 export default function QuickRooms() {
     const { data: rooms = [] } = useQueryQuickRooms();
@@ -69,14 +69,13 @@ function QuickRoom({ roomId }: { roomId: string }) {
         >
             {characters && (
                 <AvatarGroup className="absolute right-0 bottom-0">
-                    {characters.length <= 3 && (
+                    {characters.length <= 3 &&
                         characters.map((character) => (
                             <Avatar key={character.id} size="sm">
                                 <AvatarImage src={character.icon} alt={character.name} />
                                 <AvatarFallback>{character.name.slice(0, 1)}</AvatarFallback>
                             </Avatar>
-                        ))
-                    )}
+                        ))}
                     {characters.length > 3 && (
                         <>
                             {characters.slice(0, 2).map((character) => (

@@ -2,9 +2,9 @@ import { Button } from "@/components/ui/button";
 import { Image } from "@/components/ui/image";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useGameProps } from "@/lib/hooks/props-hooks";
+import useNqtrScreenStore from "@/lib/stores/useNqtrScreenStore";
 import { cn } from "@/lib/utils";
 import type TimeSlotsImage from "@/models/TimeSlotsImage";
-import useNqtrScreenStore from "@/stores/useNqtrScreenStore";
 import type { OnRunProps } from "@drincs/nqtr";
 import { isValidElement, type ComponentProps, type CSSProperties, type ReactElement } from "react";
 

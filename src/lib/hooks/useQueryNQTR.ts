@@ -1,9 +1,16 @@
-import { navigator, QuestInterface, questsNotebook, RegisteredMaps, RegisteredRooms, timeTracker } from "@drincs/nqtr";
+import {
+    navigator,
+    type QuestInterface,
+    questsNotebook,
+    RegisteredMaps,
+    RegisteredRooms,
+    timeTracker,
+} from "@drincs/nqtr";
 import { Assets, ImageSprite, storage } from "@drincs/pixi-vn";
 import { useQuery } from "@tanstack/react-query";
 import { useCallback } from "react";
+import type { PixiUIProp } from "../../models/nqtr/ui-elements";
 import { SELECTED_QUEST_STORAGE_KEY } from "../constans";
-import { PixiUIProp } from "../models/nqtr/ui-elements";
 import { normalizePixiElement } from "../utils/image-utility";
 import useGameProps from "./useGameProps";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "./useQueryInterface";
@@ -24,7 +31,7 @@ export function useQueryRoom(id?: string) {
         async (items: Array<{ sprite?: PixiUIProp }>) => {
             const promises = items.map(async ({ sprite }) => {
                 if (!sprite) return undefined;
-                let icon = await normalizePixiElement(sprite, gameProps);
+                const icon = await normalizePixiElement(sprite, gameProps);
                 if (typeof icon === "string") {
                     const s = new ImageSprite({}, icon);
                     await s.load();
@@ -48,14 +55,17 @@ export function useQueryRoom(id?: string) {
             const routine = room.routine;
             const routineBackground = room.routine.find((c) => c.background)?.background;
 
-            let background = await normalizePixiElement(routineBackground || room.background, gameProps);
+            let background = await normalizePixiElement(
+                routineBackground || room.background,
+                gameProps,
+            );
             if (typeof background === "string") {
-                let sprite = new ImageSprite({}, background);
+                const sprite = new ImageSprite({}, background);
                 await sprite.load();
                 background = sprite;
             }
 
-            let icon = await normalizePixiElement(room.background, gameProps);
+            const icon = await normalizePixiElement(room.background, gameProps);
 
             const activitiesIcons = await loadIcons(room.activities);
             const routineIcons = await loadIcons(routine);
@@ -132,9 +142,9 @@ export function useQueryQuests() {
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, QUESTS_USE_QUEY_KEY],
         queryFn: async () => {
-            let inProgressQuests = questsNotebook.inProgressQuests.map(getQuestInfo);
-            let completedQuests = questsNotebook.completedQuests.map(getQuestInfo);
-            let failedQuests = questsNotebook.failedQuests.map(getQuestInfo);
+            const inProgressQuests = questsNotebook.inProgressQuests.map(getQuestInfo);
+            const completedQuests = questsNotebook.completedQuests.map(getQuestInfo);
+            const failedQuests = questsNotebook.failedQuests.map(getQuestInfo);
             return {
                 inProgressQuests,
                 completedQuests,
@@ -149,8 +159,10 @@ export function useQuerySelectedQuest() {
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, SELECTED_QUEST_USE_QUEY_KEY],
         queryFn: async () => {
-            let selectedQuestId = storage.get<string>(SELECTED_QUEST_STORAGE_KEY);
-            let selectedQuest = selectedQuestId ? questsNotebook.find(selectedQuestId) : undefined;
+            const selectedQuestId = storage.get<string>(SELECTED_QUEST_STORAGE_KEY);
+            const selectedQuest = selectedQuestId
+                ? questsNotebook.find(selectedQuestId)
+                : undefined;
             return selectedQuest ? getQuestInfo(selectedQuest) : null;
         },
     });
@@ -164,7 +176,7 @@ export function useQueryMap(id?: string) {
         async (items: Array<{ sprite?: PixiUIProp }>) => {
             const promises = items.map(async ({ sprite }) => {
                 if (!sprite) return undefined;
-                let icon = await normalizePixiElement(sprite, gameProps);
+                const icon = await normalizePixiElement(sprite, gameProps);
                 if (typeof icon === "string") {
                     const s = new ImageSprite({}, icon);
                     await s.load();
@@ -187,7 +199,7 @@ export function useQueryMap(id?: string) {
 
             let background = await normalizePixiElement(map.background, gameProps);
             if (typeof background === "string") {
-                let sprite = new ImageSprite({}, background);
+                const sprite = new ImageSprite({}, background);
                 await sprite.load();
                 background = sprite;
             }

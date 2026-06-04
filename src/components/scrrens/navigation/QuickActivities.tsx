@@ -1,7 +1,7 @@
-import { useQueryCurrentRoomId, useQueryRoom } from "../../../hooks/useQueryNQTR.ts";
-import NavigationButton from "./buttons.tsx";
+import { useQueryCurrentRoomId, useQueryRoom } from "../../../lib/hooks/useQueryNQTR.ts";
 import StackOverflow from "../../StackOverflow.tsx.tsx";
 import useGameProps from "../../hooks/useGameProps.ts";
+import NavigationButton from "./buttons.tsx";
 
 export default function QuickActivities() {
     const { data: currentRoomId } = useQueryCurrentRoomId();
