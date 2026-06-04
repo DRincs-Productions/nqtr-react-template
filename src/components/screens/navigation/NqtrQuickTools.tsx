@@ -3,7 +3,7 @@ import NoteAltIcon from "@mui/icons-material/NoteAlt";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { CURRENT_MAP_USE_QUEY_KEY } from "../../../lib/query/useQueryNQTR.ts";
+import { CURRENT_MAP_USE_QUEY_KEY } from "../../../lib/query/nqtr-query.ts";
 import useMemoScreenStore from "../../../lib/stores/useMemoScreenStore.ts";
 import RoundIconButton, { type RoundIconButtonProps } from "../../RoundIconButton.tsx";
 import StackOverflow from "../../StackOverflow.tsx.tsx";
