@@ -4,7 +4,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Spinner } from "@/components/ui/spinner";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { CANVAS_UI_LAYER_NAME, overlayTextShadowClass } from "@/constants";
-import { startLabel } from "@/content/labels/start.label";
 import { useSetSearchParamState } from "@/lib/hooks/navigation-hooks";
 import { useGameProps } from "@/lib/hooks/props-hooks";
 import { INTERFACE_DATA_USE_QUEY_KEY as INTERFACE_DATA_USE_QUERY_KEY } from "@/lib/query/interface-query";
@@ -143,7 +142,7 @@ export function MainMenu() {
                         role="menuitem"
                         onClick={async () => {
                             setLoading(true);
-                            Game.start(startLabel, gameProps)
+                            Game.start("start", gameProps)
                                 .then(() =>
                                     queryClient.invalidateQueries({
                                         queryKey: [INTERFACE_DATA_USE_QUERY_KEY],
