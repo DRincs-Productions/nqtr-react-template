@@ -1,12 +1,9 @@
+import NavigationButton from "@/components/scrrens/navigation/buttons";
+import { alice } from "@/content/characters";
+import Commitment from "@/models/nqtr/Commitment";
 import { RegisteredCommitments, timeTracker } from "@drincs/nqtr";
 import { narration } from "@drincs/pixi-vn";
 import { MessageCircleQuestion } from "lucide-react";
-import NavigationButton from "../components/scrrens/navigation/buttons";
-import { NARRATION_ROUTE } from "../constans";
-import { TALK_SLEEP_LABEL_KEY } from "../labels/variousActionsLabelKeys";
-import { aliceTalkMenuLabel } from "../labels/variousActionsLabels";
-import Commitment from "../models/nqtr/Commitment";
-import { alice } from "./characters";
 
 export const aliceSleep = new Commitment("alice_sleep", alice, {
     priority: 1,
@@ -31,8 +28,8 @@ export const aliceSleep = new Commitment("alice_sleep", alice, {
         );
     },
     onRun: async (_, event) => {
-        await event.navigate(NARRATION_ROUTE);
-        await narration.jump(TALK_SLEEP_LABEL_KEY, event);
+        await event.navigate({ to: "/game/narration" });
+        await narration.jump("talk-alice-sleep", event);
     },
 });
 
@@ -67,8 +64,8 @@ export const aliceSmokes = new Commitment("alice_smokes", alice, {
         );
     },
     onRun: async (_, event) => {
-        await event.navigate(NARRATION_ROUTE);
-        await narration.jump(aliceTalkMenuLabel, event);
+        await event.navigate({ to: "/game/narration" });
+        await narration.jump("alice-talk-menu", event);
     },
 });
 

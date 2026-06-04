@@ -1,9 +1,9 @@
+import { bed } from "@/content/activities";
+import { gym, mcHome, school } from "@/content/locations";
+import { aliceGoSchool, aliceSleep, aliceSmokes } from "@/content/routine";
+import Room from "@/models/nqtr/Room";
+import TimeSlotsImage from "@/models/TimeSlotsImage";
 import { RegisteredRooms } from "@drincs/nqtr";
-import TimeSlotsImage from "../models/TimeSlotsImage";
-import Room from "../models/nqtr/Room";
-import { bed } from "./activities";
-import { gym, mcHome, school } from "./locations";
-import { aliceGoSchool, aliceSleep, aliceSmokes } from "./routine";
 
 export const mcRoomBackground = new TimeSlotsImage({
     morning: "location_myroom-0",
