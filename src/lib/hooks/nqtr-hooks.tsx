@@ -1,12 +1,13 @@
 import { CANVAS_UI_LAYER_NAME } from "@/constants";
 import { useGameProps } from "@/lib/hooks/props-hooks";
-import { useQueryCurrentRoomId, useQueryRoom, useQueryTime } from "@/lib/query/room-query";
+import { useQueryCurrentRoomId, useQueryRoom } from "@/lib/query/room-query";
+import { useQueryTime } from "@/lib/query/time-query";
 import { GameStatus } from "@/lib/stores/game-status-store";
 import { navigator } from "@drincs/nqtr";
 import { canvas } from "@drincs/pixi-vn";
 import { useEffect } from "react";
 
-export default function useNQTRDetector() {
+export function useNQTRDetector() {
     const { data: currentRoomId } = useQueryCurrentRoomId();
     const { data } = useQueryRoom(currentRoomId);
     const { room: currentRoom, background, activities, routine } = data || {};
