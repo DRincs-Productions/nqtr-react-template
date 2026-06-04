@@ -1,4 +1,9 @@
-import { QuestInterface, QuestStoredClass, QuestStoredClassProps, StageInterface } from "@drincs/nqtr";
+import {
+    type QuestInterface,
+    QuestStoredClass,
+    type QuestStoredClassProps,
+    type StageInterface,
+} from "@drincs/nqtr";
 
 export default class Quest extends QuestStoredClass implements QuestInterface {
     constructor(
@@ -9,7 +14,7 @@ export default class Quest extends QuestStoredClass implements QuestInterface {
             description?: string;
             image?: string;
             inDevelopment?: boolean;
-        } & QuestStoredClassProps
+        } & QuestStoredClassProps,
     ) {
         super(id, _stages, props);
         this.name = props.name || "";

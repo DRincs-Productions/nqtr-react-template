@@ -1,14 +1,14 @@
 import {
-    ActiveScheduling,
-    CommitmentInterface,
+    type ActiveScheduling,
+    type CommitmentInterface,
     CommitmentStoredClass,
-    CommitmentStoredClassProps,
-    OnRunAsyncFunction,
-    OnRunEvent,
-    OnRunProps,
+    type CommitmentStoredClassProps,
+    type OnRunAsyncFunction,
+    type OnRunEvent,
+    type OnRunProps,
 } from "@drincs/nqtr";
-import { CharacterInterface } from "@drincs/pixi-vn";
-import { PixiUIParam, PixiUIProp, ReactUIParam, ReactUIProp } from "./ui-elements";
+import type { CharacterInterface } from "@drincs/pixi-vn";
+import type { PixiUIParam, PixiUIProp, ReactUIParam, ReactUIProp } from "./ui-elements";
 
 export default class Commitment extends CommitmentStoredClass implements CommitmentInterface {
     constructor(
@@ -60,7 +60,7 @@ export default class Commitment extends CommitmentStoredClass implements Commitm
     }
     private _defaultDisabled: boolean | (() => boolean) = false;
     get disabled(): boolean {
-        let value = this.getStorageProperty<boolean>("disabled") || this._defaultDisabled;
+        const value = this.getStorageProperty<boolean>("disabled") || this._defaultDisabled;
         if (typeof value === "function") {
             return value();
         }
@@ -71,7 +71,7 @@ export default class Commitment extends CommitmentStoredClass implements Commitm
     }
     private _defaultHidden: boolean | (() => boolean) = false;
     get hidden(): boolean {
-        let value = this.getStorageProperty<boolean>("hidden") || this._defaultHidden;
+        const value = this.getStorageProperty<boolean>("hidden") || this._defaultHidden;
         if (typeof value === "function") {
             return value();
         }

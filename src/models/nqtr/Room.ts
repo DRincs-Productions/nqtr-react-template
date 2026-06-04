@@ -1,12 +1,12 @@
 import {
-    ActivityInterface,
-    CommitmentInterface,
-    LocationInterface,
-    OnRunProps,
-    RoomInterface,
+    type ActivityInterface,
+    type CommitmentInterface,
+    type LocationInterface,
+    type OnRunProps,
+    type RoomInterface,
     RoomStoredClass,
 } from "@drincs/nqtr";
-import { PixiUIParam, PixiUIProp } from "./ui-elements";
+import type { PixiUIParam, PixiUIProp } from "./ui-elements";
 
 export default class Room extends RoomStoredClass implements RoomInterface {
     constructor(
@@ -44,7 +44,7 @@ export default class Room extends RoomStoredClass implements RoomInterface {
     readonly isEntrance: boolean;
     private _defaultDisabled: boolean | (() => boolean) = false;
     get disabled(): boolean {
-        let value = this.getStorageProperty<boolean>("disabled") || this._defaultDisabled;
+        const value = this.getStorageProperty<boolean>("disabled") || this._defaultDisabled;
         if (typeof value === "function") {
             return value();
         }
@@ -55,7 +55,7 @@ export default class Room extends RoomStoredClass implements RoomInterface {
     }
     private _defaultHidden: boolean | (() => boolean) = false;
     get hidden(): boolean {
-        let value = this.getStorageProperty<boolean>("hidden") || this._defaultHidden;
+        const value = this.getStorageProperty<boolean>("hidden") || this._defaultHidden;
         if (typeof value === "function") {
             return value();
         }

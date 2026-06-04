@@ -1,13 +1,13 @@
 import {
-    ActiveScheduling,
-    ActivityInterface,
+    type ActiveScheduling,
+    type ActivityInterface,
     ActivityStoredClass,
-    ActivityStoredClassProps,
-    OnRunAsyncFunction,
-    OnRunEvent,
-    OnRunProps,
+    type ActivityStoredClassProps,
+    type OnRunAsyncFunction,
+    type OnRunEvent,
+    type OnRunProps,
 } from "@drincs/nqtr";
-import { PixiUIParam, PixiUIProp, ReactUIParam, ReactUIProp } from "./ui-elements";
+import type { PixiUIParam, PixiUIProp, ReactUIParam, ReactUIProp } from "./ui-elements";
 
 export default class Activity extends ActivityStoredClass implements ActivityInterface {
     constructor(
@@ -47,7 +47,7 @@ export default class Activity extends ActivityStoredClass implements ActivityInt
     }
     private _defaultDisabled: boolean | (() => boolean) = false;
     get disabled(): boolean {
-        let value = this.getStorageProperty<boolean>("disabled") || this._defaultDisabled;
+        const value = this.getStorageProperty<boolean>("disabled") || this._defaultDisabled;
         if (typeof value === "function") {
             return value();
         }
@@ -58,7 +58,7 @@ export default class Activity extends ActivityStoredClass implements ActivityInt
     }
     private _defaultHidden: boolean | (() => boolean) = false;
     get hidden(): boolean {
-        let value = this.getStorageProperty<boolean>("hidden") || this._defaultHidden;
+        const value = this.getStorageProperty<boolean>("hidden") || this._defaultHidden;
         if (typeof value === "function") {
             return value();
         }
