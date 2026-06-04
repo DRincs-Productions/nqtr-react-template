@@ -1,8 +1,7 @@
+import { mainMap } from "@/content/maps";
+import Location from "@/models/nqtr/Location";
 import { navigator, RegisteredLocations } from "@drincs/nqtr";
-import { Assets, Sprite, Texture } from "@drincs/pixi-vn/pixi.js";
-import { NAVIGATION_ROUTE } from "../constans";
-import Location from "../models/nqtr/Location";
-import { mainMap } from "./maps";
+import { Assets, Sprite, type Texture } from "@drincs/pixi-vn/pixi.js";
 
 export const mcHome = new Location("mc_home", mainMap, {
     name: "MC Home",
@@ -21,7 +20,7 @@ export const mcHome = new Location("mc_home", mainMap, {
             const entrance = location.entrance;
             if (entrance) {
                 navigator.currentRoom = entrance;
-                navigate(NAVIGATION_ROUTE);
+                navigate({ to: "/game/navigation" });
             }
         });
         return icon;
@@ -45,7 +44,7 @@ export const gym = new Location("gym", mainMap, {
             const entrance = location.entrance;
             if (entrance) {
                 navigator.currentRoom = entrance;
-                navigate(NAVIGATION_ROUTE);
+                navigate({ to: "/game/navigation" });
             }
         });
         return icon;
