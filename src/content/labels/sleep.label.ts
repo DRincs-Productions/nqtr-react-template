@@ -10,7 +10,7 @@ import {
 
 const sleepHourLabel = newLabel<{
     hour: number;
-}>("sleep_1_hour", [
+}>("sleep-1-hour", [
     ({ hour: wakeupHour, ...props }) => {
         props.sleep(wakeupHour, props);
         narration.continue(props);
@@ -19,7 +19,7 @@ const sleepHourLabel = newLabel<{
 
 const napHourLabel = newLabel<{
     hour: number;
-}>("nap_1_hour", [
+}>("nap-1-hour", [
     ({ hour, ...props }) => {
         props.wait(hour);
         narration.continue(props);

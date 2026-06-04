@@ -59,7 +59,7 @@ export const talkSleepLabel = newLabel("talk-alice-sleep", [
 export const talkAliceQuest = newLabel(
     "talk-alice",
     () => {
-        if (aliceQuest.currentStageIndex == 0) {
+        if (aliceQuest.currentStageIndex === 0) {
             return [
                 async () => {
                     narration.dialogue = {
@@ -78,7 +78,7 @@ export const talkAliceQuest = newLabel(
                     narration.continue(props);
                 },
             ];
-        } else if (aliceQuest.currentStageIndex == 1) {
+        } else if (aliceQuest.currentStageIndex === 1) {
             return [
                 async () => {
                     narration.dialogue = {
@@ -90,7 +90,7 @@ export const talkAliceQuest = newLabel(
                     narration.dialogue = { character: alice, text: "For me it is the same." };
                 },
             ];
-        } else if (aliceQuest.currentStageIndex == 2) {
+        } else if (aliceQuest.currentStageIndex === 2) {
             return [
                 async () => {
                     narration.dialogue = {
@@ -105,7 +105,7 @@ export const talkAliceQuest = newLabel(
                     };
                 },
             ];
-        } else if (aliceQuest.currentStageIndex == 3) {
+        } else if (aliceQuest.currentStageIndex === 3) {
             return [
                 async () => {
                     narration.dialogue = { character: mc, text: "Here's your book." };
@@ -130,7 +130,7 @@ export const talkAliceQuest = newLabel(
     },
     {
         onStepStart: async (stepIndex) => {
-            if (stepIndex == 0) {
+            if (stepIndex === 0) {
                 await showImage(BACKGROUND_ID, "alice_terrace0At");
             }
         },
