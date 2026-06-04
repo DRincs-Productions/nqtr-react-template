@@ -4,7 +4,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { CURRENT_MAP_USE_QUERY_KEY } from "../../../lib/query/room-query.ts";
-import useMemoScreenStore from "../../../lib/stores/useMemoScreenStore.ts";
+import { MemoScreen } from "../../../lib/stores/memo-screen-store.ts";
 import RoundIconButton, { type RoundIconButtonProps } from "../../RoundIconButton.tsx";
 import StackOverflow from "../../StackOverflow.tsx.tsx";
 import { MAP_ROUTE } from "../../constans.ts";
@@ -13,7 +13,6 @@ import { INTERFACE_DATA_USE_QUERY_KEY } from "../../hooks/useQueryInterface.ts";
 import useSettingsScreenStore from "../../stores/useSettingsScreenStore.ts";
 
 export default function NqtrQuickTools() {
-    const editOpenMemo = useMemoScreenStore((state) => state.editOpen);
     const editOpenSettings = useSettingsScreenStore((state) => state.editOpen);
     const navigate = useMyNavigate();
     const queryClient = useQueryClient();
@@ -47,7 +46,7 @@ export default function NqtrQuickTools() {
                         }}
                     />
                 </QuickToolButton>
-                <QuickToolButton ariaLabel={t("memo")} onClick={editOpenMemo}>
+                <QuickToolButton ariaLabel={t("memo")} onClick={MemoScreen.toggleOpen}>
                     <NoteAltIcon
                         sx={{
                             fontSize: {

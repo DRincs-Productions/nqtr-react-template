@@ -1,8 +1,8 @@
 import { AspectRatio, Box, Divider, Link, Sheet, Stack, Typography } from "@mui/joy";
+import { useSelector } from "@tanstack/react-store";
 import { useTranslation } from "react-i18next";
 import { useQueryQuests, useQuerySelectedQuest } from "../../../lib/query/room-query";
-import { SelectedQuest } from "../../../lib/stores/selected-quest-store";
-import useMemoScreenStore from "../../../lib/stores/useMemoScreenStore";
+import { MemoScreen as MemoScreenStore } from "../../../lib/stores/memo-screen-store";
 import ModalDialogCustom from "../../components/ModalDialog";
 import useEventListener from "../../hooks/useKeyDetector";
 import { getPixiJSAsset } from "../../utils/assets-utility";
@@ -18,15 +18,13 @@ export default function MemoScreen() {
     } = useQueryQuests();
     const { data: selectedQuest } = useQuerySelectedQuest();
     const image = selectedQuest?.questImage ? getPixiJSAsset(selectedQuest.questImage) : undefined;
-    const open = useMemoScreenStore((state) => state.open);
-    const editOpen = useMemoScreenStore((state) => state.editOpen);
-    const queryClient = useQueryClient();
+    const open = useSelector(MemoScreenStore.store, (state) => state.open);
 
     useEventListener({
         type: "keydown",
         listener: (event) => {
             if (event.code == "KeyJ" && event.altKey) {
-                editOpen();
+                MemoScreenStore.toggleOpen();
             }
         },
     });
@@ -34,7 +32,7 @@ export default function MemoScreen() {
     return (
         <ModalDialogCustom
             open={open}
-            setOpen={editOpen}
+            setOpen={MemoScreenStore.toggleOpen}
             layout={"fullscreen"}
             head={
                 <Stack
@@ -85,13 +83,7 @@ export default function MemoScreen() {
                                 <Link
                                     disabled={selectedQuest?.id === quest.id}
                                     onClick={() => {
-                                        SelectedQuest.setId(quest.id);
-                                        queryClient.invalidateQueries({
-                                            queryKey: [
-                                                INTERFACE_DATA_USE_QUERY_KEY,
-                                                SELECTED_QUEST_USE_QUERY_KEY,
-                                            ],
-                                        });
+                                        MemoScreenStore.setSelectedQuestId(quest.id);
                                     }}
                                 >
                                     {quest.name}
@@ -113,13 +105,7 @@ export default function MemoScreen() {
                                 <Link
                                     disabled={selectedQuest?.id === quest.id}
                                     onClick={() => {
-                                        SelectedQuest.setId(quest.id);
-                                        queryClient.invalidateQueries({
-                                            queryKey: [
-                                                INTERFACE_DATA_USE_QUERY_KEY,
-                                                SELECTED_QUEST_USE_QUERY_KEY,
-                                            ],
-                                        });
+                                        MemoScreenStore.setSelectedQuestId(quest.id);
                                     }}
                                 >
                                     {quest.name}
@@ -141,13 +127,7 @@ export default function MemoScreen() {
                                 <Link
                                     disabled={selectedQuest?.id === quest.id}
                                     onClick={() => {
-                                        SelectedQuest.setId(quest.id);
-                                        queryClient.invalidateQueries({
-                                            queryKey: [
-                                                INTERFACE_DATA_USE_QUERY_KEY,
-                                                SELECTED_QUEST_USE_QUERY_KEY,
-                                            ],
-                                        });
+                                        MemoScreenStore.setSelectedQuestId(quest.id);
                                     }}
                                 >
                                     {quest.name}
