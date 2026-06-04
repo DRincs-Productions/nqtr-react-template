@@ -9,7 +9,7 @@ import { MapIcon, NotebookPen, Settings } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import NavigationButton from "./buttons";
 
-export function NqtrQuickTools() {
+export function Tools() {
     const setOpenSettings = useSetSearchParamState<boolean>("settings");
     const navigate = useNavigate();
     const queryClient = useQueryClient();
@@ -19,7 +19,10 @@ export function NqtrQuickTools() {
         <>
             <ScrollArea className="absolute top-0 left-0 pointer-events-auto">
                 <div className="flex flex-row items-end justify-center gap-0.5">
-                    <NavigationButton ariaLabel={t("settings")} onClick={() => setOpenSettings(true)}>
+                    <NavigationButton
+                        ariaLabel={t("settings")}
+                        onClick={() => setOpenSettings(true)}
+                    >
                         <Settings className="size-6 sm:size-8 md:size-10" />
                     </NavigationButton>
                     <NavigationButton ariaLabel={t("memo")} onClick={MemoScreen.toggleOpen}>
