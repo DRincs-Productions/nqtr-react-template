@@ -1,4 +1,4 @@
-import { NavigationScreen } from "@/components/scrrens/navigation";
+import { NavigationScreen } from "@/components/screens/navigation";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/game/navigation")({
