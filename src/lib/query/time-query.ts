@@ -6,6 +6,9 @@ const CURRENT_HOUR_USE_QUERY_KEY = "current_hour_use_query_key";
 export function useQueryTime() {
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUERY_KEY, CURRENT_HOUR_USE_QUERY_KEY],
-        queryFn: async () => timeTracker.currentTime,
+        queryFn: async () => ({
+            hour: timeTracker.currentTime,
+            day: timeTracker.currentDate,
+        }),
     });
 }
