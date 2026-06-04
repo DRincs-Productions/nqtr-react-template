@@ -4,6 +4,7 @@ import { normalizePixiElement } from "@/lib/utils/image-utility";
 import type { PixiUIProp } from "@/models/nqtr/ui-elements";
 import { navigator, RegisteredMaps } from "@drincs/nqtr";
 import { Assets, ImageSprite } from "@drincs/pixi-vn";
+import type { ContainerChild } from "@drincs/pixi-vn/pixi.js";
 import { useQuery } from "@tanstack/react-query";
 import { useCallback } from "react";
 
@@ -12,20 +13,20 @@ export function useQueryMap(id?: string) {
     const gameProps = useGameProps();
 
     const loadIcons = useCallback(
-        async (items: Array<{ sprite?: PixiUIProp }>) => {
-            const promises = items.map(async ({ sprite }) => {
-                if (!sprite) return undefined;
+        (items: Array<{ sprite?: PixiUIProp }>) =>
+            items.reduce(async (accPromise, { sprite }) => {
+                const acc = await accPromise;
+                if (!sprite) return acc;
                 const icon = await normalizePixiElement(sprite, gameProps);
                 if (typeof icon === "string") {
                     const s = new ImageSprite({}, icon);
                     await s.load();
-                    return s;
+                    acc.push(s);
+                    return acc;
                 }
-                return icon;
-            });
-            const results = await Promise.all(promises);
-            return results.filter((i) => i !== undefined);
-        },
+                acc.push(icon);
+                return acc;
+            }, Promise.resolve<(ImageSprite | ContainerChild)[]>([])),
         [gameProps],
     );
 
