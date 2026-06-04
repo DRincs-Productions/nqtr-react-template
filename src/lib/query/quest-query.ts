@@ -1,7 +1,8 @@
 import { INTERFACE_DATA_USE_QUERY_KEY } from "@/constants";
+import { SelectedQuest } from "@/lib/stores/selected-quest-store";
 import { type QuestInterface, questsNotebook } from "@drincs/nqtr";
-import { storage } from "@drincs/pixi-vn";
 import { useQuery } from "@tanstack/react-query";
+import { useSelector } from "@tanstack/react-store";
 
 function getQuestInfo(quest: QuestInterface) {
     let currentStageDescription = "";
@@ -51,10 +52,10 @@ export function useQueryQuests() {
 
 export const SELECTED_QUEST_USE_QUERY_KEY = "selected_quest_use_query_key";
 export function useQuerySelectedQuest() {
+    const selectedQuestId = useSelector(SelectedQuest.store, (state) => state.id);
     return useQuery({
-        queryKey: [INTERFACE_DATA_USE_QUERY_KEY, SELECTED_QUEST_USE_QUERY_KEY],
+        queryKey: [INTERFACE_DATA_USE_QUERY_KEY, SELECTED_QUEST_USE_QUERY_KEY, selectedQuestId],
         queryFn: async () => {
-            const selectedQuestId = storage.get<string>(SELECTED_QUEST_STORAGE_KEY);
             const selectedQuest = selectedQuestId
                 ? questsNotebook.find(selectedQuestId)
                 : undefined;
