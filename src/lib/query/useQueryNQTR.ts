@@ -81,12 +81,17 @@ export function useQueryRoom(id?: string) {
     });
 }
 
-export const CURRENT_ROOM_USE_QUEY_KEY = "current_room_use_quey_key";
+export const CURRENT_ROOM_ID_USE_QUEY_KEY = "current_room_id_use_quey_key";
 export function useQueryCurrentRoomId() {
     return useQuery({
-        queryKey: [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_ROOM_USE_QUEY_KEY],
+        queryKey: [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_ROOM_ID_USE_QUEY_KEY],
         queryFn: async () => navigator.currentRoomId,
     });
+}
+
+export function useCurrentRoom() {
+    const { data: currentRoomId } = useQueryCurrentRoomId();
+    return useQueryRoom(currentRoomId);
 }
 
 const QUICK_ROOMS_USE_QUEY_KEY = "quick_rooms_use_quey_key";

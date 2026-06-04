@@ -9,11 +9,11 @@ import { navigator } from "@drincs/nqtr";
 import { useQueryClient } from "@tanstack/react-query";
 import { useMemo } from "react";
 import {
-    CURRENT_ROOM_USE_QUEY_KEY,
+    CURRENT_ROOM_ID_USE_QUEY_KEY,
     useQueryCurrentRoomId,
     useQueryQuickRooms,
     useQueryRoom,
-} from "../../../lib/hooks/useQueryNQTR.ts";
+} from "../../../lib/query/useQueryNQTR.ts";
 import StackOverflow from "../../StackOverflow.tsx.tsx";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "../../hooks/useQueryInterface";
 import NavigationButton from "./buttons.tsx";
@@ -59,7 +59,7 @@ function QuickRoom({ roomId }: { roomId: string }) {
                 if (!disabled && !selected) {
                     navigator.currentRoom = roomId;
                     queryClient.setQueryData(
-                        [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_ROOM_USE_QUEY_KEY],
+                        [INTERFACE_DATA_USE_QUEY_KEY, CURRENT_ROOM_ID_USE_QUEY_KEY],
                         roomId,
                     );
                 }

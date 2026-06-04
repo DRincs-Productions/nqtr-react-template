@@ -1,10 +1,10 @@
+import { CANVAS_UI_LAYER_NAME } from "@/constants";
+import { useGameProps } from "@/lib/hooks/props-hooks";
+import { useQueryCurrentRoomId, useQueryRoom, useQueryTime } from "@/lib/query/useQueryNQTR";
+import { GameStatus } from "@/lib/stores/game-status-store";
 import { navigator } from "@drincs/nqtr";
 import { canvas } from "@drincs/pixi-vn";
 import { useEffect } from "react";
-import { CANVAS_UI_LAYER_NAME } from "../constans";
-import { useQueryCurrentRoomId, useQueryRoom, useQueryTime } from "../hooks/useQueryNQTR";
-import useNqtrScreenStore from "../stores/useNqtrScreenStore";
-import useGameProps from "./useGameProps";
 
 export default function useNQTRDetector() {
     const { data: currentRoomId } = useQueryCurrentRoomId();
@@ -12,7 +12,6 @@ export default function useNQTRDetector() {
     const { room: currentRoom, background, activities, routine } = data || {};
     const { data: hour } = useQueryTime();
     const gameProps = useGameProps();
-    const setDisable = useNqtrScreenStore((state) => state.setDisabled);
 
     useEffect(() => {
         canvas.removeAll();
@@ -29,9 +28,9 @@ export default function useNQTRDetector() {
         const automaticFunctions = navigator.currentRoom?.automaticFunctions || [];
         if (automaticFunctions.length > 0) {
             const automaticFunction = automaticFunctions[0];
-            setDisable(true);
+            GameStatus.setLoading(true);
             automaticFunction(gameProps).finally(() => {
-                setDisable(false);
+                GameStatus.setLoading(false);
             });
         }
 

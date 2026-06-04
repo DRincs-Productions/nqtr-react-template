@@ -1,4 +1,4 @@
-import { useQueryCurrentRoomId, useQueryRoom } from "../../../lib/hooks/useQueryNQTR.ts";
+import { useQueryCurrentRoomId, useQueryRoom } from "../../../lib/query/useQueryNQTR.ts";
 import StackOverflow from "../../StackOverflow.tsx.tsx";
 import useGameProps from "../../hooks/useGameProps.ts";
 import NavigationButton from "./buttons.tsx";
