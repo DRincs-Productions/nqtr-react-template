@@ -1,6 +1,6 @@
-import { OnRunProps } from "@drincs/nqtr";
-import TimeSlotsImage from "../models/TimeSlotsImage";
-import { PixiUIProp } from "../models/nqtr/ui-elements";
+import type { PixiUIProp } from "@/models/nqtr/ui-elements";
+import TimeSlotsImage from "@/models/TimeSlotsImage";
+import type { OnRunProps } from "@drincs/nqtr";
 
 export async function normalizePixiElement(element: PixiUIProp, props: OnRunProps) {
     if (typeof element === "function") {

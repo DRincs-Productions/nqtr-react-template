@@ -1,6 +1,6 @@
 import { INTERFACE_DATA_USE_QUERY_KEY } from "@/constants";
 import { useGameProps } from "@/lib/hooks/props-hooks";
-import { normalizePixiElement } from "@/lib/utils/image-utility";
+import { normalizePixiElement } from "@/lib/utils/ui-utility";
 import type { PixiUIProp } from "@/models/nqtr/ui-elements";
 import { navigator, RegisteredMaps } from "@drincs/nqtr";
 import { Assets, ImageSprite } from "@drincs/pixi-vn";
