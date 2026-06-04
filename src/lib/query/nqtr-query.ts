@@ -89,7 +89,7 @@ export function useQueryCurrentRoomId() {
     });
 }
 
-export function useCurrentRoom() {
+export function useQueryCurrentRoom() {
     const { data: currentRoomId } = useQueryCurrentRoomId();
     return useQueryRoom(currentRoomId);
 }
