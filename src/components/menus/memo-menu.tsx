@@ -1,4 +1,5 @@
 import { useQueryQuests, useQuerySelectedQuest } from "@/lib/query/quest-query";
+import { Memo } from "@/lib/stores/memo-store";
 import { getPixiJSAsset } from "@/lib/utils/assets-utility";
 import { AspectRatio, Box, Divider, Link, Sheet, Stack, Typography } from "@mui/joy";
 import { useSelector } from "@tanstack/react-store";
@@ -15,13 +16,13 @@ export function MemoMenu() {
     } = useQueryQuests();
     const { data: selectedQuest } = useQuerySelectedQuest();
     const image = selectedQuest?.questImage ? getPixiJSAsset(selectedQuest.questImage) : undefined;
-    const open = useSelector(MemoScreenStore.store, (state) => state.open);
+    const open = useSelector(Memo.store, (state) => state.open);
 
     useEventListener({
         type: "keydown",
         listener: (event) => {
             if (event.code === "KeyJ" && event.altKey) {
-                MemoScreenStore.toggleOpen();
+                Memo.toggleOpen();
             }
         },
     });
@@ -29,7 +30,7 @@ export function MemoMenu() {
     return (
         <ModalDialogCustom
             open={open}
-            setOpen={MemoScreenStore.toggleOpen}
+            setOpen={Memo.toggleOpen}
             layout={"fullscreen"}
             head={
                 <Stack
@@ -80,7 +81,7 @@ export function MemoMenu() {
                                 <Link
                                     disabled={selectedQuest?.id === quest.id}
                                     onClick={() => {
-                                        MemoScreenStore.setSelectedQuestId(quest.id);
+                                        Memo.setSelectedQuestId(quest.id);
                                     }}
                                 >
                                     {quest.name}
@@ -102,7 +103,7 @@ export function MemoMenu() {
                                 <Link
                                     disabled={selectedQuest?.id === quest.id}
                                     onClick={() => {
-                                        MemoScreenStore.setSelectedQuestId(quest.id);
+                                        Memo.setSelectedQuestId(quest.id);
                                     }}
                                 >
                                     {quest.name}
@@ -124,7 +125,7 @@ export function MemoMenu() {
                                 <Link
                                     disabled={selectedQuest?.id === quest.id}
                                     onClick={() => {
-                                        MemoScreenStore.setSelectedQuestId(quest.id);
+                                        Memo.setSelectedQuestId(quest.id);
                                     }}
                                 >
                                     {quest.name}

@@ -1,6 +1,6 @@
 import { Store } from "@tanstack/store";
 
-export namespace MemoScreen {
+export namespace Memo {
     export const store = new Store<{ open: boolean; selectedQuestId: string | undefined }>({
         open: false,
         selectedQuestId: undefined,

@@ -3,7 +3,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { INTERFACE_DATA_USE_QUERY_KEY } from "@/constants";
 import { useSetSearchParamState } from "@/lib/hooks/navigation-hooks";
 import { CURRENT_MAP_USE_QUERY_KEY } from "@/lib/query/map-query";
-import { MemoScreen } from "@/lib/stores/memo-screen-store";
+import { Memo } from "@/lib/stores/memo-store";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { MapIcon, NotebookPen, Settings } from "lucide-react";
@@ -25,7 +25,7 @@ export function Tools() {
                     >
                         <Settings className="size-6 sm:size-8 md:size-10" />
                     </NavigationButton>
-                    <NavigationButton ariaLabel={t("memo")} onClick={MemoScreen.toggleOpen}>
+                    <NavigationButton ariaLabel={t("memo")} onClick={Memo.toggleOpen}>
                         <NotebookPen className="size-6 sm:size-8 md:size-10" />
                     </NavigationButton>
                 </div>

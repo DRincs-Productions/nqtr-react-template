@@ -1,5 +1,5 @@
 import { INTERFACE_DATA_USE_QUERY_KEY } from "@/constants";
-import { MemoScreen } from "@/lib/stores/memo-screen-store";
+import { Memo } from "@/lib/stores/memo-store";
 import { type QuestInterface, questsNotebook } from "@drincs/nqtr";
 import { useQuery } from "@tanstack/react-query";
 import { useSelector } from "@tanstack/react-store";
@@ -52,7 +52,7 @@ export function useQueryQuests() {
 
 export const SELECTED_QUEST_USE_QUERY_KEY = "selected_quest_use_query_key";
 export function useQuerySelectedQuest() {
-    const selectedQuestId = useSelector(MemoScreen.store, (state) => state.selectedQuestId);
+    const selectedQuestId = useSelector(Memo.store, (state) => state.selectedQuestId);
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUERY_KEY, SELECTED_QUEST_USE_QUERY_KEY, selectedQuestId],
         queryFn: async () => {
