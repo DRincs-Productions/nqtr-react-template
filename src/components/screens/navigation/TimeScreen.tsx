@@ -1,106 +1,54 @@
-import { timeTracker } from "@drincs/nqtr";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import { Stack, Typography, useTheme } from "@mui/joy";
+import { Button } from "@/components/ui/button";
+import { overlayTextShadowClass } from "@/constants";
+import useTimeTracker from "@/lib/hooks/nqtr-hooks";
+import { useGameProps } from "@/lib/hooks/props-hooks";
+import { useQueryTime } from "@/lib/query/time-query";
+import { GameStatus } from "@/lib/stores/game-status-store";
+import { cn } from "@/lib/utils";
+import { useSelector } from "@tanstack/react-store";
+import { Clock } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { useShallow } from "zustand/react/shallow";
-import useTimeTracker from "../../../lib/hooks/useTimeTracker";
-import { useQueryTime } from "../../../lib/query/room-query";
-import useNqtrScreenStore from "../../../lib/stores/useNqtrScreenStore";
-import RoundIconButton from "../../RoundIconButton";
-import useGameProps from "../../hooks/useGameProps";
-import useInterfaceStore from "../../stores/useInterfaceStore";
 
 export default function TimeScreen() {
     const { t } = useTranslation(["ui"]);
     const { wait } = useTimeTracker();
-    const { data: hour = 0 } = useQueryTime();
+    const { data: { hourFormatted = "...", dayName } = {} } = useQueryTime();
     const gameProps = useGameProps();
-    const disabled = useNqtrScreenStore((state) => state.disabled);
-    const hidden = useInterfaceStore(useShallow((state) => state.hidden));
+    const disabled = useSelector(GameStatus.store, (state) => state.loading);
 
     return (
-        <Stack
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
-            spacing={0}
-            sx={{
-                marginTop: "0.5rem",
-                opacity: 0.5,
-                ":hover": {
-                    opacity: 1,
-                },
-            }}
-            className={
-                hidden
-                    ? `motion-opacity-out-0 motion-translate-y-out-[-50%]`
-                    : "motion-preset-bounce"
-            }
-        >
-            <Stack
-                direction="row"
-                justifyContent="center"
-                alignItems="center"
-                spacing={0}
-                height={{ xs: "0.7rem", sm: "1rem", md: "1.5rem", lg: "2rem", xl: "3rem" }}
-            >
-                <Typography
-                    fontSize={{ xs: "1.5rem", sm: "2rem", md: "2.5rem", lg: "3rem", xl: "4rem" }}
-                    sx={{
-                        color: useTheme().palette.common.white,
-                        textShadow: `0 0 3px ${useTheme().palette.common.black}, 0 0 5px ${
-                            useTheme().palette.common.black
-                        }`,
-                        pointerEvents: hidden ? "none" : "auto",
-                        userSelect: "none",
-                    }}
+        <div className="mt-2 flex flex-col items-center justify-center opacity-50 hover:opacity-100 transition-opacity">
+            <div className="flex flex-row items-center justify-center">
+                <span
+                    className={cn(
+                        "text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl",
+                        overlayTextShadowClass,
+                    )}
                 >
-                    {hour > 9 ? `${hour}:00` : `0${hour}:00`}
-                </Typography>
-                <RoundIconButton
-                    variant="soft"
-                    ariaLabel={t("wait")}
-                    sx={{
-                        padding: 0,
-                        border: 0,
-                        marginTop: "0.5rem",
-                        backgroundColor: "#0000007c",
-                        pointerEvents: hidden ? "none" : "auto",
-                    }}
+                    {hourFormatted}
+                </span>
+                <Button
+                    variant="ghost"
+                    size="icon"
+                    aria-label={t("wait")}
+                    className="mt-2 bg-black/50 border-0 text-white hover:bg-black/70 hover:text-white"
                     onClick={() => {
                         wait(1);
                         gameProps.invalidateInterfaceData();
                     }}
-                    elevation="sm"
                     disabled={disabled}
                 >
-                    <AccessTimeIcon
-                        sx={{
-                            fontSize: {
-                                xs: "1.5rem",
-                                sm: "1.5rem",
-                                md: "1.5rem",
-                                lg: "1.7rem",
-                                xl: "2rem",
-                            },
-                            color: useTheme().palette.common.white,
-                        }}
-                    />
-                </RoundIconButton>
-            </Stack>
-            <Typography
-                fontSize={{ xs: "0.8rem", sm: "1rem", md: "1.2rem", lg: "1.5rem", xl: "2rem" }}
-                sx={{
-                    color: useTheme().palette.common.white,
-                    textShadow: `0 0 3px ${useTheme().palette.common.black}, 0 0 5px ${
-                        useTheme().palette.common.black
-                    }`,
-                    pointerEvents: hidden ? "none" : "auto",
-                    userSelect: "none",
-                }}
+                    <Clock className="size-5 sm:size-5 md:size-5 lg:size-6 xl:size-7" />
+                </Button>
+            </div>
+            <span
+                className={cn(
+                    "text-white text-xs sm:text-sm md:text-base lg:text-xl xl:text-2xl",
+                    overlayTextShadowClass,
+                )}
             >
-                {timeTracker.currentDayName ? t(timeTracker.currentDayName) : ""}
-            </Typography>
-        </Stack>
+                {dayName}
+            </span>
+        </div>
     );
 }
