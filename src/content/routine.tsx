@@ -1,4 +1,4 @@
-import { NavigationButton } from "@/components/screens/navigation/buttons";
+import { ActivityNavButton } from "@/components/screens/navigation/activities";
 import { alice } from "@/content/characters";
 import Commitment from "@/models/nqtr/Commitment";
 import { RegisteredCommitments, timeTracker } from "@drincs/nqtr";
@@ -14,7 +14,7 @@ export const aliceSleep = new Commitment("alice_sleep", alice, {
     background: "alice_roomsleep0A",
     icon: (commitment, props) => {
         return (
-            <NavigationButton
+            <ActivityNavButton
                 disabled={commitment.disabled}
                 onClick={() => {
                     if (commitment.run) {
@@ -24,7 +24,7 @@ export const aliceSleep = new Commitment("alice_sleep", alice, {
                 ariaLabel={commitment.name}
             >
                 <MessageCircleQuestion className="size-6 sm:size-8 md:size-10 lg:size-12 xl:size-14" />
-            </NavigationButton>
+            </ActivityNavButton>
         );
     },
     onRun: async (_, event) => {
@@ -50,7 +50,7 @@ export const aliceSmokes = new Commitment("alice_smokes", alice, {
     background: "alice_terrace0A",
     icon: (commitment, props) => {
         return (
-            <NavigationButton
+            <ActivityNavButton
                 disabled={commitment.disabled}
                 onClick={() => {
                     if (commitment.run) {
@@ -60,7 +60,7 @@ export const aliceSmokes = new Commitment("alice_smokes", alice, {
                 ariaLabel={commitment.name}
             >
                 <MessageCircleQuestion className="size-6 sm:size-8 md:size-10 lg:size-12 xl:size-14" />
-            </NavigationButton>
+            </ActivityNavButton>
         );
     },
     onRun: async (_, event) => {

@@ -1,4 +1,4 @@
-import { NavigationButton } from "@/components/screens/navigation/buttons";
+import { ActivityNavButton } from "@/components/screens/navigation/activities";
 import Activity from "@/models/nqtr/Activity";
 import { RegisteredActivities, timeTracker } from "@drincs/nqtr";
 import { narration } from "@drincs/pixi-vn";
@@ -18,7 +18,7 @@ export const bed = new Activity(
         name: "bed",
         icon: (activity, props) => {
             return (
-                <NavigationButton
+                <ActivityNavButton
                     disabled={activity.disabled}
                     onClick={() => {
                         activity.run(props);
@@ -26,7 +26,7 @@ export const bed = new Activity(
                     ariaLabel={props.uiTransition(activity.name)}
                 >
                     <Bed className="size-6 sm:size-8 md:size-10 lg:size-12 xl:size-14" />
-                </NavigationButton>
+                </ActivityNavButton>
             );
         },
     },
@@ -42,7 +42,7 @@ export const orderProduct = new Activity(
         name: "order_product",
         icon: (activity, props) => {
             return (
-                <NavigationButton
+                <ActivityNavButton
                     disabled={activity.disabled}
                     onClick={() => {
                         activity.run(props);
@@ -50,7 +50,7 @@ export const orderProduct = new Activity(
                     ariaLabel={props.uiTransition(activity.name)}
                 >
                     <ShoppingCart className="size-6 sm:size-8 md:size-10 lg:size-12 xl:size-14" />
-                </NavigationButton>
+                </ActivityNavButton>
             );
         },
     },
@@ -66,7 +66,7 @@ export const takeProduct = new Activity(
         name: "take_product",
         icon: (activity, props) => {
             return (
-                <NavigationButton
+                <ActivityNavButton
                     disabled={activity.disabled}
                     onClick={() => {
                         activity.run(props);
@@ -74,7 +74,7 @@ export const takeProduct = new Activity(
                     ariaLabel={props.uiTransition(activity.name)}
                 >
                     <Package className="size-6 sm:size-8 md:size-10 lg:size-12 xl:size-14" />
-                </NavigationButton>
+                </ActivityNavButton>
             );
         },
     },
