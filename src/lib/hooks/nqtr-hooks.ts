@@ -3,9 +3,11 @@ import { useGameProps } from "@/lib/hooks/props-hooks";
 import { useQueryCurrentMap } from "@/lib/query/map-query";
 import { useQueryCurrentRoom } from "@/lib/query/room-query";
 import { GameStatus } from "@/lib/stores/game-status-store";
-import { navigator, questsNotebook, routine, timeTracker } from "@drincs/nqtr";
+import { navigator, questsNotebook, routine, timeTracker, type OnRunProps } from "@drincs/nqtr";
 import { canvas, storage } from "@drincs/pixi-vn";
 import { useCallback, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
 
 export function useCanvasLayerSync() {
     const { data: { background, locations } = {} } = useQueryCurrentMap();
@@ -22,7 +24,7 @@ export function useCanvasLayerSync() {
         return () => {
             canvas.getLayer(CANVAS_UI_LAYER_NAME)?.removeChildren();
         };
-    });
+    }, [background, locations]);
 
     return null;
 }
@@ -67,12 +69,12 @@ export function useRoomSync() {
 
 const NOT_CAN_SPEND_TIME_FLAG_KEY = "not_can_spend_time";
 export default function useTimeTracker() {
-    const props = useGameProps();
+    const { t } = useTranslation(["ui"]);
 
     const sleep = useCallback(
-        (newDayHour: number) => {
+        (newDayHour: number, props: OnRunProps) => {
             if (storage.getFlag(NOT_CAN_SPEND_TIME_FLAG_KEY)) {
-                props.toast(props.uiTransition("cant_sleep_now"));
+                toast(t("cant_sleep_now"));
                 return false;
             }
             timeTracker.increaseDate(1, newDayHour);
@@ -81,23 +83,23 @@ export default function useTimeTracker() {
             questsNotebook.startsStageMustBeStarted(props);
             return true;
         },
-        [props],
+        [t],
     );
 
     const wait = useCallback(
         (timeSpent: number) => {
             if (storage.getFlag(NOT_CAN_SPEND_TIME_FLAG_KEY)) {
-                props.toast(props.uiTransition("cant_sleep_now"));
+                toast(t("cant_sleep_now"));
                 return false;
             }
             if (timeTracker.currentTime + timeSpent >= 23 || timeTracker.currentTime < 5) {
-                props.toast(props.uiTransition("cant_wait_now"));
+                toast(t("cant_wait_now"));
                 return false;
             }
             timeTracker.increaseTime(timeSpent);
             return true;
         },
-        [props],
+        [t],
     );
 
     return {
