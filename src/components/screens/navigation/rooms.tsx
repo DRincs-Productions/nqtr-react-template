@@ -22,7 +22,7 @@ export function Rooms() {
     const { data: rooms = [] } = useQueryQuickRooms();
 
     return (
-        <ScrollArea className="absolute bottom-0 left-0 max-w-[80%] pointer-events-auto">
+        <ScrollArea className="absolute bottom-0 left-0 max-w-[80%]">
             <div className="flex flex-row items-end justify-center gap-0.5">
                 {rooms.map((room) => (
                     <RoomButton key={`room-${room.id}`} roomId={room.id} {...room} />

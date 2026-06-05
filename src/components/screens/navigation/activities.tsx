@@ -26,7 +26,7 @@ export function Activities() {
     const { room } = data || {};
 
     return (
-        <ScrollArea className="absolute bottom-0 right-0 max-h-[80%] pointer-events-auto">
+        <ScrollArea className="absolute bottom-0 right-0 max-h-[80%]">
             <div className="flex flex-col items-end justify-center gap-0.5">
                 {(room?.activities ?? []).map((item) => (
                     <ActivityButton key={`activity-${item.id}`} activityId={item.id} />

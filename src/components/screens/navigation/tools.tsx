@@ -17,7 +17,7 @@ export function Tools() {
 
     return (
         <>
-            <ScrollArea className="absolute top-0 left-0 pointer-events-auto">
+            <ScrollArea className="absolute top-0 left-0">
                 <div className="flex flex-row items-end justify-center gap-0.5">
                     <NavigationButton
                         ariaLabel={t("settings")}
@@ -30,7 +30,7 @@ export function Tools() {
                     </NavigationButton>
                 </div>
             </ScrollArea>
-            <ScrollArea className="absolute top-0 right-0 pointer-events-auto">
+            <ScrollArea className="absolute top-0 right-0">
                 <div className="flex flex-row items-end justify-center gap-0.5">
                     <NavigationButton
                         ariaLabel={t("map")}
