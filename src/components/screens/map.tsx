@@ -1,8 +1,10 @@
+import { Button } from "@/components/ui/button";
 import { INTERFACE_DATA_USE_QUERY_KEY } from "@/constants";
 import { useCanvasLayerSync } from "@/lib/hooks/nqtr-hooks";
 import { CURRENT_MAP_USE_QUERY_KEY, useQueryCurrentMap } from "@/lib/query/map-query";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
+import { ChevronsDown, ChevronsLeft, ChevronsRight, ChevronsUp, X } from "lucide-react";
 
 export default function MapScreen() {
     const { data: { map } = {} } = useQueryCurrentMap();
@@ -13,88 +15,73 @@ export default function MapScreen() {
     return (
         <>
             {map?.neighboringMaps.north && (
-                <RoundIconButton
-                    variant="soft"
-                    sx={{
-                        position: "absolute",
-                        top: "0.1rem",
-                        left: "50%",
-                    }}
+                <Button
+                    variant="secondary"
+                    size="icon"
+                    className="absolute top-1 left-1/2 -translate-x-1/2"
                     onClick={() =>
                         queryClient.setQueryData(
                             [INTERFACE_DATA_USE_QUERY_KEY, CURRENT_MAP_USE_QUERY_KEY],
-                            map.neighboringMaps.north!,
+                            map.neighboringMaps.north,
                         )
                     }
                 >
-                    <KeyboardDoubleArrowUpIcon />
-                </RoundIconButton>
+                    <ChevronsUp />
+                </Button>
             )}
             {map?.neighboringMaps.west && (
-                <RoundIconButton
-                    variant="soft"
-                    sx={{
-                        position: "absolute",
-                        top: "50%",
-                        left: "0.1rem",
-                    }}
+                <Button
+                    variant="secondary"
+                    size="icon"
+                    className="absolute top-1/2 left-1 -translate-y-1/2"
                     onClick={() =>
                         queryClient.setQueryData(
                             [INTERFACE_DATA_USE_QUERY_KEY, CURRENT_MAP_USE_QUERY_KEY],
-                            map.neighboringMaps.west!,
+                            map.neighboringMaps.west,
                         )
                     }
                 >
-                    <KeyboardDoubleArrowLeftIcon />
-                </RoundIconButton>
+                    <ChevronsLeft />
+                </Button>
             )}
             {map?.neighboringMaps.south && (
-                <RoundIconButton
-                    variant="soft"
-                    sx={{
-                        position: "absolute",
-                        bottom: "0.1rem",
-                        left: "50%",
-                    }}
+                <Button
+                    variant="secondary"
+                    size="icon"
+                    className="absolute bottom-1 left-1/2 -translate-x-1/2"
                     onClick={() =>
                         queryClient.setQueryData(
                             [INTERFACE_DATA_USE_QUERY_KEY, CURRENT_MAP_USE_QUERY_KEY],
-                            map.neighboringMaps.south!,
+                            map.neighboringMaps.south,
                         )
                     }
                 >
-                    <KeyboardDoubleArrowDownIcon />
-                </RoundIconButton>
+                    <ChevronsDown />
+                </Button>
             )}
             {map?.neighboringMaps.east && (
-                <RoundIconButton
-                    variant="soft"
-                    sx={{
-                        position: "absolute",
-                        top: "50%",
-                        right: "0.1rem",
-                    }}
+                <Button
+                    variant="secondary"
+                    size="icon"
+                    className="absolute top-1/2 right-1 -translate-y-1/2"
                     onClick={() =>
                         queryClient.setQueryData(
                             [INTERFACE_DATA_USE_QUERY_KEY, CURRENT_MAP_USE_QUERY_KEY],
-                            map.neighboringMaps.east!,
+                            map.neighboringMaps.east,
                         )
                     }
                 >
-                    <KeyboardDoubleArrowRightIcon />
-                </RoundIconButton>
+                    <ChevronsRight />
+                </Button>
             )}
-            <IconButton
-                color="danger"
-                sx={{
-                    position: "absolute",
-                    top: "0.1rem",
-                    right: "0.1rem",
-                }}
+            <Button
+                variant="destructive"
+                size="icon"
+                className="absolute top-1 right-1"
                 onClick={() => navigate({ to: "/game/navigation" })}
             >
-                <CloseIcon />
-            </IconButton>
+                <X />
+            </Button>
         </>
     );
 }
