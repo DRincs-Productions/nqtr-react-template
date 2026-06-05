@@ -9,7 +9,7 @@ import { useSelector } from "@tanstack/react-store";
 import { Clock } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-export default function TimeScreen() {
+export function TimeScreen() {
     const { t } = useTranslation(["ui"]);
     const { wait } = useTimeTracker();
     const { data: { hourFormatted = "...", dayName } = {} } = useQueryTime();

@@ -1,13 +1,10 @@
+import { useQueryQuests, useQuerySelectedQuest } from "@/lib/query/quest-query";
+import { getPixiJSAsset } from "@/lib/utils/assets-utility";
 import { AspectRatio, Box, Divider, Link, Sheet, Stack, Typography } from "@mui/joy";
 import { useSelector } from "@tanstack/react-store";
 import { useTranslation } from "react-i18next";
-import { useQueryQuests, useQuerySelectedQuest } from "../../../lib/query/room-query";
-import { MemoScreen as MemoScreenStore } from "../../../lib/stores/memo-screen-store";
-import ModalDialogCustom from "../../components/ModalDialog";
-import useEventListener from "../../hooks/useKeyDetector";
-import { getPixiJSAsset } from "../../utils/assets-utility";
 
-export default function MemoScreen() {
+export function MemoMenu() {
     const { t } = useTranslation(["ui"]);
     const {
         data: { inProgressQuests, completedQuests, failedQuests } = {
@@ -23,7 +20,7 @@ export default function MemoScreen() {
     useEventListener({
         type: "keydown",
         listener: (event) => {
-            if (event.code == "KeyJ" && event.altKey) {
+            if (event.code === "KeyJ" && event.altKey) {
                 MemoScreenStore.toggleOpen();
             }
         },

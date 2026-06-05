@@ -28,7 +28,7 @@ const menuButtonClass =
 export function MainMenu() {
     const queryClient = useQueryClient();
     const gameProps = useGameProps();
-    const { uiTransition: t, navigate } = gameProps;
+    const { uiTransition: t } = gameProps;
     const setSettings = useSetSearchParamState<boolean>("settings");
     const setSettingsTab = useSetSearchParamState<string>("settings_tab");
     const [loading, setLoading] = useState(false);
