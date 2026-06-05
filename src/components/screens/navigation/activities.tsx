@@ -1,4 +1,4 @@
-import NavigationButton from "@/components/screens/navigation/buttons";
+import { NavigationButton } from "@/components/screens/navigation/buttons";
 import {
     Avatar,
     AvatarFallback,
@@ -11,7 +11,11 @@ import { INTERFACE_DATA_USE_QUERY_KEY } from "@/constants";
 import { useGameProps } from "@/lib/hooks/props-hooks";
 import { useQueryCurrentRoomId, useQueryRoom } from "@/lib/query/room-query";
 import { useQueryTime } from "@/lib/query/time-query";
-import { RegisteredActivities, RegisteredCommitments, type CommitmentInterface } from "@drincs/nqtr";
+import {
+    RegisteredActivities,
+    RegisteredCommitments,
+    type CommitmentInterface,
+} from "@drincs/nqtr";
 import { useQuery } from "@tanstack/react-query";
 
 const ACTIVITY_QUERY_KEY = "activity_query_key";
@@ -42,12 +46,14 @@ function ActivityButton({ activityId }: { activityId: string }) {
 
     const { data: activity } = useQuery({
         queryKey: [INTERFACE_DATA_USE_QUERY_KEY, ACTIVITY_QUERY_KEY, activityId, day, hour],
-        queryFn: () => RegisteredActivities.get(activityId) ?? RegisteredCommitments.get(activityId),
+        queryFn: () =>
+            RegisteredActivities.get(activityId) ?? RegisteredCommitments.get(activityId),
     });
 
     if (!activity) return null;
 
-    const characters = "characters" in activity ? (activity as CommitmentInterface).characters : undefined;
+    const characters =
+        "characters" in activity ? (activity as CommitmentInterface).characters : undefined;
 
     return (
         <NavigationButton

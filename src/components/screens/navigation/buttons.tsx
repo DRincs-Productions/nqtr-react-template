@@ -18,7 +18,7 @@ export interface NavigationButtonProps extends ComponentProps<typeof Button> {
     image?: string | TimeSlotsImage | ReactElement | ((props: OnRunProps) => ReactElement);
 }
 
-export default function NavigationButton(props: NavigationButtonProps) {
+export function NavigationButton(props: NavigationButtonProps) {
     const disabledScreen = useSelector(GameStatus.store, (state) => state.loading);
     const gameProps = useGameProps();
     const {

@@ -1,4 +1,4 @@
-import NavigationButton from "@/components/screens/navigation/buttons";
+import { NavigationButton } from "@/components/screens/navigation/buttons";
 import {
     Avatar,
     AvatarFallback,
