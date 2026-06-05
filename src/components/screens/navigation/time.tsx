@@ -9,7 +9,7 @@ import { useSelector } from "@tanstack/react-store";
 import { Clock } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-export function TimeScreen() {
+export function Time() {
     const { t } = useTranslation(["ui"]);
     const { wait } = useTimeTracker();
     const { data: { hourFormatted = "...", dayName } = {} } = useQueryTime();
@@ -17,7 +17,7 @@ export function TimeScreen() {
     const disabled = useSelector(GameStatus.store, (state) => state.loading);
 
     return (
-        <div className="mt-2 flex flex-col items-center justify-center opacity-50 hover:opacity-100 transition-opacity">
+        <div className="flex flex-col items-center justify-center opacity-50 hover:opacity-100 transition-opacity">
             <div className="flex flex-row items-center justify-center">
                 <span
                     className={cn(

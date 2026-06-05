@@ -9,7 +9,7 @@ import { useCallback, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 
-export function useCanvasLayerSync() {
+export function useMapLayerSync() {
     const { data: { background, locations } = {} } = useQueryCurrentMap();
 
     useEffect(() => {
@@ -29,7 +29,7 @@ export function useCanvasLayerSync() {
     return null;
 }
 
-export function useRoomSync() {
+export function useRoomLayerSync() {
     const { data: { room: currentRoom, background, activities, routine } = {} } =
         useQueryCurrentRoom();
     const gameProps = useGameProps();

@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { INTERFACE_DATA_USE_QUERY_KEY } from "@/constants";
-import { useCanvasLayerSync } from "@/lib/hooks/nqtr-hooks";
+import { useMapLayerSync } from "@/lib/hooks/nqtr-hooks";
 import { CURRENT_MAP_USE_QUERY_KEY, useQueryCurrentMap } from "@/lib/query/map-query";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
@@ -8,7 +8,7 @@ import { ChevronsDown, ChevronsLeft, ChevronsRight, ChevronsUp, X } from "lucide
 
 export default function MapScreen() {
     const { data: { map } = {} } = useQueryCurrentMap();
-    useCanvasLayerSync();
+    useMapLayerSync();
     const queryClient = useQueryClient();
     const navigate = useNavigate();
 
