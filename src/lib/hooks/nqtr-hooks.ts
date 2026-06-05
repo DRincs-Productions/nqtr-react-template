@@ -1,10 +1,31 @@
 import { CANVAS_UI_LAYER_NAME } from "@/constants";
 import { useGameProps } from "@/lib/hooks/props-hooks";
+import { useQueryCurrentMap } from "@/lib/query/map-query";
 import { useQueryCurrentRoom } from "@/lib/query/room-query";
 import { GameStatus } from "@/lib/stores/game-status-store";
 import { navigator, questsNotebook, routine, timeTracker } from "@drincs/nqtr";
 import { canvas, storage } from "@drincs/pixi-vn";
 import { useCallback, useEffect } from "react";
+
+export function useCanvasLayerSync() {
+    const { data: { background, locations } = {} } = useQueryCurrentMap();
+
+    useEffect(() => {
+        const layer = canvas.getLayer(CANVAS_UI_LAYER_NAME);
+        if (layer) {
+            if (background) layer.addChild(background);
+            locations?.forEach((location) => {
+                layer.addChild(location);
+            });
+        }
+
+        return () => {
+            canvas.getLayer(CANVAS_UI_LAYER_NAME)?.removeChildren();
+        };
+    });
+
+    return null;
+}
 
 export function useRoomSync() {
     const { data: { room: currentRoom, background, activities, routine } = {} } =

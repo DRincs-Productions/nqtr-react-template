@@ -1,44 +1,14 @@
-import { canvas } from "@drincs/pixi-vn";
-import CloseIcon from "@mui/icons-material/Close";
-import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
-import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
-import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
-import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp";
-import { IconButton } from "@mui/joy";
+import { INTERFACE_DATA_USE_QUERY_KEY } from "@/constants";
+import { useCanvasLayerSync } from "@/lib/hooks/nqtr-hooks";
+import { CURRENT_MAP_USE_QUERY_KEY, useQueryCurrentMap } from "@/lib/query/map-query";
 import { useQueryClient } from "@tanstack/react-query";
-import { useEffect } from "react";
-import {
-    CURRENT_MAP_USE_QUERY_KEY,
-    useQueryCurrentMapId,
-    useQueryMap,
-} from "../../../lib/query/room-query";
-import RoundIconButton from "../../RoundIconButton";
-import { CANVAS_UI_LAYER_NAME, NAVIGATION_ROUTE } from "../../constans";
-import useMyNavigate from "../../hooks/useMyNavigate";
-import { INTERFACE_DATA_USE_QUERY_KEY } from "../../hooks/useQueryInterface";
-import useInterfaceStore from "../../stores/useInterfaceStore";
+import { useNavigate } from "@tanstack/react-router";
 
 export default function MapScreen() {
-    const { data: currentMapId } = useQueryCurrentMapId();
-    const { data } = useQueryMap(currentMapId);
-    const { background, map, locations } = data || {};
+    const { data: { map } = {} } = useQueryCurrentMap();
+    useCanvasLayerSync();
     const queryClient = useQueryClient();
-    const navigate = useMyNavigate();
-    const editHideInterface = useInterfaceStore((state) => state.setHidden);
-
-    useEffect(() => {
-        editHideInterface(false);
-        const layer = canvas.getLayer(CANVAS_UI_LAYER_NAME);
-        if (layer) {
-            if (background) layer.addChild(background);
-
-            locations?.forEach((location) => layer.addChild(location));
-        }
-
-        return () => {
-            canvas.getLayer(CANVAS_UI_LAYER_NAME)?.removeChildren();
-        };
-    });
+    const navigate = useNavigate();
 
     return (
         <>
@@ -121,7 +91,7 @@ export default function MapScreen() {
                     top: "0.1rem",
                     right: "0.1rem",
                 }}
-                onClick={() => navigate(NAVIGATION_ROUTE)}
+                onClick={() => navigate({ to: "/game/navigation" })}
             >
                 <CloseIcon />
             </IconButton>

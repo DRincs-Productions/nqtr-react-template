@@ -67,3 +67,8 @@ export function useQueryCurrentMapId() {
         queryFn: async () => navigator.currentMap?.id,
     });
 }
+
+export function useQueryCurrentMap() {
+    const { data: currentMapId } = useQueryCurrentMapId();
+    return useQueryMap(currentMapId);
+}
