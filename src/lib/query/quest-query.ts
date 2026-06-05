@@ -1,5 +1,6 @@
 import { INTERFACE_DATA_USE_QUERY_KEY } from "@/constants";
 import { Memo } from "@/lib/stores/memo-store";
+import { getPixiJSAsset } from "@/lib/utils/assets-utility";
 import { type QuestInterface, questsNotebook } from "@drincs/nqtr";
 import { useQuery } from "@tanstack/react-query";
 import { useSelector } from "@tanstack/react-store";
@@ -59,7 +60,12 @@ export function useQuerySelectedQuest() {
             const selectedQuest = selectedQuestId
                 ? questsNotebook.find(selectedQuestId)
                 : undefined;
-            return selectedQuest ? getQuestInfo(selectedQuest) : null;
+            if (!selectedQuest) return null;
+            const info = getQuestInfo(selectedQuest);
+            return {
+                ...info,
+                questImageUrl: info.questImage ? getPixiJSAsset(info.questImage) : undefined,
+            };
         },
     });
 }

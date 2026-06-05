@@ -1,12 +1,41 @@
+import { Button } from "@/components/ui/button";
+import { Dialog, FullscreenDialogContent } from "@/components/ui/fullscreen-dialog";
+import { Image } from "@/components/ui/image";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
+import { useSearchParamState, useSetSearchParamState } from "@/lib/hooks/navigation-hooks";
 import { useQueryQuests, useQuerySelectedQuest } from "@/lib/query/quest-query";
 import { Memo } from "@/lib/stores/memo-store";
-import { getPixiJSAsset } from "@/lib/utils/assets-utility";
-import { AspectRatio, Box, Divider, Link, Sheet, Stack, Typography } from "@mui/joy";
-import { useSelector } from "@tanstack/react-store";
+import { cn } from "@/lib/utils";
+import { useHotkeys } from "@tanstack/react-hotkeys";
 import { useTranslation } from "react-i18next";
+
+function QuestButton({
+    id,
+    name,
+    selected,
+}: {
+    id: string;
+    name: string | undefined;
+    selected: boolean;
+}) {
+    return (
+        <Button
+            variant="ghost"
+            size="sm"
+            disabled={selected}
+            onClick={() => Memo.setSelectedQuestId(id)}
+            className={cn("w-full justify-start", selected && "bg-accent text-accent-foreground font-medium")}
+        >
+            {name}
+        </Button>
+    );
+}
 
 export function MemoMenu() {
     const { t } = useTranslation(["ui"]);
+    const open = useSearchParamState<boolean>("memo");
+    const setOpen = useSetSearchParamState<boolean>("memo");
     const {
         data: { inProgressQuests, completedQuests, failedQuests } = {
             inProgressQuests: [],
@@ -15,168 +44,98 @@ export function MemoMenu() {
         },
     } = useQueryQuests();
     const { data: selectedQuest } = useQuerySelectedQuest();
-    const image = selectedQuest?.questImage ? getPixiJSAsset(selectedQuest.questImage) : undefined;
-    const open = useSelector(Memo.store, (state) => state.open);
 
-    useEventListener({
-        type: "keydown",
-        listener: (event) => {
-            if (event.code === "KeyJ" && event.altKey) {
-                Memo.toggleOpen();
-            }
+    useHotkeys([
+        {
+            hotkey: "Alt+J",
+            callback: () => setOpen((prev) => !prev || undefined),
+            options: {
+                meta: {
+                    name: t("quests"),
+                    description: t("quests_toggle_hotkey_description"),
+                },
+            },
         },
-    });
+    ]);
 
     return (
-        <ModalDialogCustom
-            open={open}
-            setOpen={Memo.toggleOpen}
-            layout={"fullscreen"}
-            head={
-                <Stack
-                    sx={{
-                        width: "100%",
-                    }}
-                >
-                    <Stack sx={{ mb: 2 }}>
-                        <Typography level="h2">{t("quests")}</Typography>
-                    </Stack>
-                </Stack>
-            }
-            minWidth="80%"
-            sx={{
-                maxHeight: "100%",
-            }}
-        >
-            <Box
-                sx={{
-                    display: "flex",
-                    minHeight: "100%",
-                }}
-            >
-                <Sheet
-                    className="Sidebar"
-                    sx={{
-                        position: "sticky",
-                        transition: "transform 0.4s, width 0.4s",
-                        width: 200,
-                        top: 0,
-                        p: 2,
-                        flexShrink: 0,
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: 2,
-                    }}
-                >
-                    <Box>
-                        {inProgressQuests.map((quest) => (
-                            <Box
-                                key={quest.id}
-                                sx={{
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    gap: 1,
-                                }}
-                            >
-                                <Link
-                                    disabled={selectedQuest?.id === quest.id}
-                                    onClick={() => {
-                                        Memo.setSelectedQuestId(quest.id);
-                                    }}
-                                >
-                                    {quest.name}
-                                </Link>
-                            </Box>
-                        ))}
-                        {completedQuests.length > 0 && (
-                            <Typography level="h4">{t("completed")}</Typography>
-                        )}
-                        {completedQuests.map((quest) => (
-                            <Box
-                                key={quest.id}
-                                sx={{
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    gap: 1,
-                                }}
-                            >
-                                <Link
-                                    disabled={selectedQuest?.id === quest.id}
-                                    onClick={() => {
-                                        Memo.setSelectedQuestId(quest.id);
-                                    }}
-                                >
-                                    {quest.name}
-                                </Link>
-                            </Box>
-                        ))}
-                        {failedQuests.length > 0 && (
-                            <Typography level="h4">{t("failed")}</Typography>
-                        )}
-                        {failedQuests.map((quest) => (
-                            <Box
-                                key={quest.id}
-                                sx={{
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    gap: 1,
-                                }}
-                            >
-                                <Link
-                                    disabled={selectedQuest?.id === quest.id}
-                                    onClick={() => {
-                                        Memo.setSelectedQuestId(quest.id);
-                                    }}
-                                >
-                                    {quest.name}
-                                </Link>
-                            </Box>
-                        ))}
-                    </Box>
-                </Sheet>
-                <Sheet
-                    component="main"
-                    className="MainContent"
-                    sx={{
-                        flex: 1,
-                        display: "flex",
-                        flexDirection: "column",
-                        minWidth: 0,
-                        gap: 1,
-                        overflow: "auto",
-                        p: 5,
-                    }}
-                >
-                    <Stack spacing={1}>
-                        {image && (
-                            <AspectRatio maxHeight={"10dvh"} objectFit="cover">
-                                <img src={image} />
-                            </AspectRatio>
-                        )}
-                        <Typography level="h2" textAlign={"center"}>
-                            {selectedQuest?.name}
-                        </Typography>
-                        <Typography
-                            maxHeight={"20dvh"}
-                            textColor={"primary.500"}
-                            sx={{
-                                overflowY: "auto",
-                            }}
-                        >
-                            {selectedQuest?.description}
-                        </Typography>
-                        <Divider />
-                        <Typography
-                            maxHeight={"20dvh"}
-                            sx={{
-                                overflowY: "auto",
-                            }}
-                        >
-                            {selectedQuest?.currentStage?.description}
-                        </Typography>
-                    </Stack>
-                </Sheet>
-            </Box>
-        </ModalDialogCustom>
+        <Dialog open={open ?? false} onOpenChange={(isOpen) => setOpen(isOpen || undefined)}>
+            <FullscreenDialogContent title={t("quests")}>
+                <div className="flex flex-1 min-h-0">
+                    {/* Sidebar */}
+                    <aside className="w-48 shrink-0 border-r">
+                        <ScrollArea className="h-full">
+                            <div className="flex flex-col gap-1 p-3">
+                                {inProgressQuests.map((quest) => (
+                                    <QuestButton
+                                        key={quest.id}
+                                        id={quest.id}
+                                        name={quest.name}
+                                        selected={selectedQuest?.id === quest.id}
+                                    />
+                                ))}
+                                {completedQuests.length > 0 && (
+                                    <>
+                                        <Separator className="my-1" />
+                                        <p className="px-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                                            {t("completed")}
+                                        </p>
+                                        {completedQuests.map((quest) => (
+                                            <QuestButton
+                                                key={quest.id}
+                                                id={quest.id}
+                                                name={quest.name}
+                                                selected={selectedQuest?.id === quest.id}
+                                            />
+                                        ))}
+                                    </>
+                                )}
+                                {failedQuests.length > 0 && (
+                                    <>
+                                        <Separator className="my-1" />
+                                        <p className="px-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                                            {t("failed")}
+                                        </p>
+                                        {failedQuests.map((quest) => (
+                                            <QuestButton
+                                                key={quest.id}
+                                                id={quest.id}
+                                                name={quest.name}
+                                                selected={selectedQuest?.id === quest.id}
+                                            />
+                                        ))}
+                                    </>
+                                )}
+                            </div>
+                        </ScrollArea>
+                    </aside>
+
+                    {/* Main content */}
+                    <ScrollArea className="flex-1">
+                        <div className="flex flex-col gap-3 p-8">
+                            {selectedQuest?.questImageUrl && (
+                                <div className="max-h-[10dvh] overflow-hidden rounded">
+                                    <Image
+                                        src={selectedQuest.questImageUrl}
+                                        alt={selectedQuest.name ?? ""}
+                                        className="h-full w-full object-cover"
+                                    />
+                                </div>
+                            )}
+                            <h2 className="text-center text-2xl font-bold">
+                                {selectedQuest?.name}
+                            </h2>
+                            <p className="max-h-[20dvh] overflow-y-auto text-primary">
+                                {selectedQuest?.description}
+                            </p>
+                            <Separator />
+                            <p className="max-h-[20dvh] overflow-y-auto">
+                                {selectedQuest?.currentStage?.description}
+                            </p>
+                        </div>
+                    </ScrollArea>
+                </div>
+            </FullscreenDialogContent>
+        </Dialog>
     );
 }

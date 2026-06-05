@@ -1,4 +1,4 @@
-import NavigationButton from "@/components/screens/navigation/buttons";
+import { NavigationButton } from "@/components/screens/navigation/buttons";
 import { alice } from "@/content/characters";
 import Commitment from "@/models/nqtr/Commitment";
 import { RegisteredCommitments, timeTracker } from "@drincs/nqtr";
