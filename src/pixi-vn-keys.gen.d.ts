@@ -10,6 +10,8 @@ declare module "@drincs/pixi-vn/characters" {
 }
 declare module "@drincs/pixi-vn/narration" {
     interface PixivnLabelIds {
+        "sleep-1-hour": never;
+        "nap-1-hour": never;
         "sleep": never;
         "nap": never;
         "start": never;

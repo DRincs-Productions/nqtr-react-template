@@ -18,7 +18,7 @@ import { navigator } from "@drincs/nqtr";
 import { useQueryClient } from "@tanstack/react-query";
 import { useMemo } from "react";
 
-export function QuickRooms() {
+export function Rooms() {
     const { data: rooms = [] } = useQueryQuickRooms();
 
     return (
