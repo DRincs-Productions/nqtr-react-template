@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { overlayTextShadowClass } from "@/constants";
 import useTimeTracker from "@/lib/hooks/nqtr-hooks";
 import { useGameProps } from "@/lib/hooks/props-hooks";
@@ -27,19 +28,23 @@ export function Time() {
                 >
                     {hourFormatted}
                 </span>
-                <Button
-                    variant="ghost"
-                    size="icon"
-                    aria-label={t("wait")}
-                    className="mt-2 bg-black/50 border-0 text-white hover:bg-black/70 hover:text-white"
-                    onClick={() => {
-                        wait(1);
-                        gameProps.invalidateInterfaceData();
-                    }}
-                    disabled={disabled}
-                >
-                    <Clock className="size-5 sm:size-5 md:size-5 lg:size-6 xl:size-7" />
-                </Button>
+                <Tooltip>
+                    <TooltipTrigger render={<span />}>
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            className="mt-2 bg-black/50 border-0 text-white hover:bg-black/70 hover:text-white"
+                            onClick={() => {
+                                wait(1);
+                                gameProps.invalidateInterfaceData();
+                            }}
+                            disabled={disabled}
+                        >
+                            <Clock className="size-5 sm:size-5 md:size-5 lg:size-6 xl:size-7" />
+                        </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>{t("wait")}</TooltipContent>
+                </Tooltip>
             </div>
             <span
                 className={cn(

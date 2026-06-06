@@ -27,7 +27,7 @@ export function Rooms() {
 
     return (
         <ScrollArea className="max-w-full">
-            <div className="flex flex-row items-end justify-center gap-0.5">
+            <div className="flex flex-row items-end justify-start gap-0.5">
                 {rooms.map((room) => (
                     <RoomButton key={`room-${room.id}`} roomId={room.id} {...room} />
                 ))}
