@@ -29,15 +29,15 @@ const ACTIVITY_QUERY_KEY = "activity_query_key";
 export function Activities() {
     const { data: currentRoomId } = useQueryCurrentRoomId();
     const { data } = useQueryRoom(currentRoomId);
-    const { room } = data || {};
+    const { room: { activities = [], routine = [] } = {} } = data || {};
 
     return (
         <ScrollArea className="max-h-[80vh]">
             <div className="flex flex-col items-end justify-center gap-0.5">
-                {(room?.activities ?? []).map((item) => (
+                {activities.map((item) => (
                     <ActivityButton key={`activity-${item.id}`} activityId={item.id} />
                 ))}
-                {(room?.routine ?? []).map((item) => (
+                {routine.map((item) => (
                     <ActivityButton key={`commitment-${item.id}`} activityId={item.id} />
                 ))}
             </div>
