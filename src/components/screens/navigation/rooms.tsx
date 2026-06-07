@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Image } from "@/components/ui/image";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { INTERFACE_DATA_USE_QUERY_KEY } from "@/constants";
 import {
@@ -26,12 +26,13 @@ export function Rooms() {
     const { data: rooms = [] } = useQueryQuickRooms();
 
     return (
-        <ScrollArea className="max-w-full">
+        <ScrollArea className="w-full">
             <div className="flex flex-row items-end justify-start gap-0.5">
                 {rooms.map((room) => (
                     <RoomButton key={`room-${room.id}`} roomId={room.id} {...room} />
                 ))}
             </div>
+            <ScrollBar orientation="horizontal" />
         </ScrollArea>
     );
 }
