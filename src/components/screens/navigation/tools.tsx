@@ -74,8 +74,6 @@ export function ToolButton({
                 <Button
                     {...rest}
                     disabled={disabled ?? loading}
-                    title={ariaLabel}
-                    aria-label={ariaLabel}
                     size="icon-lg"
                     className={cn(
                         "relative size-10 overflow-hidden border-3 border-background shadow-lg sm:size-14 md:size-20",

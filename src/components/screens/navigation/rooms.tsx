@@ -110,8 +110,6 @@ export function RoomNavButton({
         <Button
             {...rest}
             disabled={disabled}
-            title={ariaLabel}
-            aria-label={ariaLabel}
             size="icon-lg"
             className={cn(
                 "relative size-10 overflow-hidden border-3 shadow-lg sm:size-14 md:size-20",
