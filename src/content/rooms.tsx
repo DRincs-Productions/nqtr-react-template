@@ -3,7 +3,7 @@ import { gym, mcHome, school } from "@/content/locations";
 import { aliceGoSchool, aliceSleep, aliceSmokes } from "@/content/routine";
 import Room from "@/models/nqtr/Room";
 import TimeSlotsImage from "@/models/TimeSlotsImage";
-import { RegisteredRooms } from "@drincs/nqtr";
+import { navigator, RegisteredRooms } from "@drincs/nqtr";
 
 export const mcRoomBackground = new TimeSlotsImage({
     morning: "location_myroom-0",
@@ -77,3 +77,6 @@ export const classRoom = new Room("class_room", school, {
 });
 
 RegisteredRooms.add([mcRoom, aliceRoom, annRoom, bathroom, lounge, terrace, gymRoom, classRoom]);
+
+// default room to prevent errors when accessing navigator.currentRoom before any room is loaded.
+navigator.currentRoom = mcRoom;

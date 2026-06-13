@@ -35,9 +35,9 @@ export function useQueryRoom(id?: string) {
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUERY_KEY, ROOM_USE_QUERY_KEY, id, day, hour],
         queryFn: async () => {
-            if (!id) return undefined;
+            if (!id) return {};
             const room = RegisteredRooms.get(id);
-            if (!room) return undefined;
+            if (!room) return {};
 
             const routine = room.routine;
             const routineBackground = room.routine.find((c) => c.background)?.background;

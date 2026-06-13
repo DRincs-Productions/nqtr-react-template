@@ -31,24 +31,28 @@ export function useMapLayerSync() {
 
 export function useRoomLayerSync() {
     const {
-        data: { room: { automaticFunctions = [] } = {}, background, activities, routine } = {},
+        data: {
+            room: { automaticFunctions = [], id } = {},
+            background,
+            activities,
+            routine: routineIcons,
+        } = {},
     } = useQueryCurrentRoom();
     const gameProps = useGameProps();
 
     useEffect(() => {
-        canvas.removeAll();
-        if (background) {
-            const layer = canvas.getLayer(CANVAS_UI_LAYER_NAME);
-            if (layer) {
-                if (background) layer.addChild(background);
+        if (!id) return;
 
-                activities?.forEach((icon) => {
-                    layer.addChild(icon);
-                });
-                routine?.forEach((icon) => {
-                    layer.addChild(icon);
-                });
-            }
+        const layer = canvas.getLayer(CANVAS_UI_LAYER_NAME);
+        if (layer) {
+            if (background) layer.addChild(background);
+
+            activities?.forEach((icon) => {
+                layer.addChild(icon);
+            });
+            routineIcons?.forEach((icon) => {
+                layer.addChild(icon);
+            });
         }
 
         if (automaticFunctions.length > 0) {
@@ -62,7 +66,7 @@ export function useRoomLayerSync() {
         return () => {
             canvas.getLayer(CANVAS_UI_LAYER_NAME)?.removeChildren();
         };
-    }, [background, activities, routine, gameProps, automaticFunctions]);
+    }, [id, background, automaticFunctions, gameProps, activities, routineIcons]);
 
     return null;
 }
