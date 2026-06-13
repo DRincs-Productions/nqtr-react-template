@@ -1,6 +1,6 @@
 import { INTERFACE_DATA_USE_QUERY_KEY } from "@/constants";
 import { timeTracker } from "@drincs/nqtr";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 
 const CURRENT_HOUR_USE_QUERY_KEY = "current_hour_use_query_key";
@@ -18,5 +18,6 @@ export function useQueryTime() {
                 dayName: t(timeTracker.currentDayName ?? ""),
             };
         },
+        placeholderData: keepPreviousData,
     });
 }

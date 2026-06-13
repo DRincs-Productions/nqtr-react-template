@@ -34,7 +34,6 @@ export function useQueryRoom(id?: string) {
 
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUERY_KEY, ROOM_USE_QUERY_KEY, id, day, hour],
-        placeholderData: keepPreviousData,
         queryFn: async () => {
             if (!id) return {};
             const room = RegisteredRooms.get(id);
@@ -66,6 +65,7 @@ export function useQueryRoom(id?: string) {
                 routine: routineIcons,
             };
         },
+        placeholderData: keepPreviousData,
     });
 }
 
@@ -99,5 +99,6 @@ export function useQueryQuickRooms() {
             loadRoomsImage();
             return rooms;
         },
+        placeholderData: keepPreviousData,
     });
 }

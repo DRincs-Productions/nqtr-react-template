@@ -5,7 +5,7 @@ import type { PixiUIProp } from "@/models/nqtr/ui-elements";
 import { navigator, RegisteredMaps } from "@drincs/nqtr";
 import { Assets, ImageSprite } from "@drincs/pixi-vn";
 import type { ContainerChild } from "@drincs/pixi-vn/pixi.js";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useCallback } from "react";
 
 const MAP_USE_QUERY_KEY = "map_use_query_key";
@@ -57,6 +57,7 @@ export function useQueryMap(id?: string) {
                 locations,
             };
         },
+        placeholderData: keepPreviousData,
     });
 }
 
@@ -65,6 +66,7 @@ export function useQueryCurrentMapId() {
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUERY_KEY, CURRENT_MAP_USE_QUERY_KEY],
         queryFn: async () => navigator.currentMap?.id,
+        placeholderData: keepPreviousData,
     });
 }
 
