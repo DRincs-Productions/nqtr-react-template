@@ -6,7 +6,7 @@ import type { PixiUIProp } from "@/models/nqtr/ui-elements";
 import { navigator, RegisteredRooms } from "@drincs/nqtr";
 import { Assets, ImageSprite } from "@drincs/pixi-vn";
 import type { ContainerChild } from "@drincs/pixi-vn/pixi.js";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useCallback } from "react";
 
 const ROOM_USE_QUERY_KEY = "room_use_query_key";
@@ -34,6 +34,7 @@ export function useQueryRoom(id?: string) {
 
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUERY_KEY, ROOM_USE_QUERY_KEY, id, day, hour],
+        placeholderData: keepPreviousData,
         queryFn: async () => {
             if (!id) return {};
             const room = RegisteredRooms.get(id);
@@ -73,6 +74,7 @@ export function useQueryCurrentRoomId() {
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUERY_KEY, CURRENT_ROOM_ID_USE_QUERY_KEY],
         queryFn: async () => navigator.currentRoomId,
+        placeholderData: keepPreviousData,
     });
 }
 
