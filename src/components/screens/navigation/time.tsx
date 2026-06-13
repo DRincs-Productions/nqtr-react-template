@@ -18,8 +18,8 @@ export function Time() {
     const disabled = useSelector(GameStatus.store, (state) => state.loading);
 
     return (
-        <div className="flex flex-col items-center justify-center opacity-50 hover:opacity-100 transition-opacity">
-            <div className="flex flex-row items-center justify-center">
+        <div className="flex flex-row items-center gap-1 opacity-50 hover:opacity-100 transition-opacity">
+            <div className="flex flex-col items-center">
                 <span
                     className={cn(
                         "text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl",
@@ -28,32 +28,32 @@ export function Time() {
                 >
                     {hourFormatted}
                 </span>
-                <Tooltip>
-                    <TooltipTrigger render={<span />}>
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            className="mt-2 bg-black/50 border-0 text-white hover:bg-black/70 hover:text-white"
-                            onClick={() => {
-                                wait(1);
-                                gameProps.invalidateInterfaceData();
-                            }}
-                            disabled={disabled}
-                        >
-                            <Clock className="size-5 sm:size-5 md:size-5 lg:size-6 xl:size-7" />
-                        </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>{t("wait")}</TooltipContent>
-                </Tooltip>
+                <span
+                    className={cn(
+                        "text-white text-xs sm:text-sm md:text-base lg:text-xl xl:text-2xl",
+                        overlayTextShadowClass,
+                    )}
+                >
+                    {dayName}
+                </span>
             </div>
-            <span
-                className={cn(
-                    "text-white text-xs sm:text-sm md:text-base lg:text-xl xl:text-2xl",
-                    overlayTextShadowClass,
-                )}
-            >
-                {dayName}
-            </span>
+            <Tooltip>
+                <TooltipTrigger render={<span />}>
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                        className="bg-black/50 border-0 text-white hover:bg-black/70 hover:text-white"
+                        onClick={() => {
+                            wait(1);
+                            gameProps.invalidateInterfaceData();
+                        }}
+                        disabled={disabled}
+                    >
+                        <Clock className="size-5 sm:size-5 md:size-5 lg:size-6 xl:size-7" />
+                    </Button>
+                </TooltipTrigger>
+                <TooltipContent>{t("wait")}</TooltipContent>
+            </Tooltip>
         </div>
     );
 }
