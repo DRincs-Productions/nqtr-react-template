@@ -32,13 +32,13 @@ export function Activities() {
     const { room: { activities = [], routine = [] } = {} } = data || {};
 
     return (
-        <ScrollArea className="max-h-[80vh]">
-            <div className="flex flex-col items-end justify-center gap-0.5">
-                {activities.map((item) => (
-                    <ActivityButton key={`activity-${item.id}`} activityId={item.id} />
-                ))}
+        <ScrollArea className="h-[80dvh]">
+            <div className="flex flex-col-reverse items-end gap-0.5">
                 {routine.map((item) => (
                     <ActivityButton key={`commitment-${item.id}`} activityId={item.id} />
+                ))}
+                {activities.map((item) => (
+                    <ActivityButton key={`activity-${item.id}`} activityId={item.id} />
                 ))}
             </div>
         </ScrollArea>
