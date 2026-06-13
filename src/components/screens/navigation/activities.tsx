@@ -32,7 +32,7 @@ export function Activities() {
     const { room: { activities = [], routine = [] } = {} } = data || {};
 
     return (
-        <ScrollArea className="h-[80dvh]">
+        <ScrollArea className="h-full">
             <div className="flex flex-col-reverse items-end gap-0.5">
                 {routine.map((item) => (
                     <ActivityButton key={`commitment-${item.id}`} activityId={item.id} />

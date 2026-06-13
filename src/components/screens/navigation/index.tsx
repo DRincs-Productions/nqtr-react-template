@@ -5,28 +5,23 @@ import { ToolsLeft, ToolsRight } from "@/components/screens/navigation/tools";
 
 export function NavigationScreen() {
     return (
-        <div className="absolute inset-0 pointer-events-none">
-            {/* Top-left tools */}
-            <div className="absolute top-0 left-0">
+        <div className="absolute inset-0 pointer-events-none flex flex-col">
+            {/* Top row: tools and time */}
+            <div className="flex-none relative flex flex-row items-start">
                 <ToolsLeft />
-            </div>
-
-            {/* Top-center time */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2">
-                <Time />
-            </div>
-
-            {/* Top-right tools */}
-            <div className="absolute top-0 right-0">
+                <div className="absolute left-1/2 -translate-x-1/2">
+                    <Time />
+                </div>
+                <div className="flex-1" />
                 <ToolsRight />
             </div>
 
-            {/* Bottom row: Rooms left, Activities right — Rooms shrinks to avoid overlapping Activities */}
-            <div className="absolute bottom-0 left-0 right-0 flex flex-row items-end">
-                <div className="flex-1 min-w-0 overflow-hidden">
+            {/* Bottom area: fills remaining height — Rooms bottom-left, Activities bottom-right */}
+            <div className="flex-1 min-h-0 flex flex-row">
+                <div className="flex-1 min-w-0 overflow-hidden self-end">
                     <Rooms />
                 </div>
-                <div className="flex-none">
+                <div className="flex-none self-stretch">
                     <Activities />
                 </div>
             </div>
