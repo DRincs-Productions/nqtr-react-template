@@ -33,7 +33,7 @@ export function Activities() {
 
     return (
         <ScrollArea className="h-full">
-            <div className="flex flex-col-reverse items-end gap-0.5">
+            <div className="flex min-h-full flex-col-reverse items-end gap-0.5">
                 {routine.map((item) => (
                     <ActivityButton key={`commitment-${item.id}`} activityId={item.id} />
                 ))}
