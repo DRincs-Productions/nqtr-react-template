@@ -18,7 +18,7 @@ import {
 } from "@/lib/query/room-query";
 import { cn } from "@/lib/utils";
 import type TimeSlotsImage from "@/models/TimeSlotsImage";
-import { navigator } from "@drincs/nqtr";
+import { navigator, type RoomIdType } from "@drincs/nqtr";
 import { useQueryClient } from "@tanstack/react-query";
 import { useMemo, type ComponentProps, type CSSProperties } from "react";
 
@@ -51,7 +51,7 @@ function RoomButton({ roomId }: { roomId: string }) {
             selected={selected}
             onClick={() => {
                 if (!disabled && !selected) {
-                    navigator.currentRoom = roomId;
+                    navigator.currentRoom = roomId as RoomIdType;
                     queryClient.setQueryData(
                         [INTERFACE_DATA_USE_QUERY_KEY, CURRENT_ROOM_ID_USE_QUERY_KEY],
                         roomId,

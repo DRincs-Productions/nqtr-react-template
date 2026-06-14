@@ -41,10 +41,8 @@ export default defineConfig(({ mode }) => ({
         vitePluginNqtr({
             typeFilePath: "./src/nqtr-keys.gen.d.ts",
             activities: "./src/content/activities.tsx",
-            rooms: "./src/content/rooms.tsx",
             commitments: "./src/content/routine.tsx",
-            locations: "./src/content/locations.tsx",
-            maps: "./src/content/maps.tsx",
+            rooms: "./src/content/rooms.tsx",
             quests: "./src/content/quests/*.quest.tsx",
         }),
         VitePWA({
