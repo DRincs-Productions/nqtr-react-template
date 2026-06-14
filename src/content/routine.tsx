@@ -12,6 +12,7 @@ export const aliceSleep = new Commitment("alice_sleep", alice, {
         to: 10,
     },
     background: "alice_roomsleep0A",
+    name: "Alice sleeps",
     icon: (commitment, props) => {
         return (
             <ActivityNavButton
@@ -38,6 +39,7 @@ export const aliceGoSchool = new Commitment("alice_go_school", alice, {
         from: 8,
         to: 14,
     },
+    name: "Alice goes to school",
     hidden: () => timeTracker.isWeekend,
     priority: 2,
 });
@@ -48,6 +50,7 @@ export const aliceSmokes = new Commitment("alice_smokes", alice, {
         to: 20,
     },
     background: "alice_terrace0A",
+    name: "Alice smokes",
     icon: (commitment, props) => {
         return (
             <ActivityNavButton

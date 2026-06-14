@@ -15,7 +15,7 @@ export default class Commitment extends CommitmentStoredClass implements Commitm
         id: string,
         characters: CharacterInterface | CharacterInterface[],
         props: {
-            name?: string;
+            name: string;
             image?: PixiUIParam<Commitment>;
             background?: PixiUIParam<Commitment>;
             icon?: ReactUIParam<Commitment>;

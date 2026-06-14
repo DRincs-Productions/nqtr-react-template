@@ -14,7 +14,7 @@ export default class Activity extends ActivityStoredClass implements ActivityInt
         id: string,
         onRun: OnRunEvent<ActivityInterface>,
         props: {
-            name?: string;
+            name: string;
             sprite?: PixiUIParam<Activity>;
             icon?: ReactUIParam<Activity>;
             disabled?: boolean | (() => boolean);
