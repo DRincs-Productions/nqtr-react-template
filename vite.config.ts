@@ -1,4 +1,5 @@
 import { AssetPack } from "@assetpack/core";
+import { vitePluginNqtr } from "@drincs/nqtr/vite";
 import { vitePluginPixivn } from "@drincs/pixi-vn/vite";
 import tailwindcss from "@tailwindcss/vite";
 import { devtools } from "@tanstack/devtools-vite";
@@ -36,6 +37,15 @@ export default defineConfig(({ mode }) => ({
             characters: "./src/content/characters.ts",
             labels: "./src/content/labels/*.label.ts",
             typeFilePath: "./src/pixi-vn-keys.gen.d.ts",
+        }),
+        vitePluginNqtr({
+            typeFilePath: "./src/nqtr-keys.gen.d.ts",
+            activities: "./src/content/activities.tsx",
+            rooms: "./src/content/rooms.tsx",
+            commitments: "./src/content/routine.tsx",
+            locations: "./src/content/locations.tsx",
+            maps: "./src/content/maps.tsx",
+            quests: "./src/content/quests/*.quest.tsx",
         }),
         VitePWA({
             // generate icons with: npm run icon
@@ -88,6 +98,7 @@ export default defineConfig(({ mode }) => ({
     ],
     resolve: {
         tsconfigPaths: true,
+        preserveSymlinks: true,
     },
     define: {
         __APP_VERSION__: JSON.stringify(process.env.npm_package_version),
