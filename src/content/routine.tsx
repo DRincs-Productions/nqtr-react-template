@@ -1,11 +1,10 @@
 import { ActivityNavButton } from "@/components/screens/navigation/activities";
-import { alice } from "@/content/characters";
 import Commitment from "@/models/nqtr/Commitment";
 import { RegisteredCommitments, timeTracker } from "@drincs/nqtr";
 import { narration } from "@drincs/pixi-vn";
 import { MessageCircleQuestion } from "lucide-react";
 
-export const aliceSleep = new Commitment("alice_sleep", alice, {
+export const aliceSleep = new Commitment("alice_sleep", "alice", {
     priority: 1,
     timeSlot: {
         from: 20,
@@ -34,7 +33,7 @@ export const aliceSleep = new Commitment("alice_sleep", alice, {
     },
 });
 
-export const aliceGoSchool = new Commitment("alice_go_school", alice, {
+export const aliceGoSchool = new Commitment("alice_go_school", "alice", {
     timeSlot: {
         from: 8,
         to: 14,
@@ -44,7 +43,7 @@ export const aliceGoSchool = new Commitment("alice_go_school", alice, {
     priority: 2,
 });
 
-export const aliceSmokes = new Commitment("alice_smokes", alice, {
+export const aliceSmokes = new Commitment("alice_smokes", "alice", {
     timeSlot: {
         from: 10,
         to: 20,

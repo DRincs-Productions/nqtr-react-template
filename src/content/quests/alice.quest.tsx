@@ -1,5 +1,3 @@
-import { orderProduct, takeProduct } from "@/content/activities";
-import { alice } from "@/content/characters";
 import { mcRoom, terrace } from "@/content/rooms";
 import Commitment from "@/models/nqtr/Commitment";
 import Quest from "@/models/nqtr/Quest";
@@ -21,14 +19,14 @@ export const aliceQuest = new Quest(
         }),
         new Stage("order_products", {
             onStart: () => {
-                mcRoom.addActivity(orderProduct);
+                mcRoom.addActivity("order_product");
             },
             name: "Order products",
             description: "Order the products with your PC",
         }),
         new Stage("take_products", {
             onStart: (_, { toast }) => {
-                terrace.addActivity(takeProduct);
+                terrace.addActivity("take_product");
                 toast("You can take the products on the Terrace");
             },
             name: "Take products",
@@ -58,7 +56,7 @@ export const aliceQuest = new Quest(
 
 RegisteredQuests.add(aliceQuest);
 
-const aliceQuest_talk = new Commitment("alice_quest_talk", alice, {
+const aliceQuest_talk = new Commitment("alice_quest_talk", "alice", {
     timeSlot: {
         from: 10,
         to: 20,
@@ -71,6 +69,7 @@ const aliceQuest_talk = new Commitment("alice_quest_talk", alice, {
         await narration.jump("talk-alice", props);
         routine.remove(aliceQuest_talk);
     },
+    name: "Talk to Alice",
 });
 
 RegisteredCommitments.add(aliceQuest_talk);

@@ -1,5 +1,4 @@
 import { BACKGROUND_ID } from "@/constants";
-import { orderProduct, takeProduct } from "@/content/activities";
 import { alice, mc } from "@/content/characters";
 import { aliceQuest } from "@/content/quests/alice.quest";
 import { mcRoom, terrace } from "@/content/rooms";
@@ -21,7 +20,7 @@ export const orderProductLabel = newLabel("order-product", [
             character: mc,
             text: `Here's R****, for $1. Just the thing for me.`,
         };
-        mcRoom.removeActivity(orderProduct);
+        mcRoom.removeActivity("order_product");
         aliceQuest.continue(props);
     },
 ]);
@@ -32,7 +31,7 @@ export const takeKeyLabel = newLabel("take-key", [
             character: mc,
             text: `Are these the car keys?! Well... I should try to access the car!`,
         };
-        terrace.removeActivity(takeProduct);
+        terrace.removeActivity("take_product");
         aliceQuest.continue(props);
     },
 ]);

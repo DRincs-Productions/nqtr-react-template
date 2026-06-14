@@ -7,13 +7,15 @@ import {
     type OnRunEvent,
     type OnRunProps,
 } from "@drincs/nqtr";
-import type { CharacterInterface } from "@drincs/pixi-vn";
+import type { CharacterIdType, CharacterInterface } from "@drincs/pixi-vn";
 import type { PixiUIParam, PixiUIProp, ReactUIParam, ReactUIProp } from "./ui-elements";
 
 export default class Commitment extends CommitmentStoredClass implements CommitmentInterface {
     constructor(
         id: string,
-        characters: CharacterInterface | CharacterInterface[],
+        characters:
+            | (CharacterInterface | CharacterIdType)
+            | (CharacterInterface | CharacterIdType)[],
         props: {
             name: string;
             image?: PixiUIParam<Commitment>;

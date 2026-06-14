@@ -1,5 +1,7 @@
 import {
+    type ActivityIdType,
     type ActivityInterface,
+    type CommitmentIdType,
     type CommitmentInterface,
     type LocationInterface,
     type OnRunProps,
@@ -17,8 +19,8 @@ export default class Room extends RoomStoredClass implements RoomInterface {
             disabled?: boolean | (() => boolean);
             hidden?: boolean | (() => boolean);
             background: PixiUIParam<Room>;
-            activities?: ActivityInterface[];
-            routine?: CommitmentInterface[];
+            activities?: (ActivityInterface | ActivityIdType)[];
+            routine?: (CommitmentInterface | CommitmentIdType)[];
             isEntrance?: boolean;
         },
     ) {
