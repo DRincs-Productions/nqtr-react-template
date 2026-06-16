@@ -7,7 +7,7 @@ import { Bed, Package, ShoppingCart } from "lucide-react";
 export const bed = new Activity(
     "bed",
     async (_, props) => {
-        await props.navigate({ to: "/game/navigation" });
+        await props.navigate({ to: "/game/narration" });
         if (timeTracker.nowIsBetween(5, 22)) {
             await narration.jump("nap", props);
         } else {
@@ -35,7 +35,7 @@ export const bed = new Activity(
 export const orderProduct = new Activity(
     "order_product",
     async (_, props) => {
-        await props.navigate({ to: "/game/navigation" });
+        await props.navigate({ to: "/game/narration" });
         await narration.jump("order-product", props);
     },
     {
@@ -59,7 +59,7 @@ export const orderProduct = new Activity(
 export const takeProduct = new Activity(
     "take_product",
     async (_, props) => {
-        await props.navigate({ to: "/game/navigation" });
+        await props.navigate({ to: "/game/narration" });
         await narration.jump("take-key", props);
     },
     {

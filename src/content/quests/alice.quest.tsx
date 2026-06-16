@@ -1,10 +1,7 @@
 import { mcRoom, terrace } from "@/content/rooms";
-import Commitment from "@/models/nqtr/Commitment";
 import Quest from "@/models/nqtr/Quest";
 import Stage from "@/models/nqtr/Stage";
-import TimeSlotsImage from "@/models/TimeSlotsImage";
-import { RegisteredCommitments, RegisteredQuests, routine } from "@drincs/nqtr";
-import { narration } from "@drincs/pixi-vn";
+import { RegisteredQuests } from "@drincs/nqtr";
 
 export const aliceQuest = new Quest(
     "aliceQuest",
@@ -12,7 +9,7 @@ export const aliceQuest = new Quest(
         // stages
         new Stage("talk_alice1", {
             onStart: () => {
-                terrace.addCommitment(aliceQuest_talk);
+                terrace.addCommitment("alice_quest_talk");
             },
             name: "Talk to Alice",
             description: "Talk to Alice on the terrace",
@@ -55,21 +52,3 @@ export const aliceQuest = new Quest(
 );
 
 RegisteredQuests.add(aliceQuest);
-
-const aliceQuest_talk = new Commitment("alice_quest_talk", "alice", {
-    timeSlot: {
-        from: 10,
-        to: 20,
-    },
-    image: new TimeSlotsImage("alice_terrace0A"),
-    executionType: "automatic",
-    priority: 1,
-    onRun: async (_, props) => {
-        await props.navigate({ to: "/game/narration" });
-        await narration.jump("talk-alice", props);
-        routine.remove(aliceQuest_talk);
-    },
-    name: "Talk to Alice",
-});
-
-RegisteredCommitments.add(aliceQuest_talk);

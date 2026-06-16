@@ -9,10 +9,10 @@ declare module "@drincs/nqtr/registries" {
         "take_product": never;
     }
     interface NqtrCommitmentIds {
-        "alice_quest_talk": never;
         "alice_sleep": never;
         "alice_go_school": never;
         "alice_smokes": never;
+        "alice_quest_talk": never;
     }
     interface NqtrLocationIds {
         "mc_home": never;

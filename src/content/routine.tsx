@@ -1,6 +1,7 @@
 import { ActivityNavButton } from "@/components/screens/navigation/activities";
 import Commitment from "@/models/nqtr/Commitment";
-import { RegisteredCommitments, timeTracker } from "@drincs/nqtr";
+import TimeSlotsImage from "@/models/TimeSlotsImage";
+import { RegisteredCommitments, routine, timeTracker } from "@drincs/nqtr";
 import { narration } from "@drincs/pixi-vn";
 import { MessageCircleQuestion } from "lucide-react";
 
@@ -17,9 +18,7 @@ export const aliceSleep = new Commitment("alice_sleep", "alice", {
             <ActivityNavButton
                 disabled={commitment.disabled}
                 onClick={() => {
-                    if (commitment.run) {
-                        commitment.run(props);
-                    }
+                    commitment.run(props);
                 }}
                 ariaLabel={commitment.name}
             >
@@ -27,9 +26,9 @@ export const aliceSleep = new Commitment("alice_sleep", "alice", {
             </ActivityNavButton>
         );
     },
-    onRun: async (_, event) => {
-        await event.navigate({ to: "/game/narration" });
-        await narration.jump("talk-alice-sleep", event);
+    onRun: async (_, props) => {
+        await props.navigate({ to: "/game/narration" });
+        await narration.jump("talk-alice-sleep", props);
     },
 });
 
@@ -55,9 +54,7 @@ export const aliceSmokes = new Commitment("alice_smokes", "alice", {
             <ActivityNavButton
                 disabled={commitment.disabled}
                 onClick={() => {
-                    if (commitment.run) {
-                        commitment.run(props);
-                    }
+                    commitment.run(props);
                 }}
                 ariaLabel={commitment.name}
             >
@@ -65,10 +62,26 @@ export const aliceSmokes = new Commitment("alice_smokes", "alice", {
             </ActivityNavButton>
         );
     },
-    onRun: async (_, event) => {
-        await event.navigate({ to: "/game/narration" });
-        await narration.jump("alice-talk-menu", event);
+    onRun: async (_, props) => {
+        await props.navigate({ to: "/game/narration" });
+        await narration.jump("alice-talk-menu", props);
     },
 });
 
-RegisteredCommitments.add([aliceSleep, aliceGoSchool, aliceSmokes]);
+const aliceQuest_talk = new Commitment("alice_quest_talk", "alice", {
+    timeSlot: {
+        from: 10,
+        to: 20,
+    },
+    image: new TimeSlotsImage("alice_terrace0A"),
+    executionType: "automatic",
+    priority: 1,
+    onRun: async (_, props) => {
+        await props.navigate({ to: "/game/narration" });
+        await narration.jump("talk-alice", props);
+        routine.remove("alice_quest_talk");
+    },
+    name: "Talk to Alice",
+});
+
+RegisteredCommitments.add([aliceSleep, aliceGoSchool, aliceSmokes, aliceQuest_talk]);
