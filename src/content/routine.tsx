@@ -84,4 +84,4 @@ const aliceQuest_talk = new Commitment("alice_quest_talk", "alice", {
     name: "Talk to Alice",
 });
 
-RegisteredCommitments.add([aliceSleep, aliceGoSchool, aliceSmokes, aliceQuest_talk]);
+RegisteredCommitments.add(aliceSleep, aliceGoSchool, aliceSmokes, aliceQuest_talk);

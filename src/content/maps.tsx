@@ -23,4 +23,4 @@ export const nightcityMap = new MapClass("nightcity_map", {
     },
 });
 
-RegisteredMaps.add([mainMap, nightcityMap]);
+RegisteredMaps.add(mainMap, nightcityMap);

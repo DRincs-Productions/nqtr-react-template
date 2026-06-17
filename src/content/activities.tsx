@@ -80,4 +80,4 @@ export const takeProduct = new Activity(
     },
 );
 
-RegisteredActivities.add([bed, orderProduct, takeProduct]);
+RegisteredActivities.add(bed, orderProduct, takeProduct);

@@ -74,7 +74,7 @@ export const classRoom = new Room("class_room", school, {
     routine: ["alice_go_school"],
 });
 
-RegisteredRooms.add([mcRoom, aliceRoom, annRoom, bathroom, lounge, terrace, gymRoom, classRoom]);
+RegisteredRooms.add(mcRoom, aliceRoom, annRoom, bathroom, lounge, terrace, gymRoom, classRoom);
 
 // default room to prevent errors when accessing navigator.currentRoom before any room is loaded.
 navigator.currentRoom = mcRoom;

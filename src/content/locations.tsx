@@ -56,4 +56,4 @@ export const school = new Location("school", mainMap, {
     sprite: () => new Sprite(),
 });
 
-RegisteredLocations.add([mcHome, gym, school]);
+RegisteredLocations.add(mcHome, gym, school);
