@@ -8,6 +8,7 @@ import { useQueryQuests, useQuerySelectedQuest } from "@/lib/query/quest-query";
 import { Memo } from "@/lib/stores/memo-store";
 import { cn } from "@/lib/utils";
 import { useHotkeys } from "@tanstack/react-hotkeys";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 function QuestButton({
@@ -45,6 +46,15 @@ export function MemoMenu() {
     } = useQueryQuests();
     const { data: selectedQuest } = useQuerySelectedQuest();
 
+    useEffect(() => {
+        if (!open) return;
+        const currentId = Memo.store.state.selectedQuestId;
+        const isStillInProgress = inProgressQuests.some((q) => q.id === currentId);
+        if (!isStillInProgress) {
+            Memo.setSelectedQuestId(inProgressQuests[0]?.id);
+        }
+    }, [open, inProgressQuests]);
+
     useHotkeys([
         {
             hotkey: "Alt+J",
@@ -57,6 +67,8 @@ export function MemoMenu() {
             },
         },
     ]);
+
+    const hasNoActiveQuests = inProgressQuests.length === 0;
 
     return (
         <Dialog open={open ?? false} onOpenChange={(isOpen) => setOpen(isOpen || undefined)}>
@@ -111,29 +123,35 @@ export function MemoMenu() {
                     </aside>
 
                     {/* Main content */}
-                    <ScrollArea className="flex-1">
-                        <div className="flex flex-col gap-3 p-8">
-                            {selectedQuest?.questImageUrl && (
-                                <div className="max-h-[10dvh] overflow-hidden rounded">
-                                    <Image
-                                        src={selectedQuest.questImageUrl}
-                                        alt={selectedQuest.name ?? ""}
-                                        className="h-full w-full object-cover"
-                                    />
-                                </div>
-                            )}
-                            <h2 className="text-center text-2xl font-bold">
-                                {selectedQuest?.name}
-                            </h2>
-                            <p className="max-h-[20dvh] overflow-y-auto text-primary">
-                                {selectedQuest?.description}
-                            </p>
-                            <Separator />
-                            <p className="max-h-[20dvh] overflow-y-auto">
-                                {selectedQuest?.currentStage?.description}
-                            </p>
+                    {hasNoActiveQuests ? (
+                        <div className="flex flex-1 items-center justify-center">
+                            <p className="text-muted-foreground">{t("no_active_quests")}</p>
                         </div>
-                    </ScrollArea>
+                    ) : (
+                        <ScrollArea className="flex-1">
+                            <div className="flex flex-col gap-3 p-8">
+                                {selectedQuest?.questImageUrl && (
+                                    <div className="max-h-[10dvh] overflow-hidden rounded">
+                                        <Image
+                                            src={selectedQuest.questImageUrl}
+                                            alt={selectedQuest.name ?? ""}
+                                            className="h-full w-full object-cover"
+                                        />
+                                    </div>
+                                )}
+                                <h2 className="text-center text-2xl font-bold">
+                                    {selectedQuest?.name}
+                                </h2>
+                                <p className="max-h-[20dvh] overflow-y-auto text-primary">
+                                    {selectedQuest?.description}
+                                </p>
+                                <Separator />
+                                <p className="max-h-[20dvh] overflow-y-auto">
+                                    {selectedQuest?.currentStage?.description}
+                                </p>
+                            </div>
+                        </ScrollArea>
+                    )}
                 </div>
             </FullscreenDialogContent>
         </Dialog>

@@ -5,7 +5,6 @@ import { INTERFACE_DATA_USE_QUERY_KEY } from "@/constants";
 import { useSetSearchParamState } from "@/lib/hooks/navigation-hooks";
 import { CURRENT_MAP_USE_QUERY_KEY } from "@/lib/query/map-query";
 import { GameStatus } from "@/lib/stores/game-status-store";
-import { Memo } from "@/lib/stores/memo-store";
 import { cn } from "@/lib/utils";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
@@ -16,6 +15,7 @@ import { useTranslation } from "react-i18next";
 
 export function ToolsLeft() {
     const setOpenSettings = useSetSearchParamState<boolean>("settings");
+    const setOpenMemo = useSetSearchParamState<boolean>("memo");
     const { t } = useTranslation(["ui"]);
 
     return (
@@ -24,7 +24,7 @@ export function ToolsLeft() {
                 <ToolButton ariaLabel={t("settings")} onClick={() => setOpenSettings(true)}>
                     <Settings className="size-6 sm:size-8 md:size-10" />
                 </ToolButton>
-                <ToolButton ariaLabel={t("memo")} onClick={Memo.toggleOpen}>
+                <ToolButton ariaLabel={t("memo")} onClick={() => setOpenMemo((prev) => !prev || undefined)}>
                     <NotebookPen className="size-6 sm:size-8 md:size-10" />
                 </ToolButton>
             </div>
@@ -46,7 +46,7 @@ export function ToolsRight() {
                         queryClient.invalidateQueries({
                             queryKey: [INTERFACE_DATA_USE_QUERY_KEY, CURRENT_MAP_USE_QUERY_KEY],
                         });
-                        navigate({ to: "/game/navigation" });
+                        navigate({ to: "/game/map" });
                     }}
                 >
                     <MapIcon className="size-6 sm:size-8 md:size-10" />
