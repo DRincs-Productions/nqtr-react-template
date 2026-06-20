@@ -7,7 +7,7 @@ export function NavigationScreen() {
     return (
         <div className="absolute inset-0 pointer-events-none flex flex-col">
             {/* Top row: tools and time */}
-            <div className="flex-none relative flex flex-row items-start">
+            <div className="flex-none relative flex flex-row items-start opacity-50 hover:opacity-100 transition-opacity">
                 <ToolsLeft />
                 <div className="absolute left-1/2 -translate-x-1/2">
                     <Time />

@@ -112,7 +112,7 @@ export function RoomNavButton({
             disabled={disabled}
             size="icon-lg"
             className={cn(
-                "relative size-10 overflow-hidden border-3 shadow-lg sm:size-14 md:size-20",
+                "relative h-8 w-14 overflow-hidden border-3 shadow-lg sm:h-11 sm:w-20 md:h-16 md:w-28",
                 selected ? "border-primary" : "border-background",
                 className,
             )}

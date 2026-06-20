@@ -76,7 +76,7 @@ export function ToolButton({
                     disabled={disabled ?? loading}
                     size="icon-lg"
                     className={cn(
-                        "relative size-10 overflow-hidden border-3 border-background shadow-lg sm:size-14 md:size-20",
+                        "relative size-9 overflow-hidden border-3 border-background shadow-lg sm:size-12 md:size-16",
                         className,
                     )}
                     style={{ borderRadius: `calc(var(--radius-lg) * ${BORDER_RADIUS_SCALE})` }}

@@ -18,7 +18,7 @@ export function Time() {
     const disabled = useSelector(GameStatus.store, (state) => state.loading);
 
     return (
-        <div className="flex flex-row items-center gap-1 opacity-50 hover:opacity-100 transition-opacity">
+        <div className="flex flex-row items-center gap-1">
             <div className="flex flex-col items-center">
                 <span
                     className={cn(
