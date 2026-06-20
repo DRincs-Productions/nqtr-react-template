@@ -22,7 +22,7 @@ declare module "@drincs/pixi-vn/narration" {
         "alice-talk-menu": never;
     }
 }
-export const characterIds = ["mc","james","steph","sly"] as const;
-export const characterIdsEnum = {"mc":"mc","james":"james","steph":"steph","sly":"sly"} as const;
-export const labelIds = ["animation_01","second_part","start"] as const;
-export const labelIdsEnum = {"animation_01":"animation_01","second_part":"second_part","start":"start"} as const;
+export const characterIds = ["mc","alice"] as const;
+export const characterIdsEnum = {"mc":"mc","alice":"alice"} as const;
+export const labelIds = ["sleep-1-hour","nap-1-hour","sleep","nap","start","order-product","take-key","talk-alice-sleep-result","talk-alice-sleep","talk-alice","alice-talk-menu"] as const;
+export const labelIdsEnum = {"sleep-1-hour":"sleep-1-hour","nap-1-hour":"nap-1-hour","sleep":"sleep","nap":"nap","start":"start","order-product":"order-product","take-key":"take-key","talk-alice-sleep-result":"talk-alice-sleep-result","talk-alice-sleep":"talk-alice-sleep","talk-alice":"talk-alice","alice-talk-menu":"alice-talk-menu"} as const;
