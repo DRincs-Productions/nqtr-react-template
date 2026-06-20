@@ -39,7 +39,7 @@ export default defineConfig(({ mode }) => ({
             typeFilePath: "./src/pixi-vn-keys.gen.d.ts",
         }),
         vitePluginNqtr({
-            typeFilePath: "./src/nqtr-keys.gen.d.ts",
+            typeFilePath: "./src/nqtr.keys.d.ts",
             activities: "./src/content/activities.tsx",
             commitments: "./src/content/routine.tsx",
             rooms: "./src/content/rooms.tsx",
