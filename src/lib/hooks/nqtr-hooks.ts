@@ -41,7 +41,7 @@ export function useRoomLayerSync() {
     const gameProps = useGameProps();
 
     useEffect(() => {
-        if (!id) return;
+        if (!id || id !== navigator.currentRoomId) return;
 
         const layer = canvas.getLayer(CANVAS_UI_LAYER_NAME);
         if (layer) {
