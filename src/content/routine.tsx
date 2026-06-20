@@ -1,4 +1,4 @@
-import { ActivityNavButton } from "@/components/screens/navigation/activities";
+import { ActivityNavButton } from "@/components/screens/navigation/quick-activities";
 import Commitment from "@/models/nqtr/Commitment";
 import TimeSlotsImage from "@/models/TimeSlotsImage";
 import { RegisteredCommitments, routine, timeTracker } from "@drincs/nqtr";

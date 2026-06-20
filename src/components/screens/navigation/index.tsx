@@ -1,5 +1,5 @@
-import { Activities } from "@/components/screens/navigation/activities";
-import { Rooms } from "@/components/screens/navigation/rooms";
+import { Activities } from "@/components/screens/navigation/quick-activities";
+import { Rooms } from "@/components/screens/navigation/quick-rooms";
 import { Time } from "@/components/screens/navigation/time";
 import { ToolsLeft, ToolsRight } from "@/components/screens/navigation/tools";
 
