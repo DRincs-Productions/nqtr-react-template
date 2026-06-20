@@ -43,6 +43,8 @@ export default defineConfig(({ mode }) => ({
             activities: "./src/content/activities.tsx",
             commitments: "./src/content/routine.tsx",
             rooms: "./src/content/rooms.tsx",
+            locations: "./src/content/locations.tsx",
+            maps: "./src/content/maps.tsx",
             quests: "./src/content/quests/*.quest.tsx",
         }),
         VitePWA({
