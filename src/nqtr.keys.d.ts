@@ -6,7 +6,7 @@
 export const nqtrActivityIds = ["bed","order_product","take_product"] as const;
 export const nqtrCommitmentIds = ["alice_sleep","alice_go_school","alice_smokes","alice_quest_talk"] as const;
 export const nqtrLocationIds = ["mc_home","gym","school"] as const;
-export const nqtrMapIds = ["main_map","nightcity_map"] as const;
+export const nqtrMapIds = ["main_map"] as const;
 export const nqtrQuestIds = ["aliceQuest"] as const;
 export const nqtrRoomIds = ["mc_room","alice_room","ann_room","bathroom","lounge","terrace","gym_room","class_room"] as const;
 
@@ -29,7 +29,6 @@ declare module "@drincs/nqtr/registries" {
     }
     interface NqtrMapIds {
         "main_map": never;
-        "nightcity_map": never;
     }
     interface NqtrQuestIds {
         "aliceQuest": never;

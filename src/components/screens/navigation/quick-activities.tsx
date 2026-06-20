@@ -9,23 +9,14 @@ import { Button } from "@/components/ui/button";
 import { Image } from "@/components/ui/image";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { INTERFACE_DATA_USE_QUERY_KEY } from "@/constants";
 import { useGameProps } from "@/lib/hooks/props-hooks";
+import { useQueryActivity, useQueryCommitment } from "@/lib/query/activity-query";
 import { useQueryCurrentRoomId, useQueryRoom } from "@/lib/query/room-query";
-import { useQueryTime } from "@/lib/query/time-query";
 import { cn } from "@/lib/utils";
 import type TimeSlotsImage from "@/models/TimeSlotsImage";
 import type { OnRunProps } from "@drincs/nqtr";
-import {
-    RegisteredActivities,
-    RegisteredCommitments,
-    type CommitmentInterface,
-} from "@drincs/nqtr";
 import type { CharacterInterface } from "@drincs/pixi-vn";
-import { useQuery } from "@tanstack/react-query";
 import { isValidElement, type ComponentProps, type CSSProperties, type ReactElement } from "react";
-
-const ACTIVITY_QUERY_KEY = "activity_query_key";
 
 export function Activities() {
     const { data: currentRoomId } = useQueryCurrentRoomId();
@@ -36,33 +27,22 @@ export function Activities() {
         <ScrollArea className="h-full">
             <div className="flex min-h-full flex-col-reverse items-end gap-0.5">
                 {routine.map((item) => (
-                    <ActivityButton key={`commitment-${item.id}`} activityId={item.id} />
+                    <CommitmentButton key={`commitment-${item.id}`} id={item.id} />
                 ))}
                 {activities.map((item) => (
-                    <ActivityButton key={`activity-${item.id}`} activityId={item.id} />
+                    <ActivityButton key={`activity-${item.id}`} id={item.id} />
                 ))}
             </div>
         </ScrollArea>
     );
 }
 
-function ActivityButton({ activityId }: { activityId: string }) {
+function ActivityButton({ id }: { id: string }) {
     const gameProps = useGameProps();
     const { uiTransition: t } = gameProps;
-    const { data: { day, hour } = {} } = useQueryTime();
-
-    const { data: activity } = useQuery({
-        queryKey: [INTERFACE_DATA_USE_QUERY_KEY, ACTIVITY_QUERY_KEY, activityId, day, hour],
-        queryFn: () =>
-            RegisteredActivities.has(activityId)
-                ? RegisteredActivities.get(activityId)
-                : RegisteredCommitments.get(activityId),
-    });
+    const { data: activity } = useQueryActivity(id);
 
     if (!activity) return null;
-
-    const characters =
-        "characters" in activity ? (activity as CommitmentInterface).characters : undefined;
 
     return (
         <ActivityBaseButton
@@ -70,7 +50,24 @@ function ActivityButton({ activityId }: { activityId: string }) {
             onClick={() => activity.run(gameProps)}
             ariaLabel={t(activity.name)}
             image={activity.icon}
-            characters={characters}
+        />
+    );
+}
+
+function CommitmentButton({ id }: { id: string }) {
+    const gameProps = useGameProps();
+    const { uiTransition: t } = gameProps;
+    const { data: commitment } = useQueryCommitment(id);
+
+    if (!commitment) return null;
+
+    return (
+        <ActivityBaseButton
+            disabled={commitment.disabled}
+            onClick={() => commitment.run(gameProps)}
+            ariaLabel={t(commitment.name)}
+            image={commitment.icon}
+            characters={commitment.characters}
         />
     );
 }
