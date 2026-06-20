@@ -1,4 +1,4 @@
-import { ActivityNavButton } from "@/components/screens/navigation/quick-activities";
+import { ActivityBaseButton } from "@/components/screens/navigation/quick-activities";
 import Commitment from "@/models/nqtr/Commitment";
 import TimeSlotsImage from "@/models/TimeSlotsImage";
 import { RegisteredCommitments, routine, timeTracker } from "@drincs/nqtr";
@@ -15,7 +15,7 @@ export const aliceSleep = new Commitment("alice_sleep", "alice", {
     name: "Alice sleeps",
     icon: (commitment, props) => {
         return (
-            <ActivityNavButton
+            <ActivityBaseButton
                 disabled={commitment.disabled}
                 onClick={() => {
                     commitment.run(props);
@@ -23,7 +23,7 @@ export const aliceSleep = new Commitment("alice_sleep", "alice", {
                 ariaLabel={commitment.name}
             >
                 <MessageCircleQuestion className="size-6 sm:size-8 md:size-10 lg:size-12 xl:size-14" />
-            </ActivityNavButton>
+            </ActivityBaseButton>
         );
     },
     onRun: async (_, props) => {
@@ -51,7 +51,7 @@ export const aliceSmokes = new Commitment("alice_smokes", "alice", {
     name: "Alice smokes",
     icon: (commitment, props) => {
         return (
-            <ActivityNavButton
+            <ActivityBaseButton
                 disabled={commitment.disabled}
                 onClick={() => {
                     commitment.run(props);
@@ -59,7 +59,7 @@ export const aliceSmokes = new Commitment("alice_smokes", "alice", {
                 ariaLabel={commitment.name}
             >
                 <MessageCircleQuestion className="size-6 sm:size-8 md:size-10 lg:size-12 xl:size-14" />
-            </ActivityNavButton>
+            </ActivityBaseButton>
         );
     },
     onRun: async (_, props) => {

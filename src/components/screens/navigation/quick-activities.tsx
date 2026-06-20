@@ -21,6 +21,7 @@ import {
     RegisteredCommitments,
     type CommitmentInterface,
 } from "@drincs/nqtr";
+import type { CharacterInterface } from "@drincs/pixi-vn";
 import { useQuery } from "@tanstack/react-query";
 import { isValidElement, type ComponentProps, type CSSProperties, type ReactElement } from "react";
 
@@ -53,7 +54,9 @@ function ActivityButton({ activityId }: { activityId: string }) {
     const { data: activity } = useQuery({
         queryKey: [INTERFACE_DATA_USE_QUERY_KEY, ACTIVITY_QUERY_KEY, activityId, day, hour],
         queryFn: () =>
-            RegisteredActivities.get(activityId) ?? RegisteredCommitments.get(activityId),
+            RegisteredActivities.has(activityId)
+                ? RegisteredActivities.get(activityId)
+                : RegisteredCommitments.get(activityId),
     });
 
     if (!activity) return null;
@@ -62,44 +65,21 @@ function ActivityButton({ activityId }: { activityId: string }) {
         "characters" in activity ? (activity as CommitmentInterface).characters : undefined;
 
     return (
-        <ActivityNavButton
+        <ActivityBaseButton
             disabled={activity.disabled}
             onClick={() => activity.run(gameProps)}
             ariaLabel={t(activity.name)}
             image={activity.icon}
-        >
-            {characters && (
-                <AvatarGroup className="absolute right-0 bottom-0">
-                    {characters.length <= 3 &&
-                        characters.map((character) => (
-                            <Avatar key={character.id} size="sm">
-                                <AvatarImage src={character.icon} alt={character.name} />
-                                <AvatarFallback>{character.name.slice(0, 1)}</AvatarFallback>
-                            </Avatar>
-                        ))}
-                    {characters.length > 3 && (
-                        <>
-                            {characters.slice(0, 2).map((character) => (
-                                <Avatar key={character.id} size="sm">
-                                    <AvatarImage src={character.icon} alt={character.name} />
-                                    <AvatarFallback>{character.name.slice(0, 1)}</AvatarFallback>
-                                </Avatar>
-                            ))}
-                            <AvatarGroupCount className="size-6 bg-black/50 text-white">
-                                +{characters.length - 2}
-                            </AvatarGroupCount>
-                        </>
-                    )}
-                </AvatarGroup>
-            )}
-        </ActivityNavButton>
+            characters={characters}
+        />
     );
 }
 
 const BORDER_RADIUS_SCALE = 1.2;
-export function ActivityNavButton({
+export function ActivityBaseButton({
     ariaLabel,
     image: imageProp,
+    characters,
     circumference,
     className,
     disabled,
@@ -110,6 +90,7 @@ export function ActivityNavButton({
     ariaLabel: string;
     image?: string | TimeSlotsImage | ReactElement | ((props: OnRunProps) => ReactElement);
     circumference?: CSSProperties["width"];
+    characters?: CharacterInterface[];
 }) {
     const gameProps = useGameProps();
 
@@ -149,6 +130,31 @@ export function ActivityNavButton({
                 />
             )}
             {children}
+
+            {characters && (
+                <AvatarGroup className="absolute right-0 bottom-0">
+                    {characters.length <= 3 &&
+                        characters.map((character) => (
+                            <Avatar key={character.id} size="sm">
+                                <AvatarImage src={character.icon} alt={character.name} />
+                                <AvatarFallback>{character.name.slice(0, 1)}</AvatarFallback>
+                            </Avatar>
+                        ))}
+                    {characters.length > 3 && (
+                        <>
+                            {characters.slice(0, 2).map((character) => (
+                                <Avatar key={character.id} size="sm">
+                                    <AvatarImage src={character.icon} alt={character.name} />
+                                    <AvatarFallback>{character.name.slice(0, 1)}</AvatarFallback>
+                                </Avatar>
+                            ))}
+                            <AvatarGroupCount className="size-6 bg-black/50 text-white">
+                                +{characters.length - 2}
+                            </AvatarGroupCount>
+                        </>
+                    )}
+                </AvatarGroup>
+            )}
         </Button>
     );
 
