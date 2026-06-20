@@ -40,9 +40,8 @@ export function Time() {
             <Tooltip>
                 <TooltipTrigger render={<span />}>
                     <Button
-                        variant="ghost"
+                        variant={"secondary"}
                         size="icon"
-                        className="bg-black/50 border-0 text-white hover:bg-black/70 hover:text-white"
                         onClick={() => {
                             wait(1);
                             gameProps.invalidateInterfaceData();

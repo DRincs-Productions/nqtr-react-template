@@ -24,7 +24,10 @@ export function ToolsLeft() {
                 <ToolButton ariaLabel={t("settings")} onClick={() => setOpenSettings(true)}>
                     <Settings className="size-6 sm:size-8 md:size-10" />
                 </ToolButton>
-                <ToolButton ariaLabel={t("memo")} onClick={() => setOpenMemo((prev) => !prev || undefined)}>
+                <ToolButton
+                    ariaLabel={t("memo")}
+                    onClick={() => setOpenMemo((prev) => !prev || undefined)}
+                >
                     <NotebookPen className="size-6 sm:size-8 md:size-10" />
                 </ToolButton>
             </div>
@@ -75,8 +78,9 @@ export function ToolButton({
                     {...rest}
                     disabled={disabled ?? loading}
                     size="icon-lg"
+                    variant={"secondary"}
                     className={cn(
-                        "relative size-9 overflow-hidden border-3 border-background shadow-lg sm:size-12 md:size-16",
+                        "relative size-9 overflow-hidden shadow-lg sm:size-12 md:size-16",
                         className,
                     )}
                     style={{ borderRadius: `calc(var(--radius-lg) * ${BORDER_RADIUS_SCALE})` }}

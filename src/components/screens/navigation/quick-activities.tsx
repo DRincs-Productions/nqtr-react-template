@@ -127,8 +127,9 @@ export function ActivityNavButton({
             {...rest}
             disabled={disabled}
             size="icon-lg"
+            variant={"secondary"}
             className={cn(
-                "relative size-10 overflow-hidden border-3 border-background shadow-lg sm:size-14 md:size-20",
+                "relative size-10 overflow-hidden shadow-lg sm:size-14 md:size-20",
                 className,
             )}
             style={{
