@@ -1,5 +1,6 @@
 import { INTERFACE_DATA_USE_QUERY_KEY } from "@/constants";
 import { useGameProps } from "@/lib/hooks/props-hooks";
+import { useQueryTime } from "@/lib/query/time-query";
 import { normalizePixiElement } from "@/lib/utils/ui-utility";
 import type { PixiUIProp } from "@/models/nqtr/ui-elements";
 import { navigator, RegisteredMaps } from "@drincs/nqtr";
@@ -11,6 +12,7 @@ import { useCallback } from "react";
 const MAP_USE_QUERY_KEY = "map_use_query_key";
 export function useQueryMap(id?: string) {
     const gameProps = useGameProps();
+    const { data: { day, hour } = {} } = useQueryTime();
 
     const loadIcons = useCallback(
         (items: Array<{ sprite?: PixiUIProp }>) =>
@@ -31,7 +33,7 @@ export function useQueryMap(id?: string) {
     );
 
     return useQuery({
-        queryKey: [INTERFACE_DATA_USE_QUERY_KEY, MAP_USE_QUERY_KEY, id],
+        queryKey: [INTERFACE_DATA_USE_QUERY_KEY, MAP_USE_QUERY_KEY, id, day, hour],
         queryFn: async () => {
             if (!id) return {};
             const map = RegisteredMaps.get(id);
