@@ -5,7 +5,7 @@ import { useQueryCurrentRoom } from "@/lib/query/room-query";
 import { GameStatus } from "@/lib/stores/game-status-store";
 import { navigator, questsNotebook, routine, timeTracker, type OnRunProps } from "@drincs/nqtr";
 import { canvas, storage } from "@drincs/pixi-vn";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 
@@ -39,6 +39,7 @@ export function useRoomLayerSync() {
         } = {},
     } = useQueryCurrentRoom();
     const gameProps = useGameProps();
+    const autoRunning = useRef(false);
 
     useEffect(() => {
         if (!id || id !== navigator.currentRoomId) return;
@@ -55,11 +56,13 @@ export function useRoomLayerSync() {
             });
         }
 
-        if (automaticFunctions.length > 0) {
+        if (automaticFunctions.length > 0 && !autoRunning.current) {
+            autoRunning.current = true;
             const automaticFunction = automaticFunctions[0];
             GameStatus.setLoading(true);
             automaticFunction(gameProps).finally(() => {
                 GameStatus.setLoading(false);
+                autoRunning.current = false;
             });
         }
 
