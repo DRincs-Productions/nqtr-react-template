@@ -9,13 +9,14 @@ import { cn } from "@/lib/utils";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { useSelector } from "@tanstack/react-store";
-import { MapIcon, NotebookPen, Settings } from "lucide-react";
+import { MapIcon, NotebookPen, Save, Settings } from "lucide-react";
 import type { ComponentProps } from "react";
 import { useTranslation } from "react-i18next";
 
 export function ToolsLeft() {
     const setOpenSettings = useSetSearchParamState<boolean>("settings");
     const setOpenMemo = useSetSearchParamState<boolean>("memo");
+    const setSettingsTab = useSetSearchParamState<string>("settings_tab");
     const { t } = useTranslation(["ui"]);
 
     return (
@@ -23,6 +24,15 @@ export function ToolsLeft() {
             <div className="flex flex-row items-end justify-center gap-0.5">
                 <ToolButton ariaLabel={t("settings")} onClick={() => setOpenSettings(true)}>
                     <Settings className="size-6 sm:size-8 md:size-10" />
+                </ToolButton>
+                <ToolButton
+                    ariaLabel={`${t("save")}/${t("load")}`}
+                    onClick={() => {
+                        setOpenSettings(true);
+                        setSettingsTab("menus/save-load");
+                    }}
+                >
+                    <Save className="size-6 sm:size-8 md:size-10" />
                 </ToolButton>
                 <ToolButton
                     ariaLabel={t("memo")}

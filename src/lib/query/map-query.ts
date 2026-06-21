@@ -33,7 +33,7 @@ export function useQueryMap(id?: string) {
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUERY_KEY, MAP_USE_QUERY_KEY, id],
         queryFn: async () => {
-            if (!id) return undefined;
+            if (!id) return {};
             const map = RegisteredMaps.get(id);
             if (!map) return undefined;
 
