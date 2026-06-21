@@ -7,6 +7,7 @@ import {
     type OnRunEvent,
     type OnRunProps,
 } from "@drincs/nqtr";
+import { narration } from "@drincs/pixi-vn";
 import type { PixiUIParam, PixiUIProp, ReactUIParam, ReactUIProp } from "./ui-elements";
 
 export default class Activity extends ActivityStoredClass implements ActivityInterface {
@@ -75,6 +76,8 @@ export default class Activity extends ActivityStoredClass implements ActivityInt
     }
     override get run(): OnRunAsyncFunction {
         return async (runProps: OnRunProps) => {
+            narration.dialogue = undefined;
+            narration.choices = undefined;
             const res = await super.run(runProps);
             await runProps.invalidateInterfaceData();
             return res;

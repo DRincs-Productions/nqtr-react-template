@@ -1,7 +1,7 @@
 import { BACKGROUND_ID } from "@/constants";
 import { alice, mc } from "@/content/characters";
 import { aliceQuest } from "@/content/quests/alice.quest";
-import { mcRoom, terrace } from "@/content/rooms";
+import { mcRoom, mcRoomBackground, terrace } from "@/content/rooms";
 import {
     narration,
     newChoiceOption,
@@ -12,7 +12,8 @@ import {
 } from "@drincs/pixi-vn";
 
 export const orderProductLabel = newLabel("order-product", [
-    () => {
+    async () => {
+        await showImage(BACKGROUND_ID, mcRoomBackground.src);
         narration.dialogue = { character: mc, text: `OK! Let's see, let's look for a book....` };
     },
     (props) => {

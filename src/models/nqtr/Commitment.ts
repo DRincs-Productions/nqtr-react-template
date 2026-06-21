@@ -1,13 +1,13 @@
 import {
+    CommitmentStoredClass,
     type ActiveScheduling,
     type CommitmentInterface,
-    CommitmentStoredClass,
     type CommitmentStoredClassProps,
     type OnRunAsyncFunction,
     type OnRunEvent,
     type OnRunProps,
 } from "@drincs/nqtr";
-import type { CharacterIdType, CharacterInterface } from "@drincs/pixi-vn";
+import { narration, type CharacterIdType, type CharacterInterface } from "@drincs/pixi-vn";
 import type { PixiUIParam, PixiUIProp, ReactUIParam, ReactUIProp } from "./ui-elements";
 
 export default class Commitment extends CommitmentStoredClass implements CommitmentInterface {
@@ -90,6 +90,8 @@ export default class Commitment extends CommitmentStoredClass implements Commitm
     }
     override get run(): OnRunAsyncFunction {
         return async (runProps: OnRunProps) => {
+            narration.dialogue = undefined;
+            narration.choices = undefined;
             const res = await super.run(runProps);
             await runProps.invalidateInterfaceData();
             return res;
