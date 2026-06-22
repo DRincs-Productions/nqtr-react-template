@@ -37,7 +37,7 @@ export const takeKeyLabel = newLabel("take-key", [
     },
 ]);
 
-const talkSleepResultLabel = newLabel("talk-alice-sleep-result", [
+newLabel("talk-alice-sleep-result", [
     () => {
         narration.dialogue = { character: alice, text: `${mc.name}!!!! What are you doing?!!` };
     },
@@ -50,7 +50,7 @@ export const talkSleepLabel = newLabel("talk-alice-sleep", [
         await showImage(BACKGROUND_ID, "alice_roomsleep0A");
         narration.dialogue = { character: alice, text: "zZz zZz ..." };
         narration.choices = [
-            newChoiceOption("Try waking up", talkSleepResultLabel, {}),
+            newChoiceOption("Try waking up", "talk-alice-sleep-result", {}),
             newCloseChoiceOption("Leave her alone"),
         ];
     },
@@ -142,7 +142,7 @@ export const aliceTalkMenuLabel = newLabel("alice-talk-menu", [
         narration.dialogue = { character: alice, text: "Hi, what do you want to talk about?" };
         const optionsMenu: StoredChoiceInterface[] = [];
         if (aliceQuest.started) {
-            optionsMenu.push(newChoiceOption("About the book", talkAliceQuest, {}));
+            optionsMenu.push(newChoiceOption("About the book", "talk-alice", {}));
         }
         narration.choices = [...optionsMenu, newCloseChoiceOption("Cancel")];
     },
