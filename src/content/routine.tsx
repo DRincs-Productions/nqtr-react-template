@@ -1,7 +1,7 @@
 import { ActivityBaseButton } from "@/components/screens/navigation/quick-activities";
 import Commitment from "@/models/nqtr/Commitment";
 import TimeSlotsImage from "@/models/TimeSlotsImage";
-import { RegisteredCommitments, routine, timeTracker } from "@drincs/nqtr";
+import { RegisteredCommitments, timeTracker } from "@drincs/nqtr";
 import { narration } from "@drincs/pixi-vn";
 import { MessageCircleQuestion } from "lucide-react";
 
@@ -79,7 +79,6 @@ const aliceQuest_talk = new Commitment("alice_quest_talk", "alice", {
     onRun: async (_, props) => {
         await props.navigate({ to: "/game/narration" });
         await narration.jump("talk-alice", props);
-        routine.remove("alice_quest_talk");
     },
     name: "Talk to Alice",
 });
