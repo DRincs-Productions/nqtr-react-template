@@ -1,20 +1,21 @@
 import {
-    ActiveScheduling,
-    ActivityInterface,
+    type ActiveScheduling,
+    type ActivityInterface,
     ActivityStoredClass,
-    ActivityStoredClassProps,
-    OnRunAsyncFunction,
-    OnRunEvent,
-    OnRunProps,
+    type ActivityStoredClassProps,
+    type OnRunAsyncFunction,
+    type OnRunEvent,
+    type OnRunProps,
 } from "@drincs/nqtr";
-import { PixiUIParam, PixiUIProp, ReactUIParam, ReactUIProp } from "./ui-elements";
+import { narration } from "@drincs/pixi-vn";
+import type { PixiUIParam, PixiUIProp, ReactUIParam, ReactUIProp } from "./ui-elements";
 
 export default class Activity extends ActivityStoredClass implements ActivityInterface {
     constructor(
         id: string,
         onRun: OnRunEvent<ActivityInterface>,
         props: {
-            name?: string;
+            name: string;
             sprite?: PixiUIParam<Activity>;
             icon?: ReactUIParam<Activity>;
             disabled?: boolean | (() => boolean);
@@ -47,7 +48,7 @@ export default class Activity extends ActivityStoredClass implements ActivityInt
     }
     private _defaultDisabled: boolean | (() => boolean) = false;
     get disabled(): boolean {
-        let value = this.getStorageProperty<boolean>("disabled") || this._defaultDisabled;
+        const value = this.getStorageProperty<boolean>("disabled") || this._defaultDisabled;
         if (typeof value === "function") {
             return value();
         }
@@ -58,7 +59,7 @@ export default class Activity extends ActivityStoredClass implements ActivityInt
     }
     private _defaultHidden: boolean | (() => boolean) = false;
     get hidden(): boolean {
-        let value = this.getStorageProperty<boolean>("hidden") || this._defaultHidden;
+        const value = this.getStorageProperty<boolean>("hidden") || this._defaultHidden;
         if (typeof value === "function") {
             return value();
         }
@@ -75,6 +76,8 @@ export default class Activity extends ActivityStoredClass implements ActivityInt
     }
     override get run(): OnRunAsyncFunction {
         return async (runProps: OnRunProps) => {
+            narration.dialogue = undefined;
+            narration.choices = undefined;
             const res = await super.run(runProps);
             await runProps.invalidateInterfaceData();
             return res;

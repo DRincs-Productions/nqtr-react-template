@@ -1,0 +1,106 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Install Dependencies",
+      "type": "shell",
+      "command": "[ -d node_modules ] || npm i",
+      "windows": {
+        "command": "if (!(Test-Path node_modules)) { npm i }"
+      },
+      "runOptions": {
+        "runOn": "folderOpen"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": false,
+        "close": true
+      }
+    },
+    {
+      "label": "Start Vite Dev Server",
+      "type": "shell",
+      "command": "npm run dev",
+      "isBackground": true,
+      "runOptions": {
+        "runOn": "folderOpen"
+      },
+      "dependsOn": ["Install Dependencies"],
+      "dependsOrder": "sequence",
+      "problemMatcher": {
+        "owner": "vite",
+        "pattern": {
+          "regexp": "^(?!x)x"
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": ".",
+          "endsPattern": "Local:\\s+http://localhost:\\d+/"
+        }
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true,
+        "close": false
+      }
+    },
+    {
+      "label": "Stop Vite Dev Server",
+      "type": "shell",
+      "command": "kill $(lsof -ti:5173 -sTCP:LISTEN 2>/dev/null) 2>/dev/null; sleep 0.5; true",
+      "windows": {
+        "command": "$p = Get-NetTCPConnection -LocalPort 5173 -ErrorAction SilentlyContinue | Select-Object -ExpandProperty OwningProcess -Unique; $p | ForEach-Object { Stop-Process -Id $_ -Force -ErrorAction SilentlyContinue }; Start-Sleep -Milliseconds 500"
+      },
+      "presentation": {
+        "reveal": "never",
+        "panel": "dedicated",
+        "close": true
+      }
+    },
+    {
+      "label": "Restart Vite Dev Server",
+      "dependsOn": ["Stop Vite Dev Server", "Start Vite Dev Server"],
+      "dependsOrder": "sequence"
+    },
+    {
+      "label": "Start Vite Preview Server",
+      "type": "shell",
+      "command": "npm run preview",
+      "isBackground": true,
+      "dependsOn": ["Install Dependencies"],
+      "dependsOrder": "sequence",
+      "problemMatcher": {
+        "owner": "vite",
+        "pattern": {
+          "regexp": "^(?!x)x"
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": ".",
+          "endsPattern": "Local:\\s+http://localhost:4173/"
+        }
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": false,
+        "close": true
+      }
+    },
+    {
+      "label": "Stop Vite Preview Server",
+      "type": "shell",
+      "command": "kill $(lsof -ti:4173 -sTCP:LISTEN 2>/dev/null) 2>/dev/null; true",
+      "windows": {
+        "command": "$p = Get-NetTCPConnection -LocalPort 4173 -ErrorAction SilentlyContinue | Select-Object -ExpandProperty OwningProcess -Unique; $p | ForEach-Object { Stop-Process -Id $_ -Force -ErrorAction SilentlyContinue }"
+      },
+      "presentation": {
+        "reveal": "never",
+        "panel": "dedicated",
+        "close": true
+      }
+    }
+  ]
+}

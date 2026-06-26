@@ -1,7 +1,7 @@
-import { OnRunProps } from "@drincs/nqtr";
-import { ContainerChild } from "@drincs/pixi-vn/pixi.js";
-import { ReactElement } from "react";
-import TimeSlotsImage from "../TimeSlotsImage";
+import type TimeSlotsImage from "@/models/TimeSlotsImage";
+import type { OnRunProps } from "@drincs/nqtr";
+import type { ContainerChild } from "@drincs/pixi-vn/pixi.js";
+import type { ReactElement } from "react";
 
 export type PixiUIProp =
     | TimeSlotsImage
