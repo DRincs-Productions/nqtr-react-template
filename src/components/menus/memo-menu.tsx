@@ -49,11 +49,14 @@ export function MemoMenu() {
     useEffect(() => {
         if (!open) return;
         const currentId = Memo.store.state.selectedQuestId;
-        const isStillInProgress = inProgressQuests.some((q) => q.id === currentId);
-        if (!isStillInProgress) {
+        const isVisible =
+            inProgressQuests.some((q) => q.id === currentId) ||
+            completedQuests.some((q) => q.id === currentId) ||
+            failedQuests.some((q) => q.id === currentId);
+        if (!isVisible) {
             Memo.setSelectedQuestId(inProgressQuests[0]?.id);
         }
-    }, [open, inProgressQuests]);
+    }, [open, inProgressQuests, completedQuests, failedQuests]);
 
     useHotkeys([
         {
@@ -67,8 +70,6 @@ export function MemoMenu() {
             },
         },
     ]);
-
-    const hasNoActiveQuests = inProgressQuests.length === 0;
 
     return (
         <Dialog open={open ?? false} onOpenChange={(isOpen) => setOpen(isOpen || undefined)}>
@@ -123,7 +124,7 @@ export function MemoMenu() {
                     </aside>
 
                     {/* Main content */}
-                    {hasNoActiveQuests ? (
+                    {!selectedQuest ? (
                         <div className="flex flex-1 items-center justify-center">
                             <p className="text-muted-foreground">{t("no_active_quests")}</p>
                         </div>
