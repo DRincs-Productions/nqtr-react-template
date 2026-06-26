@@ -60,7 +60,7 @@ export const takeProduct = new Activity(
     "take_product",
     async (_, props) => {
         await props.navigate({ to: "/game/narration" });
-        await narration.jump("take-key", props);
+        await narration.jump("take-product", props);
     },
     {
         name: "take_product",

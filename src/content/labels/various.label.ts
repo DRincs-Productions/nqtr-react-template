@@ -26,17 +26,6 @@ export const orderProductLabel = newLabel("order-product", [
     },
 ]);
 
-export const takeKeyLabel = newLabel("take-key", [
-    (props) => {
-        narration.dialogue = {
-            character: mc,
-            text: `Are these the car keys?! Well... I should try to access the car!`,
-        };
-        terrace.removeActivity("take_product");
-        aliceQuest.continue(props);
-    },
-]);
-
 newLabel("talk-alice-sleep-result", [
     () => {
         narration.dialogue = { character: alice, text: `${mc.name}!!!! What are you doing?!!` };
@@ -145,5 +134,16 @@ export const aliceTalkMenuLabel = newLabel("alice-talk-menu", [
             optionsMenu.push(newChoiceOption("About the book", "talk-alice", {}));
         }
         narration.choices = [...optionsMenu, newCloseChoiceOption("Cancel")];
+    },
+]);
+
+export const takeProductLabel = newLabel("take-product", [
+    (props) => {
+        narration.dialogue = {
+            character: mc,
+            text: `Wow, a huge package for just one book...`,
+        };
+        terrace.removeActivity("take_product");
+        aliceQuest.continue(props);
     },
 ]);

@@ -15,14 +15,14 @@ declare module "@drincs/pixi-vn/narration" {
         "nap": never;
         "start": never;
         "order-product": never;
-        "take-key": never;
         "talk-alice-sleep-result": never;
         "talk-alice-sleep": never;
         "talk-alice": never;
         "alice-talk-menu": never;
+        "take-product": never;
     }
 }
 export const characterIds = ["mc","alice"] as const;
 export const characterIdsEnum = {"mc":"mc","alice":"alice"} as const;
-export const labelIds = ["sleep-1-hour","nap-1-hour","sleep","nap","start","order-product","take-key","talk-alice-sleep-result","talk-alice-sleep","talk-alice","alice-talk-menu"] as const;
-export const labelIdsEnum = {"sleep-1-hour":"sleep-1-hour","nap-1-hour":"nap-1-hour","sleep":"sleep","nap":"nap","start":"start","order-product":"order-product","take-key":"take-key","talk-alice-sleep-result":"talk-alice-sleep-result","talk-alice-sleep":"talk-alice-sleep","talk-alice":"talk-alice","alice-talk-menu":"alice-talk-menu"} as const;
+export const labelIds = ["sleep-1-hour","nap-1-hour","sleep","nap","start","order-product","talk-alice-sleep-result","talk-alice-sleep","talk-alice","alice-talk-menu","take-product"] as const;
+export const labelIdsEnum = {"sleep-1-hour":"sleep-1-hour","nap-1-hour":"nap-1-hour","sleep":"sleep","nap":"nap","start":"start","order-product":"order-product","talk-alice-sleep-result":"talk-alice-sleep-result","talk-alice-sleep":"talk-alice-sleep","talk-alice":"talk-alice","alice-talk-menu":"alice-talk-menu","take-product":"take-product"} as const;
