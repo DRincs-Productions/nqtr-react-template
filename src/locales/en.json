@@ -153,6 +153,7 @@
     "open_memo_hotkey_description": "Open or close the memo and quest list.",
     "wait_hotkey_description": "Wait one hour.",
     "navigate_room_hotkey_description": "Navigate to room.",
-    "select_run_activity_hotkey_description": "Use ↑ / ↓ to select an activity, then Enter to run it."
+    "select_run_activity_hotkey_description": "Use ↑ / ↓ to select an activity, then Enter to run it.",
+    "quests_toggle_hotkey_description": "Open the quest list."
   }
 }
