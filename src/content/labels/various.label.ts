@@ -3,6 +3,7 @@ import { alice, mc } from "@/content/characters";
 import { aliceQuest } from "@/content/quests/alice.quest";
 import { mcRoom, mcRoomBackground, terrace } from "@/content/rooms";
 import {
+    canvas,
     narration,
     newChoiceOption,
     newCloseChoiceOption,
@@ -139,6 +140,7 @@ export const aliceTalkMenuLabel = newLabel("alice-talk-menu", [
 
 export const takeProductLabel = newLabel("take-product", [
     (props) => {
+        canvas.clear();
         narration.dialogue = {
             character: mc,
             text: `Wow, a huge package for just one book...`,
