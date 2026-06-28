@@ -1,4 +1,4 @@
-import { ActivityBaseButton } from "@/components/screens/navigation/quick-activities";
+import { ActivityBaseButton } from "@/components/screens/navigation/activity-buttons";
 import Activity from "@/models/nqtr/Activity";
 import { RegisteredActivities, timeTracker } from "@drincs/nqtr";
 import { narration } from "@drincs/pixi-vn";
