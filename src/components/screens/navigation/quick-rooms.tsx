@@ -19,8 +19,11 @@ import {
 import { cn } from "@/lib/utils";
 import type TimeSlotsImage from "@/models/TimeSlotsImage";
 import { navigator, type RoomIdType } from "@drincs/nqtr";
+import type { RegisterableHotkey } from "@tanstack/hotkeys";
+import { useHotkeys } from "@tanstack/react-hotkeys";
 import { useQueryClient } from "@tanstack/react-query";
-import { useMemo, type ComponentProps, type CSSProperties } from "react";
+import { useCallback, useMemo, type ComponentProps, type CSSProperties } from "react";
+import { useTranslation } from "react-i18next";
 
 export function Rooms() {
     const { data: rooms = [] } = useQueryQuickRooms();
@@ -28,8 +31,8 @@ export function Rooms() {
     return (
         <ScrollArea className="w-full">
             <div className="flex flex-row items-end justify-start gap-0.5">
-                {rooms.map((room) => (
-                    <RoomButton key={`room-${room.id}`} roomId={room.id} {...room} />
+                {rooms.map((room, index) => (
+                    <RoomButton key={`room-${room.id}`} roomId={room.id} index={index} />
                 ))}
             </div>
             <ScrollBar orientation="horizontal" />
@@ -37,27 +40,37 @@ export function Rooms() {
     );
 }
 
-function RoomButton({ roomId }: { roomId: string }) {
+function RoomButton({ roomId, index }: { roomId: string; index: number }) {
+    const { t } = useTranslation(["ui"]);
     const queryClient = useQueryClient();
     const { data } = useQueryRoom(roomId);
     const { data: currentRoomId } = useQueryCurrentRoomId();
     const { room, icon } = data || {};
     const { disabled, name, characters } = room || {};
     const selected = useMemo(() => currentRoomId === roomId, [currentRoomId, roomId]);
+    const n = index + 1;
+
+    const navigateHere = useCallback(() => {
+        if (!disabled && !selected) {
+            navigator.currentRoom = roomId as RoomIdType;
+            queryClient.setQueryData(
+                [INTERFACE_DATA_USE_QUERY_KEY, CURRENT_ROOM_ID_USE_QUERY_KEY],
+                roomId,
+            );
+        }
+    }, [disabled, selected, roomId, queryClient]);
+
+    useHotkeys(
+        n <= 9
+            ? [{ hotkey: String(n) as RegisterableHotkey, callback: navigateHere, options: { meta: { name: t("navigate_room"), description: t("navigate_room_hotkey_description", { n }) } } }]
+            : [],
+    );
 
     return (
         <RoomNavButton
             disabled={disabled || selected}
             selected={selected}
-            onClick={() => {
-                if (!disabled && !selected) {
-                    navigator.currentRoom = roomId as RoomIdType;
-                    queryClient.setQueryData(
-                        [INTERFACE_DATA_USE_QUERY_KEY, CURRENT_ROOM_ID_USE_QUERY_KEY],
-                        roomId,
-                    );
-                }
-            }}
+            onClick={navigateHere}
             ariaLabel={name || ""}
             image={icon}
         >
