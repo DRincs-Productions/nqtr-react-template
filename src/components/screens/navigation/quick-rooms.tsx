@@ -9,21 +9,11 @@ import { Button } from "@/components/ui/button";
 import { Image } from "@/components/ui/image";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { INTERFACE_DATA_USE_QUERY_KEY } from "@/constants";
-import {
-    CURRENT_ROOM_ID_USE_QUERY_KEY,
-    useQueryCurrentRoomId,
-    useQueryQuickRooms,
-    useQueryRoom,
-} from "@/lib/query/room-query";
+import { useRoomHotkey } from "@/lib/hooks/hotkeys-hooks";
+import { useQueryCurrentRoomId, useQueryQuickRooms, useQueryRoom } from "@/lib/query/room-query";
 import { cn } from "@/lib/utils";
 import type TimeSlotsImage from "@/models/TimeSlotsImage";
-import { navigator, type RoomIdType } from "@drincs/nqtr";
-import type { RegisterableHotkey } from "@tanstack/hotkeys";
-import { useHotkeys } from "@tanstack/react-hotkeys";
-import { useQueryClient } from "@tanstack/react-query";
-import { useCallback, useMemo, type ComponentProps, type CSSProperties } from "react";
-import { useTranslation } from "react-i18next";
+import { useMemo, type ComponentProps, type CSSProperties } from "react";
 
 export function Rooms() {
     const { data: rooms = [] } = useQueryQuickRooms();
@@ -41,30 +31,13 @@ export function Rooms() {
 }
 
 function RoomButton({ roomId, index }: { roomId: string; index: number }) {
-    const { t } = useTranslation(["ui"]);
-    const queryClient = useQueryClient();
     const { data } = useQueryRoom(roomId);
     const { data: currentRoomId } = useQueryCurrentRoomId();
     const { room, icon } = data || {};
     const { disabled, name, characters } = room || {};
     const selected = useMemo(() => currentRoomId === roomId, [currentRoomId, roomId]);
-    const n = index + 1;
 
-    const navigateHere = useCallback(() => {
-        if (!disabled && !selected) {
-            navigator.currentRoom = roomId as RoomIdType;
-            queryClient.setQueryData(
-                [INTERFACE_DATA_USE_QUERY_KEY, CURRENT_ROOM_ID_USE_QUERY_KEY],
-                roomId,
-            );
-        }
-    }, [disabled, selected, roomId, queryClient]);
-
-    useHotkeys(
-        n <= 9
-            ? [{ hotkey: String(n) as RegisterableHotkey, callback: navigateHere, options: { meta: { name: t("navigate_room"), description: t("navigate_room_hotkey_description", { n }) } } }]
-            : [],
-    );
+    const { navigateHere } = useRoomHotkey(roomId, index, disabled, selected);
 
     return (
         <RoomNavButton

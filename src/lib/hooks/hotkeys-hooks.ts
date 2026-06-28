@@ -6,6 +6,7 @@ import useTimeTracker from "@/lib/hooks/nqtr-hooks";
 import { useGameProps } from "@/lib/hooks/props-hooks";
 import { CURRENT_MAP_USE_QUERY_KEY } from "@/lib/query/map-query";
 import { useQueryInputValue } from "@/lib/query/narration-query";
+import { CURRENT_ROOM_ID_USE_QUERY_KEY } from "@/lib/query/room-query";
 import {
     LAST_SAVE_USE_QUERY_KEY,
     SAVES_USE_QUERY_KEY,
@@ -17,7 +18,9 @@ import { SearchParams } from "@/lib/stores/search-param-store";
 import { SkipSettings } from "@/lib/stores/skip-settings-store";
 import { TextDisplaySettings } from "@/lib/stores/text-display-settings-store";
 import { loadSave, saveGameToIndexDB } from "@/lib/utils/save-utility";
+import { navigator, type RoomIdType } from "@drincs/nqtr";
 import { narration } from "@drincs/pixi-vn";
+import type { RegisterableHotkey } from "@tanstack/hotkeys";
 import { useHotkeys } from "@tanstack/react-hotkeys";
 import { useQueryClient } from "@tanstack/react-query";
 import { useLocation, useNavigate } from "@tanstack/react-router";
@@ -368,4 +371,44 @@ export function useNavigationHotkeys(): null {
     ]);
 
     return null;
+}
+
+export function useRoomHotkey(
+    roomId: string,
+    index: number,
+    disabled: boolean | undefined,
+    selected: boolean,
+) {
+    const { t } = useTranslation(["ui"]);
+    const queryClient = useQueryClient();
+    const n = index + 1;
+
+    const navigateHere = useCallback(() => {
+        if (!disabled && !selected) {
+            navigator.currentRoom = roomId as RoomIdType;
+            queryClient.setQueryData(
+                [INTERFACE_DATA_USE_QUERY_KEY, CURRENT_ROOM_ID_USE_QUERY_KEY],
+                roomId,
+            );
+        }
+    }, [disabled, selected, roomId, queryClient]);
+
+    useHotkeys(
+        n <= 9
+            ? [
+                  {
+                      hotkey: String(n) as RegisterableHotkey,
+                      callback: navigateHere,
+                      options: {
+                          meta: {
+                              name: t("navigate_room"),
+                              description: t("navigate_room_hotkey_description", { n }),
+                          },
+                      },
+                  },
+              ]
+            : [],
+    );
+
+    return { navigateHere };
 }
