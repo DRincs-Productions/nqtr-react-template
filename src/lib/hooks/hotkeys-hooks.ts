@@ -439,6 +439,7 @@ export function useRoomHotkey(
 ) {
     const { t } = useTranslation(["ui"]);
     const queryClient = useQueryClient();
+    const { isAnyMenuOrDialogOpen } = useMenuDialogState();
     const n = index + 1;
 
     const navigateHere = useCallback(() => {
@@ -458,6 +459,7 @@ export function useRoomHotkey(
                       hotkey: String(n) as RegisterableHotkey,
                       callback: navigateHere,
                       options: {
+                          enabled: !isAnyMenuOrDialogOpen,
                           meta: {
                               name: t("room_hotkey"),
                               description: t("navigate_room_hotkey_description"),
@@ -474,6 +476,7 @@ export function useRoomHotkey(
 export function useActivitiesHotkey() {
     const { t } = useTranslation(["ui"]);
     const containerRef = useRef<HTMLDivElement>(null);
+    const { isAnyMenuOrDialogOpen } = useMenuDialogState();
 
     function getMenuItems(): HTMLButtonElement[] {
         if (!containerRef.current) return [];
@@ -506,12 +509,20 @@ export function useActivitiesHotkey() {
         {
             hotkey: "ArrowDown",
             callback: () => focusMenuItem("down"),
-            options: { meta, preventDefault: true },
+            options: {
+                enabled: !isAnyMenuOrDialogOpen,
+                meta,
+                preventDefault: true,
+            },
         },
         {
             hotkey: "ArrowUp",
             callback: () => focusMenuItem("up"),
-            options: { meta, preventDefault: true },
+            options: {
+                enabled: !isAnyMenuOrDialogOpen,
+                meta,
+                preventDefault: true,
+            },
         },
     ]);
 
