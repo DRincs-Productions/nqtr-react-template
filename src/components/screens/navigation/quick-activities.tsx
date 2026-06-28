@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Image } from "@/components/ui/image";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { useActivitiesHotkey } from "@/lib/hooks/hotkeys-hooks";
 import { useGameProps } from "@/lib/hooks/props-hooks";
 import { useQueryActivity, useQueryCommitment } from "@/lib/query/activity-query";
 import { useQueryCurrentRoomId, useQueryRoom } from "@/lib/query/room-query";
@@ -22,10 +23,11 @@ export function Activities() {
     const { data: currentRoomId } = useQueryCurrentRoomId();
     const { data } = useQueryRoom(currentRoomId);
     const { room: { activities = [], routine = [] } = {} } = data || {};
+    const { containerRef } = useActivitiesHotkey();
 
     return (
         <ScrollArea className="h-full">
-            <div className="flex min-h-full flex-col-reverse items-end gap-0.5">
+            <div ref={containerRef} className="flex min-h-full flex-col-reverse items-end gap-0.5">
                 {routine.map((item) => (
                     <CommitmentButton key={`commitment-${item.id}`} id={item.id} />
                 ))}
@@ -103,6 +105,7 @@ export function ActivityBaseButton({
     const trigger = (
         <Button
             {...rest}
+            role="menuitem"
             disabled={disabled}
             size="icon-lg"
             variant={"secondary"}

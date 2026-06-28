@@ -25,7 +25,7 @@ import { useHotkeys } from "@tanstack/react-hotkeys";
 import { useQueryClient } from "@tanstack/react-query";
 import { useLocation, useNavigate } from "@tanstack/react-router";
 import { useSelector } from "@tanstack/react-store";
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 
@@ -411,4 +411,51 @@ export function useRoomHotkey(
     );
 
     return { navigateHere };
+}
+
+export function useActivitiesHotkey() {
+    const { t } = useTranslation(["ui"]);
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    function getMenuItems(): HTMLButtonElement[] {
+        if (!containerRef.current) return [];
+        return Array.from(
+            containerRef.current.querySelectorAll<HTMLButtonElement>(
+                "button[role='menuitem']:not(:disabled)",
+            ),
+        );
+    }
+
+    function focusMenuItem(direction: "up" | "down") {
+        const items = getMenuItems();
+        if (!items.length) return;
+        const currentIndex = items.indexOf(document.activeElement as HTMLButtonElement);
+        let next: number;
+        if (direction === "down") {
+            next = currentIndex < items.length - 1 ? currentIndex + 1 : 0;
+        } else {
+            next = currentIndex > 0 ? currentIndex - 1 : items.length - 1;
+        }
+        items[next].focus();
+    }
+
+    const meta = {
+        name: t("select_run_activity"),
+        description: t("select_run_activity_hotkey_description"),
+    };
+
+    useHotkeys([
+        {
+            hotkey: "ArrowDown",
+            callback: () => focusMenuItem("down"),
+            options: { meta, preventDefault: true },
+        },
+        {
+            hotkey: "ArrowUp",
+            callback: () => focusMenuItem("up"),
+            options: { meta, preventDefault: true },
+        },
+    ]);
+
+    return { containerRef };
 }
