@@ -459,7 +459,7 @@ export function useRoomHotkey(
                       callback: navigateHere,
                       options: {
                           meta: {
-                              name: t("navigate_room"),
+                              name: t("room_hotkey"),
                               description: t("navigate_room_hotkey_description"),
                           },
                       },
@@ -498,7 +498,7 @@ export function useActivitiesHotkey() {
     }
 
     const meta = {
-        name: t("select_run_activity"),
+        name: t("activity_hotkey"),
         description: t("select_run_activity_hotkey_description"),
     };
 
