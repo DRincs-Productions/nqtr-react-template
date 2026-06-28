@@ -5,7 +5,7 @@ import { useSetSearchParamState } from "@/lib/hooks/navigation-hooks";
 import useTimeTracker from "@/lib/hooks/nqtr-hooks";
 import { useGameProps } from "@/lib/hooks/props-hooks";
 import { CURRENT_MAP_USE_QUERY_KEY } from "@/lib/query/map-query";
-import { useQueryInputValue } from "@/lib/query/narration-query";
+import { useQueryCanGoNext, useQueryInputValue } from "@/lib/query/narration-query";
 import { CURRENT_ROOM_ID_USE_QUERY_KEY } from "@/lib/query/room-query";
 import {
     LAST_SAVE_USE_QUERY_KEY,
@@ -265,6 +265,63 @@ export function useGameHotkeys(): null {
     return null;
 }
 
+export function useChoiceMenuHotkeys(menuLength: number) {
+    const { t } = useTranslation(["ui"]);
+    const menuRef = useRef<HTMLDivElement>(null);
+
+    function getMenuItems(): HTMLButtonElement[] {
+        if (!menuRef.current) return [];
+        return Array.from(
+            menuRef.current.querySelectorAll<HTMLButtonElement>(
+                "button[role='menuitem']:not(:disabled)",
+            ),
+        );
+    }
+
+    function focusMenuItem(direction: "up" | "down") {
+        const items = getMenuItems();
+        if (!items.length) return;
+        const active = document.activeElement as HTMLElement;
+        const currentIndex = items.indexOf(active as HTMLButtonElement);
+        let next: number;
+        if (direction === "down") {
+            next = currentIndex < items.length - 1 ? currentIndex + 1 : 0;
+        } else {
+            next = currentIndex > 0 ? currentIndex - 1 : items.length - 1;
+        }
+        items[next].focus();
+    }
+
+    useHotkeys([
+        {
+            hotkey: "ArrowDown",
+            callback: () => focusMenuItem("down"),
+            options: {
+                enabled: menuLength > 0,
+                preventDefault: true,
+                meta: {
+                    name: t("choice_navigation"),
+                    description: t("choice_navigation_description"),
+                },
+            },
+        },
+        {
+            hotkey: "ArrowUp",
+            callback: () => focusMenuItem("up"),
+            options: {
+                enabled: menuLength > 0,
+                preventDefault: true,
+                meta: {
+                    name: t("choice_navigation"),
+                    description: t("choice_navigation_description"),
+                },
+            },
+        },
+    ]);
+
+    return { menuRef };
+}
+
 export function useNarrationHotkeys(): null {
     const { t } = useTranslation(["ui"]);
     const { goNext } = useNarrationFunctions();
@@ -273,6 +330,7 @@ export function useNarrationHotkeys(): null {
         (state) => state.inProgress,
     );
     const { isAnyMenuOrDialogOpen } = useMenuDialogState();
+    const { data: canGoNext } = useQueryCanGoNext();
 
     const onSkipKeyDown = useCallback(() => SkipSettings.setEnabled(true), []);
     const onSkipKeyUp = useCallback(() => {
@@ -289,7 +347,7 @@ export function useNarrationHotkeys(): null {
             hotkey: "Enter",
             callback: onSkipKeyDown,
             options: {
-                enabled: !isAnyMenuOrDialogOpen,
+                enabled: !isAnyMenuOrDialogOpen && canGoNext,
                 meta: {
                     name: t("skip"),
                     description: t("skip_hold_description"),
@@ -300,7 +358,7 @@ export function useNarrationHotkeys(): null {
             hotkey: "Space",
             callback: onSkipKeyDown,
             options: {
-                enabled: !isAnyMenuOrDialogOpen,
+                enabled: !isAnyMenuOrDialogOpen && canGoNext,
                 meta: {
                     name: t("skip"),
                     description: t("skip_hold_space_description"),
@@ -313,7 +371,7 @@ export function useNarrationHotkeys(): null {
             options: {
                 eventType: "keyup",
                 conflictBehavior: "allow",
-                enabled: !isAnyMenuOrDialogOpen,
+                enabled: !isAnyMenuOrDialogOpen && canGoNext,
                 meta: {
                     name: t("next"),
                     description: t("skip_release_description"),
@@ -326,7 +384,7 @@ export function useNarrationHotkeys(): null {
             options: {
                 eventType: "keyup",
                 conflictBehavior: "allow",
-                enabled: !isAnyMenuOrDialogOpen,
+                enabled: !isAnyMenuOrDialogOpen && canGoNext,
                 meta: {
                     name: t("next"),
                     description: t("skip_release_space_description"),
@@ -402,7 +460,7 @@ export function useRoomHotkey(
                       options: {
                           meta: {
                               name: t("navigate_room"),
-                              description: t("navigate_room_hotkey_description", { n }),
+                              description: t("navigate_room_hotkey_description"),
                           },
                       },
                   },
