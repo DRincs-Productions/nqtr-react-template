@@ -20,9 +20,7 @@ export const bed = new Activity(
             return (
                 <ActivityBaseButton
                     disabled={activity.disabled}
-                    onClick={() => {
-                        activity.run(props);
-                    }}
+                    onClick={() => activity.run(props)}
                     ariaLabel={props.uiTransition(activity.name)}
                 >
                     <Bed className="size-6 sm:size-8 md:size-10 lg:size-12 xl:size-14" />
@@ -44,9 +42,7 @@ export const orderProduct = new Activity(
             return (
                 <ActivityBaseButton
                     disabled={activity.disabled}
-                    onClick={() => {
-                        activity.run(props);
-                    }}
+                    onClick={() => activity.run(props)}
                     ariaLabel={props.uiTransition(activity.name)}
                 >
                     <ShoppingCart className="size-6 sm:size-8 md:size-10 lg:size-12 xl:size-14" />
@@ -68,9 +64,7 @@ export const takeProduct = new Activity(
             return (
                 <ActivityBaseButton
                     disabled={activity.disabled}
-                    onClick={() => {
-                        activity.run(props);
-                    }}
+                    onClick={() => activity.run(props)}
                     ariaLabel={props.uiTransition(activity.name)}
                 >
                     <Package className="size-6 sm:size-8 md:size-10 lg:size-12 xl:size-14" />
