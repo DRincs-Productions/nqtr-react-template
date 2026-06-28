@@ -1,7 +1,10 @@
 import { useAlertDialog } from "@/components/providers/alert-dialog-provider";
+import { INTERFACE_DATA_USE_QUERY_KEY } from "@/constants";
 import { useNarrationFunctions } from "@/lib/hooks/narration-hooks";
 import { useSetSearchParamState } from "@/lib/hooks/navigation-hooks";
+import useTimeTracker from "@/lib/hooks/nqtr-hooks";
 import { useGameProps } from "@/lib/hooks/props-hooks";
+import { CURRENT_MAP_USE_QUERY_KEY } from "@/lib/query/map-query";
 import { useQueryInputValue } from "@/lib/query/narration-query";
 import {
     LAST_SAVE_USE_QUERY_KEY,
@@ -15,9 +18,9 @@ import { loadSave, saveGameToIndexDB } from "@/lib/utils/save-utility";
 import { narration } from "@drincs/pixi-vn";
 import { useHotkeys } from "@tanstack/react-hotkeys";
 import { useQueryClient } from "@tanstack/react-query";
-import { useLocation } from "@tanstack/react-router";
-import { useCallback } from "react";
+import { useLocation, useNavigate } from "@tanstack/react-router";
 import { useSelector } from "@tanstack/react-store";
+import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 
@@ -171,6 +174,7 @@ export function useGameHotkeys(): null {
     const setSettingsOpen = useSetSearchParamState<boolean>("settings");
     const setSettingsTab = useSetSearchParamState<string>("settings_tab");
     const setHistory = useSetSearchParamState<boolean>("history");
+    const setOpenMemo = useSetSearchParamState<boolean>("memo");
     const { t } = useTranslation(["ui"]);
 
     const openHistoryPage = useCallback(() => {
@@ -187,6 +191,10 @@ export function useGameHotkeys(): null {
             QuickActionsWheelState.setOpen(true);
         }
     }, []);
+
+    const toggleMemo = useCallback(() => {
+        setOpenMemo((prev) => !prev || undefined);
+    }, [setOpenMemo]);
 
     useHotkeys([
         {
@@ -209,6 +217,11 @@ export function useGameHotkeys(): null {
                 },
             },
         },
+        {
+            hotkey: "Q",
+            callback: toggleMemo,
+            options: { meta: { name: t("memo"), description: t("open_memo_hotkey_description") } },
+        },
     ]);
 
     return null;
@@ -218,7 +231,10 @@ export function useNarrationHotkeys(): null {
     const { t } = useTranslation(["ui"]);
     const { goNext } = useNarrationFunctions();
     const { data: { isRequired } = {} } = useQueryInputValue<string | number>();
-    const typewriterInProgress = useSelector(TextDisplaySettings.store, (state) => state.inProgress);
+    const typewriterInProgress = useSelector(
+        TextDisplaySettings.store,
+        (state) => state.inProgress,
+    );
 
     const onSkipKeyDown = useCallback(() => SkipSettings.setEnabled(true), []);
     const onSkipKeyUp = useCallback(() => {
@@ -278,6 +294,34 @@ export function useNarrationHotkeys(): null {
                 },
                 enabled: !isRequired,
             },
+        },
+    ]);
+
+    return null;
+}
+
+export function useNavigationHotkeys(): null {
+    const { t } = useTranslation(["ui"]);
+    const navigate = useNavigate();
+    const queryClient = useQueryClient();
+    const { wait } = useTimeTracker();
+    const openMap = useCallback(() => {
+        queryClient.invalidateQueries({
+            queryKey: [INTERFACE_DATA_USE_QUERY_KEY, CURRENT_MAP_USE_QUERY_KEY],
+        });
+        navigate({ to: "/game/map" });
+    }, [navigate, queryClient]);
+
+    useHotkeys([
+        {
+            hotkey: "M",
+            callback: openMap,
+            options: { meta: { name: t("map"), description: t("open_map_hotkey_description") } },
+        },
+        {
+            hotkey: "W",
+            callback: () => wait(1),
+            options: { meta: { name: t("wait"), description: t("wait_hotkey_description") } },
         },
     ]);
 

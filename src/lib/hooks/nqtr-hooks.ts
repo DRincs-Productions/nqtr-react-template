@@ -77,6 +77,7 @@ export function useRoomLayerSync() {
 const NOT_CAN_SPEND_TIME_FLAG_KEY = "not_can_spend_time";
 export default function useTimeTracker() {
     const { t } = useTranslation(["ui"]);
+    const { invalidateInterfaceData } = useGameProps();
 
     const sleep = useCallback(
         (newDayHour: number, props: OnRunProps) => {
@@ -104,9 +105,10 @@ export default function useTimeTracker() {
                 return false;
             }
             timeTracker.increaseTime(timeSpent);
+            invalidateInterfaceData();
             return true;
         },
-        [t],
+        [t, invalidateInterfaceData],
     );
 
     return {
