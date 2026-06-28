@@ -144,6 +144,13 @@
     "order_product": "Order Products",
     "take_product": "Take Product",
     "cant_sleep_now": "You can't sleep now",
-    "cant_wait_now": "You can't wait anymore, you should sleep now"
+    "cant_wait_now": "You can't wait anymore, you should sleep now",
+    "navigate_room": "Move between rooms",
+    "select_run_activity": "Select and run activity",
+    "open_map_hotkey_description": "Open the map.",
+    "open_memo_hotkey_description": "Open or close the memo and quest list.",
+    "wait_hotkey_description": "Wait one hour.",
+    "navigate_room_hotkey_description": "Navigate to room {{n}}.",
+    "select_run_activity_hotkey_description": "Use ↑ / ↓ to select an activity, then Enter to run it."
   }
 }
