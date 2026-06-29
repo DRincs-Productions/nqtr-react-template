@@ -9,8 +9,8 @@ declare module "@drincs/pixi-vn/characters" {
 }
 declare module "@drincs/pixi-vn/narration" {
     interface PixivnLabelIds {
-        "sleep-1-hour": never;
-        "nap-1-hour": never;
+        "sleep_1_hour": never;
+        "nap_1_hour": never;
         "sleep": never;
         "nap": never;
         "alice_talk_menu": never;
@@ -31,5 +31,5 @@ declare module "@drincs/pixi-vn/narration" {
 }
 export const characterIds = ["mc","alice"] as const;
 export const characterIdsEnum = {"mc":"mc","alice":"alice"} as const;
-export const labelIds = ["sleep-1-hour","nap-1-hour","sleep","nap","alice_talk_menu","alice_talk_menu_|_c-0","alice_talk_menu_|_c-1","order_product","start","TakeKeyLabel","talk_alice_sleep","talk_alice_sleep_|_c-0","talk_alice_sleep_|_c-1","talkAliceQuest","talkAliceQuest_|_talkAliceQuest0","talkAliceQuest_|_talkAliceQuest1","talkAliceQuest_|_talkAliceQuest2","talkAliceQuest_|_talkAliceQuest3"] as const;
-export const labelIdsEnum = {"sleep-1-hour":"sleep-1-hour","nap-1-hour":"nap-1-hour","sleep":"sleep","nap":"nap","alice_talk_menu":"alice_talk_menu","alice_talk_menu_|_c-0":"alice_talk_menu_|_c-0","alice_talk_menu_|_c-1":"alice_talk_menu_|_c-1","order_product":"order_product","start":"start","TakeKeyLabel":"TakeKeyLabel","talk_alice_sleep":"talk_alice_sleep","talk_alice_sleep_|_c-0":"talk_alice_sleep_|_c-0","talk_alice_sleep_|_c-1":"talk_alice_sleep_|_c-1","talkAliceQuest":"talkAliceQuest","talkAliceQuest_|_talkAliceQuest0":"talkAliceQuest_|_talkAliceQuest0","talkAliceQuest_|_talkAliceQuest1":"talkAliceQuest_|_talkAliceQuest1","talkAliceQuest_|_talkAliceQuest2":"talkAliceQuest_|_talkAliceQuest2","talkAliceQuest_|_talkAliceQuest3":"talkAliceQuest_|_talkAliceQuest3"} as const;
+export const labelIds = ["sleep_1_hour","nap_1_hour","sleep","nap","alice_talk_menu","alice_talk_menu_|_c-0","alice_talk_menu_|_c-1","order_product","start","TakeKeyLabel","talk_alice_sleep","talk_alice_sleep_|_c-0","talk_alice_sleep_|_c-1","talkAliceQuest","talkAliceQuest_|_talkAliceQuest0","talkAliceQuest_|_talkAliceQuest1","talkAliceQuest_|_talkAliceQuest2","talkAliceQuest_|_talkAliceQuest3"] as const;
+export const labelIdsEnum = {"sleep_1_hour":"sleep_1_hour","nap_1_hour":"nap_1_hour","sleep":"sleep","nap":"nap","alice_talk_menu":"alice_talk_menu","alice_talk_menu_|_c-0":"alice_talk_menu_|_c-0","alice_talk_menu_|_c-1":"alice_talk_menu_|_c-1","order_product":"order_product","start":"start","TakeKeyLabel":"TakeKeyLabel","talk_alice_sleep":"talk_alice_sleep","talk_alice_sleep_|_c-0":"talk_alice_sleep_|_c-0","talk_alice_sleep_|_c-1":"talk_alice_sleep_|_c-1","talkAliceQuest":"talkAliceQuest","talkAliceQuest_|_talkAliceQuest0":"talkAliceQuest_|_talkAliceQuest0","talkAliceQuest_|_talkAliceQuest1":"talkAliceQuest_|_talkAliceQuest1","talkAliceQuest_|_talkAliceQuest2":"talkAliceQuest_|_talkAliceQuest2","talkAliceQuest_|_talkAliceQuest3":"talkAliceQuest_|_talkAliceQuest3"} as const;

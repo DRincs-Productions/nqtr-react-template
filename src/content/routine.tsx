@@ -28,7 +28,7 @@ export const aliceSleep = new Commitment("alice_sleep", "alice", {
     },
     onRun: async (_, props) => {
         await props.navigate({ to: "/game/narration" });
-        await narration.jump("talk-alice-sleep", props);
+        await narration.jump("talk_alice_sleep", props);
     },
 });
 
@@ -64,7 +64,7 @@ export const aliceSmokes = new Commitment("alice_smokes", "alice", {
     },
     onRun: async (_, props) => {
         await props.navigate({ to: "/game/narration" });
-        await narration.jump("alice-talk-menu", props);
+        await narration.jump("alice_talk_menu", props);
     },
 });
 
@@ -78,7 +78,7 @@ const aliceQuest_talk = new Commitment("alice_quest_talk", "alice", {
     priority: 1,
     onRun: async (_, props) => {
         await props.navigate({ to: "/game/narration" });
-        await narration.jump("talk-alice", props);
+        await narration.jump("talk_alice", props);
     },
     name: "Talk to Alice",
 });
