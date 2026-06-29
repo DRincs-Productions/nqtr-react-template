@@ -13,27 +13,23 @@ declare module "@drincs/pixi-vn/narration" {
         "nap-1-hour": never;
         "sleep": never;
         "nap": never;
+        "alice_talk_menu": never;
+        "alice_talk_menu_|_c-0": never;
+        "alice_talk_menu_|_c-1": never;
+        "order_product": never;
         "start": never;
-<<<<<<< HEAD
-        "order-product": never;
-        "talk-alice-sleep-result": never;
-        "talk-alice-sleep": never;
-        "talk-alice": never;
-        "alice-talk-menu": never;
-        "take-product": never;
+        "TakeKeyLabel": never;
+        "talk_alice_sleep": never;
+        "talk_alice_sleep_|_c-0": never;
+        "talk_alice_sleep_|_c-1": never;
+        "talkAliceQuest": never;
+        "talkAliceQuest_|_talkAliceQuest0": never;
+        "talkAliceQuest_|_talkAliceQuest1": never;
+        "talkAliceQuest_|_talkAliceQuest2": never;
+        "talkAliceQuest_|_talkAliceQuest3": never;
     }
 }
 export const characterIds = ["mc","alice"] as const;
 export const characterIdsEnum = {"mc":"mc","alice":"alice"} as const;
-export const labelIds = ["sleep-1-hour","nap-1-hour","sleep","nap","start","order-product","talk-alice-sleep-result","talk-alice-sleep","talk-alice","alice-talk-menu","take-product"] as const;
-export const labelIdsEnum = {"sleep-1-hour":"sleep-1-hour","nap-1-hour":"nap-1-hour","sleep":"sleep","nap":"nap","start":"start","order-product":"order-product","talk-alice-sleep-result":"talk-alice-sleep-result","talk-alice-sleep":"talk-alice-sleep","talk-alice":"talk-alice","alice-talk-menu":"alice-talk-menu","take-product":"take-product"} as const;
-=======
-        "start_|_c-0": never;
-        "start_|_c-1": never;
-    }
-}
-export const characterIds = ["mc","james","steph","sly"] as const;
-export const characterIdsEnum = {"mc":"mc","james":"james","steph":"steph","sly":"sly"} as const;
-export const labelIds = ["animation_01","second_part","start","start_|_c-0","start_|_c-1"] as const;
-export const labelIdsEnum = {"animation_01":"animation_01","second_part":"second_part","start":"start","start_|_c-0":"start_|_c-0","start_|_c-1":"start_|_c-1"} as const;
->>>>>>> upstream/ink
+export const labelIds = ["sleep-1-hour","nap-1-hour","sleep","nap","alice_talk_menu","alice_talk_menu_|_c-0","alice_talk_menu_|_c-1","order_product","start","TakeKeyLabel","talk_alice_sleep","talk_alice_sleep_|_c-0","talk_alice_sleep_|_c-1","talkAliceQuest","talkAliceQuest_|_talkAliceQuest0","talkAliceQuest_|_talkAliceQuest1","talkAliceQuest_|_talkAliceQuest2","talkAliceQuest_|_talkAliceQuest3"] as const;
+export const labelIdsEnum = {"sleep-1-hour":"sleep-1-hour","nap-1-hour":"nap-1-hour","sleep":"sleep","nap":"nap","alice_talk_menu":"alice_talk_menu","alice_talk_menu_|_c-0":"alice_talk_menu_|_c-0","alice_talk_menu_|_c-1":"alice_talk_menu_|_c-1","order_product":"order_product","start":"start","TakeKeyLabel":"TakeKeyLabel","talk_alice_sleep":"talk_alice_sleep","talk_alice_sleep_|_c-0":"talk_alice_sleep_|_c-0","talk_alice_sleep_|_c-1":"talk_alice_sleep_|_c-1","talkAliceQuest":"talkAliceQuest","talkAliceQuest_|_talkAliceQuest0":"talkAliceQuest_|_talkAliceQuest0","talkAliceQuest_|_talkAliceQuest1":"talkAliceQuest_|_talkAliceQuest1","talkAliceQuest_|_talkAliceQuest2":"talkAliceQuest_|_talkAliceQuest2","talkAliceQuest_|_talkAliceQuest3":"talkAliceQuest_|_talkAliceQuest3"} as const;

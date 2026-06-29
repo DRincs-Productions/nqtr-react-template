@@ -1,6 +1,6 @@
 VAR _input_value_ = ""
 
-=== TalkSleepLabel ===
+=== talk_alice_sleep ===
 # lazyload bundle alice_roomsleep0A
 
 # show image background alice_roomsleep0A
@@ -13,7 +13,7 @@ alice: zZz zZz ...
 + Leave her alone
 	-> DONE
 
-=== OrderProductLabel ===
+=== order_product ===
 mc: OK! Let's see, let's look for a book....
 mc: Here's R****, for $1. Just the thing for me.
 # remove activity order_product from mc_room
@@ -59,7 +59,7 @@ alice: Thank you, I can finally read something new.
 # continue quest aliceQuest
 -> DONE
 
-=== AliceTalkMenuLabel ===
+=== alice_talk_menu ===
 # show image background alice_terrace0At
 alice: Hi, what do you want to talk about?
 + {aliceQuest_started} About the book
