@@ -1,4 +1,4 @@
-import { nqtrActivityIds, nqtrCommitmentIds, nqtrQuestIds, nqtrRoomIds } from "@/nqtr.keys";
+import { nqtrActivityIds, nqtrCommitmentIds, nqtrQuestIds, nqtrRoomIds } from "@/nqtr.keys.gen";
 import { characterIdsEnum } from "@/pixi-vn.keys.gen";
 import { createNqtrHandler } from "@drincs/nqtr/ink";
 import { RegisteredCharacters } from "@drincs/pixi-vn";
