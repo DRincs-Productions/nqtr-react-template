@@ -1,4 +1,9 @@
-VAR _input_value_ = ""
+=== order_product ===
+mc: OK! Let's see, let's look for a book....
+mc: Here's R****, for $1. Just the thing for me.
+# remove activity order_product from mc_room
+# continue quest aliceQuest
+-> DONE
 
 === talk_alice_sleep ===
 # lazyload bundle alice_roomsleep0A
@@ -13,47 +18,34 @@ alice: zZz zZz ...
 + Leave her alone
 	-> DONE
 
-=== order_product ===
-mc: OK! Let's see, let's look for a book....
-mc: Here's R****, for $1. Just the thing for me.
-# remove activity order_product from mc_room
-# continue quest aliceQuest
--> DONE
-
-=== TakeKeyLabel ===
-mc: Are these the car keys?! Well... I should try to access the car!
-# remove activity take_product from terrace
-# continue quest aliceQuest
--> DONE
-
-=== talkAliceQuest ===
+=== talk_alice ===
 # show image background alice_terrace0At
 { aliceQuest_currentStageIndex:
-- 0: 	-> talkAliceQuest0
-- 1: 	-> talkAliceQuest1
-- 2: 	-> talkAliceQuest2
+- 0: 	-> talk_alice0
+- 1: 	-> talk_alice1
+- 2: 	-> talk_alice2
 - else: alice: Thanks for the book.
 }
 -> DONE
 
-= talkAliceQuest0
+= talk_alice0
 alice: Hi, can you order me a new book from pc?
 mc: Ok
 alice: Thanks
 # continue quest aliceQuest
 -> DONE
 
-= talkAliceQuest1
+= talk_alice1
 mc: What book do you want me to order?
 alice: For me it is the same.
 -> DONE
 
-= talkAliceQuest2
+= talk_alice2
 mc: I ordered the Book, hope you enjoy it.
 alice: Great, when it arrives remember to bring it to me.
 -> DONE
 
-= talkAliceQuest3
+= talk_alice3
 mc: Here's your book.
 alice: Thank you, I can finally read something new.
 # continue quest aliceQuest
@@ -66,3 +58,9 @@ alice: Hi, what do you want to talk about?
 	-> talkAliceQuest
 + Cancel
 	-> DONE
+
+=== take_product ===
+mc: Wow, a huge package for just one book...
+# remove activity take_product from terrace
+# continue quest aliceQuest
+-> DONE
