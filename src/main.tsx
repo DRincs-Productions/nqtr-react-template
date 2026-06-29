@@ -74,5 +74,3 @@ Game.addOnError((error, { toast, uiTransition }) => {
 });
 
 Game.onLoadingLabel((_stepId, { id }) => Assets.backgroundLoadBundle(id));
-
-setupInkHmrListener();
