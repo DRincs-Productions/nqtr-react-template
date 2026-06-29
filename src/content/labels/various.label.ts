@@ -12,7 +12,7 @@ import {
     type StoredChoiceInterface,
 } from "@drincs/pixi-vn";
 
-export const orderProductLabel = newLabel("order-product", [
+export const orderProductLabel = newLabel("order_product", [
     async () => {
         await showImage(BACKGROUND_ID, mcRoomBackground.src);
         narration.dialogue = { character: mc, text: `OK! Let's see, let's look for a book....` };
@@ -27,7 +27,7 @@ export const orderProductLabel = newLabel("order-product", [
     },
 ]);
 
-newLabel("talk-alice-sleep-result", [
+newLabel("talk_alice_sleep_result", [
     () => {
         narration.dialogue = { character: alice, text: `${mc.name}!!!! What are you doing?!!` };
     },
@@ -35,19 +35,19 @@ newLabel("talk-alice-sleep-result", [
         narration.dialogue = { character: alice, text: "Get out of here! Now!" };
     },
 ]);
-export const talkSleepLabel = newLabel("talk-alice-sleep", [
+export const talkSleepLabel = newLabel("talk_alice_sleep", [
     async () => {
         await showImage(BACKGROUND_ID, "alice_roomsleep0A");
         narration.dialogue = { character: alice, text: "zZz zZz ..." };
         narration.choices = [
-            newChoiceOption("Try waking up", "talk-alice-sleep-result", {}),
+            newChoiceOption("Try waking up", "talk_alice_sleep_result", {}),
             newCloseChoiceOption("Leave her alone"),
         ];
     },
 ]);
 
 export const talkAliceQuest = newLabel(
-    "talk-alice",
+    "talk_alice",
     () => {
         if (aliceQuest.currentStageIndex === 0) {
             return [
@@ -126,19 +126,19 @@ export const talkAliceQuest = newLabel(
         },
     },
 );
-export const aliceTalkMenuLabel = newLabel("alice-talk-menu", [
+export const aliceTalkMenuLabel = newLabel("alice_talk_menu", [
     async () => {
         await showImage(BACKGROUND_ID, "alice_terrace0At");
         narration.dialogue = { character: alice, text: "Hi, what do you want to talk about?" };
         const optionsMenu: StoredChoiceInterface[] = [];
         if (aliceQuest.started) {
-            optionsMenu.push(newChoiceOption("About the book", "talk-alice", {}));
+            optionsMenu.push(newChoiceOption("About the book", "talk_alice", {}));
         }
         narration.choices = [...optionsMenu, newCloseChoiceOption("Cancel")];
     },
 ]);
 
-export const takeProductLabel = newLabel("take-product", [
+export const takeProductLabel = newLabel("take_product", [
     (props) => {
         canvas.clear();
         narration.dialogue = {

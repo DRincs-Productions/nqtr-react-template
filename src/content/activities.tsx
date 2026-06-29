@@ -34,7 +34,7 @@ export const orderProduct = new Activity(
     "order_product",
     async (_, props) => {
         await props.navigate({ to: "/game/narration" });
-        await narration.jump("order-product", props);
+        await narration.jump("order_product", props);
     },
     {
         name: "order_product",
@@ -56,7 +56,7 @@ export const takeProduct = new Activity(
     "take_product",
     async (_, props) => {
         await props.navigate({ to: "/game/narration" });
-        await narration.jump("take-product", props);
+        await narration.jump("take_product", props);
     },
     {
         name: "take_product",

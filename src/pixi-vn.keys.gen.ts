@@ -9,20 +9,20 @@ declare module "@drincs/pixi-vn/characters" {
 }
 declare module "@drincs/pixi-vn/narration" {
     interface PixivnLabelIds {
-        "sleep-1-hour": never;
-        "nap-1-hour": never;
+        "sleep_1_hour": never;
+        "nap_1_hour": never;
         "sleep": never;
         "nap": never;
         "start": never;
-        "order-product": never;
-        "talk-alice-sleep-result": never;
-        "talk-alice-sleep": never;
-        "talk-alice": never;
-        "alice-talk-menu": never;
-        "take-product": never;
+        "order_product": never;
+        "talk_alice_sleep_result": never;
+        "talk_alice_sleep": never;
+        "talk_alice": never;
+        "alice_talk_menu": never;
+        "take_product": never;
     }
 }
 export const characterIds = ["mc","alice"] as const;
 export const characterIdsEnum = {"mc":"mc","alice":"alice"} as const;
-export const labelIds = ["sleep-1-hour","nap-1-hour","sleep","nap","start","order-product","talk-alice-sleep-result","talk-alice-sleep","talk-alice","alice-talk-menu","take-product"] as const;
-export const labelIdsEnum = {"sleep-1-hour":"sleep-1-hour","nap-1-hour":"nap-1-hour","sleep":"sleep","nap":"nap","start":"start","order-product":"order-product","talk-alice-sleep-result":"talk-alice-sleep-result","talk-alice-sleep":"talk-alice-sleep","talk-alice":"talk-alice","alice-talk-menu":"alice-talk-menu","take-product":"take-product"} as const;
+export const labelIds = ["sleep_1_hour","nap_1_hour","sleep","nap","start","order_product","talk_alice_sleep_result","talk_alice_sleep","talk_alice","alice_talk_menu","take_product"] as const;
+export const labelIdsEnum = {"sleep_1_hour":"sleep_1_hour","nap_1_hour":"nap_1_hour","sleep":"sleep","nap":"nap","start":"start","order_product":"order_product","talk_alice_sleep_result":"talk_alice_sleep_result","talk_alice_sleep":"talk_alice_sleep","talk_alice":"talk_alice","alice_talk_menu":"alice_talk_menu","take_product":"take_product"} as const;
