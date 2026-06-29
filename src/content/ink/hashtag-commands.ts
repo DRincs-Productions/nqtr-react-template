@@ -1,8 +1,16 @@
+import { nqtrActivityIds, nqtrCommitmentIds, nqtrQuestIds, nqtrRoomIds } from "@/nqtr.keys";
 import { characterIdsEnum } from "@/pixi-vn.keys.gen";
-import {} from "@drincs/nqtr/ink";
+import { createNqtrHandler } from "@drincs/nqtr/ink";
 import { RegisteredCharacters } from "@drincs/pixi-vn";
 import { HashtagCommands } from "@drincs/pixi-vn-ink";
 import zod from "zod";
+
+createNqtrHandler({
+    activityIds: nqtrActivityIds,
+    commitmentIds: nqtrCommitmentIds,
+    questIds: nqtrQuestIds,
+    roomIds: nqtrRoomIds,
+});
 
 HashtagCommands.add(
     async (script, { navigate }) => {
