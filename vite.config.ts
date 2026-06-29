@@ -40,13 +40,13 @@ export default defineConfig(({ mode }) => ({
             typeFilePath: "./src/pixi-vn.keys.gen.ts",
         }),
         vitePluginNqtr({
-            typeFilePath: "./src/nqtr.keys.d.ts",
             activities: "./src/content/activities.tsx",
             commitments: "./src/content/routine.tsx",
             rooms: "./src/content/rooms.tsx",
             locations: "./src/content/locations.tsx",
             maps: "./src/content/maps.tsx",
             quests: "./src/content/quests/*.quest.tsx",
+            typeFilePath: "./src/nqtr.keys.gen.ts",
         }),
         vitePluginInk({
             inkGlob: "./ink/**/*.ink",
