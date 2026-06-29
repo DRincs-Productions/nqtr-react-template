@@ -1,5 +1,5 @@
-import { StepLabelProps } from "@drincs/pixi-vn";
-import { PixiUIProp, ReactUIProp } from "./models/nqtr/ui-elements";
+import type { StepLabelProps } from "@drincs/pixi-vn";
+import type { PixiUIProp, ReactUIProp } from "./models/nqtr/ui-elements";
 
 declare module "@drincs/nqtr" {
     interface OnRunProps extends StepLabelProps {}

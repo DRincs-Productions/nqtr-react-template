@@ -1,21 +1,23 @@
 import {
-    ActiveScheduling,
-    CommitmentInterface,
     CommitmentStoredClass,
-    CommitmentStoredClassProps,
-    OnRunAsyncFunction,
-    OnRunEvent,
-    OnRunProps,
+    type ActiveScheduling,
+    type CommitmentInterface,
+    type CommitmentStoredClassProps,
+    type OnRunAsyncFunction,
+    type OnRunEvent,
+    type OnRunProps,
 } from "@drincs/nqtr";
-import { CharacterInterface } from "@drincs/pixi-vn";
-import { PixiUIParam, PixiUIProp, ReactUIParam, ReactUIProp } from "./ui-elements";
+import { narration, type CharacterIdType, type CharacterInterface } from "@drincs/pixi-vn";
+import type { PixiUIParam, PixiUIProp, ReactUIParam, ReactUIProp } from "./ui-elements";
 
 export default class Commitment extends CommitmentStoredClass implements CommitmentInterface {
     constructor(
         id: string,
-        characters: CharacterInterface | CharacterInterface[],
+        characters:
+            | (CharacterInterface | CharacterIdType)
+            | (CharacterInterface | CharacterIdType)[],
         props: {
-            name?: string;
+            name: string;
             image?: PixiUIParam<Commitment>;
             background?: PixiUIParam<Commitment>;
             icon?: ReactUIParam<Commitment>;
@@ -60,7 +62,7 @@ export default class Commitment extends CommitmentStoredClass implements Commitm
     }
     private _defaultDisabled: boolean | (() => boolean) = false;
     get disabled(): boolean {
-        let value = this.getStorageProperty<boolean>("disabled") || this._defaultDisabled;
+        const value = this.getStorageProperty<boolean>("disabled") || this._defaultDisabled;
         if (typeof value === "function") {
             return value();
         }
@@ -71,7 +73,7 @@ export default class Commitment extends CommitmentStoredClass implements Commitm
     }
     private _defaultHidden: boolean | (() => boolean) = false;
     get hidden(): boolean {
-        let value = this.getStorageProperty<boolean>("hidden") || this._defaultHidden;
+        const value = this.getStorageProperty<boolean>("hidden") || this._defaultHidden;
         if (typeof value === "function") {
             return value();
         }
@@ -88,6 +90,8 @@ export default class Commitment extends CommitmentStoredClass implements Commitm
     }
     override get run(): OnRunAsyncFunction {
         return async (runProps: OnRunProps) => {
+            narration.dialogue = undefined;
+            narration.choices = undefined;
             const res = await super.run(runProps);
             await runProps.invalidateInterfaceData();
             return res;

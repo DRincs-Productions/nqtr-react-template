@@ -1,12 +1,12 @@
 import {
-    ActivityInterface,
-    LocationInterface,
+    type ActivityInterface,
+    type LocationInterface,
     LocationStoredClass,
-    MapInterface,
-    OnRunProps,
-    RoomInterface,
+    type MapInterface,
+    type OnRunProps,
+    type RoomInterface,
 } from "@drincs/nqtr";
-import { PixiUIParam, PixiUIProp } from "./ui-elements";
+import type { PixiUIParam, PixiUIProp } from "./ui-elements";
 
 export default class Location extends LocationStoredClass implements LocationInterface {
     constructor(
@@ -29,7 +29,7 @@ export default class Location extends LocationStoredClass implements LocationInt
     readonly name: string;
     private readonly _sprite: PixiUIParam<Location>;
     get sprite(): PixiUIProp {
-        let sprite = this._sprite;
+        const sprite = this._sprite;
         if (typeof sprite === "function") {
             return (runProps: OnRunProps) => sprite(this, runProps);
         }
@@ -37,7 +37,7 @@ export default class Location extends LocationStoredClass implements LocationInt
     }
     private _defaultDisabled: boolean | (() => boolean) = false;
     get disabled(): boolean {
-        let value = this.getStorageProperty<boolean>("disabled") || this._defaultDisabled;
+        const value = this.getStorageProperty<boolean>("disabled") || this._defaultDisabled;
         if (typeof value === "function") {
             return value();
         }
@@ -48,7 +48,7 @@ export default class Location extends LocationStoredClass implements LocationInt
     }
     private _defaultHidden: boolean | (() => boolean) = false;
     get hidden(): boolean {
-        let value = this.getStorageProperty<boolean>("hidden") || this._defaultHidden;
+        const value = this.getStorageProperty<boolean>("hidden") || this._defaultHidden;
         if (typeof value === "function") {
             return value();
         }
