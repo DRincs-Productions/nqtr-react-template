@@ -24,6 +24,7 @@ alice: zZz zZz ...
 - 0: 	-> talk_alice0
 - 1: 	-> talk_alice1
 - 2: 	-> talk_alice2
+- 3: 	-> talk_alice3
 - else: alice: Thanks for the book.
 }
 -> DONE
