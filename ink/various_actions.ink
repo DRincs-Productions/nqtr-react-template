@@ -53,13 +53,14 @@ alice: Thank you, I can finally read something new.
 
 === alice_talk_menu ===
 # show image background alice_terrace0At
-alice: Hi, what do you want to talk about?
-+ {aliceQuest_started} About the book
-	-> talkAliceQuest
-+ Cancel
+alice: Hi, what do you want to talk about?<> # continue
++ {aliceQuest_started} [About the book]
+	-> talk_alice
++ [Cancel]
 	-> DONE
 
 === take_product ===
+# remove image background
 mc: Wow, a huge package for just one book...
 # remove activity take_product from terrace
 # continue quest aliceQuest
