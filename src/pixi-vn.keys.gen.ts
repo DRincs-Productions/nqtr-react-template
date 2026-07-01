@@ -4,19 +4,25 @@
 declare module "@drincs/pixi-vn/characters" {
     interface PixivnCharacterIds {
         "mc": never;
-        "james": never;
-        "steph": never;
-        "sly": never;
+        "alice": never;
     }
 }
 declare module "@drincs/pixi-vn/narration" {
     interface PixivnLabelIds {
-        "animation_01": never;
-        "second_part": never;
+        "sleep_1_hour": never;
+        "nap_1_hour": never;
+        "sleep": never;
+        "nap": never;
         "start": never;
+        "order_product": never;
+        "talk_alice_sleep_result": never;
+        "talk_alice_sleep": never;
+        "talk_alice": never;
+        "alice_talk_menu": never;
+        "take_product": never;
     }
 }
-export const characterIds = ["mc","james","steph","sly"] as const;
-export const characterIdsEnum = {"mc":"mc","james":"james","steph":"steph","sly":"sly"} as const;
-export const labelIds = ["animation_01","second_part","start"] as const;
-export const labelIdsEnum = {"animation_01":"animation_01","second_part":"second_part","start":"start"} as const;
+export const characterIds = ["mc","alice"] as const;
+export const characterIdsEnum = {"mc":"mc","alice":"alice"} as const;
+export const labelIds = ["sleep_1_hour","nap_1_hour","sleep","nap","start","order_product","talk_alice_sleep_result","talk_alice_sleep","talk_alice","alice_talk_menu","take_product"] as const;
+export const labelIdsEnum = {"sleep_1_hour":"sleep_1_hour","nap_1_hour":"nap_1_hour","sleep":"sleep","nap":"nap","start":"start","order_product":"order_product","talk_alice_sleep_result":"talk_alice_sleep_result","talk_alice_sleep":"talk_alice_sleep","talk_alice":"talk_alice","alice_talk_menu":"alice_talk_menu","take_product":"take_product"} as const;

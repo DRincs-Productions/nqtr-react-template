@@ -1,8 +1,8 @@
+import MapClass from "@/models/nqtr/Map";
+import TimeSlotsImage from "@/models/TimeSlotsImage";
 import { RegisteredMaps } from "@drincs/nqtr";
-import TimeSlotsImage from "../models/TimeSlotsImage";
-import Map from "../models/nqtr/Map";
 
-export const mainMap = new Map("main_map", {
+export const mainMap = new MapClass("main_map", {
     name: "Main Map",
     background: new TimeSlotsImage({
         morning: "map-0",
@@ -15,7 +15,7 @@ export const mainMap = new Map("main_map", {
     },
 });
 
-export const nightcityMap = new Map("nightcity_map", {
+export const nightcityMap = new MapClass("nightcity_map", {
     name: "Nightcity",
     background: "map-nightcity",
     neighboringMaps: {
@@ -23,4 +23,4 @@ export const nightcityMap = new Map("nightcity_map", {
     },
 });
 
-RegisteredMaps.add([mainMap, nightcityMap]);
+RegisteredMaps.add(mainMap, nightcityMap);

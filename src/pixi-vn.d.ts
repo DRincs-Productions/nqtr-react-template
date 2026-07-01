@@ -36,6 +36,19 @@ declare module "@drincs/pixi-vn" {
          * @param delay The delay before invalidating the data. This can be used to wait for some time before invalidating the data, for example, to wait for an animation to finish.
          */
         invalidateInterfaceData: (delay?: number) => Promise<void> | void;
+        /**
+         * Sleep for a new day.
+         * @param newDayHour The hour of the new day.
+         * @param props The props of the step label.
+         * @returns Whether the sleep was successful.
+         */
+        sleep: (newDayHour: number, props: OnRunProps) => boolean;
+        /**
+         * Wait for a certain amount of time.
+         * @param timeSpent The amount of time to wait.
+         * @returns Whether the wait was successful.
+         */
+        wait: (timeSpent: number) => boolean;
     }
     interface CharacterInterface {
         /**

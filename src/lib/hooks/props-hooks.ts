@@ -1,10 +1,10 @@
 import { INTERFACE_DATA_USE_QUERY_KEY } from "@/constants";
+import useTimeTracker from "@/lib/hooks/nqtr-hooks";
 import type { StepLabelProps } from "@drincs/pixi-vn";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
-import useTimeTracker from "./useTimeTracker";
 
 export function useGameProps(): StepLabelProps {
     const navigate = useNavigate();

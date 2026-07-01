@@ -1,4 +1,5 @@
 import { PendingComponent } from "@/components/loading";
+import { MemoMenu } from "@/components/menus/memo-menu";
 import { SettingsDialogue } from "@/components/menus/settings";
 import { OfflineAllert } from "@/components/modals/error-allerts";
 import { RootProvider } from "@/components/providers/root-provider";
@@ -50,6 +51,7 @@ function RootComponent() {
         <>
             <RootProvider>
                 <SettingsDialogue />
+                <MemoMenu />
                 <OfflineAllert />
                 <Outlet />
             </RootProvider>

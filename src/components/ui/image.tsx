@@ -1,4 +1,5 @@
 import { useImageSrc } from "@/lib/hooks/image-hooks";
+import type TimeSlotsImage from "@/models/TimeSlotsImage";
 import { Image as UnpicImage, type ImageProps } from "@unpic/react";
 import { ImageOff } from "lucide-react";
 
@@ -6,7 +7,7 @@ export function Image({
     src,
     loading = "lazy",
     ...props
-}: Omit<ImageProps, "src"> & { src?: ImageProps["src"] | null }) {
+}: Omit<ImageProps, "src"> & { src?: ImageProps["src"] | TimeSlotsImage | null }) {
     const resolvedSrc = useImageSrc(src);
 
     if (!resolvedSrc) {

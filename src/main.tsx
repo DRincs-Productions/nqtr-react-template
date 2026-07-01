@@ -1,9 +1,9 @@
+import App from "@/App";
 import {
     BGM_CHANNEL_NAME,
     CANVAS_UI_LAYER_NAME,
     HTML_CANVAS_LAYER_NAME,
     HTML_UI_LAYER_NAME,
-    NAVIGATION_ROUTE,
     SFX_CHANNEL_NAME,
 } from "@/constants";
 import { ChannelSound } from "@/lib/stores/channel-sound-stores";
@@ -18,9 +18,7 @@ import {
     sound,
     storage,
 } from "@drincs/pixi-vn";
-import "@drincs/pixi-vn-spine";
 import { createRoot } from "react-dom/client";
-import App from "./App";
 
 // Canvas setup with PIXI
 const body = document.body;
@@ -63,9 +61,9 @@ Game.onEnd(async ({ navigate }) => {
     const isTheEnd = storage.getFlag("is_the_end");
     if (isTheEnd) {
         Game.clear();
-        navigate("/");
+        navigate({ to: "/" });
     } else {
-        navigate(NAVIGATION_ROUTE);
+        navigate({ to: "/game/navigation" });
     }
 });
 

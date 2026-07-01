@@ -8,7 +8,9 @@ enum TimeSlotsEnumNumber {
 }
 
 export default class TimeSlotsImage {
-    constructor(data: { morning: string; afternoon: string; evening: string; night: string } | string) {
+    constructor(
+        data: { morning: string; afternoon: string; evening: string; night: string } | string,
+    ) {
         if (typeof data === "string") {
             this.morning = data;
             this.afternoon = data;

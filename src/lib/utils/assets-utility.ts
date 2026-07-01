@@ -1,8 +1,8 @@
 import { manifest } from "@/assets";
 import { AUDIO_BUNDLE_NAME } from "@/constants";
+import { mainMap } from "@/content/maps";
 import type { FileRouteTypes } from "@/routeTree.gen";
 import { Assets, sound } from "@drincs/pixi-vn";
-import { mainMap } from "../values/maps";
 
 let assetsInitialized = false;
 

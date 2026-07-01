@@ -1,8 +1,12 @@
 import { useAlertDialog } from "@/components/providers/alert-dialog-provider";
+import { INTERFACE_DATA_USE_QUERY_KEY } from "@/constants";
 import { useNarrationFunctions } from "@/lib/hooks/narration-hooks";
 import { useSetSearchParamState } from "@/lib/hooks/navigation-hooks";
+import useTimeTracker from "@/lib/hooks/nqtr-hooks";
 import { useGameProps } from "@/lib/hooks/props-hooks";
+import { CURRENT_MAP_USE_QUERY_KEY } from "@/lib/query/map-query";
 import { useQueryCanGoNext, useQueryInputValue } from "@/lib/query/narration-query";
+import { CURRENT_ROOM_ID_USE_QUERY_KEY } from "@/lib/query/room-query";
 import {
     LAST_SAVE_USE_QUERY_KEY,
     SAVES_USE_QUERY_KEY,
@@ -14,10 +18,12 @@ import { SearchParams } from "@/lib/stores/search-param-store";
 import { SkipSettings } from "@/lib/stores/skip-settings-store";
 import { TextDisplaySettings } from "@/lib/stores/text-display-settings-store";
 import { loadSave, saveGameToIndexDB } from "@/lib/utils/save-utility";
+import { navigator, type RoomIdType } from "@drincs/nqtr";
 import { narration } from "@drincs/pixi-vn";
+import type { RegisterableHotkey } from "@tanstack/hotkeys";
 import { useHotkeys } from "@tanstack/react-hotkeys";
 import { useQueryClient } from "@tanstack/react-query";
-import { useLocation } from "@tanstack/react-router";
+import { useLocation, useNavigate } from "@tanstack/react-router";
 import { useSelector } from "@tanstack/react-store";
 import { useCallback, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
@@ -200,6 +206,7 @@ export function useGameHotkeys(): null {
     const setSettingsOpen = useSetSearchParamState<boolean>("settings");
     const setSettingsTab = useSetSearchParamState<string>("settings_tab");
     const setHistory = useSetSearchParamState<boolean>("history");
+    const setOpenMemo = useSetSearchParamState<boolean>("memo");
     const { t } = useTranslation(["ui"]);
     const { isAnyMenuOrDialogOpen } = useMenuDialogState();
 
@@ -217,6 +224,10 @@ export function useGameHotkeys(): null {
             QuickActionsWheelState.setOpen(true);
         }
     }, []);
+
+    const toggleMemo = useCallback(() => {
+        setOpenMemo((prev) => !prev || undefined);
+    }, [setOpenMemo]);
 
     useHotkeys([
         {
@@ -239,6 +250,14 @@ export function useGameHotkeys(): null {
                     name: t("quick_actions"),
                     description: t("quick_actions_open_description"),
                 },
+            },
+        },
+        {
+            hotkey: "Q",
+            callback: toggleMemo,
+            options: {
+                enabled: !isAnyMenuOrDialogOpen,
+                meta: { name: t("memo"), description: t("open_memo_hotkey_description") },
             },
         },
     ]);
@@ -375,4 +394,137 @@ export function useNarrationHotkeys(): null {
     ]);
 
     return null;
+}
+
+export function useNavigationHotkeys(): null {
+    const { t } = useTranslation(["ui"]);
+    const navigate = useNavigate();
+    const queryClient = useQueryClient();
+    const { isAnyMenuOrDialogOpen } = useMenuDialogState();
+    const { wait } = useTimeTracker();
+    const openMap = useCallback(() => {
+        queryClient.invalidateQueries({
+            queryKey: [INTERFACE_DATA_USE_QUERY_KEY, CURRENT_MAP_USE_QUERY_KEY],
+        });
+        navigate({ to: "/game/map" });
+    }, [navigate, queryClient]);
+
+    useHotkeys([
+        {
+            hotkey: "M",
+            callback: openMap,
+            options: {
+                enabled: !isAnyMenuOrDialogOpen,
+                meta: { name: t("map"), description: t("open_map_hotkey_description") },
+            },
+        },
+        {
+            hotkey: "W",
+            callback: () => wait(1),
+            options: {
+                enabled: !isAnyMenuOrDialogOpen,
+                meta: { name: t("wait"), description: t("wait_hotkey_description") },
+            },
+        },
+    ]);
+
+    return null;
+}
+
+export function useRoomHotkey(
+    roomId: string,
+    index: number,
+    disabled: boolean | undefined,
+    selected: boolean,
+) {
+    const { t } = useTranslation(["ui"]);
+    const queryClient = useQueryClient();
+    const { isAnyMenuOrDialogOpen } = useMenuDialogState();
+    const n = index + 1;
+
+    const navigateHere = useCallback(() => {
+        if (!disabled && !selected) {
+            navigator.currentRoom = roomId as RoomIdType;
+            queryClient.setQueryData(
+                [INTERFACE_DATA_USE_QUERY_KEY, CURRENT_ROOM_ID_USE_QUERY_KEY],
+                roomId,
+            );
+        }
+    }, [disabled, selected, roomId, queryClient]);
+
+    useHotkeys(
+        n <= 9
+            ? [
+                  {
+                      hotkey: String(n) as RegisterableHotkey,
+                      callback: navigateHere,
+                      options: {
+                          enabled: !isAnyMenuOrDialogOpen,
+                          meta: {
+                              name: t("room_hotkey"),
+                              description: t("navigate_room_hotkey_description"),
+                          },
+                      },
+                  },
+              ]
+            : [],
+    );
+
+    return { navigateHere };
+}
+
+export function useActivitiesHotkey() {
+    const { t } = useTranslation(["ui"]);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const { isAnyMenuOrDialogOpen } = useMenuDialogState();
+
+    function getMenuItems(): HTMLButtonElement[] {
+        if (!containerRef.current) return [];
+        return Array.from(
+            containerRef.current.querySelectorAll<HTMLButtonElement>(
+                "button[role='menuitem']:not(:disabled)",
+            ),
+        );
+    }
+
+    function focusMenuItem(direction: "up" | "down") {
+        const items = getMenuItems();
+        if (!items.length) return;
+        const currentIndex = items.indexOf(document.activeElement as HTMLButtonElement);
+        let next: number;
+        if (direction === "down") {
+            next = currentIndex < items.length - 1 ? currentIndex + 1 : 0;
+        } else {
+            next = currentIndex > 0 ? currentIndex - 1 : items.length - 1;
+        }
+        items[next].focus();
+    }
+
+    const meta = {
+        name: t("activity_hotkey"),
+        description: t("select_run_activity_hotkey_description"),
+    };
+
+    useHotkeys([
+        {
+            hotkey: "ArrowDown",
+            callback: () => focusMenuItem("down"),
+            options: {
+                enabled: !isAnyMenuOrDialogOpen,
+                meta,
+                preventDefault: true,
+            },
+        },
+        {
+            hotkey: "ArrowUp",
+            callback: () => focusMenuItem("up"),
+            options: {
+                enabled: !isAnyMenuOrDialogOpen,
+                meta,
+                preventDefault: true,
+            },
+        },
+    ]);
+
+    return { containerRef };
 }

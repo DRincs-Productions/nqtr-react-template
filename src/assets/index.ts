@@ -1,9 +1,9 @@
 import generatedManifestJson from "@/assets/manifest.gen.json";
+import { AUDIO_BUNDLE_NAME } from "@/constants";
+import { mainMap, nightcityMap } from "@/content/maps";
+import { aliceRoom, annRoom, bathroom, gymRoom, lounge, mcRoom, terrace } from "@/content/rooms";
 import type { FileRouteTypes } from "@/routeTree.gen";
-import { AssetsManifest } from "@drincs/pixi-vn";
-import { AUDIO_BUNDLE_NAME } from "../constans";
-import { mainMap, nightcityMap } from "../values/maps";
-import { aliceRoom, annRoom, bathroom, gymRoom, lounge, mcRoom, terrace } from "../values/rooms";
+import type { AssetsManifest } from "@drincs/pixi-vn";
 
 /**
  * Manifest for the assets used in the game.

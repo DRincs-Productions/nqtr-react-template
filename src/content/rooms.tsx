@@ -1,9 +1,7 @@
-import { RegisteredRooms } from "@drincs/nqtr";
-import TimeSlotsImage from "../models/TimeSlotsImage";
-import Room from "../models/nqtr/Room";
-import { bed } from "./activities";
-import { gym, mcHome, school } from "./locations";
-import { aliceGoSchool, aliceSleep, aliceSmokes } from "./routine";
+import { gym, mcHome, school } from "@/content/locations";
+import Room from "@/models/nqtr/Room";
+import TimeSlotsImage from "@/models/TimeSlotsImage";
+import { navigator, RegisteredRooms } from "@drincs/nqtr";
 
 export const mcRoomBackground = new TimeSlotsImage({
     morning: "location_myroom-0",
@@ -14,7 +12,7 @@ export const mcRoomBackground = new TimeSlotsImage({
 export const mcRoom = new Room("mc_room", mcHome, {
     name: "MC room",
     background: mcRoomBackground,
-    activities: [bed],
+    activities: ["bed"],
 });
 
 export const aliceRoom = new Room("alice_room", mcHome, {
@@ -25,7 +23,7 @@ export const aliceRoom = new Room("alice_room", mcHome, {
         evening: "location_aliceroom-2",
         night: "location_aliceroom-3",
     }),
-    routine: [aliceSleep],
+    routine: ["alice_sleep"],
 });
 
 export const annRoom = new Room("ann_room", mcHome, {
@@ -62,7 +60,7 @@ export const terrace = new Room("terrace", mcHome, {
         evening: "location_terrace-2",
         night: "location_terrace-3",
     }),
-    routine: [aliceSmokes],
+    routine: ["alice_smokes"],
 });
 
 export const gymRoom = new Room("gym_room", gym, {
@@ -73,7 +71,10 @@ export const gymRoom = new Room("gym_room", gym, {
 export const classRoom = new Room("class_room", school, {
     name: "School",
     background: "",
-    routine: [aliceGoSchool],
+    routine: ["alice_go_school"],
 });
 
-RegisteredRooms.add([mcRoom, aliceRoom, annRoom, bathroom, lounge, terrace, gymRoom, classRoom]);
+RegisteredRooms.add(mcRoom, aliceRoom, annRoom, bathroom, lounge, terrace, gymRoom, classRoom);
+
+// default room to prevent errors when accessing navigator.currentRoom before any room is loaded.
+navigator.currentRoom = mcRoom;
