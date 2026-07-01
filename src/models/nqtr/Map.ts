@@ -1,14 +1,20 @@
-import { ActivityInterface, LocationInterface, MapInterface, MapStoredClass, OnRunProps } from "@drincs/nqtr";
-import { NeighboringMaps } from "../../nqtr";
-import { PixiUIParam, PixiUIProp } from "./ui-elements";
+import type { PixiUIParam, PixiUIProp } from "@/models/nqtr/ui-elements";
+import type { NeighboringMaps } from "@/nqtr";
+import {
+    type ActivityInterface,
+    type LocationInterface,
+    type MapInterface,
+    MapStoredClass,
+    type OnRunProps,
+} from "@drincs/nqtr";
 
-export default class Map extends MapStoredClass implements MapInterface {
+export default class MapClass extends MapStoredClass implements MapInterface {
     constructor(
         id: string,
         props: {
             activities?: ActivityInterface[];
             name: string;
-            background: PixiUIParam<Map>;
+            background: PixiUIParam<MapClass>;
             neighboringMaps: NeighboringMaps;
         },
     ) {
@@ -18,7 +24,7 @@ export default class Map extends MapStoredClass implements MapInterface {
         this.neighboringMaps = props.neighboringMaps;
     }
     readonly name: string;
-    private readonly _background: PixiUIParam<Map>;
+    private readonly _background: PixiUIParam<MapClass>;
     get background(): PixiUIProp {
         const background = this._background;
         if (typeof background === "function") {
