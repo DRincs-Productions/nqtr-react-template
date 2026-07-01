@@ -1,5 +1,6 @@
 import { AssetPack } from "@assetpack/core";
 import { vitePluginNqtr } from "@drincs/nqtr/vite";
+import { vitePluginInk } from "@drincs/pixi-vn-ink/vite";
 import { vitePluginPixivn } from "@drincs/pixi-vn/vite";
 import tailwindcss from "@tailwindcss/vite";
 import { devtools } from "@tanstack/devtools-vite";
@@ -48,6 +49,11 @@ export default defineConfig(({ mode }) => ({
             maps: "./src/content/maps.tsx",
             quests: "./src/content/quests/*.quest.tsx",
             typeFilePath: "./src/nqtr.keys.gen.ts",
+        }),
+        vitePluginInk({
+            inkGlob: "./ink/**/*.ink",
+            inkJsonOutputPattern: "./public/ink-json/[path][name].gen.json",
+            inkJsonManifestPath: "./src/assets/ink-manifest.gen.json",
         }),
         VitePWA({
             // generate icons with: npm run icon
