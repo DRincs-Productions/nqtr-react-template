@@ -1,4 +1,4 @@
-import { ActivityBaseButton } from "@/components/screens/navigation/quick-activities";
+import { ActivityBaseButton } from "@/components/screens/navigation/activity-buttons";
 import Activity from "@/models/nqtr/Activity";
 import { RegisteredActivities, timeTracker } from "@drincs/nqtr";
 import { narration } from "@drincs/pixi-vn";
@@ -20,9 +20,7 @@ export const bed = new Activity(
             return (
                 <ActivityBaseButton
                     disabled={activity.disabled}
-                    onClick={() => {
-                        activity.run(props);
-                    }}
+                    onClick={() => activity.run(props)}
                     ariaLabel={props.uiTransition(activity.name)}
                 >
                     <Bed className="size-6 sm:size-8 md:size-10 lg:size-12 xl:size-14" />
@@ -36,7 +34,7 @@ export const orderProduct = new Activity(
     "order_product",
     async (_, props) => {
         await props.navigate({ to: "/game/narration" });
-        await narration.jump("order-product", props);
+        await narration.jump("order_product", props);
     },
     {
         name: "order_product",
@@ -44,9 +42,7 @@ export const orderProduct = new Activity(
             return (
                 <ActivityBaseButton
                     disabled={activity.disabled}
-                    onClick={() => {
-                        activity.run(props);
-                    }}
+                    onClick={() => activity.run(props)}
                     ariaLabel={props.uiTransition(activity.name)}
                 >
                     <ShoppingCart className="size-6 sm:size-8 md:size-10 lg:size-12 xl:size-14" />
@@ -60,7 +56,7 @@ export const takeProduct = new Activity(
     "take_product",
     async (_, props) => {
         await props.navigate({ to: "/game/narration" });
-        await narration.jump("take-product", props);
+        await narration.jump("take_product", props);
     },
     {
         name: "take_product",
@@ -68,9 +64,7 @@ export const takeProduct = new Activity(
             return (
                 <ActivityBaseButton
                     disabled={activity.disabled}
-                    onClick={() => {
-                        activity.run(props);
-                    }}
+                    onClick={() => activity.run(props)}
                     ariaLabel={props.uiTransition(activity.name)}
                 >
                     <Package className="size-6 sm:size-8 md:size-10 lg:size-12 xl:size-14" />

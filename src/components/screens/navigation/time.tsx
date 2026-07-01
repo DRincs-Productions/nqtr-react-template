@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { overlayTextShadowClass } from "@/constants";
 import useTimeTracker from "@/lib/hooks/nqtr-hooks";
-import { useGameProps } from "@/lib/hooks/props-hooks";
 import { useQueryTime } from "@/lib/query/time-query";
 import { GameStatus } from "@/lib/stores/game-status-store";
 import { cn } from "@/lib/utils";
@@ -14,7 +13,6 @@ export function Time() {
     const { t } = useTranslation(["ui"]);
     const { wait } = useTimeTracker();
     const { data: { hourFormatted = "...", dayName } = {} } = useQueryTime();
-    const gameProps = useGameProps();
     const disabled = useSelector(GameStatus.store, (state) => state.loading);
 
     return (
@@ -42,10 +40,7 @@ export function Time() {
                     <Button
                         variant={"secondary"}
                         size="icon"
-                        onClick={() => {
-                            wait(1);
-                            gameProps.invalidateInterfaceData();
-                        }}
+                        onClick={() => wait(1)}
                         disabled={disabled}
                     >
                         <Clock className="size-5 sm:size-5 md:size-5 lg:size-6 xl:size-7" />

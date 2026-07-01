@@ -1,10 +1,11 @@
-import { CANVAS_UI_LAYER_NAME } from "@/constants";
+import { CANVAS_UI_LAYER_NAME, INTERFACE_DATA_USE_QUERY_KEY } from "@/constants";
 import { useGameProps } from "@/lib/hooks/props-hooks";
 import { useQueryCurrentMap } from "@/lib/query/map-query";
 import { useQueryCurrentRoom } from "@/lib/query/room-query";
 import { GameStatus } from "@/lib/stores/game-status-store";
 import { navigator, questsNotebook, routine, timeTracker, type OnRunProps } from "@drincs/nqtr";
 import { canvas, storage } from "@drincs/pixi-vn";
+import { useQueryClient } from "@tanstack/react-query";
 import { useCallback, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
@@ -77,6 +78,7 @@ export function useRoomLayerSync() {
 const NOT_CAN_SPEND_TIME_FLAG_KEY = "not_can_spend_time";
 export default function useTimeTracker() {
     const { t } = useTranslation(["ui"]);
+    const queryClient = useQueryClient();
 
     const sleep = useCallback(
         (newDayHour: number, props: OnRunProps) => {
@@ -104,9 +106,12 @@ export default function useTimeTracker() {
                 return false;
             }
             timeTracker.increaseTime(timeSpent);
+            queryClient.invalidateQueries({
+                queryKey: [INTERFACE_DATA_USE_QUERY_KEY],
+            });
             return true;
         },
-        [t],
+        [t, queryClient],
     );
 
     return {
