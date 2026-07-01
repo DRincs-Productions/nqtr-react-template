@@ -1,7 +1,6 @@
-import { OnRunProps } from "@drincs/nqtr";
-import { TFunction } from "i18next";
-import { OptionsWithExtraProps, SnackbarKey, SnackbarMessage } from "notistack";
-import { NavigateFunction } from "react-router-dom";
+import type { UseNavigateResult } from "@tanstack/react-router";
+import type { TFunction } from "i18next";
+import type { toast } from "sonner";
 
 declare module "@drincs/pixi-vn" {
     interface StepLabelResult {
@@ -13,7 +12,7 @@ declare module "@drincs/pixi-vn" {
          * @param route The route to navigate to.
          * @returns
          */
-        navigate: NavigateFunction;
+        navigate: UseNavigateResult<string>;
         /**
          * Translate a key to a string.
          * @param key The key to translate.
@@ -28,33 +27,15 @@ declare module "@drincs/pixi-vn" {
         uiTransition: TFunction<[string], undefined>;
         /**
          * Show a notification.
-         * @param message The message to show.
-         * @param variant The variant of the notification.
-         * @returns
+         * @param message The message to show in the notification.
          */
-        notify: (
-            message: SnackbarMessage,
-            options?: OptionsWithExtraProps<"default" | "error" | "success" | "warning" | "info">,
-        ) => SnackbarKey;
+        toast: typeof toast;
         /**
          * Invalidate the interface data.
          * This will cause the interface to be reloaded and the data to be fetched again.
          * @param delay The delay before invalidating the data. This can be used to wait for some time before invalidating the data, for example, to wait for an animation to finish.
          */
         invalidateInterfaceData: (delay?: number) => Promise<void> | void;
-        /**
-         * Sleep for a new day.
-         * @param newDayHour The hour of the new day.
-         * @param props The props of the step label.
-         * @returns Whether the sleep was successful.
-         */
-        sleep: (newDayHour: number, props: OnRunProps) => boolean;
-        /**
-         * Wait for a certain amount of time.
-         * @param timeSpent The amount of time to wait.
-         * @returns Whether the wait was successful.
-         */
-        wait: (timeSpent: number) => boolean;
     }
     interface CharacterInterface {
         /**
