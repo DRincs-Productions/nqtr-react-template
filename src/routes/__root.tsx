@@ -30,7 +30,11 @@ export const Route = createRootRouteWithContext<RouterContext>()({
         await Promise.all([import("@/content"), initializeIndexedDB(), defineAssets(), useI18n()]);
         await setupPixivnViteData();
         await setupInkHmrListener();
-        if (location.pathname !== "/" && narration.stepCounter === 0) {
+        if (
+            location.pathname !== "/" &&
+            location.pathname !== "/demo" &&
+            narration.stepCounter === 0
+        ) {
             const isRefreshSaveExist = await loadRefreshSave();
             if (isRefreshSaveExist) {
                 await context.queryClient.invalidateQueries({
