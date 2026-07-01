@@ -19,9 +19,9 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
-    "@drincs/nqtr": "^1.0.1",
-    "@drincs/pixi-vn": "^1.8.18",
-    "@drincs/pixi-vn-ink": "^1.0.9",
+    "@drincs/nqtr": "^1.0.2",
+    "@drincs/pixi-vn": "^1.8.19",
+    "@drincs/pixi-vn-ink": "^1.0.10",
     "@tailwindcss/vite": "^4.3.0",
     "@tanstack/hotkeys": "^0.8.0",
     "@tanstack/react-hotkeys": "^0.10.0",
