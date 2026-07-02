@@ -6,7 +6,7 @@ mc: Here's R****, for $1. Just the thing for me.
 -> DONE
 
 === talk_alice_sleep ===
-# lazyload bundle alice_roomsleep0A
+# lazyload assets alice_roomsleep0A
 
 # show image background alice_roomsleep0A
 alice: zZz zZz ...
