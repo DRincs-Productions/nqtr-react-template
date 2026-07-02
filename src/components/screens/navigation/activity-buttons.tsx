@@ -14,9 +14,7 @@ import { cn } from "@/lib/utils";
 import type TimeSlotsImage from "@/models/TimeSlotsImage";
 import type { OnRunProps } from "@drincs/nqtr";
 import type { CharacterInterface } from "@drincs/pixi-vn";
-import { isValidElement, type ComponentProps, type CSSProperties, type ReactElement } from "react";
-
-const BORDER_RADIUS_SCALE = 1.2;
+import { isValidElement, type ComponentProps, type ReactElement } from "react";
 
 export function ActivityButton({ id }: { id: string }) {
     const gameProps = useGameProps();
@@ -57,16 +55,13 @@ export function ActivityBaseButton({
     ariaLabel,
     image: imageProp,
     characters,
-    circumference,
     className,
     disabled,
-    style,
     children,
     ...rest
 }: ComponentProps<typeof Button> & {
     ariaLabel: string;
     image?: string | TimeSlotsImage | ReactElement | ((props: OnRunProps) => ReactElement);
-    circumference?: CSSProperties["width"];
     characters?: CharacterInterface[];
 }) {
     const gameProps = useGameProps();
@@ -88,14 +83,9 @@ export function ActivityBaseButton({
             size="icon-lg"
             variant={"secondary"}
             className={cn(
-                "relative size-10 overflow-hidden shadow-lg sm:size-14 md:size-20",
+                "relative size-10 overflow-hidden rounded-lg shadow-lg sm:size-14 md:size-20",
                 className,
             )}
-            style={{
-                borderRadius: `calc(var(--radius-lg) * ${BORDER_RADIUS_SCALE})`,
-                ...(circumference ? { width: circumference, height: circumference } : undefined),
-                ...style,
-            }}
         >
             {image && (
                 <Image
