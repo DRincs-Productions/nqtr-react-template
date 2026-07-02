@@ -26,7 +26,10 @@ function QuestButton({
             size="sm"
             disabled={selected}
             onClick={() => Memo.setSelectedQuestId(id)}
-            className={cn("w-full justify-start", selected && "bg-accent text-accent-foreground font-medium")}
+            className={cn(
+                "w-full justify-start",
+                selected && "bg-accent text-accent-foreground font-medium",
+            )}
         >
             {name}
         </Button>
