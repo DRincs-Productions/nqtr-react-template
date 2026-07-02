@@ -69,7 +69,6 @@ export function ToolsRight() {
     );
 }
 
-const BORDER_RADIUS_SCALE = 1.2;
 export function ToolButton({
     ariaLabel,
     className,
@@ -90,10 +89,9 @@ export function ToolButton({
                     size="icon-lg"
                     variant={"secondary"}
                     className={cn(
-                        "relative size-9 overflow-hidden shadow-lg sm:size-12 md:size-16",
+                        "relative size-9 overflow-hidden rounded-lg shadow-lg sm:size-12 md:size-16",
                         className,
                     )}
-                    style={{ borderRadius: `calc(var(--radius-lg) * ${BORDER_RADIUS_SCALE})` }}
                 >
                     {children}
                 </Button>

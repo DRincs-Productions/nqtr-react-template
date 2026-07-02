@@ -1,9 +1,11 @@
 import { nqtrActivityIds, nqtrCommitmentIds, nqtrQuestIds, nqtrRoomIds } from "@/nqtr.keys.gen";
-import { characterIdsEnum } from "@/pixi-vn.keys.gen";
+import { assetAliasIds, bundleIds, characterIdsEnum } from "@/pixi-vn.keys.gen";
 import { createNqtrHandler } from "@drincs/nqtr/ink";
-import { HashtagCommands } from "@drincs/pixi-vn-ink";
+import { addBaseHashtagCommands, HashtagCommands } from "@drincs/pixi-vn-ink";
 import { RegisteredCharacters } from "@drincs/pixi-vn/characters";
 import zod from "zod";
+
+addBaseHashtagCommands({ bundleIds, assetAliasIds });
 
 createNqtrHandler({
     activityIds: nqtrActivityIds,
