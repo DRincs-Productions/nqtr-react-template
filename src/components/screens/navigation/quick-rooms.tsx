@@ -13,7 +13,7 @@ import { useRoomHotkey } from "@/lib/hooks/hotkeys-hooks";
 import { useQueryCurrentRoomId, useQueryQuickRooms, useQueryRoom } from "@/lib/query/room-query";
 import { cn } from "@/lib/utils";
 import type TimeSlotsImage from "@/models/TimeSlotsImage";
-import { useMemo, type ComponentProps, type CSSProperties } from "react";
+import { useMemo, type ComponentProps } from "react";
 
 export function Rooms() {
     const { data: rooms = [] } = useQueryQuickRooms();
@@ -75,22 +75,18 @@ function RoomButton({ roomId, index }: { roomId: string; index: number }) {
     );
 }
 
-const BORDER_RADIUS_SCALE = 1.2;
 export function RoomNavButton({
     ariaLabel,
     selected,
     image,
-    circumference,
     className,
     disabled,
-    style,
     children,
     ...rest
 }: ComponentProps<typeof Button> & {
     ariaLabel: string;
     selected?: boolean;
     image?: string | TimeSlotsImage;
-    circumference?: CSSProperties["width"];
 }) {
     const trigger = (
         <Button
@@ -98,15 +94,10 @@ export function RoomNavButton({
             disabled={disabled}
             size="icon-lg"
             className={cn(
-                "relative h-8 w-14 overflow-hidden border-3 shadow-lg sm:h-11 sm:w-20 md:h-16 md:w-28",
+                "relative h-8 w-14 overflow-hidden rounded-lg border-3 shadow-lg sm:h-11 sm:w-20 md:h-16 md:w-28",
                 selected ? "border-primary" : "border-background",
                 className,
             )}
-            style={{
-                borderRadius: `calc(var(--radius-lg) * ${BORDER_RADIUS_SCALE})`,
-                ...(circumference ? { width: circumference, height: circumference } : undefined),
-                ...style,
-            }}
         >
             {image && (
                 <Image
