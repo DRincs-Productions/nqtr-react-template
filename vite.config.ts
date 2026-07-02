@@ -1,5 +1,6 @@
 import { AssetPack } from "@assetpack/core";
 import { vitePluginNqtr } from "@drincs/nqtr/vite";
+import type { AssetsManifest } from "@drincs/pixi-vn/pixi.js";
 import { vitePluginPixivn } from "@drincs/pixi-vn/vite";
 import tailwindcss from "@tailwindcss/vite";
 import { devtools } from "@tanstack/devtools-vite";
@@ -37,6 +38,14 @@ export default defineConfig(({ mode }) => ({
             characters: "./src/content/characters.ts",
             labels: "./src/content/labels/*.label.ts",
             typeFilePath: "./src/pixi-vn.keys.gen.ts",
+            assetsManifest: async (ssrLoadModule) => {
+                const mod = (await ssrLoadModule("/src/assets/index.ts")) as {
+                    manifest: AssetsManifest;
+                };
+                if (!mod.manifest)
+                    throw new Error("Assets manifest not found in /src/assets/index.ts");
+                return mod.manifest;
+            },
         }),
         vitePluginNqtr({
             activities: "./src/content/activities.tsx",
@@ -98,6 +107,7 @@ export default defineConfig(({ mode }) => ({
     ],
     resolve: {
         tsconfigPaths: true,
+        preserveSymlinks: true,
     },
     define: {
         __APP_VERSION__: JSON.stringify(process.env.npm_package_version),
