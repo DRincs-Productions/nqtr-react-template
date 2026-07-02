@@ -40,6 +40,7 @@ export function Time() {
                     <Button
                         variant={"secondary"}
                         size="icon"
+                        className="rounded-lg"
                         onClick={() => wait(1)}
                         disabled={disabled}
                     >
