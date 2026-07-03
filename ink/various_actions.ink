@@ -1,4 +1,5 @@
 === order_product ===
+# remove image background
 mc: OK! Let's see, let's look for a book....
 mc: Here's R****, for $1. Just the thing for me.
 # remove activity order_product from mc_room
