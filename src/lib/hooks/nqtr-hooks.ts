@@ -22,9 +22,12 @@ export function useMapLayerSync() {
         const layer = canvas.getLayer(CANVAS_UI_LAYER_NAME);
         if (!layer || !background) return;
 
-        const screenWidth = 1920;
-        const screenHeight = 1080;
+        const domElement = document.querySelector<HTMLCanvasElement>(`#${HTML_CANVAS_LAYER_NAME} canvas`);
+        const screenWidth = domElement?.width || 1920;
+        const screenHeight = domElement?.height || 1080;
         const maxZoom = 3;
+        const zoomInFactor = 1.1;
+        const zoomOutFactor = 0.9;
 
         const viewport = new Container({
             eventMode: "static",
@@ -90,7 +93,10 @@ export function useMapLayerSync() {
             });
             const worldX = (point.x - mapContainer.x) / zoom;
             const worldY = (point.y - mapContainer.y) / zoom;
-            const nextZoom = Math.min(maxZoom, Math.max(minZoom, zoom * (event.deltaY < 0 ? 1.1 : 0.9)));
+            const nextZoom = Math.min(
+                maxZoom,
+                Math.max(minZoom, zoom * (event.deltaY < 0 ? zoomInFactor : zoomOutFactor)),
+            );
             const nextX = point.x - worldX * nextZoom;
             const nextY = point.y - worldY * nextZoom;
 
@@ -118,7 +124,6 @@ export function useMapLayerSync() {
             viewport.cursor = "grab";
         };
 
-        const domElement = document.querySelector<HTMLCanvasElement>(`#${HTML_CANVAS_LAYER_NAME} canvas`);
         domElement?.addEventListener("wheel", onWheel, { passive: false });
         domElement?.addEventListener("pointerdown", onPointerDown);
         domElement?.addEventListener("pointermove", onPointerMove);
