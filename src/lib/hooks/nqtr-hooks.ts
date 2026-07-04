@@ -1,4 +1,8 @@
-import { CANVAS_UI_LAYER_NAME, INTERFACE_DATA_USE_QUERY_KEY } from "@/constants";
+import {
+    CANVAS_UI_LAYER_NAME,
+    HTML_CANVAS_LAYER_NAME,
+    INTERFACE_DATA_USE_QUERY_KEY,
+} from "@/constants";
 import { useGameProps } from "@/lib/hooks/props-hooks";
 import { useQueryCurrentMap } from "@/lib/query/map-query";
 import { useQueryCurrentRoom } from "@/lib/query/room-query";
@@ -114,7 +118,7 @@ export function useMapLayerSync() {
             viewport.cursor = "grab";
         };
 
-        const domElement = layer.parent?.parent?.canvas as HTMLCanvasElement | undefined;
+        const domElement = document.querySelector<HTMLCanvasElement>(`#${HTML_CANVAS_LAYER_NAME} canvas`);
         domElement?.addEventListener("wheel", onWheel, { passive: false });
         domElement?.addEventListener("pointerdown", onPointerDown);
         domElement?.addEventListener("pointermove", onPointerMove);
