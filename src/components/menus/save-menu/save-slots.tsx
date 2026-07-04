@@ -54,7 +54,7 @@ export function SaveSlot({ saveId }: { saveId: number }) {
                 src={saveData.image}
                 layout="fullWidth"
                 alt={saveData.name}
-                className="absolute inset-0 size-full object-contain pointer-events-none select-none rounded-lg"
+                className="absolute inset-0 size-full object-contain pointer-events-none select-none rounded-md"
             />
             {/* top-left metadata */}
             <div className="absolute top-2.5 left-2.5 flex flex-col gap-0.5 pointer-events-none">
