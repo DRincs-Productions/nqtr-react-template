@@ -39,11 +39,7 @@ export function QuickTools() {
     const setSettingsTab = useSetSearchParamState<string>("settings_tab");
 
     return (
-        <div
-            className={cn(
-                "flex flex-wrap items-center justify-end gap-0.5 sm:gap-1",
-            )}
-        >
+        <div className={cn("flex flex-wrap items-center justify-end gap-0.5 sm:gap-1")}>
             <Button
                 variant="ghost"
                 size="xs"
