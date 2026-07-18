@@ -14,16 +14,7 @@ export const manifest: AssetsManifest = {
         ...generatedManifestJson.bundles,
         {
             name: AUDIO_BUNDLE_NAME,
-            assets: [
-                {
-                    alias: "bgm_cheerful",
-                    src: "https://raw.githubusercontent.com/DRincs-Productions/pixi-vn-bucket/refs/heads/main/audio/bgm_cheerful.wav",
-                },
-                {
-                    alias: "sfx_whoosh",
-                    src: "https://raw.githubusercontent.com/DRincs-Productions/pixi-vn-bucket/refs/heads/main/audio/sfx_whoosh.wav",
-                },
-            ],
+            assets: [],
         },
         // screens
         {
@@ -31,7 +22,7 @@ export const manifest: AssetsManifest = {
             assets: [
                 {
                     alias: "background_main_menu",
-                    src: "https://raw.githubusercontent.com/DRincs-Productions/pixi-vn-bucket/refs/heads/main/main-menu.png",
+                    src: "https://pub-72ff059a2c6642fb9eab15df80fb3b45.r2.dev/main-menu.png",
                 },
             ],
         },
