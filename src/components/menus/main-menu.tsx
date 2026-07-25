@@ -13,7 +13,7 @@ import { useGameProps } from "@/lib/hooks/props-hooks";
 import { useQueryLastSave } from "@/lib/query/save-query";
 import { InterfaceSettings } from "@/lib/stores/interface-settings-store";
 import { cn } from "@/lib/utils";
-import { loadSave } from "@/lib/utils/save-utility";
+import { loadRefreshSave, loadSave } from "@/lib/utils/save-utility";
 import { canvas, Game, ImageSprite } from "@drincs/pixi-vn";
 import { useHotkeys } from "@tanstack/react-hotkeys";
 import { useQueryClient } from "@tanstack/react-query";
@@ -224,7 +224,7 @@ export function ContinueMenuButton({
         if (!lastSave) return;
         setLoading(true);
         onLoadingChange?.(true);
-        loadSave(lastSave)
+        (hasRefreshSave ? loadRefreshSave() : loadSave(lastSave))
             .then(() =>
                 queryClient.invalidateQueries({
                     queryKey: [INTERFACE_DATA_USE_QUERY_KEY],
@@ -238,7 +238,7 @@ export function ContinueMenuButton({
                 setLoading(false);
                 onLoadingChange?.(false);
             });
-    }, [lastSave, queryClient, t, onLoadingChange]);
+    }, [lastSave, hasRefreshSave, queryClient, t, onLoadingChange]);
 
     const isDisabled = (!isLoading && !lastSave) || loading || disabled;
 
