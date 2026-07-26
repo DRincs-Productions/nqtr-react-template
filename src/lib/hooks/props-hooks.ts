@@ -1,4 +1,3 @@
-import { INTERFACE_DATA_USE_QUERY_KEY } from "@/constants";
 import useTimeTracker from "@/lib/hooks/nqtr-hooks";
 import type { StepLabelProps } from "@drincs/pixi-vn";
 import { useQueryClient } from "@tanstack/react-query";
@@ -20,9 +19,7 @@ export function useGameProps(): StepLabelProps {
         toast,
         invalidateInterfaceData: async (delay: number = 0) => {
             if (delay > 0) await new Promise((resolve) => setTimeout(resolve, delay));
-            return await queryClient.invalidateQueries({
-                queryKey: [INTERFACE_DATA_USE_QUERY_KEY],
-            });
+            return await queryClient.invalidateQueries();
         },
         sleep,
         wait,
