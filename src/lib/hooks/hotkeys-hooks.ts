@@ -175,6 +175,11 @@ export function useSettingsHotkeys(): null {
         setSettingsTab("menus/controls");
     }, [setSettingsOpen, setSettingsTab]);
 
+    const openDiagnosticsPage = useCallback(() => {
+        setSettingsOpen(true);
+        setSettingsTab("menus/diagnostics");
+    }, [setSettingsOpen, setSettingsTab]);
+
     useHotkeys([
         {
             hotkey: "Escape",
@@ -194,6 +199,17 @@ export function useSettingsHotkeys(): null {
                 meta: {
                     name: t("hotkeys_menu"),
                     description: t("hotkeys_menu_shortcut_description"),
+                },
+            },
+        },
+        {
+            hotkey: "F8",
+            callback: openDiagnosticsPage,
+            options: {
+                enabled: !isAnyMenuOrDialogOpen,
+                meta: {
+                    name: t("diagnostics"),
+                    description: t("diagnostics_hotkey_description"),
                 },
             },
         },
