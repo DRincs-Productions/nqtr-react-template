@@ -1,5 +1,5 @@
 import { gym, mcHome, school } from "@/content/locations";
-import Room from "@/models/nqtr/Room";
+import Room from "@/models/Room";
 import TimeSlotsImage from "@/models/TimeSlotsImage";
 import { navigator, RegisteredRooms } from "@drincs/nqtr";
 
