@@ -1,3 +1,4 @@
+import type { PixiUIParam, PixiUIProp } from "@/models/ui-elements";
 import {
     type ActivityIdType,
     type ActivityInterface,
@@ -8,7 +9,6 @@ import {
     type RoomInterface,
     RoomStoredClass,
 } from "@drincs/nqtr";
-import type { PixiUIParam, PixiUIProp } from "./ui-elements";
 
 export default class Room extends RoomStoredClass implements RoomInterface {
     constructor(
