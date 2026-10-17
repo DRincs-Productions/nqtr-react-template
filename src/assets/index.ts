@@ -2,7 +2,6 @@ import generatedManifestJson from "@/assets/manifest.gen.json";
 import { AUDIO_BUNDLE_NAME } from "@/constants";
 import { mainMap, nightcityMap } from "@/content/maps";
 import { aliceRoom, annRoom, bathroom, gymRoom, lounge, mcRoom, terrace } from "@/content/rooms";
-import type { FileRouteTypes } from "@/routeTree.gen";
 import type { AssetsManifest } from "@drincs/pixi-vn";
 
 /**
@@ -15,16 +14,6 @@ export const manifest: AssetsManifest = {
         {
             name: AUDIO_BUNDLE_NAME,
             assets: [],
-        },
-        // screens
-        {
-            name: "/" as FileRouteTypes["fullPaths"],
-            assets: [
-                {
-                    alias: "background_main_menu",
-                    src: "https://pub-72ff059a2c6642fb9eab15df80fb3b45.r2.dev/main-menu.png",
-                },
-            ],
         },
         // labels
         // characters
